@@ -9,7 +9,7 @@ namespace Library.DataLayer.Validators
 {
     using System.Linq;
     using FluentValidation;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Class BorrowerValidator.

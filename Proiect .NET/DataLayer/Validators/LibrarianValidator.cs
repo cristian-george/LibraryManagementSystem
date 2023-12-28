@@ -8,7 +8,7 @@
 namespace Library.DataLayer.Validators
 {
     using FluentValidation;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Class LibrarianValidator.

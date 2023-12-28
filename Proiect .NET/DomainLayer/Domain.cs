@@ -34,8 +34,6 @@ namespace Library.DomainLayer
         /// <value>The parent domain.</value>
         public virtual Domain ParentDomain { get; set; }
 
-        public int? ParentDomainId { get; set; }
-
         /// <summary>
         /// Gets or sets the children domains.
         /// </summary>

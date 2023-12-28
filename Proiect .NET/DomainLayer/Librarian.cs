@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Person
+namespace Library.DomainLayer
 {
     using System.ComponentModel.DataAnnotations;
 

@@ -8,7 +8,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
     using System.Collections.Generic;
     using System.Linq;
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Library.ServiceLayer.IServices;
     using Library.ServiceLayer.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -203,12 +203,37 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(propertiesService.Insert(properties));
 
             var book = TestUtils.GetBookModel();
+            Assert.IsNotNull(book);
+
+            // List of books
+            var books = new List<Book>() { TestUtils.GetBookModel(), TestUtils.GetBookModel() };
+            Assert.IsNotNull(books);
+
+            // Properties
+            var prop = propertiesService.GetAll(null, null, string.Empty);
+            Assert.IsNotNull(prop);
+            Assert.IsTrue(prop.Any());
+
+            // If there is at least one property then get the last one
+            // Else get a default one
+            var lastOrDefaultProperty = prop.LastOrDefault();
+            Assert.IsNotNull(lastOrDefaultProperty);
+
+            // Get limit number of borrows
+            var maxLimit = lastOrDefaultProperty.LIM;
+            Assert.IsNotNull(maxLimit);
+            Assert.IsTrue(properties.LIM == maxLimit);
+
             var borrow = new Borrow()
             {
-                BorrowedBooks = new List<Book>() { TestUtils.GetBookModel(), TestUtils.GetBookModel() },
-                NoOfTimeExtended = propertiesService.GetAll(null, prop => prop.OrderBy(x => x.Id), string.Empty).LastOrDefault().LIM + 1,
+                BorrowedBooks = books,
+                NoOfTimeExtended = maxLimit + 1,
             };
 
+            Assert.IsNotNull(borrow);
+            Assert.IsFalse(borrow.BorrowedBooks.Count == 0);
+
+            // Check if it is possible to extend the borrow time one more time
             Assert.IsFalse(this.service.CheckLIM(borrow));
         }
 

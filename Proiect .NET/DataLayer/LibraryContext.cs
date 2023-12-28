@@ -8,7 +8,6 @@
 namespace Library.DataLayer.DataMapper
 {
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>

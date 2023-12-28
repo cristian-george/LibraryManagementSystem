@@ -10,7 +10,6 @@ namespace Library.ServiceLayer.Services
     using Library.DataLayer.Interfaces;
     using Library.DataLayer.Validators;
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
     using Library.ServiceLayer.IServices;
     using Proiect_.NET.Injection;
 

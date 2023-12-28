@@ -5,7 +5,7 @@
 namespace Library.DomainLayer.Tests
 {
     using System.Linq;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -25,7 +25,7 @@ namespace Library.DomainLayer.Tests
         [TestInitialize]
         public void Initialize()
         {
-            this.borrower = new ();
+            this.borrower = new Borrower();
         }
 
         /// <summary>
@@ -154,7 +154,7 @@ namespace Library.DomainLayer.Tests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -190,7 +190,7 @@ namespace Library.DomainLayer.Tests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -263,7 +263,7 @@ namespace Library.DomainLayer.Tests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -288,9 +288,12 @@ namespace Library.DomainLayer.Tests
         [TestMethod]
         public void AccountIdShouldBeMoreThan1()
         {
-            this.borrower.AccountId = 1;
+            this.borrower.Account = new ()
+            {
+                Id = 1,
+            };
 
-            var flag = this.borrower.AccountId > 0 ? true : false;
+            var flag = this.borrower.Account.Id > 0 ? true : false;
             Assert.IsTrue(flag);
         }
     }

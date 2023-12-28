@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Person
+namespace Library.DomainLayer
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -50,11 +50,5 @@ namespace Library.DomainLayer.Person
         /// <value>The account.</value>
         [Required]
         public virtual Account Account { get; set; }
-
-        /// <summary>
-        /// Gets or sets the account identifier.
-        /// </summary>
-        /// <value>The account identifier.</value>
-        public int AccountId { get; set; }
     }
 }

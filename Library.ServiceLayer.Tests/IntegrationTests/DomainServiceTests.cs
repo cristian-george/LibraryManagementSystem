@@ -4,11 +4,9 @@
 
 namespace Library.ServiceLayer.Tests.IntegrationTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
     using Library.ServiceLayer.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Proiect_.NET.Injection;
@@ -57,37 +55,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsNotNull(allDomains);
 
             // Update
-            if (dbDomain.ChildrenDomains == null)
-            {
-                dbDomain.ChildrenDomains = new List<Domain>();
-                dbDomain.ChildrenDomains.Add(
-                    new Domain()
-                    {
-                        Name = "Proza",
-                        ParentDomain = domain,
-                        ChildrenDomains = new List<Domain>(),
-                    });
-            }
-            else if (dbDomain.ChildrenDomains.Count == 0)
-            {
-                dbDomain.ChildrenDomains.Add(
-                    new Domain()
-                    {
-                        Name = "Proza",
-                        ParentDomain = domain,
-                        ChildrenDomains = new List<Domain>(),
-                    });
-            }
-            else
-            {
-                dbDomain.ChildrenDomains.Add(
-                    new Domain()
-                    {
-                        Name = "Proza",
-                        ParentDomain = domain,
-                        ChildrenDomains = new List<Domain>(),
-                    });
-            }
+            Assert.IsNotNull(dbDomain.ChildrenDomains);
+            dbDomain.ChildrenDomains.Add(
+                new Domain()
+                {
+                    Name = "Proza",
+                    ParentDomain = domain,
+                    ChildrenDomains = new List<Domain>(),
+                });
 
             dbDomain.Name = "Stiinta";
             Assert.IsTrue(this.service.Update(dbDomain));

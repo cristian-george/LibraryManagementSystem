@@ -6,7 +6,7 @@ namespace Library.DomainLayer.Tests.PersonTests
 {
     using System;
     using System.Collections.Generic;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

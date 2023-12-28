@@ -8,10 +8,8 @@
 namespace Library.DataLayer.Validators
 {
     using System;
-    using System.Collections.Generic;
     using FluentValidation;
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
 
     /// <summary>
     /// Class BorrowValidator.

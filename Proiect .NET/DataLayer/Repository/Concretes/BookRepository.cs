@@ -22,7 +22,7 @@ namespace Library.DataLayer.Concretes
         /// Gets the domains list.
         /// </summary>
         /// <param name="book"> The book. </param>
-        /// <returns> List<Domain>. </returns>
+        /// <returns> List of Domain. </returns>
         public List<Domain> GetDomainsList(Book book)
         {
             var domainsList = new List<Domain>();

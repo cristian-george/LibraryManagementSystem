@@ -4,7 +4,7 @@
 
 namespace Library.ServiceLayer.IServices
 {
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Interface IBorrowerService

@@ -6,7 +6,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 {
     using System;
     using System.Linq;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Library.ServiceLayer.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Proiect_.NET.Injection;

@@ -5,7 +5,7 @@
 namespace Library.DomainLayer.Tests
 {
     using System;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

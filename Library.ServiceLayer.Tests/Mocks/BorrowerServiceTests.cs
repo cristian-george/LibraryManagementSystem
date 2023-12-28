@@ -6,7 +6,7 @@ namespace Library.ServiceLayer.Tests
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Library.ServiceLayer.IServices;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;

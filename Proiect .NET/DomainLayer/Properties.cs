@@ -8,7 +8,7 @@ namespace Library.DomainLayer
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// Class PropertiesModel.
+    /// Class Properties.
     /// </summary>
     public class Properties
     {

@@ -6,7 +6,7 @@ namespace Library.ServiceLayer.Services
 {
     using Library.DataLayer.Interfaces;
     using Library.DataLayer.Validators;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
     using Library.ServiceLayer.IServices;
     using Proiect_.NET.Injection;
 

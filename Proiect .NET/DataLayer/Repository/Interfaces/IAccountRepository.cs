@@ -7,7 +7,7 @@
 /// </summary>
 namespace Library.DataLayer.Interfaces
 {
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Interface IAccountRepository

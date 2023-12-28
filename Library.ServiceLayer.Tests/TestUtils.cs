@@ -7,7 +7,7 @@ namespace Library.ServiceLayer.Tests
     using System;
     using System.Collections.Generic;
     using Library.DomainLayer;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Class TestUtils.

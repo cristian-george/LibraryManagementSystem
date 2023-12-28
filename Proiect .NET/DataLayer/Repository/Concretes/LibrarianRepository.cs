@@ -8,7 +8,7 @@
 namespace Library.DataLayer.Concretes
 {
     using Library.DataLayer.Interfaces;
-    using Library.DomainLayer.Person;
+    using Library.DomainLayer;
 
     /// <summary>
     /// Class LibrarianRepository.
