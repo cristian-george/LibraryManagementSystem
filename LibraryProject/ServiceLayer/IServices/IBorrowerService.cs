@@ -1,0 +1,17 @@
+﻿// <copyright file="IBorrowerService.cs" company="Transilvania University of Brasov">
+// Cristian-George Fieraru
+// </copyright>
+
+namespace Library.ServiceLayer.IServices
+{
+    using Library.DomainLayer;
+
+    /// <summary>
+    /// Interface IBorrowerService
+    /// Implements the <see cref="IBaseService{Library.DomainLayer.Person.Borrower}" />.
+    /// </summary>
+    /// <seealso cref="IBaseService{Library.DomainLayer.Person.Borrower}" />
+    public interface IBorrowerService : IBaseService<Borrower>
+    {
+    }
+}

@@ -2,11 +2,10 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.Tests
+namespace Library.ServiceLayer.Tests.Mocks
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Library.DomainLayer;
     using Library.ServiceLayer.IServices;
     using Microsoft.VisualStudio.TestTools.UnitTesting;

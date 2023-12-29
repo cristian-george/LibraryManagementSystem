@@ -5,6 +5,7 @@
 namespace Library.DomainLayer.Tests
 {
     using System.Linq;
+    using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

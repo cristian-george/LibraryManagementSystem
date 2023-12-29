@@ -9,7 +9,7 @@
     <None Remove="RepositoriesTests\**" />
   </ItemGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\Proiect .NET\stylecop.json" Link="stylecop.json" />
+    <AdditionalFiles Include="..\LibraryProject\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
@@ -27,6 +27,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Proiect .NET\Library.csproj" />
+    <ProjectReference Include="..\LibraryProject\Library.csproj" />
   </ItemGroup>
 </Project>

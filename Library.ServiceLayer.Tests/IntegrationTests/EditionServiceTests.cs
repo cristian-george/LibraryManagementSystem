@@ -6,9 +6,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 {
     using System.Linq;
     using Library.DomainLayer;
+    using Library.Injection;
     using Library.ServiceLayer.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using Proiect_.NET.Injection;
 
     /// <summary>
     /// Defines test class EditionServiceTests.

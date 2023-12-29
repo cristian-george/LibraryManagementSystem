@@ -6,7 +6,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
 {
     using System.Collections.Generic;
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Validators.BookValidators;
     using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

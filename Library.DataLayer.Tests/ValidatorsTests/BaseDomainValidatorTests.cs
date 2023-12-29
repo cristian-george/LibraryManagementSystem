@@ -5,7 +5,7 @@
 namespace Library.DataLayer.Tests.ValidatorsTests
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Validators.DomainValidators;
     using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 

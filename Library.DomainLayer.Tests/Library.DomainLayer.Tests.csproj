@@ -4,7 +4,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <ItemGroup>
-    <AdditionalFiles Include="..\Proiect .NET\stylecop.json" Link="stylecop.json">
+    <AdditionalFiles Include="..\LibraryProject\stylecop.json" Link="stylecop.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>
   </ItemGroup>
@@ -24,6 +24,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Proiect .NET\Library.csproj" />
+    <ProjectReference Include="..\LibraryProject\Library.csproj" />
   </ItemGroup>
 </Project>
