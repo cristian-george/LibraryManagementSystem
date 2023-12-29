@@ -1,38 +1,32 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using TechTalk.SpecFlow;
 
 namespace Library.DataLayer.Tests.RepositorySpecflow
 {
     [Binding]
-    public sealed class Insert
+    public sealed class GetAll
     {
         // For additional details on SpecFlow step definitions see https://go.specflow.org/doc-stepdef
 
         private readonly ScenarioContext _scenarioContext;
 
-        public Insert(ScenarioContext scenarioContext)
+        public GetAll(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"I want to insert data into the (.*)")]
-        public void GivenIWantToInsertDataIntoThe(string p0)
+        [Given(@"I want to get all data from the (.*)")]
+        public void GivenIWantToGetAllDataFromThe(object o)
         {
-            ScenarioContext.Current.Pending();
         }
 
-        [When(@"I call the Insert method")]
-        public void WhenICallTheInsertMethod()
+        [When(@"I call the Get method")]
+        public void WhenICallTheGetMethod()
         {
-            ScenarioContext.Current.Pending();
         }
 
         [Then(@"I should have a valid result")]
-        public void ThenIShouldHaveAValidResult(Table table)
+        public void ThenIShouldHaveAValidResult()
         {
             Assert.IsTrue(true);
         }

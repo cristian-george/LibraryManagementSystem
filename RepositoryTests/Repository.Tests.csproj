@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<TargetFramework>net7.0</TargetFramework>
+		<IsPackable>false</IsPackable>
+	</PropertyGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.0.0" />
+		<PackageReference Include="SpecFlow.MsTest" Version="3.9.74" />
+		<PackageReference Include="MSTest.TestAdapter" Version="3.1.1" />
+		<PackageReference Include="MSTest.TestFramework" Version="3.1.1" />
+	</ItemGroup>
+	<ItemGroup>
+		<ProjectReference Include="..\Proiect .NET\Library.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+		<Compile Update="StepDefinitions\Delete.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="StepDefinitions\DeleteById.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="StepDefinitions\GetAll.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="StepDefinitions\GetById.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="StepDefinitions\Insert.cs">
+			<SubType>Code</SubType>
+		</Compile>
+		<Compile Update="StepDefinitions\Update.cs">
+			<SubType>Code</SubType>
+		</Compile>
+	</ItemGroup>
+	<ItemGroup>
+		<Folder Include="Features\" />
+	</ItemGroup>
+</Project>

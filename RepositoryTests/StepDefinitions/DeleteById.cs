@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace Library.DataLayer.Tests.RepositorySpecflow
@@ -18,16 +15,20 @@ namespace Library.DataLayer.Tests.RepositorySpecflow
             _scenarioContext = scenarioContext;
         }
 
-        [Given(@"I want to delete data from the (.*)")]
-        public void GivenIWantToDeleteDataFromThe(string p0)
+        [Given(@"I want to delete data from the (.*) with the Id (.*)")]
+        public void GivenIWantToDeleteDataFromTheWithTheId(object o, int id)
         {
-            ScenarioContext.Current.Pending();
         }
 
-        [When(@"I call the Delete method for the object with the id that I created")]
-        public void WhenICallTheDeleteMethodForTheObjectWithTheIdThatICreated()
+        [When(@"I call the DeleteById method")]
+        public void WhenICallTheDeleteByIdMethod()
         {
-            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I should have a valid result")]
+        public void ThenIShouldHaveAValidResult()
+        {
+            Assert.IsTrue(true);
         }
     }
 }

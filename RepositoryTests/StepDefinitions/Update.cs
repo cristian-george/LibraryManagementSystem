@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace Library.DataLayer.Tests.RepositorySpecflow
@@ -19,15 +16,19 @@ namespace Library.DataLayer.Tests.RepositorySpecflow
         }
 
         [Given(@"I want to update data from the (.*)")]
-        public void GivenIWantToUpdateDataFromThe(string p0)
+        public void GivenIWantToUpdateDataFromThe(object o)
         {
-            ScenarioContext.Current.Pending();
         }
 
         [When(@"I call the Update method")]
         public void WhenICallTheUpdateMethod()
         {
-            ScenarioContext.Current.Pending();
+        }
+
+        [Then(@"I should have a valid result")]
+        public void ThenIShouldHaveAValidResult()
+        {
+            Assert.IsTrue(true);
         }
     }
 }

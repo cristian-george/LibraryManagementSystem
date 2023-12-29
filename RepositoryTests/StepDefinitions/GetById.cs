@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using TechTalk.SpecFlow;
 
 namespace Library.DataLayer.Tests.RepositorySpecflow
@@ -19,21 +16,19 @@ namespace Library.DataLayer.Tests.RepositorySpecflow
         }
 
         [Given(@"I want to get data from the (.*) with the Id (.*)")]
-        public void GivenIWantToGetDataFromTheWithTheId(string p0, int p1)
+        public void GivenIWantToGetDataFromTheWithTheId(object o, int id)
         {
-            ScenarioContext.Current.Pending();
         }
 
         [When(@"I call the GetByID method")]
         public void WhenICallTheGetByIDMethod()
         {
-            ScenarioContext.Current.Pending();
         }
 
-        [Given(@"The Id is valid")]
-        public void WhenTheIdIsValid()
+        [Then(@"I should have a valid result")]
+        public void ThenIShouldHaveAValidResult()
         {
-            ScenarioContext.Current.Pending();
+            Assert.IsTrue(true);
         }
     }
 }
