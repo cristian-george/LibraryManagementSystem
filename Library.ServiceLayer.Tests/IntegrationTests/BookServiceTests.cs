@@ -186,7 +186,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean Book table
-            this.service.DeleteAll();
+            _ = this.service.DeleteAll();
 
             // Clean Author table
             var authorService = Injector.Create<AuthorService>();

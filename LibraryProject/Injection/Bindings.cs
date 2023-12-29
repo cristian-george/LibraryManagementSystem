@@ -31,15 +31,15 @@ namespace Library.Injection
         /// </summary>
         private void LoadServicesLayer()
         {
-            this.Bind<IAuthorService>().To<AuthorService>();
-            this.Bind<IBookService>().To<BookService>();
-            this.Bind<IBorrowerService>().To<BorrowerService>();
-            this.Bind<IBorrowService>().To<BorrowService>();
-            this.Bind<IDomainService>().To<DomainService>();
-            this.Bind<IEditionService>().To<EditionService>();
-            this.Bind<ILibrarianService>().To<LibrarianService>();
-            this.Bind<IPropertiesService>().To<PropertiesService>();
-            this.Bind<IAccountService>().To<AccountService>();
+            _ = this.Bind<IAuthorService>().To<AuthorService>();
+            _ = this.Bind<IBookService>().To<BookService>();
+            _ = this.Bind<IBorrowerService>().To<BorrowerService>();
+            _ = this.Bind<IBorrowService>().To<BorrowService>();
+            _ = this.Bind<IDomainService>().To<DomainService>();
+            _ = this.Bind<IEditionService>().To<EditionService>();
+            _ = this.Bind<ILibrarianService>().To<LibrarianService>();
+            _ = this.Bind<IPropertiesService>().To<PropertiesService>();
+            _ = this.Bind<IAccountService>().To<AccountService>();
         }
 
         /// <summary>
@@ -47,15 +47,15 @@ namespace Library.Injection
         /// </summary>
         private void LoadRepositoryLayer()
         {
-            this.Bind<IAuthorRepository>().To<AuthorRepository>();
-            this.Bind<IBookRepository>().To<BookRepository>();
-            this.Bind<IBorrowerRepository>().To<BorrowerRepository>();
-            this.Bind<IBorrowRepository>().To<BorrowRepository>();
-            this.Bind<IDomainRepository>().To<DomainRepository>();
-            this.Bind<IEditionRepository>().To<EditionRepository>();
-            this.Bind<ILibrarianRepository>().To<LibrarianRepository>();
-            this.Bind<IPropertiesRepository>().To<PropertiesRepository>();
-            this.Bind<IAccountRepository>().To<AccountRepository>();
+            _ = this.Bind<IAuthorRepository>().To<AuthorRepository>();
+            _ = this.Bind<IBookRepository>().To<BookRepository>();
+            _ = this.Bind<IBorrowerRepository>().To<BorrowerRepository>();
+            _ = this.Bind<IBorrowRepository>().To<BorrowRepository>();
+            _ = this.Bind<IDomainRepository>().To<DomainRepository>();
+            _ = this.Bind<IEditionRepository>().To<EditionRepository>();
+            _ = this.Bind<ILibrarianRepository>().To<LibrarianRepository>();
+            _ = this.Bind<IPropertiesRepository>().To<PropertiesRepository>();
+            _ = this.Bind<IAccountRepository>().To<AccountRepository>();
         }
     }
 }

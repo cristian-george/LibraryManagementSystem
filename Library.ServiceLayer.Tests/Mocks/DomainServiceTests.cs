@@ -48,7 +48,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ChildrenDomains = new List<Domain>(),
             };
 
-            this.domainServiceMock.Setup(x => x.Insert(domain)).Returns(true);
+            _ = this.domainServiceMock.Setup(x => x.Insert(domain)).Returns(true);
             this.domainService = this.domainServiceMock.Object;
 
             var result = this.domainService.Insert(domain);
@@ -69,7 +69,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ChildrenDomains = new List<Domain>(),
             };
 
-            this.domainServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.domainServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Domain>()
                 { domain });
@@ -94,7 +94,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ParentDomain = null,
                 ChildrenDomains = new List<Domain>(),
             };
-            this.domainServiceMock.Setup(x => x.GetByID(1))
+            _ = this.domainServiceMock.Setup(x => x.GetByID(1))
                 .Returns(domain);
 
             this.domainService = this.domainServiceMock.Object;
@@ -120,7 +120,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ChildrenDomains = new List<Domain>(),
             };
 
-            this.domainServiceMock.Setup(x => x.GetByID(1))
+            _ = this.domainServiceMock.Setup(x => x.GetByID(1))
                 .Returns(domain);
 
             this.domainService = this.domainServiceMock.Object;
@@ -128,7 +128,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedAccount = this.domainService.GetByID(1);
             modifiedAccount.Name = "Filozofie";
 
-            this.domainServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.domainServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
             var result = this.domainService.Update(modifiedAccount);
 
@@ -141,7 +141,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.domainServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.domainServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.domainService = this.domainServiceMock.Object;
 
             var result = this.domainService.DeleteById(1);

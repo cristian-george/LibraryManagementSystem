@@ -41,6 +41,40 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
+        /// Gets the parent domain.
+        /// </summary>
+        /// <param name="domain">The domain.</param>
+        /// <returns>Domain.</returns>
+        public static Domain GetParentDomain(Domain domain)
+        {
+            while (domain.ParentDomain != null)
+            {
+                domain = domain.ParentDomain;
+            }
+
+            return domain;
+        }
+
+        /// <summary>
+        /// Gets the no of distinct categories.
+        /// </summary>
+        /// <param name="domains">The domains.</param>
+        /// <returns>System.Int32.</returns>
+        public static int GetNoOfDistinctCategories(ICollection<Domain> domains)
+        {
+            var listOfParentDomains = new List<Domain>();
+
+            foreach (var domain in domains)
+            {
+                listOfParentDomains.Add(GetParentDomain(domain));
+            }
+
+            listOfParentDomains = listOfParentDomains.Distinct().ToList();
+
+            return listOfParentDomains.Count;
+        }
+
+        /// <summary>
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity"> The entity. </param>
@@ -57,11 +91,11 @@ namespace Library.ServiceLayer.Services
             var result = this.Validator.Validate(entity);
             if (result.IsValid && this.CheckFlags(entity))
             {
-                this.Repository.Insert(entity);
+                _ = this.Repository.Insert(entity);
             }
             else
             {
-                Utils.LogErrors(result);
+                _ = Utils.LogErrors(result);
                 return false;
             }
 
@@ -80,9 +114,9 @@ namespace Library.ServiceLayer.Services
             var c = this.PropertiesRepository.GetLastProperties().C;
 
             var castedLibrarian = new Librarian();
-            if (entity.Borrower is Librarian)
+            if (entity.Borrower is Librarian librarian)
             {
-                castedLibrarian = (Librarian)entity.Borrower;
+                castedLibrarian = librarian;
             }
 
             if (castedLibrarian.IsReader == true)
@@ -100,7 +134,7 @@ namespace Library.ServiceLayer.Services
                 return true;
             }
 
-            int noOfDistinctCategories = this.GetNoOfDistinctCategories(entity.BorrowedBooks.SelectMany(x => x.Domains).ToList());
+            int noOfDistinctCategories = GetNoOfDistinctCategories(entity.BorrowedBooks.SelectMany(x => x.Domains).ToList());
             if (entity.BorrowedBooks.Count >= 3 && noOfDistinctCategories <= c)
             {
                 return true;
@@ -124,9 +158,9 @@ namespace Library.ServiceLayer.Services
                 var delta = this.PropertiesRepository.GetLastProperties().DELTA;
 
                 var castedLibrarian = new Librarian();
-                if (entity.Borrower is Librarian)
+                if (entity.Borrower is Librarian librarian)
                 {
-                    castedLibrarian = (Librarian)entity.Borrower;
+                    castedLibrarian = librarian;
                 }
 
                 if (castedLibrarian.IsReader == true)
@@ -148,7 +182,7 @@ namespace Library.ServiceLayer.Services
 
                 var flag = books.Where(x => x.Id == entity.BorrowedBooks.First().Id).ToList();
 
-                if (flag.Count() >= 1)
+                if (flag.Count >= 1)
                 {
                     return false;
                 }
@@ -173,9 +207,9 @@ namespace Library.ServiceLayer.Services
             var nmc = this.PropertiesRepository.GetLastProperties().NMC;
 
             var castedLibrarian = new Librarian();
-            if (entity.Borrower is Librarian)
+            if (entity.Borrower is Librarian librarian)
             {
-                castedLibrarian = (Librarian)entity.Borrower;
+                castedLibrarian = librarian;
             }
 
             if (castedLibrarian.IsReader == true)
@@ -189,7 +223,7 @@ namespace Library.ServiceLayer.Services
             var borrowsInLastPERMonths = this.Repository.Get(borrow => borrow.BorrowDate >= datePer, borrow => borrow.OrderBy(x => x.Id), string.Empty);
             var borrowedBooksInPERPeriod = borrowsInLastPERMonths.SelectMany(borrow => borrow.BorrowedBooks).Distinct().Count();
 
-            if (properties.NMC <= borrowedBooksInPERPeriod + entity.BorrowedBooks.Count())
+            if (properties.NMC <= borrowedBooksInPERPeriod + entity.BorrowedBooks.Count)
             {
                 return false;
             }
@@ -256,48 +290,12 @@ namespace Library.ServiceLayer.Services
             // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
             var properties = this.PropertiesRepository.GetLastProperties();
 
-            var book = entity.BorrowedBooks.First();
-
             if (entity.NoOfTimeExtended >= properties.LIM)
             {
                 return false;
             }
 
             return true;
-        }
-
-        /// <summary>
-        /// Gets the no of distinct categories.
-        /// </summary>
-        /// <param name="domains">The domains.</param>
-        /// <returns>System.Int32.</returns>
-        public int GetNoOfDistinctCategories(ICollection<Domain> domains)
-        {
-            var listOfParentDomains = new List<Domain>();
-
-            foreach (var domain in domains)
-            {
-                listOfParentDomains.Add(this.GetParentDomain(domain));
-            }
-
-            listOfParentDomains = listOfParentDomains.Distinct().ToList();
-
-            return listOfParentDomains.Count;
-        }
-
-        /// <summary>
-        /// Gets the parent domain.
-        /// </summary>
-        /// <param name="domain">The domain.</param>
-        /// <returns>Domain.</returns>
-        public Domain GetParentDomain(Domain domain)
-        {
-            while (domain.ParentDomain != null)
-            {
-                domain = domain.ParentDomain;
-            }
-
-            return domain;
         }
 
         /// <summary>
@@ -328,7 +326,7 @@ namespace Library.ServiceLayer.Services
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool CheckFlags(Borrow entity)
         {
-            if (this.Repository.Get(null, borrow => borrow.OrderBy(x => x.Id), string.Empty).Count() == 0)
+            if (!this.Repository.Get(null, borrow => borrow.OrderBy(x => x.Id), string.Empty).Any())
             {
                 return true;
             }

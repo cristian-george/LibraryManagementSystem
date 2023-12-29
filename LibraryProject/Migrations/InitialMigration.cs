@@ -17,7 +17,7 @@ namespace LibraryProject.Migrations
         /// <inheritdoc/>
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Accounts",
                 columns: table => new
                 {
@@ -28,10 +28,10 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Accounts", x => x.Id);
+                    _ = table.PrimaryKey("PK_Accounts", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Properties",
                 columns: table => new
                 {
@@ -50,10 +50,10 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Properties", x => x.Id);
+                    _ = table.PrimaryKey("PK_Properties", x => x.Id);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Borrowers",
                 columns: table => new
                 {
@@ -68,8 +68,8 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Borrowers", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Borrowers", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Borrowers_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
@@ -77,7 +77,7 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Borrow",
                 columns: table => new
                 {
@@ -91,14 +91,14 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Borrow", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Borrow", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Borrow_Borrowers_BorrowerId",
                         column: x => x.BorrowerId,
                         principalTable: "Borrowers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_Borrow_Borrowers_LibrarianId",
                         column: x => x.LibrarianId,
                         principalTable: "Borrowers",
@@ -106,7 +106,7 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Books",
                 columns: table => new
                 {
@@ -120,8 +120,8 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Books", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Books", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Books_Borrow_BorrowId",
                         column: x => x.BorrowId,
                         principalTable: "Borrow",
@@ -129,7 +129,7 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Authors",
                 columns: table => new
                 {
@@ -141,8 +141,8 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Authors", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Authors", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Authors_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
@@ -150,7 +150,7 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Domains",
                 columns: table => new
                 {
@@ -162,14 +162,14 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Domains", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Domains", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Domains_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
+                    _ = table.ForeignKey(
                         name: "FK_Domains_Domains_ParentDomainId",
                         column: x => x.ParentDomainId,
                         principalTable: "Domains",
@@ -177,7 +177,7 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateTable(
+            _ = migrationBuilder.CreateTable(
                 name: "Editions",
                 columns: table => new
                 {
@@ -191,8 +191,8 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Editions", x => x.Id);
-                    table.ForeignKey(
+                    _ = table.PrimaryKey("PK_Editions", x => x.Id);
+                    _ = table.ForeignKey(
                         name: "FK_Editions_Books_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
@@ -200,42 +200,42 @@ namespace LibraryProject.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Authors_BookId",
                 table: "Authors",
                 column: "BookId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Books_BorrowId",
                 table: "Books",
                 column: "BorrowId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Borrow_BorrowerId",
                 table: "Borrow",
                 column: "BorrowerId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Borrow_LibrarianId",
                 table: "Borrow",
                 column: "LibrarianId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Borrowers_AccountId",
                 table: "Borrowers",
                 column: "AccountId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Domains_BookId",
                 table: "Domains",
                 column: "BookId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Domains_ParentDomainId",
                 table: "Domains",
                 column: "ParentDomainId");
 
-            migrationBuilder.CreateIndex(
+            _ = migrationBuilder.CreateIndex(
                 name: "IX_Editions_BookId",
                 table: "Editions",
                 column: "BookId");
@@ -244,28 +244,28 @@ namespace LibraryProject.Migrations
         /// <inheritdoc/>
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Authors");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Domains");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Editions");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Properties");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Books");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Borrow");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Borrowers");
 
-            migrationBuilder.DropTable(
+            _ = migrationBuilder.DropTable(
                 name: "Accounts");
         }
     }

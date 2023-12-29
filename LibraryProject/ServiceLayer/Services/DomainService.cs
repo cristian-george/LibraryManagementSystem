@@ -38,20 +38,20 @@ namespace Library.ServiceLayer.Services
             }
 
             var result = this.Validator.Validate(entity);
-            var isValid = false;
+            bool isValid;
             if (result.IsValid)
             {
                 isValid = true;
             }
             else
             {
-                Utils.LogErrors(result);
+                _ = Utils.LogErrors(result);
                 return false;
             }
 
             if (isValid == true)
             {
-                this.Repository.Insert(entity);
+                _ = this.Repository.Insert(entity);
             }
 
             this.Validator = new DomainValidator();

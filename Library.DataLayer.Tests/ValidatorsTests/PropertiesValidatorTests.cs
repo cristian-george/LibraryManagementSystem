@@ -41,7 +41,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.DOMENII);
+            _ = result.ShouldHaveValidationErrorFor(a => a.DOMENII);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.DOMENII);
+            _ = result.ShouldHaveValidationErrorFor(a => a.DOMENII);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.C);
+            _ = result.ShouldHaveValidationErrorFor(a => a.C);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.C);
+            _ = result.ShouldHaveValidationErrorFor(a => a.C);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PER);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PER);
         }
 
         /// <summary>
@@ -191,7 +191,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PER);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PER);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.D);
+            _ = result.ShouldHaveValidationErrorFor(a => a.D);
         }
 
         /// <summary>
@@ -251,7 +251,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.D);
+            _ = result.ShouldHaveValidationErrorFor(a => a.D);
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NMC);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NMC);
         }
 
         /// <summary>
@@ -311,7 +311,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NMC);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NMC);
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LIM);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LIM);
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LIM);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LIM);
         }
 
         /// <summary>
@@ -401,7 +401,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.DELTA);
+            _ = result.ShouldHaveValidationErrorFor(a => a.DELTA);
         }
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.DELTA);
+            _ = result.ShouldHaveValidationErrorFor(a => a.DELTA);
         }
 
         /// <summary>
@@ -461,7 +461,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NCZ);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NCZ);
         }
 
         /// <summary>
@@ -491,7 +491,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NCZ);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NCZ);
         }
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PERSIMP);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PERSIMP);
         }
 
         /// <summary>
@@ -551,7 +551,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PERSIMP);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PERSIMP);
         }
 
         /// <summary>

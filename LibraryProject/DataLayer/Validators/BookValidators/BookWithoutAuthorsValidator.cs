@@ -23,49 +23,49 @@ namespace Library.DataLayer.Validators.BookValidators
         /// </summary>
         public BookWithoutAuthorsValidator()
         {
-            this.RuleFor(b => b.Title)
+            _ = this.RuleFor(b => b.Title)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-            this.RuleFor(b => b.Type)
+            _ = this.RuleFor(b => b.Type)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-            this.RuleFor(b => b.IsBorrowed)
+            _ = this.RuleFor(b => b.IsBorrowed)
                 .NotNull().WithMessage("Null {PropertyName}");
-            this.RuleFor(b => b.LecturesOnlyBook)
-                .NotNull().WithMessage("Null {PropertyName}");
-
-            this.RuleFor(b => b.Authors)
+            _ = this.RuleFor(b => b.LecturesOnlyBook)
                 .NotNull().WithMessage("Null {PropertyName}");
 
-            this.RuleForEach(b => b.Authors).ChildRules(author =>
+            _ = this.RuleFor(b => b.Authors)
+                .NotNull().WithMessage("Null {PropertyName}");
+
+            _ = this.RuleForEach(b => b.Authors).ChildRules(author =>
             {
-                author.RuleFor(b => b.FirstName)
+                _ = author.RuleFor(b => b.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-                author.RuleFor(b => b.LastName)
+                _ = author.RuleFor(b => b.LastName)
                     .NotNull().WithMessage("Null {PropertyName}")
                     .NotEmpty().WithMessage("{PropertyName} is Empty")
                     .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                     .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
             });
 
-            this.RuleFor(b => b.Editions)
+            _ = this.RuleFor(b => b.Editions)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .Must(this.HaveEntities).WithMessage("{PropertyName} is Empty");
-            this.RuleFor(b => b.Domains)
+            _ = this.RuleFor(b => b.Domains)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .Must(this.HaveEntities).WithMessage("{PropertyName} is Empty");
-            this.RuleForEach(b => b.Editions).SetValidator(new EditionValidator());
-            this.RuleForEach(b => b.Domains).SetValidator(new DomainValidator());
+            _ = this.RuleForEach(b => b.Editions).SetValidator(new EditionValidator());
+            _ = this.RuleForEach(b => b.Domains).SetValidator(new DomainValidator());
         }
 
         /// <summary>

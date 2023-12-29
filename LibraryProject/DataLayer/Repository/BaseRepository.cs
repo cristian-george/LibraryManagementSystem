@@ -90,8 +90,8 @@ namespace Library.DataLayer.Repository
             try
             {
                 var databaseSet = this.Ctx.Set<T>();
-                databaseSet.Add(entity);
-                this.Ctx.SaveChanges();
+                _ = databaseSet.Add(entity);
+                _ = this.Ctx.SaveChanges();
 
                 entity = null;
             }
@@ -114,10 +114,10 @@ namespace Library.DataLayer.Repository
             try
             {
                 var databaseSet = this.Ctx.Set<T>();
-                databaseSet.Attach(item);
+                _ = databaseSet.Attach(item);
                 this.Ctx.Entry(item).State = EntityState.Modified;
 
-                this.Ctx.SaveChanges();
+                _ = this.Ctx.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -137,7 +137,7 @@ namespace Library.DataLayer.Repository
         {
             try
             {
-                this.Delete(this.GetByID(id));
+                _ = this.Delete(this.GetByID(id));
             }
             catch (Exception ex)
             {
@@ -161,12 +161,12 @@ namespace Library.DataLayer.Repository
 
                 if (this.Ctx.Entry(entityToDelete).State == EntityState.Detached)
                 {
-                    dbSet.Attach(entityToDelete);
+                    _ = dbSet.Attach(entityToDelete);
                 }
 
-                dbSet.Remove(entityToDelete);
+                _ = dbSet.Remove(entityToDelete);
 
-                this.Ctx.SaveChanges();
+                _ = this.Ctx.SaveChanges();
             }
             catch (Exception ex)
             {
@@ -207,7 +207,7 @@ namespace Library.DataLayer.Repository
             {
                 var dbSet = this.Ctx.Set<T>();
                 dbSet.RemoveRange(dbSet);
-                this.Ctx.SaveChanges();
+                _ = this.Ctx.SaveChanges();
             }
             catch (Exception ex)
             {

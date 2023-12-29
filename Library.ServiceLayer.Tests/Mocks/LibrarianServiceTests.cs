@@ -56,7 +56,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            this.librarianServiceMock.Setup(x => x.Insert(librarian)).Returns(true);
+            _ = this.librarianServiceMock.Setup(x => x.Insert(librarian)).Returns(true);
             this.librarianService = this.librarianServiceMock.Object;
 
             var result = this.librarianService.Insert(librarian);
@@ -85,7 +85,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            this.librarianServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.librarianServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Librarian>()
                 { librarian });
@@ -118,7 +118,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
                 Account = account,
             };
-            this.librarianServiceMock.Setup(x => x.GetByID(1))
+            _ = this.librarianServiceMock.Setup(x => x.GetByID(1))
                 .Returns(librarian);
 
             this.librarianService = this.librarianServiceMock.Object;
@@ -152,7 +152,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            this.librarianServiceMock.Setup(x => x.GetByID(1))
+            _ = this.librarianServiceMock.Setup(x => x.GetByID(1))
                 .Returns(librarian);
 
             this.librarianService = this.librarianServiceMock.Object;
@@ -160,7 +160,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedAccount = this.librarianService.GetByID(1);
             modifiedAccount.LastName = "Alexandru";
 
-            this.librarianServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.librarianServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
             var result = this.librarianService.Update(modifiedAccount);
 
@@ -173,7 +173,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.librarianServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.librarianServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.librarianService = this.librarianServiceMock.Object;
 
             var result = this.librarianService.DeleteById(1);

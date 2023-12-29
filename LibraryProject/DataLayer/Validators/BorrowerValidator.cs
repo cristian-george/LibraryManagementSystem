@@ -23,26 +23,26 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public BorrowerValidator()
         {
-            this.RuleFor(b => b.FirstName)
+            _ = this.RuleFor(b => b.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-            this.RuleFor(b => b.LastName)
+            _ = this.RuleFor(b => b.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-            this.RuleFor(b => b.Address)
+            _ = this.RuleFor(b => b.Address)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 80).WithMessage("Lenght of {PropertyName} Invalid");
 
-            this.RuleFor(b => b.Account).SetInheritanceValidator(v =>
+            _ = this.RuleFor(b => b.Account).SetInheritanceValidator(v =>
             {
-                v.Add(new AccountValidator());
+                _ = v.Add(new AccountValidator());
             });
         }
 

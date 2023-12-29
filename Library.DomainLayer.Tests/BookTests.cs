@@ -73,8 +73,10 @@ namespace Library.DomainLayer.Tests
                 LastName = "Dorel",
             };
 
-            var authorsList = new List<Author>();
-            authorsList.Add(author);
+            var authorsList = new List<Author>
+            {
+                author,
+            };
 
             this.book = new Book()
             {
@@ -100,8 +102,10 @@ namespace Library.DomainLayer.Tests
                 LastName = "Dorel",
             };
 
-            var authorsList = new List<Author>();
-            authorsList.Add(author);
+            var authorsList = new List<Author>
+            {
+                author,
+            };
 
             this.book = new Book()
             {
@@ -152,8 +156,10 @@ namespace Library.DomainLayer.Tests
                 ChildrenDomains = null,
             };
 
-            var domainsList = new List<Domain>();
-            domainsList.Add(domain);
+            var domainsList = new List<Domain>
+            {
+                domain,
+            };
 
             this.book = new Book()
             {
@@ -180,8 +186,10 @@ namespace Library.DomainLayer.Tests
                 NumberOfPages = 200,
             };
 
-            var editionsList = new List<Edition>();
-            editionsList.Add(edition);
+            var editionsList = new List<Edition>
+            {
+                edition,
+            };
 
             this.book = new Book()
             {

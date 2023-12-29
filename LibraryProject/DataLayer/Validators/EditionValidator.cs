@@ -22,21 +22,21 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public EditionValidator()
         {
-            this.RuleFor(e => e.Publisher)
+            _ = this.RuleFor(e => e.Publisher)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid");
 
-            this.RuleFor(e => e.Year)
+            _ = this.RuleFor(e => e.Year)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(0, 4).WithMessage("Lenght of {PropertyName} Invalid");
 
-            this.RuleFor(e => e.EditionNumber)
+            _ = this.RuleFor(e => e.EditionNumber)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThan(1).WithMessage("{PropertyName} should be greater than 1");
 
-            this.RuleFor(e => e.NumberOfPages)
+            _ = this.RuleFor(e => e.NumberOfPages)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThan(1).WithMessage("{PropertyName} should be greater than 1");
         }

@@ -42,7 +42,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.FirstName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.FirstName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -106,7 +106,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.FirstName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.FirstName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -170,7 +170,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LastName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -202,7 +202,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LastName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -234,7 +234,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LastName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.LastName);
+            _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>

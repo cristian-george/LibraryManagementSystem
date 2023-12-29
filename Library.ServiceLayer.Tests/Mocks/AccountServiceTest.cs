@@ -47,7 +47,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Email = "validemail@gmail.com",
             };
 
-            this.accountServiceMock.Setup(x => x.Insert(account)).Returns(true);
+            _ = this.accountServiceMock.Setup(x => x.Insert(account)).Returns(true);
             this.accountService = this.accountServiceMock.Object;
 
             var result = this.accountService.Insert(account);
@@ -61,15 +61,15 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            this.accountServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.accountServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Account>()
                 {
-                    new Account
-                {
-                    PhoneNumber = "0734525427",
-                    Email = "validemail@gmail.com",
-                },
+                    new ()
+                    {
+                        PhoneNumber = "0734525427",
+                        Email = "validemail@gmail.com",
+                    },
                 });
 
             this.accountService = this.accountServiceMock.Object;
@@ -85,7 +85,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            this.accountServiceMock.Setup(x => x.GetByID(1))
+            _ = this.accountServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Account
                 {
                     Id = 1,
@@ -109,7 +109,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            this.accountServiceMock.Setup(x => x.GetByID(1))
+            _ = this.accountServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Account
                 {
                     PhoneNumber = "0734525427",
@@ -121,7 +121,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedAccount = this.accountService.GetByID(1);
             modifiedAccount.Email = "modifiedemail@gmail.ro";
 
-            this.accountServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.accountServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
             var result = this.accountService.Update(modifiedAccount);
 
@@ -134,7 +134,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.accountServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.accountServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.accountService = this.accountServiceMock.Object;
 
             var result = this.accountService.DeleteById(1);

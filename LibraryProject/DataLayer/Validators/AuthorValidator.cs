@@ -24,13 +24,13 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public AuthorValidator()
         {
-            this.RuleFor(a => a.FirstName)
+            _ = this.RuleFor(a => a.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
                 .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
-            this.RuleFor(a => a.LastName)
+            _ = this.RuleFor(a => a.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")

@@ -160,26 +160,12 @@ namespace Library.ServiceLayer.Tests
                 ChildrenDomains = new List<Domain>(),
             };
 
-            var account = new Account()
-            {
-                PhoneNumber = "0734525427",
-                Email = "gogumortu@gmail.com",
-            };
-
             var edition = new Edition()
             {
                 Publisher = "Cartea studentilor saraci",
                 Year = "1999",
                 EditionNumber = int.MaxValue,
                 NumberOfPages = 250,
-            };
-
-            var borrower = new Borrower()
-            {
-                LastName = "Gogu",
-                FirstName = "Mortu",
-                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
-                Account = account,
             };
 
             return new Book()
@@ -229,26 +215,12 @@ namespace Library.ServiceLayer.Tests
                 ChildrenDomains = new List<Domain>(),
             };
 
-            var account = new Account()
-            {
-                PhoneNumber = "0734525427",
-                Email = "gogumortu@gmail.com",
-            };
-
             var edition = new Edition()
             {
                 Publisher = "Cartea studentilor saraci",
                 Year = "1999",
                 EditionNumber = int.MaxValue,
                 NumberOfPages = 1,
-            };
-
-            var borrower = new Borrower()
-            {
-                LastName = "Gogu",
-                FirstName = "Mortu",
-                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
-                Account = account,
             };
 
             return new Book()

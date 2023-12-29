@@ -68,14 +68,13 @@ namespace Library.DomainLayer.Tests.PersonTests
         public void AccountEmailShouldBeValid()
         {
             this.account.Email = "email@email.com";
-            bool flag = true;
             var trimmedEmail = this.account.Email.Trim();
 
-            if (trimmedEmail.EndsWith("."))
+            if (trimmedEmail.EndsWith('.'))
             {
-                flag = false;
             }
 
+            bool flag;
             try
             {
                 var addr = new System.Net.Mail.MailAddress(this.account.Email);
@@ -100,12 +99,12 @@ namespace Library.DomainLayer.Tests.PersonTests
 
             var trimmedEmail = this.account.Email.Trim();
 
-            if (trimmedEmail.EndsWith("."))
+            if (trimmedEmail.EndsWith('.'))
             {
                 throw new AssertFailedException("The email is not valid");
             }
 
-            new System.Net.Mail.MailAddress(this.account.Email);
+            _ = new System.Net.Mail.MailAddress(this.account.Email);
         }
     }
 }

@@ -8,6 +8,9 @@ namespace Library.DataLayer.Repository.Concretes
     using Library.DataLayer.Repository.Interfaces;
     using Library.DomainLayer;
 
+    /// <summary>
+    /// DomainRepository class.
+    /// </summary>
     public class DomainRepository : BaseRepository<Domain>, IDomainRepository
     {
     }

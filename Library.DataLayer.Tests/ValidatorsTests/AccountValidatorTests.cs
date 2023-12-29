@@ -41,7 +41,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Email);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
         /// <summary>
@@ -193,7 +193,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Email);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
         /// <summary>
@@ -209,7 +209,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Email);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
         /// <summary>

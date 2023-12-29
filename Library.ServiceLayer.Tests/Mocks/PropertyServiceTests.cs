@@ -54,7 +54,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 PERSIMP = 3,
             };
 
-            this.propertiesServiceMock.Setup(x => x.Insert(properties)).Returns(true);
+            _ = this.propertiesServiceMock.Setup(x => x.Insert(properties)).Returns(true);
             this.propertiesService = this.propertiesServiceMock.Object;
 
             var result = this.propertiesService.Insert(properties);
@@ -68,22 +68,22 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            this.propertiesServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.propertiesServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Properties>()
                 {
-                    new Properties
-                {
-                    DOMENII = 2,
-                    NMC = 3,
-                    L = 2,
-                    C = 3,
-                    D = 2,
-                    LIM = 2,
-                    DELTA = 3,
-                    NCZ = 4,
-                    PERSIMP = 3,
-                },
+                    new ()
+                    {
+                        DOMENII = 2,
+                        NMC = 3,
+                        L = 2,
+                        C = 3,
+                        D = 2,
+                        LIM = 2,
+                        DELTA = 3,
+                        NCZ = 4,
+                        PERSIMP = 3,
+                    },
                 });
 
             this.propertiesService = this.propertiesServiceMock.Object;
@@ -99,7 +99,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            this.propertiesServiceMock.Setup(x => x.GetByID(1))
+            _ = this.propertiesServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Properties
                 {
                     Id = 1,
@@ -130,7 +130,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            this.propertiesServiceMock.Setup(x => x.GetByID(1))
+            _ = this.propertiesServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Properties
                 {
                     DOMENII = 2,
@@ -149,7 +149,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedAccount = this.propertiesService.GetByID(1);
             modifiedAccount.DOMENII = 7;
 
-            this.propertiesServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.propertiesServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
             var result = this.propertiesService.Update(modifiedAccount);
 
@@ -162,7 +162,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.propertiesServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.propertiesServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.propertiesService = this.propertiesServiceMock.Object;
 
             var result = this.propertiesService.DeleteById(1);

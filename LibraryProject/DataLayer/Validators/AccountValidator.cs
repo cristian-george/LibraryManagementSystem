@@ -23,13 +23,13 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public AccountValidator()
         {
-            this.RuleFor(a => a.PhoneNumber)
+            _ = this.RuleFor(a => a.PhoneNumber)
                 .NotNull().WithMessage("Null phone number")
                 .NotEmpty().WithMessage("Empty phone number")
                 .Must(this.DoesNotContainLetters)
                 .Length(10).WithMessage("Lenght should be 10");
 
-            this.RuleFor(a => a.Email)
+            _ = this.RuleFor(a => a.Email)
                 .EmailAddress().WithMessage("The email is not valid");
         }
 

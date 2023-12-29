@@ -42,7 +42,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
+            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.EndDate);
+            _ = result.ShouldHaveValidationErrorFor(a => a.EndDate);
         }
 
         /// <summary>
@@ -177,7 +177,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.BorrowedBooks);
+            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowedBooks);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
+            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
         }
     }
 }

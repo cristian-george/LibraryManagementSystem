@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerTests.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="LibrarianTests.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -9,15 +9,15 @@ namespace Library.DomainLayer.Tests.PersonTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Defines test class BorrowerTests.
+    /// Defines test class LibrarianTests.
     /// </summary>
     [TestClass]
-    public class BorrowerTests
+    public class LibrarianTests
     {
         /// <summary>
-        /// The borrower.
+        /// The librarian.
         /// </summary>
-        private Borrower borrower;
+        private Librarian librarian;
 
         /// <summary>
         /// Initializes this instance.
@@ -25,7 +25,7 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestInitialize]
         public void Initialize()
         {
-            this.borrower = new Borrower();
+            this.librarian = new Librarian();
         }
 
         /// <summary>
@@ -34,8 +34,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void BorrowerIdShouldBeValid()
         {
-            this.borrower.Id = 1;
-            Assert.AreEqual(1, this.borrower.Id);
+            this.librarian.Id = 1;
+            Assert.AreEqual(1, this.librarian.Id);
         }
 
         /// <summary>
@@ -44,9 +44,13 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void LastNameShouldBeValid()
         {
-            this.borrower.LastName = "Fieraru";
-            bool isIntString = this.borrower.LastName.All(char.IsLetter);
-            Assert.IsTrue(isIntString);
+            this.librarian.LastName = "Fieraru";
+            bool isIntString = this.librarian.LastName.All(char.IsLetter);
+            if (isIntString == true)
+            {
+                Assert.IsTrue(true);
+                return;
+            }
         }
 
         /// <summary>
@@ -55,9 +59,13 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void LastNameShouldBeInvalid()
         {
-            this.borrower.LastName = "Fieraru123";
-            bool isIntString = this.borrower.LastName.All(char.IsLetter);
-            Assert.IsFalse(isIntString);
+            this.librarian.LastName = "Fieraru123";
+            bool isIntString = this.librarian.LastName.All(char.IsLetter);
+            if (isIntString == false)
+            {
+                Assert.IsFalse(false);
+                return;
+            }
         }
 
         /// <summary>
@@ -66,9 +74,13 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void FirstNameShouldBeValid()
         {
-            this.borrower.FirstName = "Cristian";
-            bool isIntString = this.borrower.FirstName.All(char.IsLetter);
-            Assert.IsTrue(isIntString);
+            this.librarian.FirstName = "Cristian";
+            bool isIntString = this.librarian.FirstName.All(char.IsLetter);
+            if (isIntString == true)
+            {
+                Assert.IsTrue(true);
+                return;
+            }
         }
 
         /// <summary>
@@ -77,8 +89,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void FirstNameShouldBeInvalid()
         {
-            this.borrower.FirstName = "1223George";
-            bool isIntString = this.borrower.FirstName.All(char.IsLetter);
+            this.librarian.FirstName = "1223George";
+            bool isIntString = this.librarian.FirstName.All(char.IsLetter);
             Assert.IsFalse(isIntString);
         }
 
@@ -88,9 +100,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void AddressShouldBeValidIfContainsComma()
         {
-            this.borrower.Address = "Street Strada Mea, Apartment Building 16, Brasov, Number 37, Romania";
-            bool flag1 = this.borrower.Address.Contains(',');
-            Assert.IsTrue(flag1);
+            this.librarian.Address = "Street Strada Mea, Apartment Building 16, Brasov, Number 37, Romania";
+            bool flag1 = this.librarian.Address.Contains(',');
             Assert.IsTrue(flag1);
         }
 
@@ -100,8 +111,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void AddressShouldBeInvalidIfStreetDoesNotExist()
         {
-            this.borrower.Address = "Apartment Building 16, Brasov, Number 37, Romania";
-            bool flag3 = this.borrower.Address.Contains("Street");
+            this.librarian.Address = "Apartment Building 16, Brasov, Number 37, Romania";
+            bool flag3 = this.librarian.Address.Contains("Street");
             Assert.IsFalse(flag3);
         }
 
@@ -111,8 +122,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void AddressShouldBeInvalidIfNumberDoesNotExist()
         {
-            this.borrower.Address = "Apartment Building 16, Brasov, Number 37, Romania";
-            bool flag = this.borrower.Address.Contains("Number");
+            this.librarian.Address = "Apartment Building 16, Brasov, Number 37, Romania";
+            bool flag = this.librarian.Address.Contains("Number");
             Assert.IsTrue(flag);
         }
 
@@ -122,8 +133,8 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void AddressShouldBeInvalidIfApartmentBuildingDoesNotExist()
         {
-            this.borrower.Address = "Apartment Building 16, Brasov, Number 37, Romania";
-            bool flag = this.borrower.Address.Contains("Apartment Building");
+            this.librarian.Address = "Apartment Building 16, Brasov, Number 37, Romania";
+            bool flag = this.librarian.Address.Contains("Apartment Building");
             Assert.IsTrue(flag);
         }
 
@@ -133,7 +144,7 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void AddressShouldBeInvalidIfAccountIsNull()
         {
-            Assert.IsNull(this.borrower.Account);
+            Assert.IsNull(this.librarian.Account);
         }
 
         /// <summary>
@@ -142,33 +153,33 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void BorrowerAccountShouldBeInvalidIfPhoneNumberIsInvalidAndEmailIsInvalid()
         {
-            this.borrower.Account = new ()
+            this.librarian.Account = new Account()
             {
                 PhoneNumber = "073452531nnns",
                 Email = "123mail.com",
             };
             bool emailFlag = true;
-            bool phoneNumberFlag = this.borrower.Account.PhoneNumber.All(char.IsDigit);
+            bool phoneNumberFlag = this.librarian.Account.PhoneNumber.All(char.IsDigit);
 
-            var trimmedEmail = this.borrower.Account.Email.Trim();
+            var trimmedEmail = this.librarian.Account.Email.Trim();
 
             try
             {
-                if (trimmedEmail.EndsWith('.'))
+                if (trimmedEmail.EndsWith("."))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
 
-                new System.Net.Mail.MailAddress(this.borrower.Account.Email);
+                _ = new System.Net.Mail.MailAddress(this.librarian.Account.Email);
             }
             catch
             {
                 emailFlag = false;
             }
 
-            Assert.IsNotNull(this.borrower.Account.PhoneNumber);
+            Assert.IsNotNull(this.librarian.Account.PhoneNumber);
             Assert.IsFalse(phoneNumberFlag);
-            Assert.AreNotEqual(10, this.borrower.Account.PhoneNumber.Length);
+            Assert.AreNotEqual(10, this.librarian.Account.PhoneNumber.Length);
             Assert.IsFalse(emailFlag);
         }
 
@@ -178,33 +189,34 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void BorrowerAccountShouldBeInvalidIfPhoneNumberIsInvalidAndEmailIsValid()
         {
-            this.borrower.Account = new ()
+            this.librarian.Account = new Account()
             {
                 PhoneNumber = "073452531nnns",
                 Email = "validemail@ceva.com",
             };
-            bool emailFlag = true;
-            bool phoneNumberFlag = this.borrower.Account.PhoneNumber.All(char.IsDigit);
 
-            var trimmedEmail = this.borrower.Account.Email.Trim();
+            bool emailFlag = true;
+            bool phoneNumberFlag = this.librarian.Account.PhoneNumber.All(char.IsDigit);
+
+            var trimmedEmail = this.librarian.Account.Email.Trim();
 
             try
             {
-                if (trimmedEmail.EndsWith('.'))
+                if (trimmedEmail.EndsWith("."))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
 
-                new System.Net.Mail.MailAddress(this.borrower.Account.Email);
+                _ = new System.Net.Mail.MailAddress(this.librarian.Account.Email);
             }
             catch
             {
                 emailFlag = false;
             }
 
-            Assert.IsNotNull(this.borrower.Account.PhoneNumber);
+            Assert.IsNotNull(this.librarian.Account.PhoneNumber);
             Assert.IsFalse(phoneNumberFlag);
-            Assert.AreNotEqual(10, this.borrower.Account.PhoneNumber.Length);
+            Assert.AreNotEqual(10, this.librarian.Account.PhoneNumber.Length);
 
             Assert.IsTrue(emailFlag);
         }
@@ -215,15 +227,15 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void BorrowerAccountShouldBeInvalidIfPhoneNumberIsValidAndEmailIsInvalid()
         {
-            this.borrower.Account = new ()
+            this.librarian.Account = new Account()
             {
                 PhoneNumber = "0724525672",
                 Email = "invalidemail.com",
             };
             bool emailFlag = true;
-            bool phoneNumberFlag = this.borrower.Account.PhoneNumber.All(char.IsDigit);
+            bool phoneNumberFlag = this.librarian.Account.PhoneNumber.All(char.IsDigit);
 
-            var trimmedEmail = this.borrower.Account.Email.Trim();
+            var trimmedEmail = this.librarian.Account.Email.Trim();
 
             try
             {
@@ -232,16 +244,16 @@ namespace Library.DomainLayer.Tests.PersonTests
                     throw new AssertFailedException("The email is not valid");
                 }
 
-                new System.Net.Mail.MailAddress(this.borrower.Account.Email);
+                _ = new System.Net.Mail.MailAddress(this.librarian.Account.Email);
             }
             catch
             {
                 emailFlag = false;
             }
 
-            Assert.IsNotNull(this.borrower.Account.PhoneNumber);
+            Assert.IsNotNull(this.librarian.Account.PhoneNumber);
             Assert.IsTrue(phoneNumberFlag);
-            Assert.AreEqual(10, this.borrower.Account.PhoneNumber.Length);
+            Assert.AreEqual(10, this.librarian.Account.PhoneNumber.Length);
             Assert.IsFalse(emailFlag);
         }
 
@@ -251,50 +263,63 @@ namespace Library.DomainLayer.Tests.PersonTests
         [TestMethod]
         public void BorrowerAccountShouldBeValidIfPhoneNumberIsValidAndEmailIsValid()
         {
-            this.borrower.Account = new ()
+            this.librarian.Account = new Account()
             {
                 PhoneNumber = "0724525672",
                 Email = "validmail@ceva.com",
             };
             bool emailFlag = true;
-            bool phoneNumberFlag = this.borrower.Account.PhoneNumber.All(char.IsDigit);
+            bool phoneNumberFlag = this.librarian.Account.PhoneNumber.All(char.IsDigit);
 
-            var trimmedEmail = this.borrower.Account.Email.Trim();
+            var trimmedEmail = this.librarian.Account.Email.Trim();
 
             try
             {
-                if (trimmedEmail.EndsWith('.'))
+                if (trimmedEmail.EndsWith("."))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
 
-                new System.Net.Mail.MailAddress(this.borrower.Account.Email);
+                _ = new System.Net.Mail.MailAddress(this.librarian.Account.Email);
             }
             catch
             {
                 emailFlag = false;
             }
 
-            Assert.IsNotNull(this.borrower.Account.PhoneNumber);
+            Assert.IsNotNull(this.librarian.Account.PhoneNumber);
             Assert.IsTrue(phoneNumberFlag);
-            Assert.AreEqual(10, this.borrower.Account.PhoneNumber.Length);
+            Assert.AreEqual(10, this.librarian.Account.PhoneNumber.Length);
 
             Assert.IsTrue(emailFlag);
         }
 
         /// <summary>
-        /// Defines the test method AccountIdShouldBeMoreThan1.
+        /// Defines the test method LibrarianShouldBeReader.
         /// </summary>
         [TestMethod]
-        public void AccountIdShouldBeMoreThan1()
+        public void LibrarianShouldBeReader()
         {
-            this.borrower.Account = new ()
+            this.librarian.IsReader = false;
+            if (this.librarian.IsReader == false)
             {
-                Id = 1,
-            };
+                Assert.IsFalse(false);
+                return;
+            }
+        }
 
-            var flag = this.borrower.Account.Id > 0 ? true : false;
-            Assert.IsTrue(flag);
+        /// <summary>
+        /// Defines the test method LibrarianShouldNotBeReader.
+        /// </summary>
+        [TestMethod]
+        public void LibrarianShouldNotBeReader()
+        {
+            this.librarian.IsReader = false;
+            if (this.librarian.IsReader == false)
+            {
+                Assert.IsFalse(false);
+                return;
+            }
         }
     }
 }

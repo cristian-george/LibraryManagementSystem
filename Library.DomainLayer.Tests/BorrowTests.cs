@@ -35,11 +35,13 @@ namespace Library.DomainLayer.Tests
         [TestMethod]
         public void BorrowShouldHaveAValidBorrower()
         {
-            var borrower = new Borrower();
-            borrower.Account = new ()
+            var borrower = new Borrower
             {
-                PhoneNumber = "0724525672",
-                Email = "vali@mail.com",
+                Account = new ()
+                {
+                    PhoneNumber = "0724525672",
+                    Email = "vali@mail.com",
+                },
             };
 
             this.borrow = new ()
@@ -63,8 +65,10 @@ namespace Library.DomainLayer.Tests
                 LastName = "Dorel",
             };
 
-            var authorsList = new List<Author>();
-            authorsList.Add(author);
+            var authorsList = new List<Author>
+            {
+                author,
+            };
 
             var domain = new Domain()
             {
@@ -73,8 +77,10 @@ namespace Library.DomainLayer.Tests
                 ChildrenDomains = null,
             };
 
-            var domainsList = new List<Domain>();
-            domainsList.Add(domain);
+            var domainsList = new List<Domain>
+            {
+                domain,
+            };
 
             var edition = new Edition()
             {
@@ -84,19 +90,22 @@ namespace Library.DomainLayer.Tests
                 NumberOfPages = 200,
             };
 
-            var editionsList = new List<Edition>();
-            editionsList.Add(edition);
-
-            var borrowedBooks = new List<Book>();
-
-            borrowedBooks.Add(new Book()
+            var editionsList = new List<Edition>
             {
-                Title = "O Carte",
-                LecturesOnlyBook = false,
-                Authors = authorsList,
-                Domains = domainsList,
-                Editions = editionsList,
-            });
+                edition,
+            };
+
+            var borrowedBooks = new List<Book>
+            {
+                new ()
+                {
+                    Title = "O Carte",
+                    LecturesOnlyBook = false,
+                    Authors = authorsList,
+                    Domains = domainsList,
+                    Editions = editionsList,
+                },
+            };
 
             this.borrow = new ()
             {

@@ -42,7 +42,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
         }
 
         /// <summary>
@@ -132,7 +132,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Type);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
         }
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Type);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
         }
 
         /// <summary>
@@ -222,7 +222,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Type);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Type);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
         }
 
         /// <summary>
@@ -282,7 +282,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.IsBorrowed);
+            _ = result.ShouldHaveValidationErrorFor(a => a.IsBorrowed);
         }
 
         /// <summary>
@@ -312,7 +312,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Editions);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Editions);
         }
 
         /// <summary>
@@ -327,7 +327,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Editions);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Editions);
         }
 
         /// <summary>
@@ -342,7 +342,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Domains);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Domains);
         }
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Domains);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Domains);
         }
     }
 }

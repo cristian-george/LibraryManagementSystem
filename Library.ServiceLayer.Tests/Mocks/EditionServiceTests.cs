@@ -49,7 +49,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 NumberOfPages = 1,
             };
 
-            this.editionServiceMock.Setup(x => x.Insert(edition)).Returns(true);
+            _ = this.editionServiceMock.Setup(x => x.Insert(edition)).Returns(true);
             this.editionService = this.editionServiceMock.Object;
 
             var result = this.editionService.Insert(edition);
@@ -63,17 +63,17 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            this.editionServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.editionServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Edition>()
                 {
-                    new Edition
-                {
-                Publisher = "Cartea studentilor saraci",
-                Year = "1999",
-                EditionNumber = int.MaxValue,
-                NumberOfPages = 1,
-                },
+                    new ()
+                    {
+                        Publisher = "Cartea studentilor saraci",
+                        Year = "1999",
+                        EditionNumber = int.MaxValue,
+                        NumberOfPages = 1,
+                    },
                 });
 
             this.editionService = this.editionServiceMock.Object;
@@ -89,7 +89,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            this.editionServiceMock.Setup(x => x.GetByID(1))
+            _ = this.editionServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Edition
                 {
                     Id = 1,
@@ -115,7 +115,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            this.editionServiceMock.Setup(x => x.GetByID(1))
+            _ = this.editionServiceMock.Setup(x => x.GetByID(1))
                 .Returns(new Edition
                 {
                     Publisher = "Cartea studentilor saraci",
@@ -129,7 +129,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedAccount = this.editionService.GetByID(1);
             modifiedAccount.EditionNumber = 7;
 
-            this.editionServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.editionServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
             var result = this.editionService.Update(modifiedAccount);
 
@@ -142,7 +142,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.editionServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.editionServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.editionService = this.editionServiceMock.Object;
 
             var result = this.editionService.DeleteById(1);

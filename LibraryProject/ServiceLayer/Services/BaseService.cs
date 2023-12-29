@@ -18,7 +18,7 @@ namespace Library.ServiceLayer.Services
     /// Implements the <see cref="IBaseService{T}" />.
     /// </summary>
     /// <typeparam name="TModel"> Reference type. </typeparam>
-    /// <typeparam name="TRepository"> Implements IRepository. <TModel>. </typeparam>
+    /// <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
     /// <typeparam name="TPropRepository"> Implements IPropertiesRepository. </typeparam>
     /// <seealso cref="IBaseService{T}" />
     public abstract class BaseService<TModel, TRepository, TPropRepository> : IBaseService<TModel>
@@ -63,20 +63,20 @@ namespace Library.ServiceLayer.Services
         public virtual bool Insert(TModel entity)
         {
             var result = this.Validator.Validate(entity);
-            var isValid = false;
+            bool isValid;
             if (result.IsValid)
             {
                 isValid = true;
             }
             else
             {
-                Utils.LogErrors(result);
+                _ = Utils.LogErrors(result);
                 return false;
             }
 
             if (isValid == true)
             {
-                this.Repository.Insert(entity);
+                _ = this.Repository.Insert(entity);
             }
 
             return true;
@@ -90,14 +90,14 @@ namespace Library.ServiceLayer.Services
         public virtual bool Update(TModel entity)
         {
             var result = this.Validator.Validate(entity);
-            Utils.LogErrors(result);
+            _ = Utils.LogErrors(result);
             if (result.IsValid)
             {
-                this.Repository.Update(entity);
+                _ = this.Repository.Update(entity);
             }
             else
             {
-                Utils.LogErrors(result);
+                _ = Utils.LogErrors(result);
                 return false;
             }
 

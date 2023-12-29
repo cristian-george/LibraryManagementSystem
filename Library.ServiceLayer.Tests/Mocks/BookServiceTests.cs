@@ -42,7 +42,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestInsert()
         {
             var book = TestUtils.GetBookModel();
-            this.bookServiceMock.Setup(x => x.Insert(book)).Returns(true);
+            _ = this.bookServiceMock.Setup(x => x.Insert(book)).Returns(true);
             this.bookService = this.bookServiceMock.Object;
 
             var result = this.bookService.Insert(book);
@@ -56,7 +56,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            this.bookServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.bookServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Book>()
                 { TestUtils.GetBookModel() });
@@ -75,7 +75,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestGetById()
         {
             var book = TestUtils.GetBookModelWithId();
-            this.bookServiceMock.Setup(x => x.GetByID(1))
+            _ = this.bookServiceMock.Setup(x => x.GetByID(1))
                 .Returns(TestUtils.GetBookModelWithId());
 
             this.bookService = this.bookServiceMock.Object;
@@ -93,7 +93,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         {
             var book = TestUtils.GetBookModel();
 
-            this.bookServiceMock.Setup(x => x.GetByID(1))
+            _ = this.bookServiceMock.Setup(x => x.GetByID(1))
                 .Returns(book);
 
             this.bookService = this.bookServiceMock.Object;
@@ -101,7 +101,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedBook = this.bookService.GetByID(1);
             modifiedBook.Title = "O carte oarecare";
 
-            this.bookServiceMock.Setup(x => x.Update(modifiedBook)).Returns(true);
+            _ = this.bookServiceMock.Setup(x => x.Update(modifiedBook)).Returns(true);
 
             var result = this.bookService.Update(modifiedBook);
 
@@ -114,7 +114,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.bookServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.bookServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.bookService = this.bookServiceMock.Object;
 
             var result = this.bookService.DeleteById(1);

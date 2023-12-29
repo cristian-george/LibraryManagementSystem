@@ -28,7 +28,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             Injector.Initialize();
             this.service = Injector.Create<BorrowService>();
-            this.service.DeleteAll();
+            _ = this.service.DeleteAll();
         }
 
         /// <summary>
@@ -252,7 +252,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 ParentDomain = parent,
             };
 
-            Assert.AreEqual(parent, this.service.GetParentDomain(children));
+            Assert.AreEqual(parent, BorrowService.GetParentDomain(children));
         }
 
         /// <summary>
@@ -281,7 +281,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             var listOfDomains = new List<Domain>() { d1, d2, d3 };
 
-            Assert.AreEqual(3, this.service.GetNoOfDistinctCategories(listOfDomains));
+            Assert.AreEqual(3, BorrowService.GetNoOfDistinctCategories(listOfDomains));
         }
 
         /// <summary>
@@ -394,7 +394,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowedBooks = new List<Book>(),
             };
 
-            this.service.Insert(borrow);
+            _ = this.service.Insert(borrow);
 
             // Update
             borrow.BorrowedBooks.Add(allBooks.FirstOrDefault());
@@ -551,11 +551,11 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 },
                 BorrowedBooks = new List<Book>()
                 {
-                    new Book(),
-                    new Book(),
-                    new Book(),
-                    new Book(),
-                    new Book(),
+                    new (),
+                    new (),
+                    new (),
+                    new (),
+                    new (),
                 },
             };
 
@@ -579,7 +579,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             Assert.IsFalse(this.service.CheckBorrowedBooksForMaxCBooks(borrow));
 
-            borrow.BorrowedBooks.Remove(new Book());
+            _ = borrow.BorrowedBooks.Remove(new Book());
             borrow.BorrowedBooks = new List<Book>();
 
             Assert.IsTrue(this.service.CheckBorrowedBooksForMaxCBooks(borrow));
@@ -599,7 +599,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 },
                 BorrowedBooks = new List<Book>()
                 {
-                    new Book()
+                    new ()
                     {
                         LecturesOnlyBook = true,
                     },
@@ -623,7 +623,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 },
                 BorrowedBooks = new List<Book>()
                 {
-                    new Book(),
+                    new (),
                 },
             };
 
@@ -662,7 +662,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 },
                 BorrowedBooks = new List<Book>()
                 {
-                    new Book(),
+                    new (),
                 },
             };
 

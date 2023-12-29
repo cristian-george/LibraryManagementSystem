@@ -45,11 +45,11 @@ namespace Library.ServiceLayer.Services
             var result = this.Validator.Validate(entity);
             if (result.IsValid && this.CheckFlags(entity))
             {
-                this.Repository.Insert(entity);
+                _ = this.Repository.Insert(entity);
             }
             else
             {
-                Utils.LogErrors(result);
+                _ = Utils.LogErrors(result);
                 return false;
             }
 

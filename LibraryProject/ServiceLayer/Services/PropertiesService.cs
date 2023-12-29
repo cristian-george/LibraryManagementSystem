@@ -98,7 +98,7 @@ namespace Library.ServiceLayer.Services
             ValidationResult result = this.validator.Validate(context);
             if (result.IsValid)
             {
-                this.repository.Insert(entity);
+                _ = this.repository.Insert(entity);
                 return true;
             }
 
@@ -116,7 +116,7 @@ namespace Library.ServiceLayer.Services
             ValidationResult result = this.validator.Validate(context);
             if (result.IsValid)
             {
-                this.repository.Insert(entity);
+                _ = this.repository.Insert(entity);
                 return true;
             }
 

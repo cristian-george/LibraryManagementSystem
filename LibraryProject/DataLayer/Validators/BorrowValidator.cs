@@ -24,30 +24,30 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public BorrowValidator()
         {
-            this.RuleFor(b => b.Borrower).SetInheritanceValidator(v =>
+            _ = this.RuleFor(b => b.Borrower).SetInheritanceValidator(v =>
             {
-                v.Add(new BorrowerValidator());
+                _ = v.Add(new BorrowerValidator());
             });
 
-            this.RuleFor(b => b.NoOfTimeExtended)
+            _ = this.RuleFor(b => b.NoOfTimeExtended)
                .NotNull().WithMessage("Null {PropertyName}")
                .GreaterThanOrEqualTo(1).WithMessage("{PropertyName} error")
                .LessThan(4).WithMessage("{PropertyName} error");
-            this.RuleFor(b => b.BorrowDate)
+            _ = this.RuleFor(b => b.BorrowDate)
                 .NotNull().WithMessage("Complete Date is not a valid date.");
-            this.RuleFor(b => b.EndDate)
+            _ = this.RuleFor(b => b.EndDate)
                 .NotNull().WithMessage("Complete Date is not a valid date.");
 
-            this.RuleFor(b => b.BorrowedBooks)
+            _ = this.RuleFor(b => b.BorrowedBooks)
                .NotNull().WithMessage("Null {PropertyName}");
 
-            this.RuleFor(b => b.BorrowDate)
+            _ = this.RuleFor(b => b.BorrowDate)
                 .LessThan(DateTime.Now).WithMessage("{PropertyName} is not less than")
                 .NotNull().WithMessage("Null {PropertyName}");
 
-            this.RuleFor(b => b.Librarian).SetValidator(new LibrarianValidator());
+            _ = this.RuleFor(b => b.Librarian).SetValidator(new LibrarianValidator());
 
-            this.RuleForEach(b => b.BorrowedBooks).SetValidator(new BookValidator());
+            _ = this.RuleForEach(b => b.BorrowedBooks).SetValidator(new BookValidator());
         }
     }
 }

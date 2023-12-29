@@ -41,7 +41,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Publisher);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Publisher);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Publisher);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Publisher);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Publisher);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Publisher);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Year);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Year);
         }
 
         /// <summary>
@@ -161,7 +161,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Year);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Year);
         }
 
         /// <summary>
@@ -206,7 +206,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.EditionNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.EditionNumber);
         }
 
         /// <summary>
@@ -236,7 +236,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.EditionNumber);
+            _ = result.ShouldHaveValidationErrorFor(a => a.EditionNumber);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NumberOfPages);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NumberOfPages);
         }
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.NumberOfPages);
+            _ = result.ShouldHaveValidationErrorFor(a => a.NumberOfPages);
         }
 
         /// <summary>

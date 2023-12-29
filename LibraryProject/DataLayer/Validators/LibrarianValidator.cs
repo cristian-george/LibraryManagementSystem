@@ -22,7 +22,7 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public LibrarianValidator()
         {
-            this.RuleFor(l => l.IsReader)
+            _ = this.RuleFor(l => l.IsReader)
                 .NotNull().WithMessage("Null {PropertyName}");
             this.Include(new BorrowerValidator());
         }

@@ -43,7 +43,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestInsert()
         {
             var borrow = TestUtils.GetBorrowModel();
-            this.borrowServiceMock.Setup(x => x.Insert(borrow)).Returns(true);
+            _ = this.borrowServiceMock.Setup(x => x.Insert(borrow)).Returns(true);
             this.borrowService = this.borrowServiceMock.Object;
 
             var result = this.borrowService.Insert(borrow);
@@ -57,7 +57,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            this.borrowServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.borrowServiceMock.Setup(x => x.GetAll(null, null, null))
                 .Returns(
                 new List<Borrow>()
                 { TestUtils.GetBorrowModel() });
@@ -76,7 +76,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestGetById()
         {
             var borrow = TestUtils.GetBorrowModelWithId();
-            this.borrowServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowServiceMock.Setup(x => x.GetByID(1))
                 .Returns(TestUtils.GetBorrowModelWithId());
 
             this.borrowService = this.borrowServiceMock.Object;
@@ -94,7 +94,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         {
             var borrow = TestUtils.GetBorrowModel();
 
-            this.borrowServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowServiceMock.Setup(x => x.GetByID(1))
                 .Returns(borrow);
 
             this.borrowService = this.borrowServiceMock.Object;
@@ -102,7 +102,7 @@ namespace Library.ServiceLayer.Tests.Mocks
             var modifiedBorrow = this.borrowService.GetByID(1);
             modifiedBorrow.EndDate = DateTime.Now;
 
-            this.borrowServiceMock.Setup(x => x.Update(modifiedBorrow)).Returns(true);
+            _ = this.borrowServiceMock.Setup(x => x.Update(modifiedBorrow)).Returns(true);
 
             var result = this.borrowService.Update(modifiedBorrow);
 
@@ -115,7 +115,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            this.borrowServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            _ = this.borrowServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
             this.borrowService = this.borrowServiceMock.Object;
 
             var result = this.borrowService.DeleteById(1);

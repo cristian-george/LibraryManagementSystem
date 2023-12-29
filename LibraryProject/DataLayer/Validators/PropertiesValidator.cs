@@ -22,34 +22,34 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public PropertiesValidator()
         {
-            this.RuleFor(p => p.DOMENII)
+            _ = this.RuleFor(p => p.DOMENII)
             .NotNull().WithMessage("Null {PropertyName}")
             .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.C)
+            _ = this.RuleFor(p => p.C)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.PER)
+            _ = this.RuleFor(p => p.PER)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.D)
+            _ = this.RuleFor(p => p.D)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.NMC)
+            _ = this.RuleFor(p => p.NMC)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.L)
+            _ = this.RuleFor(p => p.L)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.LIM)
+            _ = this.RuleFor(p => p.LIM)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.DELTA)
+            _ = this.RuleFor(p => p.DELTA)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.NCZ)
+            _ = this.RuleFor(p => p.NCZ)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
-            this.RuleFor(p => p.PERSIMP)
+            _ = this.RuleFor(p => p.PERSIMP)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .GreaterThanOrEqualTo(1);
         }

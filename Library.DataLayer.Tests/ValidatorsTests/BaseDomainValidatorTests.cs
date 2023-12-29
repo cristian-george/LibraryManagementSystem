@@ -41,7 +41,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Name);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Name);
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Name);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Name);
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.Name);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Name);
         }
 
         /// <summary>
@@ -131,7 +131,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldHaveValidationErrorFor(a => a.ChildrenDomains);
+            _ = result.ShouldHaveValidationErrorFor(a => a.ChildrenDomains);
         }
     }
 }
