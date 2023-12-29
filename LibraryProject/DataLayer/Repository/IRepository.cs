@@ -5,7 +5,7 @@
 /// <summary>
 /// The Interfaces namespace.
 /// </summary>
-namespace Library.DataLayer.Repository.Interfaces
+namespace Library.DataLayer.Repository
 {
     using System;
     using System.Collections.Generic;
@@ -15,49 +15,48 @@ namespace Library.DataLayer.Repository.Interfaces
     /// <summary>
     /// Interface for the repository.
     /// </summary>
-    /// <typeparam name="T"> ceva. </typeparam>
+    /// <typeparam name="T"> A reference type. </typeparam>
     public interface IRepository<T>
     {
         /// <summary>
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity"> The entity. </param>
-        /// <returns> ceva. </returns>.
+        /// <returns> bool. </returns>.
         bool Insert(T entity);
 
         /// <summary>
         /// Updates the specified item.
         /// </summary>
         /// <param name="item"> The item. </param>
-        /// <returns> ceva. </returns>.
+        /// <returns> bool. </returns>.
         bool Update(T item);
 
         /// <summary>
         /// Deletes the specified identifier.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// <returns> ceva. </returns>.
+        /// <returns> bool. </returns>.
         bool DeleteById(object id);
 
         /// <summary>
         /// Deletes the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns> ceva. </returns>.
+        /// <returns> bool. </returns>.
         bool Delete(T entity);
 
         /// <summary>
         /// Deletes all entities from table.
         /// </summary>
-        /// <param name="tableName">Name of the table.</param>
-        /// <returns> ceva. </returns>.
+        /// <returns> bool. </returns>.
         bool DeleteAllEntitiesFromTable();
 
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// <returns> ceva. </returns>.
+        /// <returns> Object of type T. </returns>.
         T GetByID(object id);
 
         /// <summary>
@@ -66,7 +65,7 @@ namespace Library.DataLayer.Repository.Interfaces
         /// <param name="filter"> The filter. </param>
         /// <param name="orderBy"> The order by. </param>
         /// <param name="includeProperties"> The include properties. </param>
-        /// <returns> ceva. </returns>.
+        /// <returns> IEnumerable of T. </returns>.
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

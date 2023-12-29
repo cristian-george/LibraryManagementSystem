@@ -27,14 +27,14 @@ namespace Library.DataLayer.Repository.Interfaces
         /// Gets the number of borrows today.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// /// <returns> Int. </returns>
+        /// /// <returns> int. </returns>
         public int GetNumberOfBorrowsToday(int id);
 
         /// <summary>
         /// Gets the books between past months and present.
         /// </summary>
         /// <param name="months"> The months. </param>
-        /// /// <returns> IEnumerable.<Borrow>. </returns>
+        /// /// <returns> IEnumerable of Borrow. </returns>
         public IEnumerable<Borrow> GetBooksBetweenPastMonthsAndPresent(int months);
     }
 }

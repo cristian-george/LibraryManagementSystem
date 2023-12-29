@@ -6,7 +6,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 {
     using System.Collections.Generic;
     using Library.DomainLayer;
-    using Library.ServiceLayer.IServices;
+    using Library.ServiceLayer.Interfaces;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

@@ -26,7 +26,7 @@ namespace Library.DataLayer.Validators
             _ = this.RuleFor(a => a.PhoneNumber)
                 .NotNull().WithMessage("Null phone number")
                 .NotEmpty().WithMessage("Empty phone number")
-                .Must(this.DoesNotContainLetters)
+                .Must(DoesNotContainLetters)
                 .Length(10).WithMessage("Lenght should be 10");
 
             _ = this.RuleFor(a => a.Email)
@@ -38,7 +38,7 @@ namespace Library.DataLayer.Validators
         /// </summary>
         /// <param name="phoneNumber"> The phone number. </param>
         /// <returns> bool. </returns>
-        protected bool DoesNotContainLetters(string phoneNumber)
+        protected static bool DoesNotContainLetters(string phoneNumber)
         {
             if (phoneNumber == null)
             {

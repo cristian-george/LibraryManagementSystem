@@ -1,8 +1,8 @@
-﻿// <copyright file="IBaseService.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="IService.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.IServices
+namespace Library.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
@@ -10,10 +10,10 @@ namespace Library.ServiceLayer.IServices
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Interface for the repository.
+    /// Interface for the service.
     /// </summary>
-    /// <typeparam name="T"> Ceva. </typeparam>
-    public interface IBaseService<T>
+    /// <typeparam name="T"> A reference type. </typeparam>
+    public interface IService<T>
         where T : class
     {
         /// <summary>
@@ -27,28 +27,28 @@ namespace Library.ServiceLayer.IServices
         /// Updates the specified item.
         /// </summary>
         /// <param name="entity"> The entity. </param>
-        /// <returns> T. </returns>
+        /// <returns> bool. </returns>
         bool Update(T entity);
 
         /// <summary>
         /// Deletes the by identifier.
         /// </summary>
         /// <param name="entity"> The entity. </param>
-        /// <returns> T. </returns>
+        /// <returns> bool. </returns>
         bool DeleteById(object entity);
 
         /// <summary>
         /// Deletes all.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns> ceva. </returns>
+        /// <returns> bool. </returns>
         bool DeleteAll();
 
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// <returns> T. </returns>
+        /// <returns> Object of type <typeparamref name="T"/>. </returns>
         T GetByID(object id);
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Library.ServiceLayer.IServices
         /// <param name="filter"> filter. </param>
         /// <param name="orderBy"> orderBy. </param>
         /// <param name="includeProperties"> includeProperties. </param>
-        /// <returns> IEnumerable<typeparamref name="T"/>. </returns>
+        /// <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
         IEnumerable<T> GetAll(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

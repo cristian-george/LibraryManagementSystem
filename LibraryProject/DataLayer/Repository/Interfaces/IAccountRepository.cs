@@ -10,7 +10,7 @@ namespace Library.DataLayer.Repository.Interfaces
     using Library.DomainLayer;
 
     /// <summary>
-    /// Interface IAccountRepository
+    /// Interface IAccountRepository.
     /// Implements the <see cref="IRepository{Library.DomainLayer.Person.Account}" />.
     /// </summary>
     /// <seealso cref="IRepository{Library.DomainLayer.Person.Account}" />

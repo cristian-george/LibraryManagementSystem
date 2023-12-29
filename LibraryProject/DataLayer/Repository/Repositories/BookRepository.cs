@@ -147,7 +147,7 @@ namespace Library.DataLayer.Repository.Concretes
         /// <param name="domain"> The domain. </param>
         /// <param name="domains"> The domains. </param>
         /// <returns><c> true </c> if XXXX, <c>false</c> otherwise. </returns>
-        private bool CheckIfDomainExists(Domain domain, List<Domain> domains)
+        private static bool CheckIfDomainExists(Domain domain, List<Domain> domains)
         {
             var noOfBadDomains = (from d in domains where d.Id == domain.Id select d).Count();
 
@@ -162,7 +162,7 @@ namespace Library.DataLayer.Repository.Concretes
                 return false;
             }
 
-            return this.CheckIfDomainExists(domain.ParentDomain, domains);
+            return CheckIfDomainExists(domain.ParentDomain, domains);
         }
     }
 }

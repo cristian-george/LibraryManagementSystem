@@ -25,7 +25,7 @@ namespace Library.DataLayer.Repository.Concretes
         /// <summary>
         /// Gets the last properties.
         /// </summary>
-        /// <returns> ceva. </returns>
+        /// <returns> Properties. </returns>
         public Properties GetLastProperties()
         {
             try

@@ -16,55 +16,55 @@ namespace Library.DataLayer
     public class LibraryContext : DbContext
     {
         /// <summary>
-        /// Gets or sets or set the Librarians table.
+        /// Gets or sets the Librarians table.
         /// </summary>
         /// <value> The librarians. </value>
         public DbSet<Librarian> Librarians { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Accounts table.
+        /// Gets or sets the Accounts table.
         /// </summary>
         /// <value> The accounts. </value>
         public DbSet<Account> Accounts { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Borrowers table.
+        /// Gets or sets the Borrowers table.
         /// </summary>
         /// <value> The borrowers. </value>
         public DbSet<Borrower> Borrowers { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Authors table.
+        /// Gets or sets the Authors table.
         /// </summary>
         /// <value> The authors. </value>
         public DbSet<Author> Authors { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Books table.
+        /// Gets or sets the Books table.
         /// </summary>
         /// <value> The books. </value>
         public DbSet<Book> Books { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Borrow table.
+        /// Gets or sets the Borrow table.
         /// </summary>
         /// <value> The borrow. </value>
         public DbSet<Borrow> Borrow { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Domains table.
+        /// Gets or sets the Domains table.
         /// </summary>
         /// <value> The domains. </value>
         public DbSet<Domain> Domains { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Editions table.
+        /// Gets or sets the Editions table.
         /// </summary>
         /// <value> The editions. </value>
         public DbSet<Edition> Editions { get; set; }
 
         /// <summary>
-        /// Gets or sets or set the Properties table.
+        /// Gets or sets the Properties table.
         /// </summary>
         /// <value> The properties. </value>
         public DbSet<Properties> Properties { get; set; }

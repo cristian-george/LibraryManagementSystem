@@ -2,16 +2,16 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.IServices
+namespace Library.ServiceLayer.Interfaces
 {
     using Library.DomainLayer;
 
     /// <summary>
     /// Interface IDomainService
-    /// Implements the <see cref="IBaseService{Domain}" />.
+    /// Implements the <see cref="IService{Domain}" />.
     /// </summary>
-    /// <seealso cref="IBaseService{Domain}" />
-    public interface IDomainService : IBaseService<Domain>
+    /// <seealso cref="IService{Domain}" />
+    public interface IDomainService : IService<Domain>
     {
     }
 }

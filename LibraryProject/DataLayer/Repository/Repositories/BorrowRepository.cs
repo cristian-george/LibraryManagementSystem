@@ -54,8 +54,6 @@ namespace Library.DataLayer.Repository.Concretes
                         minDate = (DateTime)borrow.BorrowDate;
                     }
                 }
-
-                return minDate;
             }
             catch (Exception ex)
             {
@@ -69,7 +67,7 @@ namespace Library.DataLayer.Repository.Concretes
         /// Gets the number of borrows today.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// <returns> ceva. </returns>
+        /// <returns> int. </returns>
         public int GetNumberOfBorrowsToday(int id)
         {
             var numberOfBorrowsToday = 0;
@@ -83,15 +81,13 @@ namespace Library.DataLayer.Repository.Concretes
                         numberOfBorrowsToday++;
                     }
                 }
-
-                return numberOfBorrowsToday;
             }
             catch (Exception ex)
             {
                 this.Logger.Error(ex.Message + "Returning 0");
             }
 
-            return 0;
+            return numberOfBorrowsToday;
         }
     }
 }

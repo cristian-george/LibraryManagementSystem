@@ -27,13 +27,13 @@ namespace Library.DataLayer.Validators
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
-                .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
+                .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
-                .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
+                .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.Address)
                 .NotNull().WithMessage("Null {PropertyName}")
@@ -51,7 +51,7 @@ namespace Library.DataLayer.Validators
         /// </summary>
         /// <param name="name"> The name. </param>
         /// <returns> bool. </returns>
-        protected bool BeAValidName(string name)
+        protected static bool BeAValidName(string name)
         {
             if (name == null)
             {

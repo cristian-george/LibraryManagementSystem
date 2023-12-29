@@ -12,7 +12,7 @@ namespace Library.ServiceLayer.Services
     using Library.DomainLayer;
     using Library.Injection;
     using Library.ServiceLayer;
-    using Library.ServiceLayer.IServices;
+    using Library.ServiceLayer.Interfaces;
 
     /// <summary>
     /// Class BorrowService.

@@ -6,7 +6,7 @@ namespace Library.Injection
 {
     using Library.DataLayer.Repository.Concretes;
     using Library.DataLayer.Repository.Interfaces;
-    using Library.ServiceLayer.IServices;
+    using Library.ServiceLayer.Interfaces;
     using Library.ServiceLayer.Services;
     using Ninject.Modules;
 
@@ -23,23 +23,7 @@ namespace Library.Injection
         public override void Load()
         {
             this.LoadRepositoryLayer();
-            this.LoadServicesLayer();
-        }
-
-        /// <summary>
-        /// Loads the services layer.
-        /// </summary>
-        private void LoadServicesLayer()
-        {
-            _ = this.Bind<IAuthorService>().To<AuthorService>();
-            _ = this.Bind<IBookService>().To<BookService>();
-            _ = this.Bind<IBorrowerService>().To<BorrowerService>();
-            _ = this.Bind<IBorrowService>().To<BorrowService>();
-            _ = this.Bind<IDomainService>().To<DomainService>();
-            _ = this.Bind<IEditionService>().To<EditionService>();
-            _ = this.Bind<ILibrarianService>().To<LibrarianService>();
-            _ = this.Bind<IPropertiesService>().To<PropertiesService>();
-            _ = this.Bind<IAccountService>().To<AccountService>();
+            this.LoadServiceLayer();
         }
 
         /// <summary>
@@ -56,6 +40,22 @@ namespace Library.Injection
             _ = this.Bind<ILibrarianRepository>().To<LibrarianRepository>();
             _ = this.Bind<IPropertiesRepository>().To<PropertiesRepository>();
             _ = this.Bind<IAccountRepository>().To<AccountRepository>();
+        }
+
+        /// <summary>
+        /// Loads the service layer.
+        /// </summary>
+        private void LoadServiceLayer()
+        {
+            _ = this.Bind<IAuthorService>().To<AuthorService>();
+            _ = this.Bind<IBookService>().To<BookService>();
+            _ = this.Bind<IBorrowerService>().To<BorrowerService>();
+            _ = this.Bind<IBorrowService>().To<BorrowService>();
+            _ = this.Bind<IDomainService>().To<DomainService>();
+            _ = this.Bind<IEditionService>().To<EditionService>();
+            _ = this.Bind<ILibrarianService>().To<LibrarianService>();
+            _ = this.Bind<IPropertiesService>().To<PropertiesService>();
+            _ = this.Bind<IAccountService>().To<AccountService>();
         }
     }
 }

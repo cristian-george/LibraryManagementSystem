@@ -38,7 +38,7 @@ namespace Library.DataLayer.Validators.DomainValidators
         /// <typeparam name="T"> ceva. </typeparam>
         /// <param name="entities">The entities.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        protected bool HaveEntities<T>(ICollection<T> entities)
+        protected static bool HaveEntities<T>(ICollection<T> entities)
         {
             if (entities == null || entities.Count == 0)
             {

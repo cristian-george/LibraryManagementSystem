@@ -28,13 +28,13 @@ namespace Library.DataLayer.Validators
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
-                .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
+                .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(a => a.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
                 .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
-                .Must(this.BeAValidName).WithMessage("{PropertyName} contains invalid characters");
+                .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
         }
 
         /// <summary>
@@ -42,7 +42,7 @@ namespace Library.DataLayer.Validators
         /// </summary>
         /// <param name="name"> The name. </param>
         /// <returns> bool. </returns>
-        protected bool BeAValidName(string name)
+        protected static bool BeAValidName(string name)
         {
             if (name == null)
             {
@@ -60,7 +60,7 @@ namespace Library.DataLayer.Validators
         /// <typeparam name="T"> Entities as ICollection of T. </typeparam>
         /// <param name="entities"> The entities. </param>
         /// <returns> bool. </returns>
-        protected bool HaveEntities<T>(ICollection<T> entities)
+        protected static bool HaveEntities<T>(ICollection<T> entities)
         {
             if (entities == null || entities.Count == 0)
             {

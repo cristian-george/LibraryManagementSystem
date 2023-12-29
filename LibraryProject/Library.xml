@@ -11,55 +11,55 @@
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Librarians">
             <summary>
-            Gets or sets or set the Librarians table.
+            Gets or sets the Librarians table.
             </summary>
             <value> The librarians. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Accounts">
             <summary>
-            Gets or sets or set the Accounts table.
+            Gets or sets the Accounts table.
             </summary>
             <value> The accounts. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Borrowers">
             <summary>
-            Gets or sets or set the Borrowers table.
+            Gets or sets the Borrowers table.
             </summary>
             <value> The borrowers. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Authors">
             <summary>
-            Gets or sets or set the Authors table.
+            Gets or sets the Authors table.
             </summary>
             <value> The authors. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Books">
             <summary>
-            Gets or sets or set the Books table.
+            Gets or sets the Books table.
             </summary>
             <value> The books. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Borrow">
             <summary>
-            Gets or sets or set the Borrow table.
+            Gets or sets the Borrow table.
             </summary>
             <value> The borrow. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Domains">
             <summary>
-            Gets or sets or set the Domains table.
+            Gets or sets the Domains table.
             </summary>
             <value> The domains. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Editions">
             <summary>
-            Gets or sets or set the Editions table.
+            Gets or sets the Editions table.
             </summary>
             <value> The editions. </value>
         </member>
         <member name="P:Library.DataLayer.LibraryContext.Properties">
             <summary>
-            Gets or sets or set the Properties table.
+            Gets or sets the Properties table.
             </summary>
             <value> The properties. </value>
         </member>
@@ -137,6 +137,166 @@
             </summary>
             <param name="entity"> The entity. </param>
             <returns> bool. </returns>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IAccountRepository">
+            <summary>
+            Interface IAccountRepository.
+            Implements the <see cref="!:IRepository&lt;Library.DomainLayer.Person.Account&gt;" />.
+            </summary>
+            <seealso cref="!:IRepository&lt;Library.DomainLayer.Person.Account&gt;" />
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IAuthorRepository">
+            <summary>
+            Interface for the author controller.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IBookRepository">
+            <summary>
+            Interface for the book controller.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetParentDomain(Library.DomainLayer.Domain)">
+            <summary>
+            Gets the parent domain.
+            </summary>
+            <param name="domain"> The domain. </param>
+            <returns> The parent domain. </returns>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetDomains(Library.DomainLayer.Domain,System.Collections.Generic.List{Library.DomainLayer.Domain})">
+            <summary>
+            Gets the domains.
+            </summary>
+            <param name="domain">The domain.</param>
+            <param name="domains">The domains.</param>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetUnavailableBooks(System.Collections.Generic.IEnumerable{Library.DomainLayer.Book})">
+            <summary>
+            Gets the unavailable books.
+            </summary>
+            <param name="allBooksWithTheSameName"> Books with the same name. </param>
+            <returns> IEnumerable of Book. </returns>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetBooksWithTheSameTitle(System.String)">
+            <summary>
+            Gets the books with the same title.
+            </summary>
+            <param name="title"> The title. </param>
+            <returns> IEnumerable of Book. </returns>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IBorrowerRepository">
+            <summary>
+            Interface for the borrower controller.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IBorrowRepository">
+            <summary>
+            Interface for the borrow controller.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetFirstBorrowDate(System.Int32)">
+            <summary>
+            Gets the first borrow date.
+            </summary>
+            <param name="id"> The identifier. </param>
+            <returns> DateTime. </returns>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetNumberOfBorrowsToday(System.Int32)">
+            <summary>
+            Gets the number of borrows today.
+            </summary>
+            <param name="id"> The identifier. </param>
+            /// <returns> int. </returns>
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetBooksBetweenPastMonthsAndPresent(System.Int32)">
+            <summary>
+            Gets the books between past months and present.
+            </summary>
+            <param name="months"> The months. </param>
+            /// <returns> IEnumerable of Borrow. </returns>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IDomainRepository">
+            <summary>
+            Interface for the domain controller.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IEditionRepository">
+            <summary>
+            Interface for the edition controller.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.ILibrarianRepository">
+            <summary>
+            Interface for the librarian controller.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repository.Interfaces.IPropertiesRepository">
+            <summary>
+            Interface IPropertiesRepository
+            Implements the <see cref="T:Library.DataLayer.Repository.IRepository`1" />.
+            </summary>
+            <seealso cref="T:Library.DataLayer.Repository.IRepository`1" />
+        </member>
+        <member name="M:Library.DataLayer.Repository.Interfaces.IPropertiesRepository.GetLastProperties">
+            <summary>
+            Gets the last properties.
+            </summary>
+            <returns> Properties. </returns>
+        </member>
+        <member name="T:Library.DataLayer.Repository.IRepository`1">
+            <summary>
+            Interface for the repository.
+            </summary>
+            <typeparam name="T"> A reference type. </typeparam>
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.Insert(`0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity"> The entity. </param>
+            <returns> bool. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.Update(`0)">
+            <summary>
+            Updates the specified item.
+            </summary>
+            <param name="item"> The item. </param>
+            <returns> bool. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.DeleteById(System.Object)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id"> The identifier. </param>
+            <returns> bool. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.Delete(`0)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns> bool. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.DeleteAllEntitiesFromTable">
+            <summary>
+            Deletes all entities from table.
+            </summary>
+            <returns> bool. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.GetByID(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id"> The identifier. </param>
+            <returns> Object of type T. </returns>.
+        </member>
+        <member name="M:Library.DataLayer.Repository.IRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter"> The filter. </param>
+            <param name="orderBy"> The order by. </param>
+            <param name="includeProperties"> The include properties. </param>
+            <returns> IEnumerable of T. </returns>.
         </member>
         <member name="T:Library.DataLayer.Repository.Concretes.AccountRepository">
             <summary>
@@ -233,7 +393,7 @@
             Gets the number of borrows today.
             </summary>
             <param name="id"> The identifier. </param>
-            <returns> ceva. </returns>
+            <returns> int. </returns>
         </member>
         <member name="T:Library.DataLayer.Repository.Concretes.DomainRepository">
             <summary>
@@ -267,162 +427,7 @@
             <summary>
             Gets the last properties.
             </summary>
-            <returns> ceva. </returns>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IAccountRepository">
-            <summary>
-            Interface IAccountRepository
-            Implements the <see cref="!:IRepository&lt;Library.DomainLayer.Person.Account&gt;" />.
-            </summary>
-            <seealso cref="!:IRepository&lt;Library.DomainLayer.Person.Account&gt;" />
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IAuthorRepository">
-            <summary>
-            Interface for the author controller.
-            </summary>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IBookRepository">
-            <summary>
-            Interface for the book controller.
-            </summary>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetParentDomain(Library.DomainLayer.Domain)">
-            <summary>
-            Gets the parent domain.
-            </summary>
-            <param name="domain"> The domain. </param>
-            <returns> ceva. </returns>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetDomains(Library.DomainLayer.Domain,System.Collections.Generic.List{Library.DomainLayer.Domain})">
-            <summary>
-            Gets the domains.
-            </summary>
-            <param name="domain">The domain.</param>
-            <param name="domains">The domains.</param>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetUnavailableBooks(System.Collections.Generic.IEnumerable{Library.DomainLayer.Book})">
-            <summary>
-            Gets the unavailable books.
-            </summary>
-            <param name="allBooksWithTheSameName"> Name of all books with the same. </param>
-            <returns> ceva. </returns>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBookRepository.GetBooksWithTheSameTitle(System.String)">
-            <summary>
-            Gets the books with the same title.
-            </summary>
-            <param name="title"> The title. </param>
-            <returns> ceva. </returns>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IBorrowerRepository">
-            <summary>
-            Interface for the borrower controller.
-            </summary>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IBorrowRepository">
-            <summary>
-            Interface for the borrow controller.
-            </summary>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetFirstBorrowDate(System.Int32)">
-            <summary>
-            Gets the first borrow date.
-            </summary>
-            <param name="id"> The identifier. </param>
-            <returns> DateTime. </returns>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetNumberOfBorrowsToday(System.Int32)">
-            <summary>
-            Gets the number of borrows today.
-            </summary>
-            <param name="id"> The identifier. </param>
-            /// <returns> Int. </returns>
-        </member>
-        <!-- Badly formed XML comment ignored for member "M:Library.DataLayer.Repository.Interfaces.IBorrowRepository.GetBooksBetweenPastMonthsAndPresent(System.Int32)" -->
-        <member name="T:Library.DataLayer.Repository.Interfaces.IDomainRepository">
-            <summary>
-            Interface for the domain controller.
-            </summary>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IEditionRepository">
-            <summary>
-            Interface for the edition controller.
-            </summary>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.ILibrarianRepository">
-            <summary>
-            Interface for the librarian controller.
-            </summary>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IPropertiesRepository">
-            <summary>
-            Interface IPropertiesRepository
-            Implements the <see cref="T:Library.DataLayer.Repository.Interfaces.IRepository`1" />.
-            </summary>
-            <seealso cref="T:Library.DataLayer.Repository.Interfaces.IRepository`1" />
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IPropertiesRepository.GetLastProperties">
-            <summary>
-            Gets the last properties.
-            </summary>
             <returns> Properties. </returns>
-        </member>
-        <member name="T:Library.DataLayer.Repository.Interfaces.IRepository`1">
-            <summary>
-            Interface for the repository.
-            </summary>
-            <typeparam name="T"> ceva. </typeparam>
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.Insert(`0)">
-            <summary>
-            Inserts the specified entity.
-            </summary>
-            <param name="entity"> The entity. </param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.Update(`0)">
-            <summary>
-            Updates the specified item.
-            </summary>
-            <param name="item"> The item. </param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.DeleteById(System.Object)">
-            <summary>
-            Deletes the specified identifier.
-            </summary>
-            <param name="id"> The identifier. </param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.Delete(`0)">
-            <summary>
-            Deletes the specified entity.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.DeleteAllEntitiesFromTable">
-            <summary>
-            Deletes all entities from table.
-            </summary>
-            <param name="tableName">Name of the table.</param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.GetByID(System.Object)">
-            <summary>
-            Gets the by identifier.
-            </summary>
-            <param name="id"> The identifier. </param>
-            <returns> ceva. </returns>.
-        </member>
-        <member name="M:Library.DataLayer.Repository.Interfaces.IRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
-            <summary>
-            Gets the specified filter.
-            </summary>
-            <param name="filter"> The filter. </param>
-            <param name="orderBy"> The order by. </param>
-            <param name="includeProperties"> The include properties. </param>
-            <returns> ceva. </returns>.
         </member>
         <member name="T:Library.DataLayer.Validators.AccountValidator">
             <summary>
@@ -964,14 +969,14 @@
             Loads the module into the kernel.
             </summary>
         </member>
-        <member name="M:Library.Injection.Bindings.LoadServicesLayer">
-            <summary>
-            Loads the services layer.
-            </summary>
-        </member>
         <member name="M:Library.Injection.Bindings.LoadRepositoryLayer">
             <summary>
             Loads the repository layer.
+            </summary>
+        </member>
+        <member name="M:Library.Injection.Bindings.LoadServiceLayer">
+            <summary>
+            Loads the service layer.
             </summary>
         </member>
         <member name="T:Library.Injection.Injector">
@@ -997,162 +1002,241 @@
             It can be whether a repository interface or a service interface. </typeparam>
             <returns> An instance of a repository or a service. </returns>
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IAccountService">
+        <member name="T:Library.ServiceLayer.BaseService`3">
             <summary>
-            Interface IAccountService
-            Implements the <see cref="!:IBaseService&lt;Library.DomainLayer.Person.Account&gt;"/>.
+            Class BaseService.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="!:IBaseService&lt;Library.DomainLayer.Person.Account&gt;" />
+            <typeparam name="TModel"> Reference type. </typeparam>
+            <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
+            <typeparam name="TPropRepository"> Implements IPropertiesRepository. </typeparam>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IAuthorService">
+        <member name="M:Library.ServiceLayer.BaseService`3.#ctor(`1,`2)">
             <summary>
-            Interface IAuthorService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.BaseService`3"/> class.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
+            <param name="repository"> The repository. </param>
+            <param name="propRepo"> The property repo. </param>
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IBaseService`1">
+        <member name="P:Library.ServiceLayer.BaseService`3.Repository">
             <summary>
-            Interface for the repository.
+            Gets or sets the repository.
             </summary>
-            <typeparam name="T"> Ceva. </typeparam>
+            <value> The repository. </value>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.Insert(`0)">
+        <member name="P:Library.ServiceLayer.BaseService`3.Validator">
+            <summary>
+            Gets or sets the validator.
+            </summary>
+            <value> The validator. </value>
+        </member>
+        <member name="P:Library.ServiceLayer.BaseService`3.PropertiesRepository">
+            <summary>
+            Gets or sets the properties repository.
+            </summary>
+            <value> The properties repository. </value>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`3.Insert(`0)">
             <summary>
             Inserts the specified entity.
             </summary>
             <param name="entity"> The entity. </param>
-            <returns> T. </returns>
+            <returns> None. </returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.Update(`0)">
+        <member name="M:Library.ServiceLayer.BaseService`3.Update(`0)">
             <summary>
             Updates the specified item.
             </summary>
             <param name="entity"> The entity. </param>
-            <returns> T. </returns>
+            <returns> bool. </returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.DeleteById(System.Object)">
+        <member name="M:Library.ServiceLayer.BaseService`3.DeleteById(System.Object)">
             <summary>
             Deletes the by identifier.
             </summary>
-            <param name="entity"> The entity. </param>
-            <returns> T. </returns>
+            <param name="id"> The identifier. </param>
+            <returns> bool. </returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.DeleteAll">
-            <summary>
-            Deletes all.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns> ceva. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.GetByID(System.Object)">
+        <member name="M:Library.ServiceLayer.BaseService`3.GetByID(System.Object)">
             <summary>
             Gets the by identifier.
             </summary>
             <param name="id"> The identifier. </param>
-            <returns> T. </returns>
+            <returns> TModel. </returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBaseService`1.GetAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+        <member name="M:Library.ServiceLayer.BaseService`3.GetAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
             <summary>
-            Gets the specified filter.
+            Gets all.
             </summary>
-            <param name="filter"> filter. </param>
-            <param name="orderBy"> orderBy. </param>
-            <param name="includeProperties"> includeProperties. </param>
-            <returns> IEnumerable<typeparamref name="T"/>. </returns>
+            /// <param name="filter"> The filter. </param>
+            <param name="orderBy"> The order by. </param>
+            <param name="includeProperties"> The include properties. </param>
+            <returns> IEnumerable of TModel. </returns>
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IBookService">
+        <member name="M:Library.ServiceLayer.BaseService`3.DeleteAll">
+            <summary>
+            Deletes all.
+            </summary>
+            <param name="entity"> The entity. </param>
+            <returns> bool. </returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IAccountService">
+            <summary>
+            Interface IAccountService
+            Implements the <see cref="!:IService&lt;Library.DomainLayer.Person.Account&gt;"/>.
+            </summary>
+            <seealso cref="!:IService&lt;Library.DomainLayer.Person.Account&gt;" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IAuthorService">
+            <summary>
+            Interface IAuthorService
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IBookService">
             <summary>
             Interface IBookService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            <seealso cref="T:Library.ServiceLayer.IService`1" />.
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IBorrowerService">
+        <member name="T:Library.ServiceLayer.Interfaces.IBorrowerService">
             <summary>
             Interface IBorrowerService
-            Implements the <see cref="!:IBaseService&lt;Library.DomainLayer.Person.Borrower&gt;" />.
+            Implements the <see cref="!:IService&lt;Library.DomainLayer.Person.Borrower&gt;" />.
             </summary>
-            <seealso cref="!:IBaseService&lt;Library.DomainLayer.Person.Borrower&gt;" />
+            <seealso cref="!:IService&lt;Library.DomainLayer.Person.Borrower&gt;" />
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IBorrowService">
+        <member name="T:Library.ServiceLayer.Interfaces.IBorrowService">
             <summary>
             Interface IBorrowService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBorrowService.CheckIfBooksAreBorrowable(Library.DomainLayer.Borrow)">
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckIfBooksAreBorrowable(Library.DomainLayer.Borrow)">
             <summary>
             Checks if books are borrowable.
             </summary>
             <param name="entity">The entity.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBorrowService.CheckMaxBorrowBooksToday">
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckMaxBorrowBooksToday">
             <summary>
             Checks the maximum borrow books today.
             </summary>
             <param name="entity">The entity.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBorrowService.CheckCanBorrowMaxNMCInPER(Library.DomainLayer.Borrow)">
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowMaxNMCInPER(Library.DomainLayer.Borrow)">
             <summary>
             Checks the can borrow maximum NMC in per.
             </summary>
             <param name="entity">The entity.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBorrowService.CheckBorrowInDELTATime(Library.DomainLayer.Borrow)">
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowInDELTATime(Library.DomainLayer.Borrow)">
             <summary>
             Checks the borrow in delta time.
             </summary>
             <param name="entity">The entity.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
-        <member name="M:Library.ServiceLayer.IServices.IBorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Borrow)">
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Borrow)">
             <summary>
             Checks the borrowed books for maximum c books.
             </summary>
             <param name="entity">The entity.</param>
             <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IDomainService">
+        <member name="T:Library.ServiceLayer.Interfaces.IDomainService">
             <summary>
             Interface IDomainService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IEditionService">
+        <member name="T:Library.ServiceLayer.Interfaces.IEditionService">
             <summary>
             Interface IEditionService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
         </member>
-        <member name="T:Library.ServiceLayer.IServices.ILibrarianService">
+        <member name="T:Library.ServiceLayer.Interfaces.ILibrarianService">
             <summary>
             Interface ILibrarianService
-            Implements the <see cref="!:IBaseService&lt;Library.DomainLayer.Person.Librarian&gt;" />.
+            Implements the <see cref="!:IService&lt;Library.DomainLayer.Person.Librarian&gt;" />.
             </summary>
-            <seealso cref="!:IBaseService&lt;Library.DomainLayer.Person.Librarian&gt;" />
+            <seealso cref="!:IService&lt;Library.DomainLayer.Person.Librarian&gt;" />
         </member>
-        <member name="T:Library.ServiceLayer.IServices.IPropertiesService">
+        <member name="T:Library.ServiceLayer.Interfaces.IPropertiesService">
             <summary>
             Interface IPropertiesService
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.IService`1">
+            <summary>
+            Interface for the service.
+            </summary>
+            <typeparam name="T"> A reference type. </typeparam>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Insert(`0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity"> The entity. </param>
+            <returns> T. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Update(`0)">
+            <summary>
+            Updates the specified item.
+            </summary>
+            <param name="entity"> The entity. </param>
+            <returns> bool. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.DeleteById(System.Object)">
+            <summary>
+            Deletes the by identifier.
+            </summary>
+            <param name="entity"> The entity. </param>
+            <returns> bool. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.DeleteAll">
+            <summary>
+            Deletes all.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns> bool. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.GetByID(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id"> The identifier. </param>
+            <returns> Object of type <typeparamref name="T"/>. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.GetAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter"> filter. </param>
+            <param name="orderBy"> orderBy. </param>
+            <param name="includeProperties"> includeProperties. </param>
+            <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
         </member>
         <member name="T:Library.ServiceLayer.Services.AccountService">
             <summary>
             Class AccountService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Account, IAccountRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IAccountService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IAccountService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Account, IAccountRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IAccountService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IAccountService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.AccountService.#ctor">
             <summary>
@@ -1163,103 +1247,24 @@
             <summary>
             Class AuthorService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Author, IAuthorRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IAuthorService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IAuthorService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Author, IAuthorRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IAuthorService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IAuthorService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.AuthorService.#ctor">
             <summary>
             Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.AuthorService" /> class.
             </summary>
         </member>
-        <member name="T:Library.ServiceLayer.Services.BaseService`3">
-            <summary>
-            Class BaseService.
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBaseService`1" />.
-            </summary>
-            <typeparam name="TModel"> Reference type. </typeparam>
-            <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
-            <typeparam name="TPropRepository"> Implements IPropertiesRepository. </typeparam>
-            <seealso cref="T:Library.ServiceLayer.IServices.IBaseService`1" />
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.#ctor(`1,`2)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.BaseService`3"/> class.
-            </summary>
-            <param name="repository"> The repository. </param>
-            <param name="propRepo"> The property repo. </param>
-        </member>
-        <member name="P:Library.ServiceLayer.Services.BaseService`3.Repository">
-            <summary>
-            Gets or sets the repository.
-            </summary>
-            <value> The repository. </value>
-        </member>
-        <member name="P:Library.ServiceLayer.Services.BaseService`3.Validator">
-            <summary>
-            Gets or sets the validator.
-            </summary>
-            <value> The validator. </value>
-        </member>
-        <member name="P:Library.ServiceLayer.Services.BaseService`3.PropertiesRepository">
-            <summary>
-            Gets or sets the properties repository.
-            </summary>
-            <value> The properties repository. </value>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.Insert(`0)">
-            <summary>
-            Inserts the specified entity.
-            </summary>
-            <param name="entity"> The entity. </param>
-            <returns> None. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.Update(`0)">
-            <summary>
-            Updates the specified item.
-            </summary>
-            <param name="entity"> The entity. </param>
-            <returns> bool. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.DeleteById(System.Object)">
-            <summary>
-            Deletes the by identifier.
-            </summary>
-            <param name="id"> The identifier. </param>
-            <returns> bool. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.GetByID(System.Object)">
-            <summary>
-            Gets the by identifier.
-            </summary>
-            <param name="id"> The identifier. </param>
-            <returns> TModel. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.GetAll(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
-            <summary>
-            Gets all.
-            </summary>
-            /// <param name="filter"> The filter. </param>
-            <param name="orderBy"> The order by. </param>
-            <param name="includeProperties"> The include properties. </param>
-            <returns> IEnumerable of TModel. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.BaseService`3.DeleteAll">
-            <summary>
-            Deletes all.
-            </summary>
-            <param name="entity"> The entity. </param>
-            <returns> bool. </returns>
-        </member>
         <member name="T:Library.ServiceLayer.Services.BookService">
             <summary>
             Class BookService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Book, IBookRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBookService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IBookService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Book, IBookRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IBookService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IBookService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.BookService.#ctor">
             <summary>
@@ -1321,10 +1326,10 @@
             <summary>
             Class BorrowerService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Borrower, IBorrowerRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBorrowerService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IBorrowerService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Borrower, IBorrowerRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IBorrowerService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IBorrowerService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowerService.#ctor">
             <summary>
@@ -1335,10 +1340,10 @@
             <summary>
             Class BorrowService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Borrow, IBorrowRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IBorrowService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IBorrowService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Borrow, IBorrowRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IBorrowService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IBorrowService" />
         </member>
         <member name="F:Library.ServiceLayer.Services.BorrowService.bookRepository">
             <summary>
@@ -1433,10 +1438,10 @@
             <summary>
             Class DomainService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Domain, IDomainRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IDomainService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IDomainService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Domain, IDomainRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IDomainService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IDomainService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.DomainService.#ctor">
             <summary>
@@ -1450,10 +1455,10 @@
             <summary>
             Class EditionService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Edition, IEditionRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IEditionService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IEditionService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Edition, IEditionRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.IEditionService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IEditionService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.EditionService.#ctor">
             <summary>
@@ -1464,10 +1469,10 @@
             <summary>
             Class LibrarianService.
             Implements the <see cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Librarian, ILibrarianRepository&gt;" />
-            Implements the <see cref="T:Library.ServiceLayer.IServices.ILibrarianService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.ILibrarianService" />.
             </summary>
             <seealso cref="!:Library.ServiceLayer.Services.BaseService&lt;Library.DomainLayer.Person.Librarian, ILibrarianRepository&gt;" />
-            <seealso cref="T:Library.ServiceLayer.IServices.ILibrarianService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.ILibrarianService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.LibrarianService.#ctor">
             <summary>
@@ -1477,9 +1482,9 @@
         <member name="T:Library.ServiceLayer.Services.PropertiesService">
             <summary>
             Class PropertiesService.
-            Implements the <see cref="T:Library.ServiceLayer.IServices.IPropertiesService" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IPropertiesService" />.
             </summary>
-            <seealso cref="T:Library.ServiceLayer.IServices.IPropertiesService" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IPropertiesService" />
         </member>
         <member name="F:Library.ServiceLayer.Services.PropertiesService.validator">
             <summary>

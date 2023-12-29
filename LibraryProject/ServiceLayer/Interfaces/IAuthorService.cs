@@ -2,16 +2,16 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.IServices
+namespace Library.ServiceLayer.Interfaces
 {
     using Library.DomainLayer;
 
     /// <summary>
     /// Interface IAuthorService
-    /// Implements the <see cref="IBaseService{Author}" />.
+    /// Implements the <see cref="IService{Author}" />.
     /// </summary>
-    /// <seealso cref="IBaseService{Author}" />
-    public interface IAuthorService : IBaseService<Author>
+    /// <seealso cref="IService{Author}" />
+    public interface IAuthorService : IService<Author>
     {
     }
 }

@@ -2,26 +2,25 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.Services
+namespace Library.ServiceLayer
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
     using FluentValidation;
+    using Library.DataLayer.Repository;
     using Library.DataLayer.Repository.Interfaces;
-    using Library.ServiceLayer;
-    using Library.ServiceLayer.IServices;
 
     /// <summary>
     /// Class BaseService.
-    /// Implements the <see cref="IBaseService{T}" />.
+    /// Implements the <see cref="IService{T}" />.
     /// </summary>
     /// <typeparam name="TModel"> Reference type. </typeparam>
     /// <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
     /// <typeparam name="TPropRepository"> Implements IPropertiesRepository. </typeparam>
-    /// <seealso cref="IBaseService{T}" />
-    public abstract class BaseService<TModel, TRepository, TPropRepository> : IBaseService<TModel>
+    /// <seealso cref="IService{T}" />
+    public abstract class BaseService<TModel, TRepository, TPropRepository> : IService<TModel>
         where TModel : class
         where TRepository : IRepository<TModel>
         where TPropRepository : IPropertiesRepository

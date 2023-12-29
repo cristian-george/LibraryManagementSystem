@@ -14,7 +14,7 @@ namespace Library.ServiceLayer.Services
     using Library.DataLayer.Validators;
     using Library.DomainLayer;
     using Library.Injection;
-    using Library.ServiceLayer.IServices;
+    using Library.ServiceLayer.Interfaces;
 
     /// <summary>
     /// Class PropertiesService.

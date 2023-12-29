@@ -2,16 +2,16 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.IServices
+namespace Library.ServiceLayer.Interfaces
 {
     using Library.DomainLayer;
 
     /// <summary>
     /// Interface IBorrowService
-    /// Implements the <see cref="IBaseService{Borrow}" />.
+    /// Implements the <see cref="IService{Borrow}" />.
     /// </summary>
-    /// <seealso cref="IBaseService{Borrow}" />
-    public interface IBorrowService : IBaseService<Borrow>
+    /// <seealso cref="IService{Borrow}" />
+    public interface IBorrowService : IService<Borrow>
     {
         /// <summary>
         /// Checks if books are borrowable.
