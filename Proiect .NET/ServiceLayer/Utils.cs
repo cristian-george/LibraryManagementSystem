@@ -15,7 +15,7 @@ namespace Library.ServiceLayer
         /// <summary>
         /// The logger.
         /// </summary>
-        private static Logger logger = LogManager.GetCurrentClassLogger();
+        private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Logs the errors.
@@ -28,7 +28,7 @@ namespace Library.ServiceLayer
             {
                 foreach (var error in results.Errors)
                 {
-                    logger.Error($"{error.ErrorMessage}");
+                    Logger.Error($"{error.ErrorMessage}");
                 }
 
                 return false;

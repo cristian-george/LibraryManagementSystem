@@ -22,35 +22,35 @@ namespace Library.DataLayer.Interfaces
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity"> The entity. </param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         bool Insert(T entity);
 
         /// <summary>
         /// Updates the specified item.
         /// </summary>
         /// <param name="item"> The item. </param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         bool Update(T item);
 
         /// <summary>
         /// Deletes the specified identifier.
         /// </summary>
         /// <param name="id"> The identifier. </param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         bool DeleteById(object id);
 
         /// <summary>
         /// Deletes the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         bool Delete(T entity);
 
         /// <summary>
         /// Deletes all entities from table.
         /// </summary>
         /// <param name="tableName">Name of the table.</param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         bool DeleteAllEntitiesFromTable();
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace Library.DataLayer.Interfaces
         /// <param name="filter"> The filter. </param>
         /// <param name="orderBy"> The order by. </param>
         /// <param name="includeProperties"> The include properties. </param>
-        /// <returns><c> ceva. </returns>.
+        /// <returns> ceva. </returns>.
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,

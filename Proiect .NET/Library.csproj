@@ -1,14 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFramework>net7.0</TargetFramework>
+		<TargetFramework>net8.0</TargetFramework>
 		<RootNamespace>Proiect_.NET</RootNamespace>
 		<ApplicationIcon />
 		<StartupObject />
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
 	</PropertyGroup>
-	<ItemGroup>
-		<Compile Remove="ConfigurationReader.cs" />
-	</ItemGroup>
 	<ItemGroup>
 		<None Remove="stylecop.json" />
 	</ItemGroup>
@@ -18,9 +16,6 @@
 		</AdditionalFiles>
 	</ItemGroup>
 	<ItemGroup>
-		<PackageReference Include="EntityFramework" Version="6.4.4">
-			<TreatAsUsed>true</TreatAsUsed>
-		</PackageReference>
 		<PackageReference Include="FluentValidation" Version="10.3.6" />
 		<PackageReference Include="Ninject" Version="3.3.4" />
 		<PackageReference Include="NLog" Version="4.7.6" />
@@ -28,17 +23,12 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.0">
-			<TreatAsUsed>true</TreatAsUsed>
-		</PackageReference>
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="7.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="7.0.0" />
-		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.0">
-			<TreatAsUsed>true</TreatAsUsed>
-		</PackageReference>
-		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0">
-			<TreatAsUsed>true</TreatAsUsed>
-		</PackageReference>
+		<PackageReference Include="EntityFramework" Version="6.4.4" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
+		<PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.0" />
+		<PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Update="App.config">

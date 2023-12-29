@@ -15,8 +15,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.DataLayer.Tests", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Library.DomainLayer.Tests", "Library.DomainLayer.Tests\Library.DomainLayer.Tests.csproj", "{2B19AAAB-517D-4736-84BF-6026BD04E0D5}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repository.Tests", "RepositoryTests\Repository.Tests.csproj", "{10BB02E1-5A51-405D-8703-270EEEC07F0D}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,10 +37,6 @@ Global
 		{2B19AAAB-517D-4736-84BF-6026BD04E0D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2B19AAAB-517D-4736-84BF-6026BD04E0D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2B19AAAB-517D-4736-84BF-6026BD04E0D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{10BB02E1-5A51-405D-8703-270EEEC07F0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{10BB02E1-5A51-405D-8703-270EEEC07F0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{10BB02E1-5A51-405D-8703-270EEEC07F0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{10BB02E1-5A51-405D-8703-270EEEC07F0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,7 +46,6 @@ Global
 		{1DF377FA-3760-4EB3-80E9-8DE42F36FAE7} = {C5D13AD8-1D79-4B60-9501-59C4637CCBAB}
 		{9A02068B-A895-471A-80C4-811A81DE167A} = {C5D13AD8-1D79-4B60-9501-59C4637CCBAB}
 		{2B19AAAB-517D-4736-84BF-6026BD04E0D5} = {C5D13AD8-1D79-4B60-9501-59C4637CCBAB}
-		{10BB02E1-5A51-405D-8703-270EEEC07F0D} = {C5D13AD8-1D79-4B60-9501-59C4637CCBAB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BE1547F0-BF28-47A2-9F06-91227C8C5844}

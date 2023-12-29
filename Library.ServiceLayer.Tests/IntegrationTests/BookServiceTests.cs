@@ -4,12 +4,9 @@
 
 namespace Library.ServiceLayer.Tests.IntegrationTests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using Library.DomainLayer;
-    using Library.DomainLayer;
-    using Library.ServiceLayer.IServices;
     using Library.ServiceLayer.Services;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Proiect_.NET.Injection;

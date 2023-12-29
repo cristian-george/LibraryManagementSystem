@@ -27,7 +27,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new();
+            this.validator = new ();
         }
 
         /// <summary>
