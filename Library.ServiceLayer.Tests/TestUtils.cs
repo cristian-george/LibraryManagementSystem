@@ -235,5 +235,26 @@ namespace Library.ServiceLayer.Tests
                 Editions = new List<Edition>() { edition },
             };
         }
+
+        /// <summary>
+        /// Gets properties model.
+        /// </summary>
+        /// <returns> A model for properties entity. </returns>
+        public static Properties GetPropertiesModel()
+        {
+            return new Properties()
+            {
+                DOMENII = 2,
+                NMC = 3,
+                L = 2,
+                C = 3,
+                D = 2,
+                LIM = 2,
+                DELTA = 3,
+                NCZ = 4,
+                PERSIMP = 3,
+                PER = 3,
+            };
+        }
     }
 }

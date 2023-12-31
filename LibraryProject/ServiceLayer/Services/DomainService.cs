@@ -13,10 +13,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class DomainService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Domain, IDomainRepository}" />
+    /// Implements the <see cref="Services.BaseService{Domain, IDomainRepository}" />
     /// Implements the <see cref="IDomainService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Domain, IDomainRepository}" />
+    /// <seealso cref="Services.BaseService{Domain, IDomainRepository}" />
     /// <seealso cref="IDomainService" />
     public class DomainService : BaseService<Domain, IDomainRepository, IPropertiesRepository>, IDomainService
     {
@@ -45,7 +45,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                _ = Utils.LogErrors(result);
+                _ = LogUtils.LogErrors(result);
                 return false;
             }
 

@@ -150,7 +150,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Domains = new List<Domain>() { parent, children },
             };
 
-            Assert.IsFalse(this.service.BookHasCorrectDomains(book));
+            Assert.IsFalse(BookServiceUtils.BookHasCorrectDomains(book));
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Domains = new List<Domain>() { parent, parent2 },
             };
 
-            Assert.IsTrue(this.service.BookHasCorrectDomains(book));
+            Assert.IsTrue(BookServiceUtils.BookHasCorrectDomains(book));
         }
 
         /// <summary>

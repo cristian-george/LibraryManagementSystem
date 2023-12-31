@@ -182,56 +182,69 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void CheckLIMShouldReturnFalse()
         {
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = new Properties()
-            {
-                DOMENII = 2,
-                NMC = 3,
-                L = 2,
-                C = 3,
-                D = 2,
-                LIM = 2,
-                DELTA = 3,
-                NCZ = 4,
-                PERSIMP = 3,
-                PER = 3,
-            };
+            var properties = TestUtils.GetPropertiesModel();
 
             // Insert Properties
             Assert.IsTrue(propertiesService.Insert(properties));
 
-            var book = TestUtils.GetBookModel();
-            Assert.IsNotNull(book);
-
             // List of books
-            var books = new List<Book>() { TestUtils.GetBookModel(), TestUtils.GetBookModel() };
-            Assert.IsNotNull(books);
-
-            // Properties
-            var prop = propertiesService.GetAll(null, null, string.Empty);
-            Assert.IsNotNull(prop);
-            Assert.IsTrue(prop.Any());
-
-            // If there is at least one property then get the last one
-            // Else get a default one
-            var lastOrDefaultProperty = prop.LastOrDefault();
-            Assert.IsNotNull(lastOrDefaultProperty);
-
-            // Get limit number of borrows
-            var maxLimit = lastOrDefaultProperty.LIM;
-            Assert.IsNotNull(maxLimit);
-            Assert.IsTrue(properties.LIM == maxLimit);
-
-            var borrow = new Borrow()
+            var books = new List<Book>()
             {
-                BorrowedBooks = books,
-                NoOfTimeExtended = maxLimit + 1,
+                TestUtils.GetBookModel(),
+                TestUtils.GetBookModel(),
             };
 
-            Assert.IsNotNull(borrow);
-            Assert.IsFalse(borrow.BorrowedBooks.Count == 0);
+            // Property LIM value
+            var value = propertiesService
+                .GetAll(null, null, string.Empty)
+                .LastOrDefault() // If there is at least one property then get the last one, else get a default one
+                .LIM // Get limit number of borrows
+                .Value;
 
-            // Check if it is possible to extend the borrow time one more time
+            var borrow = new Borrow
+            {
+                BorrowedBooks = books,
+                NoOfTimeExtended = value,
+            };
+
+            // Check if it is possible to extend the borrow time
             Assert.IsFalse(this.service.CheckLIM(borrow));
+        }
+
+        /// <summary>
+        /// Defines the test method CheckLIMShouldReturnTrue.
+        /// </summary>
+        [TestMethod]
+        public void CheckLIMShouldReturnTrue()
+        {
+            var propertiesService = Injector.Create<PropertiesService>();
+            var properties = TestUtils.GetPropertiesModel();
+
+            // Insert Properties
+            Assert.IsTrue(propertiesService.Insert(properties));
+
+            // List of books
+            var books = new List<Book>()
+            {
+                TestUtils.GetBookModel(),
+                TestUtils.GetBookModel(),
+            };
+
+            // Property LIM value
+            var value = propertiesService
+                .GetAll(null, null, string.Empty)
+                .LastOrDefault() // If there is at least one property then get the last one, else get a default one
+                .LIM // Get limit number of borrows
+                .Value;
+
+            var borrow = new Borrow
+            {
+                BorrowedBooks = books,
+                NoOfTimeExtended = value - 1,
+            };
+
+            // Check if it is possible to extend the borrow time
+            Assert.IsTrue(this.service.CheckLIM(borrow));
         }
 
         /// <summary>
@@ -252,7 +265,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 ParentDomain = parent,
             };
 
-            Assert.AreEqual(parent, BorrowService.GetParentDomain(children));
+            Assert.AreEqual(parent, DomainServiceUtils.GetParentDomain(children));
         }
 
         /// <summary>
@@ -281,7 +294,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             var listOfDomains = new List<Domain>() { d1, d2, d3 };
 
-            Assert.AreEqual(3, BorrowService.GetNoOfDistinctCategories(listOfDomains));
+            Assert.AreEqual(3, DomainServiceUtils.GetNoOfDistinctDomains(listOfDomains));
         }
 
         /// <summary>

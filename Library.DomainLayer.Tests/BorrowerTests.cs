@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests.PersonTests
+namespace Library.DomainLayer.Tests
 {
     using System.Linq;
     using Library.DomainLayer;

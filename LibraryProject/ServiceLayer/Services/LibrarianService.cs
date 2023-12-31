@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class LibrarianService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Librarian, ILibrarianRepository}" />
+    /// Implements the <see cref="Services.BaseService{DomainLayer.Person.Librarian, ILibrarianRepository}" />
     /// Implements the <see cref="ILibrarianService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Librarian, ILibrarianRepository}" />
+    /// <seealso cref="Services.BaseService{DomainLayer.Person.Librarian, ILibrarianRepository}" />
     /// <seealso cref="ILibrarianService" />
     public class LibrarianService : BaseService<Librarian, ILibrarianRepository, IPropertiesRepository>, ILibrarianService
     {

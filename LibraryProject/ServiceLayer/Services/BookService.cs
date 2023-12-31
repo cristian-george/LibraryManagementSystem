@@ -4,7 +4,6 @@
 
 namespace Library.ServiceLayer.Services
 {
-    using System.Collections.Generic;
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators.BookValidators;
     using Library.DomainLayer;
@@ -49,7 +48,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                _ = Utils.LogErrors(result);
+                _ = LogUtils.LogErrors(result);
                 return false;
             }
 
@@ -58,92 +57,15 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        ///  Se va verifica faptul ca o carte nu poate sa se specifice explicit
-        ///  ca fiind din domenii aflate in relatia stramos-descendent.
-        /// The books has correct domains.
+        /// O carte nu poate face parte din mai mult de DOMENII domenii.
         /// </summary>
         /// <param name="book"> The book. </param>
         /// <returns> bool. </returns>
-        public bool BookHasCorrectDomains(Book book)
+        private bool CheckIfInMoreThanDOMENIIDomains(Book book)
         {
-            var domainsList = new List<Domain>();
+            var properties = this.PropertiesRepository.GetLastProperties();
 
-            foreach (var domain in book.Domains)
-            {
-                this.GetDomainsWithoutTheFirst(domain, domainsList);
-                foreach (var parentDomain in domainsList)
-                {
-                    if (domain.Id == parentDomain.Id)
-                    {
-                        return false;
-                    }
-                }
-
-                domainsList.Clear();
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Daca o carte face parte dintr-un subdomeniu, automat va fi regasita si ca facand parte
-        /// din domeniile stramos, fara ca acest lucru sa fie declarat explicit in incadrarea initiala a cartii
-        /// Adds the ancestor domains.
-        /// </summary>
-        /// <param name="book"> The book. </param>
-        public void AddAncestorDomains(Book book)
-        {
-            book.Domains = this.GetDomainsList(book);
-        }
-
-        /// <summary>
-        /// Gets the domains list.
-        /// </summary>
-        /// <param name="book"> The book. </param>
-        /// <returns> List of Domain. </returns>
-        public List<Domain> GetDomainsList(Book book)
-        {
-            var domainsList = new List<Domain>();
-
-            foreach (var domain in book.Domains)
-            {
-                this.GetDomainsWithTheFirst(domain, domainsList);
-            }
-
-            return domainsList;
-        }
-
-        /// <summary>
-        /// Gets the domains without the first.
-        /// </summary>
-        /// <param name="domain"> The domain. </param>
-        /// <param name="domains"> The domains. </param>
-        private void GetDomainsWithoutTheFirst(Domain domain, List<Domain> domains)
-        {
-            if (domain.ParentDomain == null)
-            {
-                return;
-            }
-
-            domains.Add(domain.ParentDomain);
-            this.GetDomainsWithoutTheFirst(domain.ParentDomain, domains);
-        }
-
-        /// <summary>
-        /// Gets the domains with the first.
-        /// </summary>
-        /// <param name="domain"> The domain. </param>
-        /// <param name="domains"> The domains. </param>
-        private void GetDomainsWithTheFirst(Domain domain, List<Domain> domains)
-        {
-            if (domain.ParentDomain == null)
-            {
-                domains.Add(domain);
-                return;
-            }
-
-            domains.Add(domain.ParentDomain);
-            this.GetDomainsWithTheFirst(domain.ParentDomain, domains);
+            return book.Domains.Count > properties.DOMENII;
         }
 
         /// <summary>
@@ -152,19 +74,17 @@ namespace Library.ServiceLayer.Services
         /// <param name="book"> The book. </param>
         private bool CheckFlags(Book book)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
-
-            if (book.Domains.Count > properties.DOMENII)
+            if (this.CheckIfInMoreThanDOMENIIDomains(book))
             {
                 return false;
             }
 
-            if (this.BookHasCorrectDomains(book) == false)
+            if (!BookServiceUtils.BookHasCorrectDomains(book))
             {
                 return false;
             }
 
-            this.AddAncestorDomains(book);
+            BookServiceUtils.AddAncestorDomains(book);
             return true;
         }
     }

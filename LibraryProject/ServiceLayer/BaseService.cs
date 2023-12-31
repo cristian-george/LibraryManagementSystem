@@ -69,7 +69,7 @@ namespace Library.ServiceLayer
             }
             else
             {
-                _ = Utils.LogErrors(result);
+                _ = LogUtils.LogErrors(result);
                 return false;
             }
 
@@ -89,14 +89,14 @@ namespace Library.ServiceLayer
         public virtual bool Update(TModel entity)
         {
             var result = this.Validator.Validate(entity);
-            _ = Utils.LogErrors(result);
+            _ = LogUtils.LogErrors(result);
             if (result.IsValid)
             {
                 _ = this.Repository.Update(entity);
             }
             else
             {
-                _ = Utils.LogErrors(result);
+                _ = LogUtils.LogErrors(result);
                 return false;
             }
 

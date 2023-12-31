@@ -2,12 +2,13 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFramework>net8.0</TargetFramework>
-		<RootNamespace>LibraryProject</RootNamespace>
+		<RootNamespace>Library</RootNamespace>
 		<ApplicationIcon />
 		<StartupObject />
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<DocumentationFile>$(OutputPath)$(AssemblyName).xml</DocumentationFile>
 		<NoWarn>$(NoWarn),1573,1591,1712,1587,1584,1658,1574,1572,1570</NoWarn>
+		<BaseOutputPath>..\Output\LibraryProject</BaseOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
 		<None Remove="Library.xml" />

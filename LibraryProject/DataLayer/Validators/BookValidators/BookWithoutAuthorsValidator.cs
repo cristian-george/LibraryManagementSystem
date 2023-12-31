@@ -93,12 +93,7 @@ namespace Library.DataLayer.Validators.BookValidators
         /// <returns> bool. </returns>
         protected static bool HaveEntities<T>(ICollection<T> entities)
         {
-            if (entities == null || entities.Count == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return entities != null && entities.Count != 0;
         }
     }
 }

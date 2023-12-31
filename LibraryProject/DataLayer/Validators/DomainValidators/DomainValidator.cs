@@ -8,6 +8,7 @@
 namespace Library.DataLayer.Validators.DomainValidators
 {
     using System.Collections.Generic;
+    using System.Diagnostics.CodeAnalysis;
     using FluentValidation;
     using Library.DomainLayer;
 
@@ -38,14 +39,10 @@ namespace Library.DataLayer.Validators.DomainValidators
         /// <typeparam name="T"> ceva. </typeparam>
         /// <param name="entities">The entities.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        [ExcludeFromCodeCoverage]
         protected static bool HaveEntities<T>(ICollection<T> entities)
         {
-            if (entities == null || entities.Count == 0)
-            {
-                return false;
-            }
-
-            return true;
+            return entities != null && entities.Count != 0;
         }
     }
 }

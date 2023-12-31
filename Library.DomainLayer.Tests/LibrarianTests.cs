@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests.PersonTests
+namespace Library.DomainLayer.Tests
 {
     using System.Linq;
     using Library.DomainLayer;
@@ -165,7 +165,7 @@ namespace Library.DomainLayer.Tests.PersonTests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -202,7 +202,7 @@ namespace Library.DomainLayer.Tests.PersonTests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -239,7 +239,7 @@ namespace Library.DomainLayer.Tests.PersonTests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }
@@ -275,7 +275,7 @@ namespace Library.DomainLayer.Tests.PersonTests
 
             try
             {
-                if (trimmedEmail.EndsWith("."))
+                if (trimmedEmail.EndsWith('.'))
                 {
                     throw new AssertFailedException("The email is not valid");
                 }

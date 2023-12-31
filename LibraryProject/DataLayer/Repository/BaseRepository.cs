@@ -12,7 +12,6 @@ namespace Library.DataLayer.Repository
     using System.Linq;
     using System.Linq.Expressions;
     using Library.DataLayer;
-    using Library.DataLayer.Repository.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using NLog;
 

@@ -208,9 +208,9 @@ namespace Library.DomainLayer.Tests
         [TestMethod]
         public void TypeShouldNotContainDigitsValid()
         {
-            this.book.Type = "HardBook";
+            this.book.Type = "Hard Book 123";
 
-            bool isIntString = this.book.Type.All(char.IsDigit);
+            bool isIntString = this.book.Type.All(char.IsLetter);
             if (isIntString == false)
             {
                 Assert.IsFalse(false);

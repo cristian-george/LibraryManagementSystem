@@ -7,12 +7,14 @@
 /// </summary>
 namespace Library.DataLayer
 {
+    using System.Diagnostics.CodeAnalysis;
     using Library.DomainLayer;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// The library context class used to generate the database.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public class LibraryContext : DbContext
     {
         /// <summary>

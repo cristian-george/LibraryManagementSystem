@@ -3,6 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <IsPackable>false</IsPackable>
 	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<BaseOutputPath>..\Output\Library.ServiceLayer.Tests</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
     <AdditionalFiles Include="..\LibraryProject\stylecop.json" Link="stylecop.json">

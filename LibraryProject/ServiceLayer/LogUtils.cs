@@ -1,4 +1,4 @@
-﻿// <copyright file="Utils.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="LogUtils.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -8,9 +8,9 @@ namespace Library.ServiceLayer
     using NLog;
 
     /// <summary>
-    /// Class Utils.
+    /// Class LogUtils.
     /// </summary>
-    public static class Utils
+    public static class LogUtils
     {
         /// <summary>
         /// The logger.
