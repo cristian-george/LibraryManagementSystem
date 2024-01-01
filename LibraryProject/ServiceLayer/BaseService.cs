@@ -18,19 +18,17 @@ namespace Library.ServiceLayer
     /// </summary>
     /// <typeparam name="TModel"> Reference type. </typeparam>
     /// <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
-    /// <typeparam name="TPropRepository"> Implements IPropertiesRepository. </typeparam>
     /// <seealso cref="IService{T}" />
-    public abstract class BaseService<TModel, TRepository, TPropRepository> : IService<TModel>
+    public abstract class BaseService<TModel, TRepository> : IService<TModel>
         where TModel : class
         where TRepository : IRepository<TModel>
-        where TPropRepository : IPropertiesRepository
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseService{TModel, TRepository, TPropRepository}"/> class.
+        /// Initializes a new instance of the <see cref="BaseService{TModel, TRepository}"/> class.
         /// </summary>
         /// <param name="repository"> The repository. </param>
         /// <param name="propRepo"> The property repo. </param>
-        protected BaseService(TRepository repository, TPropRepository propRepo)
+        protected BaseService(TRepository repository, IPropertiesRepository propRepo)
         {
             this.Repository = repository;
             this.PropertiesRepository = propRepo;
@@ -52,7 +50,7 @@ namespace Library.ServiceLayer
         /// Gets or sets the properties repository.
         /// </summary>
         /// <value> The properties repository. </value>
-        protected TPropRepository PropertiesRepository { get; set; }
+        protected IPropertiesRepository PropertiesRepository { get; set; }
 
         /// <summary>
         /// Inserts the specified entity.

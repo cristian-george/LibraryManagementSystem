@@ -17,7 +17,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Library.ServiceLayer.Services.BaseService{Edition, IEditionRepository}" />
     /// <seealso cref="IEditionService" />
-    public class EditionService : BaseService<Edition, IEditionRepository, IPropertiesRepository>, IEditionService
+    public class EditionService : BaseService<Edition, IEditionRepository>, IEditionService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="EditionService" /> class.

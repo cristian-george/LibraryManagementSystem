@@ -18,7 +18,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Services.BaseService{Domain, IDomainRepository}" />
     /// <seealso cref="IDomainService" />
-    public class DomainService : BaseService<Domain, IDomainRepository, IPropertiesRepository>, IDomainService
+    public class DomainService : BaseService<Domain, IDomainRepository>, IDomainService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainService" /> class.

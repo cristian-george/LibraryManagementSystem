@@ -17,7 +17,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Account, IAccountRepository}" />
     /// <seealso cref="IAccountService" />
-    public class AccountService : BaseService<Account, IAccountRepository, IPropertiesRepository>, IAccountService
+    public class AccountService : BaseService<Account, IAccountRepository>, IAccountService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AccountService" /> class.

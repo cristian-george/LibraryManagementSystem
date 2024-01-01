@@ -21,7 +21,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Library.ServiceLayer.Services.BaseService{Borrow, IBorrowRepository}" />
     /// <seealso cref="IBorrowService" />
-    public class BorrowService : BaseService<Borrow, IBorrowRepository, IPropertiesRepository>, IBorrowService
+    public class BorrowService : BaseService<Borrow, IBorrowRepository>, IBorrowService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BorrowService" /> class.

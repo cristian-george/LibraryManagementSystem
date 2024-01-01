@@ -19,7 +19,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Services.BaseService{Book, IBookRepository}" />
     /// <seealso cref="IBookService" />
-    public class BookService : BaseService<Book, IBookRepository, IPropertiesRepository>, IBookService
+    public class BookService : BaseService<Book, IBookRepository>, IBookService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BookService" /> class.

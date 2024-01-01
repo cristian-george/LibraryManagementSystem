@@ -17,7 +17,7 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     /// <seealso cref="Library.ServiceLayer.Services.BaseService{Author, IAuthorRepository}" />
     /// <seealso cref="IAuthorService" />
-    public class AuthorService : BaseService<Author, IAuthorRepository, IPropertiesRepository>, IAuthorService
+    public class AuthorService : BaseService<Author, IAuthorRepository>, IAuthorService
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorService" /> class.
