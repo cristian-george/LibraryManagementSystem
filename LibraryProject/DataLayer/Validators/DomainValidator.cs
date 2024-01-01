@@ -5,7 +5,7 @@
 /// <summary>
 /// The Validators namespace.
 /// </summary>
-namespace Library.DataLayer.Validators.DomainValidators
+namespace Library.DataLayer.Validators
 {
     using System.Collections.Generic;
     using System.Diagnostics.CodeAnalysis;
@@ -27,20 +27,20 @@ namespace Library.DataLayer.Validators.DomainValidators
             _ = this.RuleFor(d => d.Name)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid");
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid");
 
             _ = this.RuleFor(b => b.ChildrenDomains)
                 .NotNull().WithMessage("Null {PropertyName}");
         }
 
         /// <summary>
-        /// Haves the entities.
+        /// Has the entities.
         /// </summary>
         /// <typeparam name="T"> ceva. </typeparam>
         /// <param name="entities">The entities.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         [ExcludeFromCodeCoverage]
-        protected static bool HaveEntities<T>(ICollection<T> entities)
+        protected static bool HasEntities<T>(ICollection<T> entities)
         {
             return entities != null && entities.Count != 0;
         }

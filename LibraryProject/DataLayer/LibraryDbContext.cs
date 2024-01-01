@@ -1,4 +1,4 @@
-﻿// <copyright file="LibraryContext.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="LibraryDbContext.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -15,7 +15,7 @@ namespace Library.DataLayer
     /// The library context class used to generate the database.
     /// </summary>
     [ExcludeFromCodeCoverage]
-    public class LibraryContext : DbContext
+    public class LibraryDbContext : DbContext
     {
         /// <summary>
         /// Gets or sets the Librarians table.

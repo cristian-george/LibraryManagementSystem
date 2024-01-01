@@ -21,12 +21,22 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         private AccountValidator validator;
 
         /// <summary>
+        /// The entity.
+        /// </summary>
+        private Account account;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestInitialize]
         public void Initialize()
         {
             this.validator = new ();
+            this.account = new ()
+            {
+                Email = "validemail@mail.com",
+                PhoneNumber = "0770123456",
+            };
         }
 
         /// <summary>
@@ -35,12 +45,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberIsNull()
         {
-            var model = new Account()
-            {
-                PhoneNumber = null,
-            };
+            this.account.PhoneNumber = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -50,12 +57,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsNotNull()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "0755234562",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -65,12 +67,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberIsEmpty()
         {
-            var model = new Account()
-            {
-                PhoneNumber = string.Empty,
-            };
+            this.account.PhoneNumber = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -80,12 +79,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsNotEmpty()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "0723456729",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -95,28 +89,22 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberHasMoreThan10Digits()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "12345678901231234",
-            };
+            this.account.PhoneNumber = "0770123456789";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenPhoneNumberDoesNotHaveMoreThan10Digits.
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberHasLessThan10Digits.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenPhoneNumberDoesNotHaveMoreThan10Digits()
+        public void ShouldHaveErrorWhenPhoneNumberHasLessThan10Digits()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "0723456739",
-            };
+            this.account.PhoneNumber = "0770456";
 
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveAnyValidationErrors();
+            var result = this.validator.TestValidate(this.account);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
         /// <summary>
@@ -125,12 +113,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberContainsLetters()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "1234567890dasda",
-            };
+            this.account.PhoneNumber = "telefon0770";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -140,12 +125,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberDoesNotContainLetters()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "0723455672",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -155,12 +135,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsValid()
         {
-            var model = new Account()
-            {
-                PhoneNumber = "0755234123",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -170,13 +145,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters1()
         {
-            var model = new Account()
-            {
-                Email = "invalidemail",
-                PhoneNumber = "0755234123",
-            };
+            this.account.Email = "invalidemail";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -186,13 +157,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters2()
         {
-            var model = new Account()
-            {
-                Email = "invalidemail@",
-                PhoneNumber = "0755234123",
-            };
+            this.account.Email = "invalidemail@";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -202,13 +169,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters3()
         {
-            var model = new Account()
-            {
-                Email = "invalidemail.mail",
-                PhoneNumber = "0755234123",
-            };
+            this.account.Email = "invalidemail.mail";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -218,13 +181,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenEmailIsValid()
         {
-            var model = new Account()
-            {
-                Email = "validemail@mail.com",
-                PhoneNumber = "0755234123",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.account);
             result.ShouldNotHaveAnyValidationErrors();
         }
     }

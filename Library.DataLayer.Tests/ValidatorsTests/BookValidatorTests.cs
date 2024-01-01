@@ -91,10 +91,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTitleLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenTitleLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenTitleLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenTitleLengthIsLessThanOne()
         {
             var model = new Book()
             {
@@ -211,10 +211,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTypeLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenTypeLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenTypeLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenTypeLengthIsLessThanOne()
         {
             var model = new Book()
             {

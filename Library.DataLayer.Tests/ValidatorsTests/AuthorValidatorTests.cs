@@ -21,12 +21,22 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         private AuthorValidator validator;
 
         /// <summary>
+        /// The entity.
+        /// </summary>
+        private Author author;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestInitialize]
         public void Initialize()
         {
             this.validator = new ();
+            this.author = new ()
+            {
+                FirstName = "Mihail",
+                LastName = "Sadoveanu",
+            };
         }
 
         /// <summary>
@@ -35,13 +45,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNull()
         {
-            var model = new Author()
-            {
-                FirstName = null,
-                LastName = "Fieraru",
-            };
+            this.author.FirstName = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
@@ -51,13 +57,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsNotNull()
         {
-            var model = new Author()
-            {
-                FirstName = "Cristian",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -67,13 +67,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsEmpty()
         {
-            var model = new Author()
-            {
-                FirstName = string.Empty,
-                LastName = "Fieraru",
-            };
+            this.author.FirstName = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
@@ -83,45 +79,31 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsNotEmpty()
         {
-            var model = new Author()
-            {
-                FirstName = "Cristian",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenFirstNameLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenFirstNameLengthIsLessThanTwo.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenFirstNameLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenFirstNameLengthIsLessThanTwo()
         {
-            var model = new Author()
-            {
-                FirstName = "q",
-                LastName = "Fieraru",
-            };
+            this.author.FirstName = "M";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsHigherThanOne.
+        /// Defines the test method ShouldNotHaveErrorWhenFirstNameLengthIsHigherThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenFirstNameIsHigherThanOne()
+        public void ShouldNotHaveErrorWhenFirstNameLengthIsHigherThanOne()
         {
-            var model = new Author()
-            {
-                FirstName = "qrwer",
-                LastName = "Fieraru",
-            };
+            this.author.FirstName = "Mi";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -131,13 +113,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNotAValidName()
         {
-            var model = new Author()
-            {
-                FirstName = "--gds031",
-                LastName = "Fieraru",
-            };
+            this.author.FirstName = "--07ab";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
         }
 
@@ -147,13 +125,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsAValidName()
         {
-            var model = new Author()
-            {
-                FirstName = "Fieraru",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -163,13 +135,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNull()
         {
-            var model = new Author()
-            {
-                LastName = null,
-                FirstName = "Fieraru",
-            };
+            this.author.LastName = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
@@ -179,13 +147,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsNotNull()
         {
-            var model = new Author()
-            {
-                LastName = "Cristian",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -195,13 +157,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsEmpty()
         {
-            var model = new Author()
-            {
-                LastName = string.Empty,
-                FirstName = "Fieraru",
-            };
+            this.author.LastName = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
@@ -211,45 +169,31 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsNotEmpty()
         {
-            var model = new Author()
-            {
-                LastName = "Cristian",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenLastNameLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenLastNameLengthIsLessThanTwo.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenLastNameLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenLastNameLengthIsLessThanTwo()
         {
-            var model = new Author()
-            {
-                LastName = "q",
-                FirstName = "Fieraru",
-            };
+            this.author.LastName = "S";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenLastNameIsHigherThanOne.
+        /// Defines the test method ShouldNotHaveErrorWhenLastNameLengthIsHigherThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenLastNameIsHigherThanOne()
+        public void ShouldNotHaveErrorWhenLastNameLengthIsHigherThanOne()
         {
-            var model = new Author()
-            {
-                LastName = "qrwer",
-                FirstName = "Fieraru",
-            };
+            this.author.LastName = "Sa";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -259,13 +203,9 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNotAValidName()
         {
-            var model = new Author()
-            {
-                LastName = "--gds031",
-                FirstName = "Fieraru",
-            };
+            this.author.LastName = "--07cd";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
         }
 
@@ -275,13 +215,7 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsAValidName()
         {
-            var model = new Author()
-            {
-                LastName = "Fieraru",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
         }
     }

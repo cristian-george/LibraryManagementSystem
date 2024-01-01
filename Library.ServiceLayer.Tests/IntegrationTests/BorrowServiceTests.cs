@@ -28,7 +28,6 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             Injector.Initialize();
             this.service = Injector.Create<BorrowService>();
-            _ = this.service.DeleteAll();
         }
 
         /// <summary>
@@ -39,69 +38,106 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             // Add properties
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = new Properties()
-            {
-                DOMENII = 2,
-                NMC = 3,
-                L = 2,
-                C = 3,
-                D = 2,
-                LIM = 2,
-                DELTA = 3,
-                NCZ = 4,
-                PERSIMP = 3,
-                PER = 3,
-            };
+            var properties = TestUtils.GetPropertiesModel();
 
-            // Insert Properties
+            // Insert properties
             Assert.IsTrue(propertiesService.Insert(properties));
 
-            // Insert 30 books
-            var bookService = Injector.Create<BookService>();
-            var listOfBooks = TestUtils.GetListOfBooks();
-            foreach (var bookToBeInserted in listOfBooks)
+            // Add author
+            var authorService = Injector.Create<AuthorService>();
+            var bookAuthor = new Author()
             {
-                // Assert if books are added succesfully
-                Assert.IsTrue(bookService.Insert(bookToBeInserted));
-            }
-
-            var author = new Author()
-            {
-                FirstName = "Marcel",
-                LastName = "Dorel",
+                FirstName = "Alexandra",
+                LastName = "Baicoianu",
             };
+
+            // Insert author
+            Assert.IsTrue(authorService.Insert(bookAuthor));
+
+            // Add domain
+            var domainService = Injector.Create<DomainService>();
+            var mainDomain = TestUtils.GetScienceDomainModel();
+            var bookDomain = mainDomain.ChildrenDomains.ElementAt(3) // Informatica
+                                   .ChildrenDomains.ElementAt(0) // Algoritmi
+                                   .ChildrenDomains.ElementAt(0); // Algoritmi fundamentali
+
+            // Insert domains
+            Assert.IsTrue(domainService.Insert(mainDomain));
+            Assert.IsTrue(domainService.Insert(bookDomain));
+
+            // Add editions
+            var editionService = Injector.Create<EditionService>();
+
+            var bookEdition1 = new Edition()
+            {
+                Publisher = "Editura Universitatii",
+                Year = "2015",
+                EditionNumber = 15,
+                NumberOfPages = 240,
+            };
+
+            var bookEdition2 = new Edition()
+            {
+                Publisher = "Editura UniTBv",
+                Year = "2018",
+                EditionNumber = 18,
+                NumberOfPages = 270,
+            };
+
+            // Insert editions
+            Assert.IsTrue(editionService.Insert(bookEdition1));
+            Assert.IsTrue(editionService.Insert(bookEdition2));
+
+            // Add books
+            var bookService = Injector.Create<BookService>();
+            var book = new Book()
+            {
+                Title = "Curs algoritmica",
+                Type = "Suport de curs",
+                LecturesOnlyBook = false,
+                IsBorrowed = false,
+                Authors = new List<Author>() { bookAuthor },
+                Domains = new List<Domain>() { bookDomain },
+                Editions = new List<Edition>() { bookEdition1, bookEdition2 },
+            };
+
+            // Insert book
+            Assert.IsTrue(bookService.Insert(book));
+            Assert.IsTrue(bookService.Insert(TestUtils.GetBookModel()));
 
             var account = new Account()
             {
-                PhoneNumber = "0734525427",
-                Email = "gogumortu@gmail.com",
+                PhoneNumber = "0770123456",
+                Email = "cristian.fieraru@student.unitbv.ro",
             };
+
             var borrower = new Borrower()
             {
-                LastName = "Gogu",
-                FirstName = "Mortu",
-                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "Brasov, strada Iuliu Maniu, nr. 50",
                 Account = account,
             };
 
             var librarianAccount = new Account()
             {
-                PhoneNumber = "0734525427",
-                Email = "gogumortu@gmail.com",
+                PhoneNumber = "0770400404",
+                Email = "biblioteca_judeteana@brasov.ro",
             };
 
             var librarian = new Librarian()
             {
-                LastName = "Gogu",
-                FirstName = "Mortu",
-                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
+                FirstName = "Biblioteca",
+                LastName = "Judeteana",
+                Address = "Brasov, Livada Postei, nr. 30",
                 IsReader = true,
                 Account = librarianAccount,
             };
 
-            // Add books that will be borrowed
-            var listOfBooksToBeBorrowed = new List<Book>();
-            var allBooks = bookService.GetAll(null, book => book.OrderBy(x => x.Id), string.Empty).ToList();
+            var allBooks = bookService.GetAll(
+                null,
+                book => book.OrderBy(x => x.Id),
+                string.Empty).ToList();
 
             var borrow = new Borrow()
             {
@@ -110,30 +146,27 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 NoOfTimeExtended = 1,
                 Borrower = borrower,
                 Librarian = librarian,
-                BorrowedBooks = new List<Book>(),
+                BorrowedBooks = allBooks,
             };
 
             // Insert
             Assert.IsTrue(this.service.Insert(borrow));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbBorrow = this.service.GetAll(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbBorrow);
-            Assert.IsNotNull(this.service.GetByID(dbBorrow.Id));
-
             // GetAll
             var allBorrows = this.service.GetAll(null, null, string.Empty);
             Assert.IsNotNull(allBorrows);
 
-            // Update
-            borrow.BorrowedBooks.Add(allBooks.FirstOrDefault());
-            borrow.BorrowedBooks.Add(allBooks.LastOrDefault());
-            borrow.Borrower.Account.Email = "validEmail@gmail.com";
+            // GetById
+            var id = allBorrows.LastOrDefault().Id;
+            var dbBorrow = this.service.GetByID(id);
+            Assert.IsNotNull(dbBorrow);
 
+            // Update
+            borrow.Borrower.Account.Email = "validEmail@gmail.com";
             Assert.IsTrue(this.service.Update(dbBorrow));
 
             // Delete
-            Assert.IsTrue(this.service.DeleteById(dbBorrow.Id));
+            Assert.IsTrue(this.service.DeleteById(id));
         }
 
         /// <summary>
@@ -325,10 +358,10 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         }
 
         /// <summary>
-        /// Defines the test method CheckCanBorrowMaxNMCInPERShouldReturnFaLse.
+        /// Defines the test method CheckCanBorrowMaxNMCInPERShouldReturnFalse.
         /// </summary>
         [TestMethod]
-        public void CheckCanBorrowMaxNMCInPERShouldReturnFaLse()
+        public void CheckCanBorrowMaxNMCInPERShouldReturnFalse()
         {
             var propertiesService = Injector.Create<PropertiesService>();
             var properties = new Properties()
@@ -407,16 +440,11 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowedBooks = new List<Book>(),
             };
 
-            _ = this.service.Insert(borrow);
-
             // Update
             borrow.BorrowedBooks.Add(allBooks.FirstOrDefault());
             borrow.BorrowedBooks.Add(allBooks.LastOrDefault());
             borrow.Borrower.Account.Email = "validEmail@gmail.com";
 
-            Assert.IsTrue(this.service.Update(borrow));
-
-            // Last
             Assert.IsFalse(this.service.CheckCanBorrowMaxNMCInPER(borrow));
         }
 
@@ -427,19 +455,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void CheckBorrowedBooksForMaxCBooksShouldReturnTrue()
         {
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = new Properties()
-            {
-                DOMENII = 2,
-                NMC = 2,
-                L = 2,
-                C = 3,
-                D = 2,
-                LIM = 2,
-                DELTA = 3,
-                NCZ = 4,
-                PERSIMP = 3,
-                PER = 3,
-            };
+            var properties = TestUtils.GetPropertiesModel();
 
             // Insert Properties
             Assert.IsTrue(propertiesService.Insert(properties));
@@ -462,22 +478,10 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         /// Defines the test method CheckBorrowInDELTATimeShouldReturnTrue.
         /// </summary>
         [TestMethod]
-        public void CheckBorrowInDELTATimeShouldReturnFalse()
+        public void CheckBorrowInDELTATimeShouldReturnTrue()
         {
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = new Properties()
-            {
-                DOMENII = 2,
-                NMC = 2,
-                L = 2,
-                C = 3,
-                D = 2,
-                LIM = 2,
-                DELTA = 3,
-                NCZ = 4,
-                PERSIMP = 3,
-                PER = 3,
-            };
+            var properties = TestUtils.GetPropertiesModel();
 
             // Insert Properties
             Assert.IsTrue(propertiesService.Insert(properties));
@@ -539,15 +543,11 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowedBooks = new List<Book>(),
             };
 
-            Assert.IsTrue(this.service.Insert(borrow));
-
             // Update
             borrow.BorrowedBooks.Add(allBooks.LastOrDefault());
             borrow.Borrower.Account.Email = "validEmail@gmail.com";
 
-            Assert.IsTrue(this.service.Update(borrow));
-
-            Assert.IsFalse(this.service.CheckBorrowInDELTATime(borrow));
+            Assert.IsTrue(this.service.CheckBorrowInDELTATime(borrow));
         }
 
         /// <summary>

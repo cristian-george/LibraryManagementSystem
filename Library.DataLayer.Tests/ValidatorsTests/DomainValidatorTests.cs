@@ -5,7 +5,7 @@
 namespace Library.DataLayer.Tests.ValidatorsTests
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators.DomainValidators;
+    using Library.DataLayer.Validators;
     using Library.DomainLayer;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -90,10 +90,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNameLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenNameLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenNameLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenNameLengthIsLessThanOne()
         {
             var model = new Domain()
             {

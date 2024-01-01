@@ -28,13 +28,13 @@ namespace Library.DataLayer.Validators
             _ = this.RuleFor(a => a.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(a => a.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
         }
 
@@ -56,13 +56,13 @@ namespace Library.DataLayer.Validators
         }
 
         /// <summary>
-        /// Haves the entities.
+        /// Has the entities.
         /// </summary>
         /// <typeparam name="T"> Entities as ICollection of T. </typeparam>
         /// <param name="entities"> The entities. </param>
         /// <returns> bool. </returns>
         [ExcludeFromCodeCoverage]
-        protected static bool HaveEntities<T>(ICollection<T> entities)
+        protected static bool HasEntities<T>(ICollection<T> entities)
         {
             return entities != null && entities.Count != 0;
         }

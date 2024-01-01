@@ -27,7 +27,7 @@ namespace Library.DataLayer.Validators
                 .NotNull().WithMessage("Null phone number")
                 .NotEmpty().WithMessage("Empty phone number")
                 .Must(DoesNotContainLetters)
-                .Length(10).WithMessage("Lenght should be 10");
+                .Length(10).WithMessage("Length should be 10");
 
             _ = this.RuleFor(a => a.Email)
                 .EmailAddress().WithMessage("The email is not valid");

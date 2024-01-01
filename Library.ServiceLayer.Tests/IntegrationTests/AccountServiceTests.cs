@@ -29,10 +29,10 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         }
 
         /// <summary>
-        /// Defines the test method TestAccountInsert.
+        /// Defines the test method EndToEndAccount.
         /// </summary>
         [TestMethod]
-        public void TestEndToEndAccount()
+        public void EndToEndAccount()
         {
             var account = new Account()
             {
@@ -43,14 +43,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             // Insert
             Assert.IsTrue(this.service.Insert(account));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbAccount = this.service.GetAll(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbAccount);
-            Assert.IsNotNull(this.service.GetByID(dbAccount.Id));
-
             // GetAll
             var allAccounts = this.service.GetAll(null, null, string.Empty);
             Assert.IsNotNull(allAccounts);
+
+            // GetById
+            var id = allAccounts.LastOrDefault().Id;
+            var dbAccount = this.service.GetByID(id);
+            Assert.IsNotNull(dbAccount);
 
             // Update
             dbAccount.Email = "validmain123@mail.com";

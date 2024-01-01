@@ -18,6 +18,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
     {
         private BorrowerService service;
 
+        private Account account = null;
+        private Borrower borrower = null;
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -26,6 +29,20 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             Injector.Initialize();
             this.service = Injector.Create<BorrowerService>();
+
+            this.account = new Account()
+            {
+                PhoneNumber = "0770123456",
+                Email = "cristian.fieraru@student.unitbv.ro",
+            };
+
+            this.borrower = new Borrower()
+            {
+                LastName = "Fieraru",
+                FirstName = "Cristian",
+                Address = "Brasov, strada Iuliu Maniu, nr. 50",
+                Account = this.account,
+            };
         }
 
         /// <summary>
@@ -34,38 +51,21 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         [TestMethod]
         public void EndToEndBorrower()
         {
-            var service = Injector.Create<BorrowerService>();
-
-            var account = new Account()
-            {
-                PhoneNumber = "0734525427",
-                Email = "gogumortu@gmail.com",
-            };
-
-            var borrower = new Borrower()
-            {
-                LastName = "Gogu",
-                FirstName = "Mortu",
-                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
-                Account = account,
-            };
-
             // Insert
-            Assert.IsTrue(this.service.Insert(borrower));
-
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbBorrower = this.service.GetAll(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbBorrower);
-            Assert.IsNotNull(this.service.GetByID(dbBorrower.Id));
+            Assert.IsTrue(this.service.Insert(this.borrower));
 
             // GetAll
             var allBorrowers = this.service.GetAll(null, null, string.Empty);
             Assert.IsNotNull(allBorrowers);
 
-            // Update
-            dbBorrower.Address = "strada Gneral Mihai";
-            dbBorrower.Account.Email = "mihaialex@gmail.com";
+            // GetById
+            var id = allBorrowers.LastOrDefault().Id;
+            var dbBorrower = this.service.GetByID(id);
+            Assert.IsNotNull(dbBorrower);
 
+            // Update
+            dbBorrower.Address = "Brasov, strada Iuliu Maniu, nr. 1";
+            dbBorrower.Account.Email = "cristian.fieraru01@gmail.com";
             Assert.IsTrue(this.service.Update(dbBorrower));
 
             // Delete
@@ -78,7 +78,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         [TestCleanup]
         public void Cleanup()
         {
-            // Clean librarian table
+            // Clean borrower table
             Assert.IsTrue(this.service.DeleteAll());
 
             // Clean account table

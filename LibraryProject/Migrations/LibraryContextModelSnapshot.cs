@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 namespace LibraryProject.Migrations
 {
     [ExcludeFromCodeCoverage]
-    [DbContext(typeof(LibraryContext))]
+    [DbContext(typeof(LibraryDbContext))]
     partial class LibraryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

@@ -89,14 +89,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             // Insert
             Assert.IsTrue(this.service.Insert(book));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbBook = this.service.GetAll(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbBook);
-            Assert.IsNotNull(this.service.GetByID(dbBook.Id));
-
             // GetAll
             var allBooks = this.service.GetAll(null, null, string.Empty);
             Assert.IsNotNull(allBooks);
+
+            // GetById
+            var id = allBooks.LastOrDefault().Id;
+            var dbBook = this.service.GetByID(id);
+            Assert.IsNotNull(dbBook);
 
             // Update
             dbBook.Title = "Idiot things in programming";
@@ -150,7 +150,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Domains = new List<Domain>() { parent, children },
             };
 
-            Assert.IsFalse(BookServiceUtils.BookHasCorrectDomains(book));
+            Assert.IsFalse(this.service.IsInTheCorrectDomains(book));
         }
 
         /// <summary>
@@ -176,7 +176,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Domains = new List<Domain>() { parent, parent2 },
             };
 
-            Assert.IsTrue(BookServiceUtils.BookHasCorrectDomains(book));
+            Assert.IsTrue(this.service.IsInTheCorrectDomains(book));
         }
 
         /// <summary>

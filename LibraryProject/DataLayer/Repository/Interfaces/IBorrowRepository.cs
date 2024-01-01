@@ -7,8 +7,6 @@
 /// </summary>
 namespace Library.DataLayer.Repository.Interfaces
 {
-    using System;
-    using System.Collections.Generic;
     using Library.DomainLayer;
 
     /// <summary>
@@ -16,25 +14,5 @@ namespace Library.DataLayer.Repository.Interfaces
     /// </summary>
     public interface IBorrowRepository : IRepository<Borrow>
     {
-        /// <summary>
-        /// Gets the first borrow date.
-        /// </summary>
-        /// <param name="id"> The identifier. </param>
-        /// <returns> DateTime. </returns>
-        public DateTime GetFirstBorrowDate(int id);
-
-        /// <summary>
-        /// Gets the number of borrows today.
-        /// </summary>
-        /// <param name="id"> The identifier. </param>
-        /// /// <returns> int. </returns>
-        public int GetNumberOfBorrowsToday(int id);
-
-        /// <summary>
-        /// Gets the books between past months and present.
-        /// </summary>
-        /// <param name="months"> The months. </param>
-        /// /// <returns> IEnumerable of Borrow. </returns>
-        public IEnumerable<Borrow> GetBooksBetweenPastMonthsAndPresent(int months);
     }
 }

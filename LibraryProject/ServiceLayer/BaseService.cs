@@ -62,22 +62,14 @@ namespace Library.ServiceLayer
         public virtual bool Insert(TModel entity)
         {
             var result = this.Validator.Validate(entity);
-            bool isValid;
-            if (result.IsValid)
-            {
-                isValid = true;
-            }
-            else
+
+            if (!result.IsValid)
             {
                 _ = LogUtils.LogErrors(result);
                 return false;
             }
 
-            if (isValid == true)
-            {
-                _ = this.Repository.Insert(entity);
-            }
-
+            _ = this.Repository.Insert(entity);
             return true;
         }
 
@@ -89,17 +81,14 @@ namespace Library.ServiceLayer
         public virtual bool Update(TModel entity)
         {
             var result = this.Validator.Validate(entity);
-            _ = LogUtils.LogErrors(result);
-            if (result.IsValid)
-            {
-                _ = this.Repository.Update(entity);
-            }
-            else
+
+            if (!result.IsValid)
             {
                 _ = LogUtils.LogErrors(result);
                 return false;
             }
 
+            _ = this.Repository.Update(entity);
             return true;
         }
 
@@ -145,7 +134,7 @@ namespace Library.ServiceLayer
         /// <returns> bool. </returns>
         public bool DeleteAll()
         {
-            return this.Repository.DeleteAllEntitiesFromTable();
+            return this.Repository.Delete();
         }
     }
 }

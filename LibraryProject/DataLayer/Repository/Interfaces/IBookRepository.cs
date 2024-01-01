@@ -16,20 +16,6 @@ namespace Library.DataLayer.Repository.Interfaces
     public interface IBookRepository : IRepository<Book>
     {
         /// <summary>
-        /// Gets the parent domain.
-        /// </summary>
-        /// <param name="domain"> The domain. </param>
-        /// <returns> The parent domain. </returns>
-        public Domain GetParentDomain(Domain domain);
-
-        /// <summary>
-        /// Gets the domains.
-        /// </summary>
-        /// <param name="domain">The domain.</param>
-        /// <param name="domains">The domains.</param>
-        public void GetDomains(Domain domain, List<Domain> domains);
-
-        /// <summary>
         /// Gets the unavailable books.
         /// </summary>
         /// <param name="allBooksWithTheSameName"> Books with the same name. </param>

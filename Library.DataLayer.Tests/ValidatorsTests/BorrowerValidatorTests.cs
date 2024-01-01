@@ -94,10 +94,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenFirstNameLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenFirstNameLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenFirstNameLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenFirstNameLengthIsLessThanOne()
         {
             var model = new Borrower()
             {
@@ -222,10 +222,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenLastNameLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenLastNameLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenLastNameLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenLastNameLengthIsLessThanOne()
         {
             var model = new Borrower()
             {
@@ -346,10 +346,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenAddressLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenAddressLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenAddressLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenAddressLengthIsLessThanOne()
         {
             var model = new Borrower()
             {

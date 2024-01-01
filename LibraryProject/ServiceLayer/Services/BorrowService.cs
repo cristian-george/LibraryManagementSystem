@@ -43,19 +43,18 @@ namespace Library.ServiceLayer.Services
         /// <summary>
         /// Inserts the specified entity.
         /// </summary>
-        /// <param name="entity"> The entity. </param>
-        /// <returns> ceva. </returns>
+        /// <param name="entity">The entity.</param>
+        /// <returns>bool.</returns>
         public override bool Insert(Borrow entity)
         {
-            // un imprumut are maxim 1 luna
-            if (entity.BorrowDate != null)
+            // The borrow expires after 1 month
+            if (entity.BorrowDate is DateTime startDate)
             {
-                var startDate = (DateTime)entity.BorrowDate;
                 entity.EndDate = startDate.AddMonths(1);
             }
 
             var result = this.Validator.Validate(entity);
-            if (result.IsValid && this.CheckFlags(entity))
+            if (result.IsValid && this.CheckBorrowAdditionalRules(entity))
             {
                 _ = this.Repository.Insert(entity);
             }
@@ -77,7 +76,7 @@ namespace Library.ServiceLayer.Services
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
-            var c = this.PropertiesRepository.GetLastProperties().C;
+            var c = properties.C;
 
             if (entity.Borrower is Librarian librarian)
             {
@@ -113,13 +112,8 @@ namespace Library.ServiceLayer.Services
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         public bool CheckBorrowInDELTATime(Borrow entity)
         {
-            if (entity.BorrowedBooks.Count != 1)
-            {
-                return false;
-            }
-
             var properties = this.PropertiesRepository.GetLastProperties();
-            var delta = this.PropertiesRepository.GetLastProperties().DELTA;
+            var delta = properties.DELTA;
 
             if (entity.Borrower is Librarian librarian)
             {
@@ -161,8 +155,8 @@ namespace Library.ServiceLayer.Services
         public bool CheckCanBorrowMaxNMCInPER(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
-            var per = this.PropertiesRepository.GetLastProperties().PER;
-            var nmc = this.PropertiesRepository.GetLastProperties().NMC;
+            var per = properties.PER;
+            var nmc = properties.NMC;
 
             if (entity.Borrower is Librarian librarian)
             {
@@ -246,10 +240,19 @@ namespace Library.ServiceLayer.Services
         /// <returns> vrbs. </returns>
         public bool CheckLIM(Borrow entity)
         {
-            // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
             var properties = this.PropertiesRepository.GetLastProperties();
+            var lim = properties.LIM;
 
-            if (entity.NoOfTimeExtended >= properties.LIM)
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    lim *= 2;
+                }
+            }
+
+            // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
+            if (entity.NoOfTimeExtended >= lim)
             {
                 return false;
             }
@@ -275,62 +278,88 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// Checks the flags.
+        /// Checks borrow additional rules.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckFlags(Borrow entity)
+        /// <returns><c>true</c> if all borrow additional rules succeed, <c>false</c> otherwise.</returns>
+        public bool CheckBorrowAdditionalRules(Borrow entity)
         {
-            if (!this.Repository.Get(null, borrow => borrow.OrderBy(x => x.Id), string.Empty).Any())
+            /*if (!this.Repository.Get(null, borrow => borrow.OrderBy(x => x.Id), string.Empty).Any())
             {
                 return true;
-            }
+            }*/
 
-            // 1. Daca cartea este doar pentru sala de lectura
-            // 2. O carte poate fi imprumutata doar daca: nu are toate exemplarele marcate ca fiind doar
-            // pentru sala de lectura si numarul de carti ramase(inca neimprumutate, dar nu din cele
-            // pentru sala de lectura) este macar 10 % din fondul initial din acea carte.
-            // 3. Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
-            // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
-            // Un imprumut are 2 saptamani maxim
-            if (this.CheckIfBooksAreBorrowable(entity) == false)
+            /* 1. Din anumite carti, o parte din exemplare (sau toate) sunt doar pentru sala de lectura
+             * 2. O carte poate fi imprumutata doar daca: nu are toate exemplarele marcate ca fiind doar
+             * pentru sala de lectura si numarul de carti ramase (inca neimprumutate, dar nu din cele
+             * pentru sala de lectura) este macar 10% din fondul initial din acea carte.
+             * 3. Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
+             * acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
+             * Un imprumut are 2 saptamani maxim */
+            if (!this.CheckIfBooksAreBorrowable(entity))
             {
                 return false;
             }
 
-            // 1. Pot imprumuta un numar maxim de carti NMC intr-o perioada PER;
+            // Pot imprumuta un numar maxim de carti NMC intr-o perioada PER;
             if (this.CheckCanBorrowMaxNMCInPER(entity) == false)
             {
                 return false;
             }
 
-            // 2. La un imprumut pot prelua cel mult C carti; daca numarul cartilor imprumutate la o
+            // La un imprumut pot prelua cel mult C carti; daca numarul cartilor imprumutate la o
             // cerere de imprumut e cel putin 3, atunci acestea trebui sa faca parte din cel putin 2
             // categorii distincte
-            if (this.CheckBorrowedBooksForMaxCBooks(entity) == false)
+            if (!this.CheckBorrowedBooksForMaxCBooks(entity))
             {
                 return false;
             }
 
-            // 5. Nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
+            // Nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
             // DELTA se masoara de la ultimul imprumut al cartii
-            if (this.CheckBorrowInDELTATime(entity) == false)
+            if (!this.CheckBorrowInDELTATime(entity))
             {
                 return false;
             }
 
-            // 6. Pot imprumuta cel mult NCZ carti intr-o zi.
-            if (this.CheckMaxBorrowBooksToday() == false)
+            // Pot imprumuta cel mult NCZ carti intr-o zi.
+            if (!this.CheckMaxBorrowBooksToday())
             {
                 return false;
             }
 
-            // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu – de tip frunza sau de
-            // nivel superior - in ultimele L luni
-            // crapa metoda si n am mai avut timp de testat
+            // Todo
+            // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
+            // – de tip frunza sau de nivel superior - in ultimele L luni
+            if (!this.CheckMaxBorrowBooksInSameDomainInLastLMonths(entity))
+            {
+                return false;
+            }
+
             foreach (var book in entity.BorrowedBooks)
             {
                 book.IsBorrowed = true;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks maximum borrow books in last L months.
+        /// </summary>
+        /// <param name="entity">The borrow.</param>
+        /// <returns>bool.</returns>
+        public bool CheckMaxBorrowBooksInSameDomainInLastLMonths(Borrow entity)
+        {
+            var properties = this.PropertiesRepository.GetLastProperties();
+            var d = properties.D;
+
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    d *= 2;
+                }
             }
 
             return true;

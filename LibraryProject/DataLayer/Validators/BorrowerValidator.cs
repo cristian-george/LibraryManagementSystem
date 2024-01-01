@@ -26,19 +26,19 @@ namespace Library.DataLayer.Validators
             _ = this.RuleFor(b => b.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.LastName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.Address)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 80).WithMessage("Lenght of {PropertyName} Invalid");
+                .Length(2, 80).WithMessage("Length of {PropertyName} Invalid");
 
             _ = this.RuleFor(b => b.Account).SetInheritanceValidator(v =>
             {

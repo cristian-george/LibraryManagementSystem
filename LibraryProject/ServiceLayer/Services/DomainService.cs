@@ -5,7 +5,7 @@
 namespace Library.ServiceLayer.Services
 {
     using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators.DomainValidators;
+    using Library.DataLayer.Validators;
     using Library.DomainLayer;
     using Library.Injection;
     using Library.ServiceLayer;
@@ -34,7 +34,7 @@ namespace Library.ServiceLayer.Services
         {
             if (entity.ParentDomain == null)
             {
-                this.Validator = new BaseDomainValidator();
+                this.Validator = new DomainValidator();
             }
 
             var result = this.Validator.Validate(entity);

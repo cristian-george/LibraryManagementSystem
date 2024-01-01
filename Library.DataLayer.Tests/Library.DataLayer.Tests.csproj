@@ -11,6 +11,9 @@
     <None Remove="RepositoriesTests\**" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Remove="ValidatorsTests\BaseDomainValidatorTests.cs" />
+  </ItemGroup>
+  <ItemGroup>
     <AdditionalFiles Include="..\LibraryProject\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
   <ItemGroup>

@@ -256,5 +256,80 @@ namespace Library.ServiceLayer.Tests
                 PER = 3,
             };
         }
+
+        /// <summary>
+        /// Gets science domain model.
+        /// </summary>
+        /// <returns>A model for domain entity.</returns>
+        public static Domain GetScienceDomainModel()
+        {
+            return new Domain()
+            {
+                Name = "Stiinta",
+                ParentDomain = null,
+                ChildrenDomains = new List<Domain>()
+                {
+                    new ()
+                    {
+                        Name = "Matematica",
+                        ChildrenDomains = new List<Domain>(),
+                    },
+                    new ()
+                    {
+                        Name = "Fizica",
+                        ChildrenDomains = new List<Domain>(),
+                    },
+                    new ()
+                    {
+                        Name = "Chimie",
+                        ChildrenDomains = new List<Domain>(),
+                    },
+                    new ()
+                    {
+                        Name = "Informatica",
+                        ChildrenDomains = new List<Domain>()
+                        {
+                            new ()
+                            {
+                                Name = "Algoritmi",
+                                ChildrenDomains = new List<Domain>()
+                                {
+                                    new ()
+                                    {
+                                        Name = "Algoritmi fundamentali",
+                                        ChildrenDomains = new List<Domain>(),
+                                    },
+                                    new ()
+                                    {
+                                        Name = "Algoritmica grafurilor",
+                                        ChildrenDomains = new List<Domain>(),
+                                    },
+                                    new ()
+                                    {
+                                        Name = "Algoritmi cuantici",
+                                        ChildrenDomains = new List<Domain>(),
+                                    },
+                                },
+                            },
+                            new ()
+                            {
+                                Name = "Programare",
+                                ChildrenDomains = new List<Domain>(),
+                            },
+                            new ()
+                            {
+                                Name = "Baze de date",
+                                ChildrenDomains = new List<Domain>(),
+                            },
+                            new ()
+                            {
+                                Name = "Retele de calculatoare",
+                                ChildrenDomains = new List<Domain>(),
+                            },
+                        },
+                    },
+                },
+            };
+        }
     }
 }

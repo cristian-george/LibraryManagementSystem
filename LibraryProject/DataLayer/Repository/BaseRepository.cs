@@ -26,7 +26,7 @@ namespace Library.DataLayer.Repository
         /// Gets the CTX.
         /// </summary>
         /// <value> The CTX. </value>
-        protected LibraryContext Ctx { get; } = new LibraryContext();
+        protected LibraryDbContext Ctx { get; } = new LibraryDbContext();
 
         /// <summary>
         /// Gets the logger.
@@ -96,7 +96,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The INSERT could not been made!");
+                this.Logger.Error(ex.Message + ex.InnerException + "The Insert could not been made!");
                 return false;
             }
 
@@ -120,7 +120,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The UPDATE could not been made!");
+                this.Logger.Error(ex.Message + ex.InnerException + "The Update could not been made!");
                 return false;
             }
 
@@ -140,7 +140,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The DELETE could not been made!");
+                this.Logger.Error(ex.Message + ex.InnerException + "The DeleteById could not been made!");
                 return false;
             }
 
@@ -169,7 +169,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The DELETE could not been made!");
+                this.Logger.Error(ex.Message + ex.InnerException + "The Delete could not been made!");
                 return false;
             }
 
@@ -200,7 +200,7 @@ namespace Library.DataLayer.Repository
         /// </summary>
         /// <param name="entity"> The entity. </param>
         /// <returns> bool. </returns>
-        public bool DeleteAllEntitiesFromTable()
+        public bool Delete()
         {
             try
             {
@@ -210,7 +210,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The DeleteAllEntitiesFromTable could not been made.");
+                this.Logger.Error(ex.Message + ex.InnerException + "The Delete could not been made.");
                 return false;
             }
 

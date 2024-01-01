@@ -50,7 +50,7 @@ namespace Library.DataLayer.Repository
         /// Deletes all entities from table.
         /// </summary>
         /// <returns> bool. </returns>.
-        bool DeleteAllEntitiesFromTable();
+        bool Delete();
 
         /// <summary>
         /// Gets the by identifier.

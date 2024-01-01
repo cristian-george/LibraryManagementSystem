@@ -25,12 +25,12 @@ namespace Library.DataLayer.Validators
             _ = this.RuleFor(e => e.Publisher)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid");
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid");
 
             _ = this.RuleFor(e => e.Year)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(0, 4).WithMessage("Lenght of {PropertyName} Invalid");
+                .Length(0, 4).WithMessage("Length of {PropertyName} Invalid");
 
             _ = this.RuleFor(e => e.EditionNumber)
                 .NotNull().WithMessage("Null {PropertyName}")

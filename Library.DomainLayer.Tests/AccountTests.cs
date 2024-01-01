@@ -29,10 +29,10 @@ namespace Library.DomainLayer.Tests
         }
 
         /// <summary>
-        /// Defines the test method AccountPhoneNumberShouldBeWrongIfLenghtIsNot10.
+        /// Defines the test method AccountPhoneNumberShouldBeWrongIfLengthIsNot10.
         /// </summary>
         [TestMethod]
-        public void AccountPhoneNumberShouldBeWrongIfLenghtIsNot10()
+        public void AccountPhoneNumberShouldBeWrongIfLengthIsNot10()
         {
             this.account.PhoneNumber = "0721";
 

@@ -4,6 +4,7 @@
 
 namespace Library.ServiceLayer.Services
 {
+    using System.Collections.Generic;
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators.BookValidators;
     using Library.DomainLayer;
@@ -13,10 +14,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class BookService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Book, IBookRepository}" />
+    /// Implements the <see cref="Services.BaseService{Book, IBookRepository}" />
     /// Implements the <see cref="IBookService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Book, IBookRepository}" />
+    /// <seealso cref="Services.BaseService{Book, IBookRepository}" />
     /// <seealso cref="IBookService" />
     public class BookService : BaseService<Book, IBookRepository, IPropertiesRepository>, IBookService
     {
@@ -42,7 +43,7 @@ namespace Library.ServiceLayer.Services
             }
 
             var result = this.Validator.Validate(entity);
-            if (result.IsValid && this.CheckFlags(entity))
+            if (result.IsValid && this.CheckBookAdditionalRules(entity))
             {
                 _ = this.Repository.Insert(entity);
             }
@@ -56,12 +57,37 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// O carte nu poate face parte din mai mult de DOMENII domenii.
-        /// </summary>
-        /// <param name="book"> The book. </param>
-        /// <returns> bool. </returns>
-        private bool CheckIfInMoreThanDOMENIIDomains(Book book)
+        /// <inheritdoc/>
+        public bool IsInAtLeastOneDomain(Book book)
+        {
+            return book.Domains.Count > 0;
+        }
+
+        /// <inheritdoc/>
+        public bool IsInTheCorrectDomains(Book book)
+        {
+            var domains = new List<Domain>();
+
+            foreach (var domain in book.Domains)
+            {
+                BookServiceUtils.GetDomainsWithoutTheParent(domain, domains);
+
+                foreach (var parentDomain in domains)
+                {
+                    if (domain.Id == parentDomain.Id)
+                    {
+                        return false;
+                    }
+                }
+
+                domains.Clear();
+            }
+
+            return true;
+        }
+
+        /// <inheritdoc/>
+        public bool IsInMoreThanDOMENIIDomains(Book book)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
@@ -69,21 +95,34 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// Checks the flags.
+        /// Checks book additional rules.
         /// </summary>
-        /// <param name="book"> The book. </param>
-        private bool CheckFlags(Book book)
+        /// <param name="book">The book.</param>
+        /// <returns><c>true</c> if all book additional rules succeed, <c>false</c> otherwise.</returns>
+        private bool CheckBookAdditionalRules(Book book)
         {
-            if (this.CheckIfInMoreThanDOMENIIDomains(book))
+            // Fac parte din cel putin un domeniu
+            if (!this.IsInAtLeastOneDomain(book))
             {
                 return false;
             }
 
-            if (!BookServiceUtils.BookHasCorrectDomains(book))
+            // O carte nu poate face parte din mai mult de DOMENII domenii.
+            if (this.IsInMoreThanDOMENIIDomains(book))
             {
                 return false;
             }
 
+            // Se va verifica faptul ca o carte nu poate sa se specifice explicit
+            // ca fiind din domenii aflate in relatia stramos-descendent.
+            if (!this.IsInTheCorrectDomains(book))
+            {
+                return false;
+            }
+
+            // Daca o carte face parte dintr-un subdomeniu, automat va fi regasita
+            // si ca facand parte din domeniile stramos, fara ca acest lucru
+            // sa fie declarat explicit in incadrarea initiala a cartii.
             BookServiceUtils.AddAncestorDomains(book);
             return true;
         }

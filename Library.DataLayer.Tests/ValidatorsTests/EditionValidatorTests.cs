@@ -90,10 +90,10 @@ namespace Library.DataLayer.Tests.ValidatorsTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenPublisherLenghtIsLessThanOne.
+        /// Defines the test method ShouldHaveErrorWhenPublisherLengthIsLessThanOne.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenPublisherLenghtIsLessThanOne()
+        public void ShouldHaveErrorWhenPublisherLengthIsLessThanOne()
         {
             var model = new Edition()
             {

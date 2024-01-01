@@ -49,7 +49,7 @@ namespace Library.ServiceLayer.Services
         /// <returns> ceva. </returns>
         public bool DeleteAll()
         {
-            return this.repository.DeleteAllEntitiesFromTable();
+            return this.repository.Delete();
         }
 
         /// <summary>

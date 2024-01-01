@@ -8,7 +8,6 @@ namespace Library.DataLayer.Validators.BookValidators
     using System.Linq;
     using FluentValidation;
     using Library.DataLayer.Validators;
-    using Library.DataLayer.Validators.DomainValidators;
     using Library.DomainLayer;
 
     /// <summary>
@@ -26,13 +25,13 @@ namespace Library.DataLayer.Validators.BookValidators
             _ = this.RuleFor(b => b.Title)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.Type)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
             _ = this.RuleFor(b => b.IsBorrowed)
@@ -48,22 +47,22 @@ namespace Library.DataLayer.Validators.BookValidators
                 _ = author.RuleFor(b => b.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")
                 .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                 .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
 
                 _ = author.RuleFor(b => b.LastName)
                     .NotNull().WithMessage("Null {PropertyName}")
                     .NotEmpty().WithMessage("{PropertyName} is Empty")
-                    .Length(2, 50).WithMessage("Lenght of {PropertyName} Invalid")
+                    .Length(2, 50).WithMessage("Length of {PropertyName} Invalid")
                     .Must(BeAValidName).WithMessage("{PropertyName} contains invalid characters");
             });
 
             _ = this.RuleFor(b => b.Editions)
                 .NotNull().WithMessage("Null {PropertyName}")
-                .Must(HaveEntities).WithMessage("{PropertyName} is Empty");
+                .Must(HasEntities).WithMessage("{PropertyName} is Empty");
             _ = this.RuleFor(b => b.Domains)
                 .NotNull().WithMessage("Null {PropertyName}")
-                .Must(HaveEntities).WithMessage("{PropertyName} is Empty");
+                .Must(HasEntities).WithMessage("{PropertyName} is Empty");
             _ = this.RuleForEach(b => b.Editions).SetValidator(new EditionValidator());
             _ = this.RuleForEach(b => b.Domains).SetValidator(new DomainValidator());
         }
@@ -86,12 +85,12 @@ namespace Library.DataLayer.Validators.BookValidators
         }
 
         /// <summary>
-        /// Haves the entities.
+        /// Has the entities.
         /// </summary>
         /// <typeparam name="T"> Template type. </typeparam>
         /// <param name="entities"> The entities. </param>
         /// <returns> bool. </returns>
-        protected static bool HaveEntities<T>(ICollection<T> entities)
+        protected static bool HasEntities<T>(ICollection<T> entities)
         {
             return entities != null && entities.Count != 0;
         }
