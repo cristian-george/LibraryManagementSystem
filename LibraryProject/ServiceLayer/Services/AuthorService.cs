@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class AuthorService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Author, IAuthorRepository}" />
+    /// Implements the <see cref="Services.BaseService{Author, IAuthorRepository}" />
     /// Implements the <see cref="IAuthorService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Author, IAuthorRepository}" />
+    /// <seealso cref="Services.BaseService{Author, IAuthorRepository}" />
     /// <seealso cref="IAuthorService" />
     public class AuthorService : BaseService<Author, IAuthorRepository>, IAuthorService
     {

@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests
+namespace Library.DomainLayer.Tests.ModelTests
 {
     using System;
     using System.Collections.Generic;
@@ -123,13 +123,10 @@ namespace Library.DomainLayer.Tests
         public void BorrowDateShouldNotBeHigherThanCurrentDate()
         {
             this.borrow.BorrowDate = DateTime.Now.AddHours(1);
-            if (this.borrow.BorrowDate > DateTime.Now)
-            {
-                Assert.IsFalse(false);
-                return;
-            }
 
-            Assert.IsTrue(false);
+            var flag = TestUtils.IsFirstDateHigherThanSecondDate(
+                (DateTime)this.borrow.BorrowDate, DateTime.Now);
+            Assert.IsTrue(flag);
         }
 
         /// <summary>
@@ -139,12 +136,10 @@ namespace Library.DomainLayer.Tests
         public void EndDateShouldNotExceedThreeMonths()
         {
             this.borrow.EndDate = DateTime.Now.AddMonths(2);
-            if (this.borrow.EndDate > DateTime.Now.AddMonths(3))
-            {
-                Assert.IsTrue(false);
-            }
 
-            Assert.IsTrue(true);
+            var flag = TestUtils.IsFirstDateHigherThanSecondDate(
+                (DateTime)this.borrow.EndDate, DateTime.Now.AddMonths(3));
+            Assert.IsFalse(flag);
         }
 
         /// <summary>
@@ -154,12 +149,7 @@ namespace Library.DomainLayer.Tests
         public void NoOfTimeExtendedShouldBeNoHigherThanThree()
         {
             this.borrow.NoOfTimeExtended = 2;
-            if (this.borrow.NoOfTimeExtended > 3)
-            {
-                Assert.IsTrue(false);
-            }
-
-            Assert.IsTrue(true);
+            Assert.IsFalse(this.borrow.NoOfTimeExtended > 3);
         }
     }
 }

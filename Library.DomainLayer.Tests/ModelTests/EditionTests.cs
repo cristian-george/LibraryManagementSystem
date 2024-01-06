@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests
+namespace Library.DomainLayer.Tests.ModelTests
 {
     using System.Linq;
     using Library.DomainLayer;

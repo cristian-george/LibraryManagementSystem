@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorsTests
+namespace Library.DataLayer.Tests.ValidatorTests
 {
     using System;
     using FluentValidation.TestHelper;

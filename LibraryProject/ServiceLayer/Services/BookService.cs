@@ -49,7 +49,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                _ = LogUtils.LogErrors(result);
+                LogUtils.LogErrors(result);
                 return false;
             }
 
@@ -101,7 +101,7 @@ namespace Library.ServiceLayer.Services
         /// <returns><c>true</c> if all book additional rules succeed, <c>false</c> otherwise.</returns>
         private bool CheckBookAdditionalRules(Book book)
         {
-            // Fac parte din cel putin un domeniu
+            // Face parte din cel putin un domeniu
             if (!this.IsInAtLeastOneDomain(book))
             {
                 return false;

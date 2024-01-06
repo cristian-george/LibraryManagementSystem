@@ -13,9 +13,9 @@ namespace Library.DataLayer.Validators
 
     /// <summary>
     /// Class BorrowerValidator.
-    /// Implements the <see cref="AbstractValidator{Library.DomainLayer.Person.Borrower}" />.
+    /// Implements the <see cref="AbstractValidator{DomainLayer.Person.Borrower}" />.
     /// </summary>
-    /// <seealso cref="AbstractValidator{Library.DomainLayer.Person.Borrower}" />
+    /// <seealso cref="AbstractValidator{DomainLayer.Person.Borrower}" />
     public class BorrowerValidator : AbstractValidator<Borrower>
     {
         /// <summary>

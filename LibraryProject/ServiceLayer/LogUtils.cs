@@ -21,8 +21,7 @@ namespace Library.ServiceLayer
         /// Logs the errors.
         /// </summary>
         /// <param name="results">The results.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public static bool LogErrors(ValidationResult results)
+        public static void LogErrors(ValidationResult results)
         {
             if (results.IsValid == false)
             {
@@ -30,11 +29,7 @@ namespace Library.ServiceLayer
                 {
                     Logger.Error($"{error.ErrorMessage}");
                 }
-
-                return false;
             }
-
-            return true;
         }
     }
 }

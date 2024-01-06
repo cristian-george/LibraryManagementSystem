@@ -8,9 +8,9 @@ namespace Library.ServiceLayer.Interfaces
 
     /// <summary>
     /// Interface IAccountService
-    /// Implements the <see cref="IService{Library.DomainLayer.Person.Account}"/>.
+    /// Implements the <see cref="IService{DomainLayer.Person.Account}"/>.
     /// </summary>
-    /// <seealso cref="IService{Library.DomainLayer.Person.Account}" />
+    /// <seealso cref="IService{DomainLayer.Person.Account}" />
     public interface IAccountService : IService<Account>
     {
     }

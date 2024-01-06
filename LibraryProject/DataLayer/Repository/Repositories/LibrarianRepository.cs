@@ -13,10 +13,10 @@ namespace Library.DataLayer.Repository.Concretes
 
     /// <summary>
     /// Class LibrarianRepository.
-    /// Implements the <see cref="BaseRepository{Library.DomainLayer.Person.Librarian}" />.
+    /// Implements the <see cref="BaseRepository{DomainLayer.Person.Librarian}" />.
     /// Implements the <see cref="ILibrarianRepository" />.
     /// </summary>
-    /// <seealso cref="BaseRepository{Library.DomainLayer.Person.Librarian}" />.
+    /// <seealso cref="BaseRepository{DomainLayer.Person.Librarian}" />.
     /// <seealso cref="ILibrarianRepository" />.
     public class LibrarianRepository : BaseRepository<Librarian>, ILibrarianRepository
     {

@@ -8,9 +8,9 @@ namespace Library.ServiceLayer.Interfaces
 
     /// <summary>
     /// Interface ILibrarianService
-    /// Implements the <see cref="IService{Library.DomainLayer.Person.Librarian}" />.
+    /// Implements the <see cref="IService{DomainLayer.Person.Librarian}" />.
     /// </summary>
-    /// <seealso cref="IService{Library.DomainLayer.Person.Librarian}" />
+    /// <seealso cref="IService{DomainLayer.Person.Librarian}" />
     public interface ILibrarianService : IService<Librarian>
     {
     }

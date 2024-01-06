@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class EditionService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Edition, IEditionRepository}" />
+    /// Implements the <see cref="Services.BaseService{Edition, IEditionRepository}" />
     /// Implements the <see cref="IEditionService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Edition, IEditionRepository}" />
+    /// <seealso cref="Services.BaseService{Edition, IEditionRepository}" />
     /// <seealso cref="IEditionService" />
     public class EditionService : BaseService<Edition, IEditionRepository>, IEditionService
     {

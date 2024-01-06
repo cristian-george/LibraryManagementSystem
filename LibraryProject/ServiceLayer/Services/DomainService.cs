@@ -32,29 +32,15 @@ namespace Library.ServiceLayer.Services
         /// <inheritdoc/>
         public override bool Insert(Domain entity)
         {
-            if (entity.ParentDomain == null)
-            {
-                this.Validator = new DomainValidator();
-            }
-
             var result = this.Validator.Validate(entity);
-            bool isValid;
-            if (result.IsValid)
+
+            if (!result.IsValid)
             {
-                isValid = true;
-            }
-            else
-            {
-                _ = LogUtils.LogErrors(result);
+                LogUtils.LogErrors(result);
                 return false;
             }
 
-            if (isValid == true)
-            {
-                _ = this.Repository.Insert(entity);
-            }
-
-            this.Validator = new DomainValidator();
+            _ = this.Repository.Insert(entity);
             return true;
         }
     }

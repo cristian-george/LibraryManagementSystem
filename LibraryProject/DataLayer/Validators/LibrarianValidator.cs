@@ -12,9 +12,9 @@ namespace Library.DataLayer.Validators
 
     /// <summary>
     /// Class LibrarianValidator.
-    /// Implements the <see cref="AbstractValidator{Library.DomainLayer.Person.Librarian}" />.
+    /// Implements the <see cref="AbstractValidator{DomainLayer.Person.Librarian}" />.
     /// </summary>
-    /// <seealso cref="AbstractValidator{Library.DomainLayer.Person.Librarian}" />
+    /// <seealso cref="AbstractValidator{DomainLayer.Person.Librarian}" />
     public class LibrarianValidator : AbstractValidator<Librarian>
     {
         /// <summary>

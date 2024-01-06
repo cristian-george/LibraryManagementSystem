@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests
+namespace Library.DomainLayer.Tests.ModelTests
 {
     using System;
     using Library.DomainLayer;
@@ -25,7 +25,12 @@ namespace Library.DomainLayer.Tests
         [TestInitialize]
         public void InitializeTest()
         {
-            this.account = new ();
+            this.account = new Account()
+            {
+                Id = 1,
+                PhoneNumber = "0770123456",
+                Email = "cristian.fieraru@student.unitbv.ro",
+            };
         }
 
         /// <summary>
@@ -35,6 +40,10 @@ namespace Library.DomainLayer.Tests
         public void AccountPhoneNumberShouldBeWrongIfLengthIsNot10()
         {
             this.account.PhoneNumber = "0721";
+
+            Assert.AreNotEqual(10, this.account.PhoneNumber.Length);
+
+            this.account.PhoneNumber = "0770123456789";
 
             Assert.AreNotEqual(10, this.account.PhoneNumber.Length);
         }
@@ -56,8 +65,6 @@ namespace Library.DomainLayer.Tests
         [TestMethod]
         public void AccountIdShouldBeValid()
         {
-            this.account.Id = 1;
-
             Assert.AreEqual(1, this.account.Id);
         }
 
@@ -67,44 +74,22 @@ namespace Library.DomainLayer.Tests
         [TestMethod]
         public void AccountEmailShouldBeValid()
         {
-            this.account.Email = "email@email.com";
             var trimmedEmail = this.account.Email.Trim();
 
-            if (trimmedEmail.EndsWith('.'))
-            {
-            }
+            var addr = new System.Net.Mail.MailAddress(this.account.Email);
 
-            bool flag;
-            try
-            {
-                var addr = new System.Net.Mail.MailAddress(this.account.Email);
-                flag = addr.Address == trimmedEmail;
-            }
-            catch
-            {
-                flag = false;
-            }
-
-            Assert.IsTrue(flag);
+            Assert.IsTrue(addr.Address == trimmedEmail);
         }
 
         /// <summary>
-        /// Defines the test method AccountEmailShouldBeInvalidAndThrowException.
+        /// Defines the test method AccountEmailShouldBeInvalidA.
         /// </summary>
         [TestMethod]
-        [ExpectedException(typeof(FormatException))]
-        public void AccountEmailShouldBeInvalidAndThrowException()
+        public void AccountEmailShouldBeInvalid()
         {
-            this.account.Email = "emailNotValid";
+            this.account.Email = "emailNotValid.";
 
-            var trimmedEmail = this.account.Email.Trim();
-
-            if (trimmedEmail.EndsWith('.'))
-            {
-                throw new AssertFailedException("The email is not valid");
-            }
-
-            _ = new System.Net.Mail.MailAddress(this.account.Email);
+            Assert.IsFalse(TestUtils.IsEmailValid(this.account.Email));
         }
     }
 }

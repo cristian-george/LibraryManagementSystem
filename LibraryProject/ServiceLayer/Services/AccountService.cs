@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class AccountService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Account, IAccountRepository}" />
+    /// Implements the <see cref="Services.BaseService{DomainLayer.Person.Account, IAccountRepository}" />
     /// Implements the <see cref="IAccountService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Account, IAccountRepository}" />
+    /// <seealso cref="Services.BaseService{DomainLayer.Person.Account, IAccountRepository}" />
     /// <seealso cref="IAccountService" />
     public class AccountService : BaseService<Account, IAccountRepository>, IAccountService
     {

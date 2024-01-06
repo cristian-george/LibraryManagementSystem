@@ -63,7 +63,7 @@ namespace Library.ServiceLayer
 
             if (!result.IsValid)
             {
-                _ = LogUtils.LogErrors(result);
+                LogUtils.LogErrors(result);
                 return false;
             }
 
@@ -82,7 +82,7 @@ namespace Library.ServiceLayer
 
             if (!result.IsValid)
             {
-                _ = LogUtils.LogErrors(result);
+                LogUtils.LogErrors(result);
                 return false;
             }
 

@@ -11,9 +11,9 @@ namespace Library.DataLayer.Repository.Interfaces
 
     /// <summary>
     /// Interface IAccountRepository.
-    /// Implements the <see cref="IRepository{Library.DomainLayer.Person.Account}" />.
+    /// Implements the <see cref="IRepository{DomainLayer.Person.Account}" />.
     /// </summary>
-    /// <seealso cref="IRepository{Library.DomainLayer.Person.Account}" />
+    /// <seealso cref="IRepository{DomainLayer.Person.Account}" />
     public interface IAccountRepository : IRepository<Account>
     {
     }

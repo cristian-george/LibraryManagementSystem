@@ -8,9 +8,9 @@ namespace Library.ServiceLayer.Interfaces
 
     /// <summary>
     /// Interface IBorrowerService
-    /// Implements the <see cref="IService{Library.DomainLayer.Person.Borrower}" />.
+    /// Implements the <see cref="IService{DomainLayer.Person.Borrower}" />.
     /// </summary>
-    /// <seealso cref="IService{Library.DomainLayer.Person.Borrower}" />
+    /// <seealso cref="IService{DomainLayer.Person.Borrower}" />
     public interface IBorrowerService : IService<Borrower>
     {
     }

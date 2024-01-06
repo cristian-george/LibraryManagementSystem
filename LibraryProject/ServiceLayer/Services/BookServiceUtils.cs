@@ -4,7 +4,9 @@
 
 namespace Library.ServiceLayer.Services
 {
+    using System;
     using System.Collections.Generic;
+    using System.Linq;
     using Library.DomainLayer;
 
     /// <summary>
@@ -12,6 +14,32 @@ namespace Library.ServiceLayer.Services
     /// </summary>
     public static class BookServiceUtils
     {
+        /// <summary>
+        /// Gets the books with the same title.
+        /// </summary>
+        /// <param name="books"> A book list. </param>
+        /// <param name="title"> The title. </param>
+        /// <returns> IEnumerable of Book. </returns>
+        public static IEnumerable<Book> GetBooksWithTheSameTitle(IEnumerable<Book> books, string title)
+        {
+            return books.Where(book => book.Title == title);
+        }
+
+        /// <summary>
+        /// Gets the unavailable books.
+        /// </summary>
+        /// <param name="books"> A book list. </param>
+        /// <returns> IEnumerable of Book. </returns>
+        public static IEnumerable<Book> GetUnavailableBooks(IEnumerable<Book> books)
+        {
+            var predicate = new Func<Book, bool>(book =>
+            {
+                return (bool)book.IsBorrowed || (bool)book.LecturesOnlyBook;
+            });
+
+            return books.Where(predicate);
+        }
+
         /// <summary>
         /// Adds ancestor domains.
         /// </summary>

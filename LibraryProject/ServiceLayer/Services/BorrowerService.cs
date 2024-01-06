@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class BorrowerService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Borrower, IBorrowerRepository}" />
+    /// Implements the <see cref="Services.BaseService{DomainLayer.Person.Borrower, IBorrowerRepository}" />
     /// Implements the <see cref="IBorrowerService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Library.DomainLayer.Person.Borrower, IBorrowerRepository}" />
+    /// <seealso cref="Services.BaseService{DomainLayer.Person.Borrower, IBorrowerRepository}" />
     /// <seealso cref="IBorrowerService" />
     public class BorrowerService : BaseService<Borrower, IBorrowerRepository>, IBorrowerService
     {

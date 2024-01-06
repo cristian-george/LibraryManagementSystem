@@ -16,10 +16,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class BorrowService.
-    /// Implements the <see cref="Library.ServiceLayer.Services.BaseService{Borrow, IBorrowRepository}" />
+    /// Implements the <see cref="Services.BaseService{Borrow, IBorrowRepository}" />.
     /// Implements the <see cref="IBorrowService" />.
     /// </summary>
-    /// <seealso cref="Library.ServiceLayer.Services.BaseService{Borrow, IBorrowRepository}" />
+    /// <seealso cref="Services.BaseService{Borrow, IBorrowRepository}" />
     /// <seealso cref="IBorrowService" />
     public class BorrowService : BaseService<Borrow, IBorrowRepository>, IBorrowService
     {
@@ -60,7 +60,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                _ = LogUtils.LogErrors(result);
+                LogUtils.LogErrors(result);
                 return false;
             }
 
@@ -267,8 +267,10 @@ namespace Library.ServiceLayer.Services
         /// <returns><c>true</c> if this instance [can borrow book] the specified title; otherwise, <c>false</c>.</returns>
         public bool CanBorrowBook(string title)
         {
-            var allBooksWithTheSameName = this.bookRepository.GetBooksWithTheSameTitle(title);
-            var unavailableBooks = this.bookRepository.GetUnavailableBooks(allBooksWithTheSameName);
+            var allBooksWithTheSameName =
+                BookServiceUtils.GetBooksWithTheSameTitle(this.bookRepository.Get(), title);
+            var unavailableBooks =
+                BookServiceUtils.GetUnavailableBooks(allBooksWithTheSameName);
 
             var allBooksWithTheSameNameCount = allBooksWithTheSameName.Count();
             var unavailableBooksCount = unavailableBooks.Count();
