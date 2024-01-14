@@ -55,12 +55,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Insert(this.borrower));
 
             // GetAll
-            var allBorrowers = this.service.GetAll(null, null, string.Empty);
+            var allBorrowers = this.service.Get(null, null, string.Empty);
             Assert.IsNotNull(allBorrowers);
 
             // GetById
             var id = allBorrowers.LastOrDefault().Id;
-            var dbBorrower = this.service.GetByID(id);
+            var dbBorrower = this.service.GetById(id);
             Assert.IsNotNull(dbBorrower);
 
             // Update
@@ -79,11 +79,11 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean borrower table
-            Assert.IsTrue(this.service.DeleteAll());
+            Assert.IsTrue(this.service.Delete());
 
             // Clean account table
             var accountService = Injector.Create<AccountService>();
-            Assert.IsTrue(accountService.DeleteAll());
+            Assert.IsTrue(accountService.Delete());
         }
     }
 }

@@ -90,12 +90,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Insert(book));
 
             // GetAll
-            var allBooks = this.service.GetAll(null, null, string.Empty);
+            var allBooks = this.service.Get(null, null, string.Empty);
             Assert.IsNotNull(allBooks);
 
             // GetById
             var id = allBooks.LastOrDefault().Id;
-            var dbBook = this.service.GetByID(id);
+            var dbBook = this.service.GetById(id);
             Assert.IsNotNull(dbBook);
 
             // Update
@@ -186,23 +186,23 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean Book table
-            _ = this.service.DeleteAll();
+            _ = this.service.Delete();
 
             // Clean Author table
             var authorService = Injector.Create<AuthorService>();
-            Assert.IsTrue(authorService.DeleteAll());
+            Assert.IsTrue(authorService.Delete());
 
             // Clean Domain table
             var domainService = Injector.Create<DomainService>();
-            Assert.IsTrue(domainService.DeleteAll());
+            Assert.IsTrue(domainService.Delete());
 
             // Clean Edition table
             var editionService = Injector.Create<EditionService>();
-            Assert.IsTrue(editionService.DeleteAll());
+            Assert.IsTrue(editionService.Delete());
 
             // Clean Properties table
             var propertiesService = Injector.Create<PropertiesService>();
-            Assert.IsTrue(propertiesService.DeleteAll());
+            Assert.IsTrue(propertiesService.Delete());
         }
     }
 }

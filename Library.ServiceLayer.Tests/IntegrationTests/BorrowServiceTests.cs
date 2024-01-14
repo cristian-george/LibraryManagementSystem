@@ -134,7 +134,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Account = librarianAccount,
             };
 
-            var allBooks = bookService.GetAll(
+            var allBooks = bookService.Get(
                 null,
                 book => book.OrderBy(x => x.Id),
                 string.Empty).ToList();
@@ -153,12 +153,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Insert(borrow));
 
             // GetAll
-            var allBorrows = this.service.GetAll(null, null, string.Empty);
+            var allBorrows = this.service.Get(null, null, string.Empty);
             Assert.IsNotNull(allBorrows);
 
             // GetById
             var id = allBorrows.LastOrDefault().Id;
-            var dbBorrow = this.service.GetByID(id);
+            var dbBorrow = this.service.GetById(id);
             Assert.IsNotNull(dbBorrow);
 
             // Update
@@ -229,7 +229,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             // Property LIM value
             var value = propertiesService
-                .GetAll(null, null, string.Empty)
+                .Get(null, null, string.Empty)
                 .LastOrDefault() // If there is at least one property then get the last one, else get a default one
                 .LIM // Get limit number of borrows
                 .Value;
@@ -265,7 +265,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             // Property LIM value
             var value = propertiesService
-                .GetAll(null, null, string.Empty)
+                .Get(null, null, string.Empty)
                 .LastOrDefault() // If there is at least one property then get the last one, else get a default one
                 .LIM // Get limit number of borrows
                 .Value;
@@ -428,7 +428,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             // Add books that will be borrowed
             var listOfBooksToBeBorrowed = new List<Book>();
-            var allBooks = bookService.GetAll(null, book => book.OrderBy(x => x.Id), string.Empty).ToList();
+            var allBooks = bookService.Get(null, book => book.OrderBy(x => x.Id), string.Empty).ToList();
 
             var borrow = new Borrow()
             {
@@ -531,7 +531,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             // Add books that will be borrowed
             var listOfBooksToBeBorrowed = new List<Book>();
-            var allBooks = bookService.GetAll(null, book => book.OrderBy(x => x.Id), string.Empty).ToList();
+            var allBooks = bookService.Get(null, book => book.OrderBy(x => x.Id), string.Empty).ToList();
 
             var borrow = new Borrow()
             {
@@ -707,39 +707,39 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean table
-            Assert.IsTrue(this.service.DeleteAll());
+            Assert.IsTrue(this.service.Delete());
 
             // Clean Librarian table
             var librarianService = Injector.Create<LibrarianService>();
-            Assert.IsTrue(librarianService.DeleteAll());
+            Assert.IsTrue(librarianService.Delete());
 
             // Clean Borrower table
             var borrowerService = Injector.Create<BorrowerService>();
-            Assert.IsTrue(borrowerService.DeleteAll());
+            Assert.IsTrue(borrowerService.Delete());
 
             // Clean Author table
             var authorService = Injector.Create<AuthorService>();
-            Assert.IsTrue(authorService.DeleteAll());
+            Assert.IsTrue(authorService.Delete());
 
             // Clean Domain table
             var domainService = Injector.Create<DomainService>();
-            Assert.IsTrue(domainService.DeleteAll());
+            Assert.IsTrue(domainService.Delete());
 
             // Clean Edition table
             var editionService = Injector.Create<EditionService>();
-            Assert.IsTrue(editionService.DeleteAll());
+            Assert.IsTrue(editionService.Delete());
 
             // Clean Account table
             var accountService = Injector.Create<AccountService>();
-            Assert.IsTrue(accountService.DeleteAll());
+            Assert.IsTrue(accountService.Delete());
 
             // Clean Properties table
             var propertiesService = Injector.Create<PropertiesService>();
-            Assert.IsTrue(propertiesService.DeleteAll());
+            Assert.IsTrue(propertiesService.Delete());
 
             // Clean Book table
             var bookService = Injector.Create<BookService>();
-            Assert.IsTrue(bookService.DeleteAll());
+            Assert.IsTrue(bookService.Delete());
         }
     }
 }

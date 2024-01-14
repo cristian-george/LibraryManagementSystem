@@ -44,12 +44,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Insert(author));
 
             // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbAccount = this.service.GetAll(null, null, string.Empty).LastOrDefault();
+            var dbAccount = this.service.Get(null, null, string.Empty).LastOrDefault();
             Assert.IsNotNull(dbAccount);
-            Assert.IsNotNull(this.service.GetByID(dbAccount.Id));
+            Assert.IsNotNull(this.service.GetById(dbAccount.Id));
 
             // GetAll
-            var allAccounts = this.service.GetAll(null, null, string.Empty);
+            var allAccounts = this.service.Get(null, null, string.Empty);
             Assert.IsNotNull(allAccounts);
 
             // Update
@@ -67,7 +67,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean table
-            Assert.IsTrue(this.service.DeleteAll());
+            Assert.IsTrue(this.service.Delete());
         }
     }
 }

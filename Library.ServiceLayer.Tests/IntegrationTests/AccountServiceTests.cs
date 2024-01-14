@@ -44,12 +44,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Insert(account));
 
             // GetAll
-            var allAccounts = this.service.GetAll(null, null, string.Empty);
+            var allAccounts = this.service.Get(null, null, string.Empty);
             Assert.IsNotNull(allAccounts);
 
             // GetById
             var id = allAccounts.LastOrDefault().Id;
-            var dbAccount = this.service.GetByID(id);
+            var dbAccount = this.service.GetById(id);
             Assert.IsNotNull(dbAccount);
 
             // Update
@@ -67,7 +67,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean table
-            Assert.IsTrue(this.service.DeleteAll());
+            Assert.IsTrue(this.service.Delete());
         }
     }
 }
