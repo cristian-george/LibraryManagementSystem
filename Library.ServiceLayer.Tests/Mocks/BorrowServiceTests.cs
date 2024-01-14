@@ -57,14 +57,14 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.borrowServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.borrowServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Borrow>()
                 { TestUtils.GetBorrowModel() });
 
             this.borrowService = this.borrowServiceMock.Object;
 
-            var result = this.borrowService.GetAll();
+            var result = this.borrowService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -76,11 +76,11 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestGetById()
         {
             var borrow = TestUtils.GetBorrowModelWithId();
-            _ = this.borrowServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowServiceMock.Setup(x => x.GetById(1))
                 .Returns(TestUtils.GetBorrowModelWithId());
 
             this.borrowService = this.borrowServiceMock.Object;
-            var result = this.borrowService.GetByID(1);
+            var result = this.borrowService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -94,12 +94,12 @@ namespace Library.ServiceLayer.Tests.Mocks
         {
             var borrow = TestUtils.GetBorrowModel();
 
-            _ = this.borrowServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowServiceMock.Setup(x => x.GetById(1))
                 .Returns(borrow);
 
             this.borrowService = this.borrowServiceMock.Object;
 
-            var modifiedBorrow = this.borrowService.GetByID(1);
+            var modifiedBorrow = this.borrowService.GetById(1);
             modifiedBorrow.EndDate = DateTime.Now;
 
             _ = this.borrowServiceMock.Setup(x => x.Update(modifiedBorrow)).Returns(true);

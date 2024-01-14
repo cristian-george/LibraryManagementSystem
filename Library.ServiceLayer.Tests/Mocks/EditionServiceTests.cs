@@ -63,7 +63,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.editionServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.editionServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Edition>()
                 {
@@ -78,7 +78,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.editionService = this.editionServiceMock.Object;
 
-            var result = this.editionService.GetAll();
+            var result = this.editionService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -89,7 +89,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            _ = this.editionServiceMock.Setup(x => x.GetByID(1))
+            _ = this.editionServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Edition
                 {
                     Id = 1,
@@ -101,7 +101,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.editionService = this.editionServiceMock.Object;
 
-            var result = this.editionService.GetByID(1);
+            var result = this.editionService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -115,7 +115,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            _ = this.editionServiceMock.Setup(x => x.GetByID(1))
+            _ = this.editionServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Edition
                 {
                     Publisher = "Cartea studentilor saraci",
@@ -126,7 +126,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.editionService = this.editionServiceMock.Object;
 
-            var modifiedAccount = this.editionService.GetByID(1);
+            var modifiedAccount = this.editionService.GetById(1);
             modifiedAccount.EditionNumber = 7;
 
             _ = this.editionServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);

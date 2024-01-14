@@ -69,14 +69,14 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ChildrenDomains = new List<Domain>(),
             };
 
-            _ = this.domainServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.domainServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Domain>()
                 { domain });
 
             this.domainService = this.domainServiceMock.Object;
 
-            var result = this.domainService.GetAll();
+            var result = this.domainService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -94,12 +94,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ParentDomain = null,
                 ChildrenDomains = new List<Domain>(),
             };
-            _ = this.domainServiceMock.Setup(x => x.GetByID(1))
+            _ = this.domainServiceMock.Setup(x => x.GetById(1))
                 .Returns(domain);
 
             this.domainService = this.domainServiceMock.Object;
 
-            var result = this.domainService.GetByID(1);
+            var result = this.domainService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -120,12 +120,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 ChildrenDomains = new List<Domain>(),
             };
 
-            _ = this.domainServiceMock.Setup(x => x.GetByID(1))
+            _ = this.domainServiceMock.Setup(x => x.GetById(1))
                 .Returns(domain);
 
             this.domainService = this.domainServiceMock.Object;
 
-            var modifiedAccount = this.domainService.GetByID(1);
+            var modifiedAccount = this.domainService.GetById(1);
             modifiedAccount.Name = "Filozofie";
 
             _ = this.domainServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);

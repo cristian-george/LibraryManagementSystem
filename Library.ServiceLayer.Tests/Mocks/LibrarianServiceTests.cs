@@ -85,14 +85,14 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.librarianServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.librarianServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Librarian>()
                 { librarian });
 
             this.librarianService = this.librarianServiceMock.Object;
 
-            var result = this.librarianService.GetAll();
+            var result = this.librarianService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -118,12 +118,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
                 Account = account,
             };
-            _ = this.librarianServiceMock.Setup(x => x.GetByID(1))
+            _ = this.librarianServiceMock.Setup(x => x.GetById(1))
                 .Returns(librarian);
 
             this.librarianService = this.librarianServiceMock.Object;
 
-            var result = this.librarianService.GetByID(1);
+            var result = this.librarianService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -152,12 +152,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.librarianServiceMock.Setup(x => x.GetByID(1))
+            _ = this.librarianServiceMock.Setup(x => x.GetById(1))
                 .Returns(librarian);
 
             this.librarianService = this.librarianServiceMock.Object;
 
-            var modifiedAccount = this.librarianService.GetByID(1);
+            var modifiedAccount = this.librarianService.GetById(1);
             modifiedAccount.LastName = "Alexandru";
 
             _ = this.librarianServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);

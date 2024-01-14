@@ -68,7 +68,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.propertiesServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.propertiesServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Properties>()
                 {
@@ -88,7 +88,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.propertiesService = this.propertiesServiceMock.Object;
 
-            var result = this.propertiesService.GetAll();
+            var result = this.propertiesService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -99,7 +99,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            _ = this.propertiesServiceMock.Setup(x => x.GetByID(1))
+            _ = this.propertiesServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Properties
                 {
                     Id = 1,
@@ -116,7 +116,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.propertiesService = this.propertiesServiceMock.Object;
 
-            var result = this.propertiesService.GetByID(1);
+            var result = this.propertiesService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -130,7 +130,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            _ = this.propertiesServiceMock.Setup(x => x.GetByID(1))
+            _ = this.propertiesServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Properties
                 {
                     DOMENII = 2,
@@ -146,7 +146,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.propertiesService = this.propertiesServiceMock.Object;
 
-            var modifiedAccount = this.propertiesService.GetByID(1);
+            var modifiedAccount = this.propertiesService.GetById(1);
             modifiedAccount.DOMENII = 7;
 
             _ = this.propertiesServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);

@@ -56,14 +56,14 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.bookServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.bookServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Book>()
                 { TestUtils.GetBookModel() });
 
             this.bookService = this.bookServiceMock.Object;
 
-            var result = this.bookService.GetAll();
+            var result = this.bookService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -75,11 +75,11 @@ namespace Library.ServiceLayer.Tests.Mocks
         public void TestGetById()
         {
             var book = TestUtils.GetBookModelWithId();
-            _ = this.bookServiceMock.Setup(x => x.GetByID(1))
+            _ = this.bookServiceMock.Setup(x => x.GetById(1))
                 .Returns(TestUtils.GetBookModelWithId());
 
             this.bookService = this.bookServiceMock.Object;
-            var result = this.bookService.GetByID(1);
+            var result = this.bookService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -93,12 +93,12 @@ namespace Library.ServiceLayer.Tests.Mocks
         {
             var book = TestUtils.GetBookModel();
 
-            _ = this.bookServiceMock.Setup(x => x.GetByID(1))
+            _ = this.bookServiceMock.Setup(x => x.GetById(1))
                 .Returns(book);
 
             this.bookService = this.bookServiceMock.Object;
 
-            var modifiedBook = this.bookService.GetByID(1);
+            var modifiedBook = this.bookService.GetById(1);
             modifiedBook.Title = "O carte oarecare";
 
             _ = this.bookServiceMock.Setup(x => x.Update(modifiedBook)).Returns(true);

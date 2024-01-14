@@ -61,7 +61,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.accountServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.accountServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Account>()
                 {
@@ -74,7 +74,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.accountService = this.accountServiceMock.Object;
 
-            var result = this.accountService.GetAll();
+            var result = this.accountService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -85,7 +85,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            _ = this.accountServiceMock.Setup(x => x.GetByID(1))
+            _ = this.accountServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Account
                 {
                     Id = 1,
@@ -95,7 +95,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.accountService = this.accountServiceMock.Object;
 
-            var result = this.accountService.GetByID(1);
+            var result = this.accountService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -109,7 +109,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            _ = this.accountServiceMock.Setup(x => x.GetByID(1))
+            _ = this.accountServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Account
                 {
                     PhoneNumber = "0734525427",
@@ -118,7 +118,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.accountService = this.accountServiceMock.Object;
 
-            var modifiedAccount = this.accountService.GetByID(1);
+            var modifiedAccount = this.accountService.GetById(1);
             modifiedAccount.Email = "modifiedemail@gmail.ro";
 
             _ = this.accountServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);

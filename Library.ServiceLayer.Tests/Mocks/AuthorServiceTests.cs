@@ -61,7 +61,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.authorServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.authorServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Author>()
                 {
@@ -74,7 +74,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.authorService = this.authorServiceMock.Object;
 
-            var result = this.authorService.GetAll();
+            var result = this.authorService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -85,7 +85,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestGetById()
         {
-            _ = this.authorServiceMock.Setup(x => x.GetByID(1))
+            _ = this.authorServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Author
                 {
                     Id = 1,
@@ -95,7 +95,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.authorService = this.authorServiceMock.Object;
 
-            var result = this.authorService.GetByID(1);
+            var result = this.authorService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -109,7 +109,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestUpdate()
         {
-            _ = this.authorServiceMock.Setup(x => x.GetByID(1))
+            _ = this.authorServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Author
                 {
                     FirstName = "Marcel",
@@ -118,7 +118,7 @@ namespace Library.ServiceLayer.Tests.Mocks
 
             this.authorService = this.authorServiceMock.Object;
 
-            var modifiedAuthor = this.authorService.GetByID(1);
+            var modifiedAuthor = this.authorService.GetById(1);
             modifiedAuthor.FirstName = "Marcel";
 
             _ = this.authorServiceMock.Setup(x => x.Update(modifiedAuthor)).Returns(true);

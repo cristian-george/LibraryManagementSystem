@@ -83,14 +83,14 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.borrowerServiceMock.Setup(x => x.GetAll(null, null, null))
+            _ = this.borrowerServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Borrower>()
                 { borrower });
 
             this.borrowerService = this.borrowerServiceMock.Object;
 
-            var result = this.borrowerService.GetAll();
+            var result = this.borrowerService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -115,12 +115,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
                 Account = account,
             };
-            _ = this.borrowerServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowerServiceMock.Setup(x => x.GetById(1))
                 .Returns(borrower);
 
             this.borrowerService = this.borrowerServiceMock.Object;
 
-            var result = this.borrowerService.GetByID(1);
+            var result = this.borrowerService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -148,12 +148,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.borrowerServiceMock.Setup(x => x.GetByID(1))
+            _ = this.borrowerServiceMock.Setup(x => x.GetById(1))
                 .Returns(borrower);
 
             this.borrowerService = this.borrowerServiceMock.Object;
 
-            var modifiedAccount = this.borrowerService.GetByID(1);
+            var modifiedAccount = this.borrowerService.GetById(1);
             modifiedAccount.LastName = "Alexandru";
 
             _ = this.borrowerServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
