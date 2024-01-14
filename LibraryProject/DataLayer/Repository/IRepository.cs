@@ -57,7 +57,7 @@ namespace Library.DataLayer.Repository
         /// </summary>
         /// <param name="id"> The identifier. </param>
         /// <returns> Object of type T. </returns>.
-        T GetByID(object id);
+        T GetById(object id);
 
         /// <summary>
         /// Gets the specified filter.

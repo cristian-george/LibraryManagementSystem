@@ -42,14 +42,14 @@ namespace Library.ServiceLayer
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns> bool. </returns>
-        bool DeleteAll();
+        bool Delete();
 
         /// <summary>
         /// Gets the by identifier.
         /// </summary>
         /// <param name="id"> The identifier. </param>
         /// <returns> Object of type <typeparamref name="T"/>. </returns>
-        T GetByID(object id);
+        T GetById(object id);
 
         /// <summary>
         /// Gets the specified filter.
@@ -58,7 +58,7 @@ namespace Library.ServiceLayer
         /// <param name="orderBy"> orderBy. </param>
         /// <param name="includeProperties"> includeProperties. </param>
         /// <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
-        IEnumerable<T> GetAll(
+        IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "");

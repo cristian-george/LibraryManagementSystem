@@ -39,7 +39,7 @@ namespace Library.DataLayer.Validators
         }
 
         /// <summary>
-        /// Bes the name of a valid.
+        /// Verifies if the name is valid.
         /// </summary>
         /// <param name="name"> The name. </param>
         /// <returns> bool. </returns>

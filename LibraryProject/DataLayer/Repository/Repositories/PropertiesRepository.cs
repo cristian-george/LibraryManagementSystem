@@ -28,17 +28,8 @@ namespace Library.DataLayer.Repository.Concretes
         /// <returns> Properties. </returns>
         public Properties GetLastProperties()
         {
-            try
-            {
-                var lastPropertiesId = this.Ctx.Properties.Max(x => x.Id);
-                return this.Ctx.Properties.FirstOrDefault(x => x.Id == lastPropertiesId);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message + "The query could not been made!");
-            }
-
-            return new Properties();
+            var lastPropertiesId = this.Ctx.Properties.Max(x => x.Id);
+            return this.Ctx.Properties.FirstOrDefault(x => x.Id == lastPropertiesId);
         }
     }
 }

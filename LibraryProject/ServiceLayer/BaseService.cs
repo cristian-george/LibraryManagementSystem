@@ -105,9 +105,9 @@ namespace Library.ServiceLayer
         /// </summary>
         /// <param name="id"> The identifier. </param>
         /// <returns> TModel. </returns>
-        public virtual TModel GetByID(object id)
+        public virtual TModel GetById(object id)
         {
-            return this.Repository.GetByID(id);
+            return this.Repository.GetById(id);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Library.ServiceLayer
         /// <param name="orderBy"> The order by. </param>
         /// <param name="includeProperties"> The include properties. </param>
         /// <returns> IEnumerable of TModel. </returns>
-        public virtual IEnumerable<TModel> GetAll(
+        public virtual IEnumerable<TModel> Get(
             Expression<Func<TModel, bool>> filter = null,
             Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
             string includeProperties = "")
@@ -128,9 +128,8 @@ namespace Library.ServiceLayer
         /// <summary>
         /// Deletes all.
         /// </summary>
-        /// <param name="entity"> The entity. </param>
         /// <returns> bool. </returns>
-        public bool DeleteAll()
+        public bool Delete()
         {
             return this.Repository.Delete();
         }

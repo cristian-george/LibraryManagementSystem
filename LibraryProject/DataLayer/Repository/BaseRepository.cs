@@ -136,7 +136,7 @@ namespace Library.DataLayer.Repository
         {
             try
             {
-                _ = this.Delete(this.GetByID(id));
+                _ = this.Delete(this.GetById(id));
             }
             catch (Exception ex)
             {
@@ -181,7 +181,7 @@ namespace Library.DataLayer.Repository
         /// </summary>
         /// <param name="id"> The identifier. </param>
         /// <returns> Object of type T. </returns>
-        public virtual T GetByID(object id)
+        public virtual T GetById(object id)
         {
             try
             {
@@ -189,7 +189,7 @@ namespace Library.DataLayer.Repository
             }
             catch (Exception ex)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The GetByID could not been made. Will return null!");
+                this.Logger.Error(ex.Message + ex.InnerException + "The GetById could not been made. Will return null!");
             }
 
             return null;

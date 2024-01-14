@@ -47,7 +47,7 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns> ceva. </returns>
-        public bool DeleteAll()
+        public bool Delete()
         {
             return this.repository.Delete();
         }
@@ -69,7 +69,7 @@ namespace Library.ServiceLayer.Services
         /// <param name="orderBy"> The order by. </param>
         /// <param name="includeProperties"> The include properties. </param>
         /// <returns> ceva. </returns>
-        public IEnumerable<Properties> GetAll(
+        public IEnumerable<Properties> Get(
             Expression<Func<Properties, bool>> filter = null,
             Func<IQueryable<Properties>, IOrderedQueryable<Properties>> orderBy = null,
             string includeProperties = "")
@@ -82,9 +82,9 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns> ceva. </returns>
-        public Properties GetByID(object id)
+        public Properties GetById(object id)
         {
-            return this.repository.GetByID(id);
+            return this.repository.GetById(id);
         }
 
         /// <summary>
