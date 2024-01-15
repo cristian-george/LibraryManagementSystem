@@ -351,10 +351,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 PER = 3,
             };
 
+            var borrow = TestUtils.GetBorrowModel();
+
             // Insert Properties
             Assert.IsTrue(propertiesService.Insert(properties));
 
-            Assert.IsTrue(this.service.CheckCanBorrowAtMostNCZBooksToday(null));
+            Assert.IsTrue(this.service.CheckCanBorrowAtMostNCZBooksToday(borrow));
         }
 
         /// <summary>
@@ -620,6 +622,36 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             };
 
             Assert.IsFalse(this.service.CheckBorrowAdditionalRules(borrow));
+        }
+
+        /// <summary>
+        /// Defines the test method TestCheckGrantAtMostPERSIMPBooksToday.
+        /// </summary>
+        [TestMethod]
+        public void TestCheckGrantAtMostPERSIMPBooksToday()
+        {
+            var borrow = new Borrow()
+            {
+                Borrower = new Librarian()
+                {
+                    IsReader = true,
+                },
+                BorrowedBooks = new List<Book>()
+                {
+                    new ()
+                    {
+                        LecturesOnlyBook = true,
+                    },
+                },
+            };
+
+            var propertiesService = Injector.Create<PropertiesService>();
+            var properties = TestUtils.GetPropertiesModel();
+
+            // Insert Properties
+            Assert.IsTrue(propertiesService.Insert(properties));
+
+            Assert.IsTrue(this.service.CheckGrantAtMostPERSIMPBooksToday(borrow));
         }
 
         /// <summary>

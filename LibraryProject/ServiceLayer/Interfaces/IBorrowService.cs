@@ -71,5 +71,12 @@ namespace Library.ServiceLayer.Interfaces
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
         bool CheckCanBorrowAtMostNCZBooksToday(Borrow entity);
+
+        /// <summary>
+        /// Checks if librarian granted at most PERSIMP books today.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>bool.</returns>
+        bool CheckGrantAtMostPERSIMPBooksToday(Borrow entity);
     }
 }

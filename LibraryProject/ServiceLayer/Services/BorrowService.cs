@@ -229,7 +229,8 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// Checks the lim.
+        /// Checks if borrow extension is at most LIM.
+        /// LIM is threshold for books number limit.
         /// </summary>
         /// <param name="entity"> entity.</param>
         /// <returns> vrbs. </returns>
@@ -306,12 +307,41 @@ namespace Library.ServiceLayer.Services
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
+            var ncz = properties.NCZ;
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    ncz = int.MaxValue - 1;
+                }
+            }
+
             var borrowsToday = this.Repository.Get(
                 borrow => borrow.BorrowDate == DateTime.Today,
                 borrow => borrow.OrderBy(x => x.Id),
                 string.Empty).Count();
 
-            return borrowsToday == 0 || properties.NCZ < borrowsToday;
+            return borrowsToday == 0 || borrowsToday <= ncz;
+        }
+
+        /// <summary>
+        /// Checks if librarian granted at most PERSIMP books today.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns>bool.</returns>
+        public bool CheckGrantAtMostPERSIMPBooksToday(Borrow entity)
+        {
+            var properties = this.PropertiesRepository.GetLastProperties();
+
+            var persimp = properties.PERSIMP;
+
+            var borrowsToday = this.Repository.Get(
+                borrow => borrow.BorrowDate == DateTime.Today &&
+                          borrow.Librarian.Equals(entity.Librarian),
+                borrow => borrow.OrderBy(x => x.Id),
+                string.Empty).Count();
+
+            return borrowsToday <= persimp;
         }
 
         /// <summary>
