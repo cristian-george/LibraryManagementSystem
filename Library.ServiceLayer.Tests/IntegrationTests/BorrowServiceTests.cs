@@ -191,7 +191,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowedBooks = new List<Book>() { TestUtils.GetBookModel() },
             };
 
-            Assert.IsFalse(this.service.CheckIfBooksAreBorrowable(borrow));
+            Assert.IsFalse(this.service.CheckNumberOfBooksLeftIsAtLeast10Percent(borrow));
         }
 
         /// <summary>
@@ -205,7 +205,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowedBooks = new List<Book>() { TestUtils.GetBookModel(), TestUtils.GetBookModel() },
             };
 
-            Assert.IsFalse(this.service.CheckIfBooksAreBorrowable(borrow));
+            Assert.IsFalse(this.service.CheckIfAtLeastABookIsForLecture(borrow));
         }
 
         /// <summary>
@@ -241,7 +241,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             };
 
             // Check if it is possible to extend the borrow time
-            Assert.IsFalse(this.service.CheckLIM(borrow));
+            Assert.IsFalse(this.service.CheckBorrowExtensionAtMostLIM(borrow));
         }
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             };
 
             // Check if it is possible to extend the borrow time
-            Assert.IsTrue(this.service.CheckLIM(borrow));
+            Assert.IsTrue(this.service.CheckBorrowExtensionAtMostLIM(borrow));
         }
 
         /// <summary>
@@ -354,7 +354,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             // Insert Properties
             Assert.IsTrue(propertiesService.Insert(properties));
 
-            Assert.IsTrue(this.service.CheckMaxBorrowBooksToday());
+            Assert.IsTrue(this.service.CheckCanBorrowAtMostNCZBooksToday(null));
         }
 
         /// <summary>
@@ -619,7 +619,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 },
             };
 
-            Assert.IsFalse(this.service.CheckIfBooksAreBorrowable(borrow));
+            Assert.IsFalse(this.service.CheckBorrowAdditionalRules(borrow));
         }
 
         /// <summary>

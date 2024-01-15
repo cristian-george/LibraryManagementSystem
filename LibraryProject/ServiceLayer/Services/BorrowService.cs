@@ -68,6 +68,106 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
+        /// A book can be borrowed if not all copies are
+        /// marked as being for the reading room only.
+        /// </summary>
+        /// <param name="entity">Borrow.</param>
+        /// <returns>bool.</returns>
+        public bool CheckIfAtLeastABookIsForLecture(Borrow entity)
+        {
+            foreach (var bookToBeBorrowed in entity.BorrowedBooks)
+            {
+                var title = bookToBeBorrowed.Title;
+                var allBooksWithTheSameName = BookServiceUtils.
+                    GetBooksWithTheSameTitle(this.bookRepository.Get(), title);
+
+                bool isForLecture = false;
+                foreach (var book in allBooksWithTheSameName)
+                {
+                    if (book.LecturesOnlyBook == true)
+                    {
+                        isForLecture = true;
+                    }
+                }
+
+                if (!isForLecture)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// The number of books left (still unborrowed, but not from those for the reading room)
+        /// is at least 10% of the initial fund in that book.
+        /// </summary>
+        /// <param name="entity">Borrow.</param>
+        /// <returns>bool.</returns>
+        public bool CheckNumberOfBooksLeftIsAtLeast10Percent(Borrow entity)
+        {
+            foreach (var bookToBeBorrowed in entity.BorrowedBooks)
+            {
+                var title = bookToBeBorrowed.Title;
+                var allBooksWithTheSameName =
+                BookServiceUtils.GetBooksWithTheSameTitle(this.bookRepository.Get(), title);
+                var unavailableBooks =
+                    BookServiceUtils.GetUnavailableBooks(allBooksWithTheSameName);
+
+                var allBooksWithTheSameNameCount = allBooksWithTheSameName.Count();
+                var unavailableBooksCount = unavailableBooks.Count();
+
+                if (allBooksWithTheSameNameCount * 0.1f >=
+                    allBooksWithTheSameNameCount - unavailableBooksCount)
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks the can borrow maximum NMC in PER.
+        /// </summary>
+        /// <param name="entity">The entity.</param>
+        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        public bool CheckCanBorrowMaxNMCInPER(Borrow entity)
+        {
+            var properties = this.PropertiesRepository.GetLastProperties();
+            var per = properties.PER;
+            var nmc = properties.NMC;
+
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    per /= 2;
+                    nmc *= 2;
+                }
+            }
+
+            // Cartile ce au fost imprumutate in ultimele PER luni
+            var datePer = DateTime.Now.AddMonths((int)-per);
+            var borrowsInLastPERMonths = this.Repository.Get(
+                borrow => borrow.BorrowDate >= datePer,
+                borrow => borrow.OrderBy(x => x.Id),
+                string.Empty);
+            var borrowedBooksInPERPeriod = borrowsInLastPERMonths
+                .SelectMany(borrow => borrow.BorrowedBooks)
+                .Distinct()
+                .Count();
+
+            if (properties.NMC <= borrowedBooksInPERPeriod + entity.BorrowedBooks.Count)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Checks the borrowed books for maximum C books.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -103,6 +203,56 @@ namespace Library.ServiceLayer.Services
                     .ToList());
 
             return entity.BorrowedBooks.Count >= 3 && noOfDistinctDomains >= 2;
+        }
+
+        /// <summary>
+        /// Checks if borrow books are at most D in last L months.
+        /// D is threshold for number of domains.
+        /// L is threshold for number of months.
+        /// </summary>
+        /// <param name="entity">The borrow.</param>
+        /// <returns>bool.</returns>
+        public bool CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Borrow entity)
+        {
+            var properties = this.PropertiesRepository.GetLastProperties();
+            var d = properties.D;
+
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    d *= 2;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// Checks the lim.
+        /// </summary>
+        /// <param name="entity"> entity.</param>
+        /// <returns> vrbs. </returns>
+        public bool CheckBorrowExtensionAtMostLIM(Borrow entity)
+        {
+            var properties = this.PropertiesRepository.GetLastProperties();
+            var lim = properties.LIM;
+
+            if (entity.Borrower is Librarian librarian)
+            {
+                if (librarian.IsReader == true)
+                {
+                    lim *= 2;
+                }
+            }
+
+            // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
+            if (entity.NoOfTimeExtended >= lim)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         /// <summary>
@@ -148,50 +298,11 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// Checks the can borrow maximum NMC in PER.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckCanBorrowMaxNMCInPER(Borrow entity)
-        {
-            var properties = this.PropertiesRepository.GetLastProperties();
-            var per = properties.PER;
-            var nmc = properties.NMC;
-
-            if (entity.Borrower is Librarian librarian)
-            {
-                if (librarian.IsReader == true)
-                {
-                    per /= 2;
-                    nmc *= 2;
-                }
-            }
-
-            // Cartile ce au fost imprumutate in ultimele PER luni
-            var datePer = DateTime.Now.AddMonths((int)-per);
-            var borrowsInLastPERMonths = this.Repository.Get(
-                borrow => borrow.BorrowDate >= datePer,
-                borrow => borrow.OrderBy(x => x.Id),
-                string.Empty);
-            var borrowedBooksInPERPeriod = borrowsInLastPERMonths
-                .SelectMany(borrow => borrow.BorrowedBooks)
-                .Distinct()
-                .Count();
-
-            if (properties.NMC <= borrowedBooksInPERPeriod + entity.BorrowedBooks.Count)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
         /// Checks the maximum borrow books today.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckMaxBorrowBooksToday()
+        public bool CheckCanBorrowAtMostNCZBooksToday(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
@@ -201,82 +312,6 @@ namespace Library.ServiceLayer.Services
                 string.Empty).Count();
 
             return borrowsToday == 0 || properties.NCZ < borrowsToday;
-        }
-
-        /// <summary>
-        /// Checks if books are borrowable.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckIfBooksAreBorrowable(Borrow entity)
-        {
-            if (entity.BorrowedBooks.Count == 1)
-            {
-                var book = entity.BorrowedBooks.First();
-
-                if (book.LecturesOnlyBook == true || this.CanBorrowBook(book.Title) || this.CheckLIM(entity))
-                {
-                    return false;
-                }
-            }
-            else
-            {
-                foreach (var book in entity.BorrowedBooks)
-                {
-                    if (book.LecturesOnlyBook == true || this.CanBorrowBook(book.Title))
-                    {
-                        return false;
-                    }
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Checks the lim.
-        /// </summary>
-        /// <param name="entity"> entity.</param>
-        /// <returns> vrbs. </returns>
-        public bool CheckLIM(Borrow entity)
-        {
-            var properties = this.PropertiesRepository.GetLastProperties();
-            var lim = properties.LIM;
-
-            if (entity.Borrower is Librarian librarian)
-            {
-                if (librarian.IsReader == true)
-                {
-                    lim *= 2;
-                }
-            }
-
-            // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
-            if (entity.NoOfTimeExtended >= lim)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Determines whether this instance [can borrow book] the specified title.
-        /// </summary>
-        /// <param name="title">The title.</param>
-        /// <returns><c>true</c> if this instance [can borrow book] the specified title; otherwise, <c>false</c>.</returns>
-        public bool CanBorrowBook(string title)
-        {
-            var allBooksWithTheSameName =
-                BookServiceUtils.GetBooksWithTheSameTitle(this.bookRepository.Get(), title);
-            var unavailableBooks =
-                BookServiceUtils.GetUnavailableBooks(allBooksWithTheSameName);
-
-            var allBooksWithTheSameNameCount = allBooksWithTheSameName.Count();
-            var unavailableBooksCount = unavailableBooks.Count();
-
-            return allBooksWithTheSameNameCount * 0.1f >=
-                   allBooksWithTheSameNameCount - unavailableBooksCount;
         }
 
         /// <summary>
@@ -291,14 +326,12 @@ namespace Library.ServiceLayer.Services
                 return true;
             }*/
 
-            /* 1. Din anumite carti, o parte din exemplare (sau toate) sunt doar pentru sala de lectura
-             * 2. O carte poate fi imprumutata doar daca: nu are toate exemplarele marcate ca fiind doar
-             * pentru sala de lectura si numarul de carti ramase (inca neimprumutate, dar nu din cele
-             * pentru sala de lectura) este macar 10% din fondul initial din acea carte.
-             * 3. Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
-             * acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
-             * Un imprumut are 2 saptamani maxim */
-            if (!this.CheckIfBooksAreBorrowable(entity))
+            /* O carte poate fi imprumutata daca */
+            // 1. nu are toate exemplarele marcate ca fiind doar pentru sala de lectura;
+            // 2. numarul de carti ramase (inca neimprumutate, dar nu din cele
+            // pentru sala de lectura) este macar 10 % din fondul initial din acea carte.
+            if (this.CheckIfAtLeastABookIsForLecture(entity) == false ||
+                this.CheckNumberOfBooksLeftIsAtLeast10Percent(entity) == false)
             {
                 return false;
             }
@@ -317,6 +350,21 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
+            // Todo
+            // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
+            // – de tip frunza sau de nivel superior - in ultimele L luni
+            if (!this.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(entity))
+            {
+                return false;
+            }
+
+            // Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
+            // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
+            if (!this.CheckBorrowExtensionAtMostLIM(entity))
+            {
+                return false;
+            }
+
             // Nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
             // DELTA se masoara de la ultimul imprumut al cartii
             if (!this.CheckBorrowInDELTATime(entity))
@@ -325,15 +373,7 @@ namespace Library.ServiceLayer.Services
             }
 
             // Pot imprumuta cel mult NCZ carti intr-o zi.
-            if (!this.CheckMaxBorrowBooksToday())
-            {
-                return false;
-            }
-
-            // Todo
-            // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
-            // – de tip frunza sau de nivel superior - in ultimele L luni
-            if (!this.CheckMaxBorrowBooksInSameDomainInLastLMonths(entity))
+            if (!this.CheckCanBorrowAtMostNCZBooksToday(entity))
             {
                 return false;
             }
@@ -341,27 +381,6 @@ namespace Library.ServiceLayer.Services
             foreach (var book in entity.BorrowedBooks)
             {
                 book.IsBorrowed = true;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// Checks maximum borrow books in last L months.
-        /// </summary>
-        /// <param name="entity">The borrow.</param>
-        /// <returns>bool.</returns>
-        public bool CheckMaxBorrowBooksInSameDomainInLastLMonths(Borrow entity)
-        {
-            var properties = this.PropertiesRepository.GetLastProperties();
-            var d = properties.D;
-
-            if (entity.Borrower is Librarian librarian)
-            {
-                if (librarian.IsReader == true)
-                {
-                    d *= 2;
-                }
             }
 
             return true;
