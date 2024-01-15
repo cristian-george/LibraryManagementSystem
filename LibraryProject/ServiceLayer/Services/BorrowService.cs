@@ -67,6 +67,20 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
+        /// <inheritdoc/>
+        public override bool Update(Borrow entity)
+        {
+            // Todo
+            // Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
+            // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
+            if (!this.CheckBorrowExtensionAtMostLIM(entity))
+            {
+                return false;
+            }
+
+            return base.Update(entity);
+        }
+
         /// <summary>
         /// A book can be borrowed if not all copies are
         /// marked as being for the reading room only.
@@ -247,7 +261,6 @@ namespace Library.ServiceLayer.Services
                 }
             }
 
-            // Partea cu ultimele 3 luni trebuie facuta cand se face update si se doreste sa se faca extindere
             if (entity.NoOfTimeExtended >= lim)
             {
                 return false;
@@ -384,13 +397,6 @@ namespace Library.ServiceLayer.Services
             // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
             // – de tip frunza sau de nivel superior - in ultimele L luni
             if (!this.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(entity))
-            {
-                return false;
-            }
-
-            // Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
-            // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
-            if (!this.CheckBorrowExtensionAtMostLIM(entity))
             {
                 return false;
             }
