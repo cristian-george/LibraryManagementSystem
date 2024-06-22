@@ -40,8 +40,23 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
+            SetParentDomain(entity);
+
             _ = this.Repository.Insert(entity);
             return true;
+        }
+
+        /// <summary>
+        /// Sets all children to the parent recursively.
+        /// </summary>
+        /// <param name="parent">Domain.</param>
+        private static void SetParentDomain(Domain parent)
+        {
+            foreach (var child in parent.ChildrenDomains)
+            {
+                child.ParentDomain = parent;
+                SetParentDomain(child);
+            }
         }
     }
 }
