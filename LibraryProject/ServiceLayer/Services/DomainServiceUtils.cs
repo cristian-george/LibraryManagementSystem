@@ -24,7 +24,7 @@ namespace Library.ServiceLayer.Services
 
             foreach (var domain in domains)
             {
-                listOfParentDomains.Add(GetParentDomain(domain));
+                listOfParentDomains.Add(GetRootDomain(domain));
             }
 
             listOfParentDomains = listOfParentDomains.Distinct().ToList();
@@ -37,14 +37,22 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="domain">The domain.</param>
         /// <returns>Domain.</returns>
-        public static Domain GetParentDomain(Domain domain)
+        public static Domain GetRootDomain(Domain domain)
         {
-            while (domain.ParentDomain != null)
+            if (domain.ParentDomain == null)
             {
-                domain = domain.ParentDomain;
+                return domain;
             }
 
-            return domain;
+            Domain rootDomain = domain;
+
+            do
+            {
+                rootDomain = rootDomain.ParentDomain;
+            }
+            while (rootDomain.ParentDomain != null);
+
+            return rootDomain;
         }
     }
 }

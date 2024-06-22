@@ -7,12 +7,14 @@ namespace Library.ServiceLayer.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Runtime.ConstrainedExecution;
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators;
     using Library.DomainLayer;
     using Library.Injection;
     using Library.ServiceLayer;
     using Library.ServiceLayer.Interfaces;
+    using Microsoft.Extensions.Options;
 
     /// <summary>
     /// Class BorrowService.
@@ -23,11 +25,6 @@ namespace Library.ServiceLayer.Services
     /// <seealso cref="IBorrowService" />
     public class BorrowService : BaseService<Borrow, IBorrowRepository>, IBorrowService
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="BorrowService" /> class.
-        /// </summary>
-        /// <param name="borrowRepository">The borrow repository.</param>
-        /// <param name="propertiesRepository">The properties repository.</param>
         private readonly IBookRepository bookRepository;
 
         /// <summary>
@@ -47,15 +44,15 @@ namespace Library.ServiceLayer.Services
         /// <returns>bool.</returns>
         public override bool Insert(Borrow entity)
         {
-            // The borrow expires after 1 month
-            if (entity.BorrowDate is DateTime startDate)
-            {
-                entity.EndDate = startDate.AddMonths(1);
-            }
-
             var result = this.Validator.Validate(entity);
             if (result.IsValid && this.CheckBorrowAdditionalRules(entity))
             {
+                // The borrow expires after 1 month
+                if (entity.BorrowDate is DateTime startDate)
+                {
+                    entity.EndDate = startDate.AddMonths(1);
+                }
+
                 _ = this.Repository.Insert(entity);
             }
             else
@@ -82,7 +79,7 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// A book can be borrowed if not all copies are
+        /// A book can be borrowed if not all of its copies are
         /// marked as being for the reading room only.
         /// </summary>
         /// <param name="entity">Borrow.</param>
@@ -164,11 +161,12 @@ namespace Library.ServiceLayer.Services
 
             // Cartile ce au fost imprumutate in ultimele PER luni
             var datePer = DateTime.Now.AddMonths((int)-per);
-            var borrowsInLastPERMonths = this.Repository.Get(
-                borrow => borrow.BorrowDate >= datePer,
-                borrow => borrow.OrderBy(x => x.Id),
-                string.Empty);
-            var borrowedBooksInPERPeriod = borrowsInLastPERMonths
+            var borrows = this.Repository.Get(
+                borrow =>
+                borrow.Borrower.Id == entity.Borrower.Id &&
+                borrow.BorrowDate >= datePer);
+
+            var borrowedBooksInPERPeriod = borrows
                 .SelectMany(borrow => borrow.BorrowedBooks)
                 .Distinct()
                 .Count();
@@ -230,12 +228,46 @@ namespace Library.ServiceLayer.Services
         {
             var properties = this.PropertiesRepository.GetLastProperties();
             var d = properties.D;
+            var l = properties.L;
 
             if (entity.Borrower is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
                     d *= 2;
+                }
+            }
+
+            // Get all the borrows of a borrower in the last L months.
+            var dateL = DateTime.Now.AddMonths((int)-l);
+            var borrows = this.Repository.Get(
+                borrow =>
+                borrow.Borrower.Id == entity.Borrower.Id &&
+                borrow.BorrowDate >= dateL);
+
+            var books = borrows
+                .SelectMany(borrow => borrow.BorrowedBooks)
+                .Distinct()
+                .ToList();
+
+            books.AddRange(entity.BorrowedBooks);
+
+            Dictionary<Domain, int> domains = new Dictionary<Domain, int>();
+
+            books.ForEach(book =>
+            {
+                foreach (var domain in book.Domains)
+                {
+                    var rootDomain = DomainServiceUtils.GetRootDomain(domain);
+                    domains[rootDomain]++;
+                }
+            });
+
+            foreach (var counter in domains.Values)
+            {
+                if (counter > d)
+                {
+                    return false;
                 }
             }
 

@@ -5,6 +5,7 @@
 namespace Library.ServiceLayer.Services
 {
     using System.Collections.Generic;
+    using System.Linq;
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators.BookValidators;
     using Library.DomainLayer;
@@ -41,6 +42,10 @@ namespace Library.ServiceLayer.Services
             {
                 this.Validator = new BookWithoutAuthorsValidator();
             }
+            else
+            {
+                this.Validator = new BookValidator();
+            }
 
             var result = this.Validator.Validate(entity);
             if (result.IsValid && this.CheckBookAdditionalRules(entity))
@@ -53,7 +58,6 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
-            this.Validator = new BookValidator();
             return true;
         }
 
@@ -70,20 +74,11 @@ namespace Library.ServiceLayer.Services
 
             foreach (var domain in book.Domains)
             {
-                BookServiceUtils.GetDomainsWithoutTheParent(domain, domains);
-
-                foreach (var parentDomain in domains)
-                {
-                    if (domain.Id == parentDomain.Id)
-                    {
-                        return false;
-                    }
-                }
-
-                domains.Clear();
+                var rootDomain = DomainServiceUtils.GetRootDomain(domain);
+                domains.Add(rootDomain);
             }
 
-            return true;
+            return domains.DistinctBy(domain => domain.Name).Count() == domains.Count;
         }
 
         /// <inheritdoc/>

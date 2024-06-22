@@ -77,11 +77,16 @@ namespace Library.DataLayer
         /// <param name="optionsBuilder"> The optionsBuilder used to configure properties of the server. </param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // var connString = ConfigurationManager.ConnectionStrings[1].ToString();
+            var connString =
+               "Data Source=DESKTOP-E5915CT\\SQLEXPRESS; " +
+               "Initial Catalog=dbLibrary; " +
+               "User ID=sa; " +
+               "Password=1234; " +
+               "Encrypt=False";
+
             _ = optionsBuilder
                .UseLazyLoadingProxies()
-               .UseSqlServer("Data Source=DESKTOP-E5915CT\\SQLEXPRESS; " +
-               "Initial Catalog=dbLibrary; User ID=sa; Password=1234; Encrypt=False"/*connString*/);
+               .UseSqlServer(connString);
         }
     }
 }

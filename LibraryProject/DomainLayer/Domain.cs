@@ -39,5 +39,24 @@ namespace Library.DomainLayer
         /// </summary>
         /// <value>The children domains.</value>
         public virtual ICollection<Domain> ChildrenDomains { get; set; }
+
+        /// <summary>
+        /// Equals method.
+        /// </summary>
+        /// <param name="obj">obj.</param>
+        /// <returns>bool.</returns>
+        public override bool Equals(object obj)
+        {
+            return this.Name.Equals((obj as Domain).Name);
+        }
+
+        /// <summary>
+        /// GetHashCode method.
+        /// </summary>
+        /// <returns>int.</returns>
+        public override int GetHashCode()
+        {
+            return this.Name.GetHashCode();
+        }
     }
 }

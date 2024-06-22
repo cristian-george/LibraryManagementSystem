@@ -133,21 +133,21 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         [TestMethod]
         public void BookHasCorrectDomainsShouldReturnFalse()
         {
-            var parent = new Domain()
+            var rootDomain = new Domain()
             {
                 Name = "Stiinta",
                 ParentDomain = null,
             };
 
-            var children = new Domain()
+            var subdomain = new Domain()
             {
                 Name = "Chimie",
-                ParentDomain = parent,
+                ParentDomain = rootDomain,
             };
 
             var book = new Book()
             {
-                Domains = new List<Domain>() { parent, children },
+                Domains = new List<Domain>() { rootDomain, subdomain },
             };
 
             Assert.IsFalse(this.service.IsInTheCorrectDomains(book));
@@ -159,13 +159,13 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         [TestMethod]
         public void BookHasCorrectDomainsShouldReturnTrue()
         {
-            var parent = new Domain()
+            var rootDomain = new Domain()
             {
                 Name = "Stiinta",
                 ParentDomain = null,
             };
 
-            var parent2 = new Domain()
+            var rootDomain2 = new Domain()
             {
                 Name = "Literatura",
                 ParentDomain = null,
@@ -173,7 +173,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
 
             var book = new Book()
             {
-                Domains = new List<Domain>() { parent, parent2 },
+                Domains = new List<Domain>() { rootDomain, rootDomain2 },
             };
 
             Assert.IsTrue(this.service.IsInTheCorrectDomains(book));
