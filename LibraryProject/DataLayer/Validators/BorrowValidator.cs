@@ -24,9 +24,9 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public BorrowValidator()
         {
-            _ = this.RuleFor(b => b.Borrower).SetInheritanceValidator(v =>
+            _ = this.RuleFor(b => b.Reader).SetInheritanceValidator(v =>
             {
-                _ = v.Add(new BorrowerValidator());
+                _ = v.Add(new ReaderValidator());
             });
 
             _ = this.RuleFor(b => b.NoOfTimeExtended)

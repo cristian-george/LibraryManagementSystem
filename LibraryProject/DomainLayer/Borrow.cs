@@ -44,11 +44,11 @@ namespace Library.DomainLayer
         public int? NoOfTimeExtended { get; set; }
 
         /// <summary>
-        /// Gets or sets the borrower.
+        /// Gets or sets the reader.
         /// </summary>
-        /// <value>The borrower.</value>
+        /// <value>The reader.</value>
         [Required]
-        public virtual Borrower Borrower { get; set; }
+        public virtual Reader Reader { get; set; }
 
         /// <summary>
         /// Gets or sets the librarian.

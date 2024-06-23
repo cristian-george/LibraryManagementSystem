@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerServiceTests.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="ReaderServiceTests.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -11,15 +11,15 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Defines test class BorrowerServiceTests.
+    /// Defines test class ReaderServiceTests.
     /// </summary>
     [TestClass]
-    public class BorrowerServiceTests
+    public class ReaderServiceTests
     {
-        private BorrowerService service;
+        private ReaderService service;
 
         private Account account = null;
-        private Borrower borrower = null;
+        private Reader reader = null;
 
         /// <summary>
         /// Initializes this instance.
@@ -28,7 +28,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Initialize()
         {
             Injector.Initialize();
-            this.service = Injector.Create<BorrowerService>();
+            this.service = Injector.Create<ReaderService>();
 
             this.account = new Account()
             {
@@ -36,7 +36,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Email = "cristian.fieraru@student.unitbv.ro",
             };
 
-            this.borrower = new Borrower()
+            this.reader = new Reader()
             {
                 LastName = "Fieraru",
                 FirstName = "Cristian",
@@ -46,30 +46,30 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         }
 
         /// <summary>
-        /// Defines the test method EndToEndBorrower.
+        /// Defines the test method EndToEndReader.
         /// </summary>
         [TestMethod]
-        public void EndToEndBorrower()
+        public void EndToEndReader()
         {
             // Insert
-            Assert.IsTrue(this.service.Insert(this.borrower));
+            Assert.IsTrue(this.service.Insert(this.reader));
 
             // GetAll
-            var allBorrowers = this.service.Get(null, null, string.Empty);
-            Assert.IsNotNull(allBorrowers);
+            var allReaders = this.service.Get(null, null, string.Empty);
+            Assert.IsNotNull(allReaders);
 
             // GetById
-            var id = allBorrowers.LastOrDefault().Id;
-            var dbBorrower = this.service.GetById(id);
-            Assert.IsNotNull(dbBorrower);
+            var id = allReaders.LastOrDefault().Id;
+            var dbReader = this.service.GetById(id);
+            Assert.IsNotNull(dbReader);
 
             // Update
-            dbBorrower.Address = "Brasov, strada Iuliu Maniu, nr. 1";
-            dbBorrower.Account.Email = "cristian.fieraru01@gmail.com";
-            Assert.IsTrue(this.service.Update(dbBorrower));
+            dbReader.Address = "Brasov, strada Iuliu Maniu, nr. 1";
+            dbReader.Account.Email = "cristian.fieraru01@gmail.com";
+            Assert.IsTrue(this.service.Update(dbReader));
 
             // Delete
-            Assert.IsTrue(this.service.DeleteById(dbBorrower.Id));
+            Assert.IsTrue(this.service.DeleteById(dbReader.Id));
         }
 
         /// <summary>
@@ -78,7 +78,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         [TestCleanup]
         public void Cleanup()
         {
-            // Clean borrower table
+            // Clean reader table
             Assert.IsTrue(this.service.Delete());
 
             // Clean account table

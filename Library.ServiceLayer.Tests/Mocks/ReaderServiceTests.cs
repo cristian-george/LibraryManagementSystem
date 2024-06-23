@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerServiceTests.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="ReaderServiceTests.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -11,20 +11,20 @@ namespace Library.ServiceLayer.Tests.Mocks
     using Moq;
 
     /// <summary>
-    /// Defines test class BorrowerServiceTests.
+    /// Defines test class ReaderServiceTests.
     /// </summary>
     [TestClass]
-    public class BorrowerServiceTests
+    public class ReaderServiceTests
     {
         /// <summary>
-        /// The borrower service mock.
+        /// The reader service mock.
         /// </summary>
-        private Mock<IBorrowerService> borrowerServiceMock;
+        private Mock<IReaderService> readerServiceMock;
 
         /// <summary>
-        /// The borrower service.
+        /// The reader service.
         /// </summary>
-        private IBorrowerService borrowerService;
+        private IReaderService readerService;
 
         /// <summary>
         /// Initializes this instance.
@@ -32,7 +32,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestInitialize]
         public void Initialize()
         {
-            this.borrowerServiceMock = new Mock<IBorrowerService>();
+            this.readerServiceMock = new Mock<IReaderService>();
         }
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Email = "gogumortu@gmail.com",
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -55,10 +55,10 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.borrowerServiceMock.Setup(x => x.Insert(borrower)).Returns(true);
-            this.borrowerService = this.borrowerServiceMock.Object;
+            _ = this.readerServiceMock.Setup(x => x.Insert(reader)).Returns(true);
+            this.readerService = this.readerServiceMock.Object;
 
-            var result = this.borrowerService.Insert(borrower);
+            var result = this.readerService.Insert(reader);
 
             Assert.IsTrue(result);
         }
@@ -75,7 +75,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Email = "gogumortu@gmail.com",
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -83,14 +83,14 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.borrowerServiceMock.Setup(x => x.Get(null, null, null))
+            _ = this.readerServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
-                new List<Borrower>()
-                { borrower });
+                new List<Reader>()
+                { reader });
 
-            this.borrowerService = this.borrowerServiceMock.Object;
+            this.readerService = this.readerServiceMock.Object;
 
-            var result = this.borrowerService.Get();
+            var result = this.readerService.Get();
 
             Assert.IsNotNull(result);
         }
@@ -107,7 +107,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Email = "gogumortu@gmail.com",
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 Id = 1,
                 LastName = "Gogu",
@@ -115,12 +115,12 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
                 Account = account,
             };
-            _ = this.borrowerServiceMock.Setup(x => x.GetById(1))
-                .Returns(borrower);
+            _ = this.readerServiceMock.Setup(x => x.GetById(1))
+                .Returns(reader);
 
-            this.borrowerService = this.borrowerServiceMock.Object;
+            this.readerService = this.readerServiceMock.Object;
 
-            var result = this.borrowerService.GetById(1);
+            var result = this.readerService.GetById(1);
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
@@ -140,7 +140,7 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Email = "gogumortu@gmail.com",
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -148,17 +148,17 @@ namespace Library.ServiceLayer.Tests.Mocks
                 Account = account,
             };
 
-            _ = this.borrowerServiceMock.Setup(x => x.GetById(1))
-                .Returns(borrower);
+            _ = this.readerServiceMock.Setup(x => x.GetById(1))
+                .Returns(reader);
 
-            this.borrowerService = this.borrowerServiceMock.Object;
+            this.readerService = this.readerServiceMock.Object;
 
-            var modifiedAccount = this.borrowerService.GetById(1);
+            var modifiedAccount = this.readerService.GetById(1);
             modifiedAccount.LastName = "Alexandru";
 
-            _ = this.borrowerServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.readerServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
 
-            var result = this.borrowerService.Update(modifiedAccount);
+            var result = this.readerService.Update(modifiedAccount);
 
             Assert.IsTrue(result);
         }
@@ -169,10 +169,10 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestMethod]
         public void TestDelete()
         {
-            _ = this.borrowerServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
-            this.borrowerService = this.borrowerServiceMock.Object;
+            _ = this.readerServiceMock.Setup(x => x.DeleteById(1)).Returns(true);
+            this.readerService = this.readerServiceMock.Object;
 
-            var result = this.borrowerService.DeleteById(1);
+            var result = this.readerService.DeleteById(1);
 
             Assert.IsTrue(result);
         }

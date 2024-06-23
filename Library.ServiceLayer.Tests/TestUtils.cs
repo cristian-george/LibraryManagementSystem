@@ -46,7 +46,7 @@ namespace Library.ServiceLayer.Tests
                 NumberOfPages = 250,
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -74,7 +74,7 @@ namespace Library.ServiceLayer.Tests
                 BorrowDate = DateTime.Now.AddMonths(-1),
                 EndDate = DateTime.Now.AddMonths(3),
                 NoOfTimeExtended = 1,
-                Borrower = borrower,
+                Reader = reader,
                 BorrowedBooks = new List<Book>() { book },
             };
         }
@@ -112,7 +112,7 @@ namespace Library.ServiceLayer.Tests
                 NumberOfPages = 1,
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -136,7 +136,7 @@ namespace Library.ServiceLayer.Tests
                 BorrowDate = DateTime.Now,
                 EndDate = DateTime.Now.AddMonths(3),
                 NoOfTimeExtended = 1,
-                Borrower = borrower,
+                Reader = reader,
                 BorrowedBooks = new List<Book>() { book },
             };
         }

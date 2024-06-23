@@ -8,10 +8,10 @@ namespace Library.DomainLayer
 
     /// <summary>
     /// Class Librarian.
-    /// Implements the <see cref="DomainLayer.Person.Borrower" />.
+    /// Implements the <see cref="DomainLayer.Person.Reader" />.
     /// </summary>
-    /// <seealso cref="DomainLayer.Person.Borrower" />
-    public class Librarian : Borrower
+    /// <seealso cref="DomainLayer.Person.Reader" />
+    public class Librarian : Reader
     {
         /// <summary>
         /// Gets or sets a value indicating whether this instance is reader.

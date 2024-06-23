@@ -30,12 +30,12 @@ namespace Library.DomainLayer.Tests.ModelTests
         }
 
         /// <summary>
-        /// Defines the test method BorrowShouldHaveAValidBorrower.
+        /// Defines the test method BorrowShouldHaveAValidReader.
         /// </summary>
         [TestMethod]
-        public void BorrowShouldHaveAValidBorrower()
+        public void BorrowShouldHaveAValidReader()
         {
-            var borrower = new Borrower
+            var reader = new Reader
             {
                 Account = new ()
                 {
@@ -46,11 +46,11 @@ namespace Library.DomainLayer.Tests.ModelTests
 
             this.borrow = new ()
             {
-                Borrower = borrower,
+                Reader = reader,
                 BorrowedBooks = null,
             };
 
-            Assert.IsNotNull(this.borrow.Borrower);
+            Assert.IsNotNull(this.borrow.Reader);
         }
 
         /// <summary>
@@ -109,7 +109,7 @@ namespace Library.DomainLayer.Tests.ModelTests
 
             this.borrow = new ()
             {
-                Borrower = null,
+                Reader = null,
                 BorrowedBooks = borrowedBooks,
             };
 

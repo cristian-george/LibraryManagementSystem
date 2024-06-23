@@ -1,4 +1,4 @@
-﻿// <copyright file="Borrower.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="Reader.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -8,9 +8,9 @@ namespace Library.DomainLayer
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// Class Borrower.
+    /// Class Reader.
     /// </summary>
-    public class Borrower
+    public class Reader
     {
         /// <summary>
         /// Gets or sets the identifier.

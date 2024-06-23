@@ -33,7 +33,7 @@ namespace Library.Injection
         {
             _ = this.Bind<IAuthorRepository>().To<AuthorRepository>();
             _ = this.Bind<IBookRepository>().To<BookRepository>();
-            _ = this.Bind<IBorrowerRepository>().To<BorrowerRepository>();
+            _ = this.Bind<IReaderRepository>().To<ReaderRepository>();
             _ = this.Bind<IBorrowRepository>().To<BorrowRepository>();
             _ = this.Bind<IDomainRepository>().To<DomainRepository>();
             _ = this.Bind<IEditionRepository>().To<EditionRepository>();
@@ -49,7 +49,7 @@ namespace Library.Injection
         {
             _ = this.Bind<IAuthorService>().To<AuthorService>();
             _ = this.Bind<IBookService>().To<BookService>();
-            _ = this.Bind<IBorrowerService>().To<BorrowerService>();
+            _ = this.Bind<IReaderService>().To<ReaderService>();
             _ = this.Bind<IBorrowService>().To<BorrowService>();
             _ = this.Bind<IDomainService>().To<DomainService>();
             _ = this.Bind<IEditionService>().To<EditionService>();

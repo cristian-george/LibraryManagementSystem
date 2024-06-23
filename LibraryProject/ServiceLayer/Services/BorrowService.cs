@@ -150,7 +150,7 @@ namespace Library.ServiceLayer.Services
             var per = properties.PER;
             var nmc = properties.NMC;
 
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
@@ -163,7 +163,7 @@ namespace Library.ServiceLayer.Services
             var datePer = DateTime.Now.AddMonths((int)-per);
             var borrows = this.Repository.Get(
                 borrow =>
-                borrow.Borrower.Id == entity.Borrower.Id &&
+                borrow.Reader.Id == entity.Reader.Id &&
                 borrow.BorrowDate >= datePer);
 
             var borrowedBooksInPERPeriod = borrows
@@ -190,7 +190,7 @@ namespace Library.ServiceLayer.Services
 
             var c = properties.C;
 
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
@@ -230,7 +230,7 @@ namespace Library.ServiceLayer.Services
             var d = properties.D;
             var l = properties.L;
 
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
@@ -238,11 +238,11 @@ namespace Library.ServiceLayer.Services
                 }
             }
 
-            // Get all the borrows of a borrower in the last L months.
+            // Get all the borrows of a reader in the last L months.
             var dateL = DateTime.Now.AddMonths((int)-l);
             var borrows = this.Repository.Get(
                 borrow =>
-                borrow.Borrower.Id == entity.Borrower.Id &&
+                borrow.Reader.Id == entity.Reader.Id &&
                 borrow.BorrowDate >= dateL);
 
             var books = borrows
@@ -285,7 +285,7 @@ namespace Library.ServiceLayer.Services
             var properties = this.PropertiesRepository.GetLastProperties();
             var lim = properties.LIM;
 
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
@@ -311,7 +311,7 @@ namespace Library.ServiceLayer.Services
             var properties = this.PropertiesRepository.GetLastProperties();
             var delta = properties.DELTA;
 
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {
@@ -353,7 +353,7 @@ namespace Library.ServiceLayer.Services
             var properties = this.PropertiesRepository.GetLastProperties();
 
             var ncz = properties.NCZ;
-            if (entity.Borrower is Librarian librarian)
+            if (entity.Reader is Librarian librarian)
             {
                 if (librarian.IsReader == true)
                 {

@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerValidator.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="ReaderValidator.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -12,16 +12,16 @@ namespace Library.DataLayer.Validators
     using Library.DomainLayer;
 
     /// <summary>
-    /// Class BorrowerValidator.
-    /// Implements the <see cref="AbstractValidator{DomainLayer.Person.Borrower}" />.
+    /// Class ReaderValidator.
+    /// Implements the <see cref="AbstractValidator{DomainLayer.Person.Reader}" />.
     /// </summary>
-    /// <seealso cref="AbstractValidator{DomainLayer.Person.Borrower}" />
-    public class BorrowerValidator : AbstractValidator<Borrower>
+    /// <seealso cref="AbstractValidator{DomainLayer.Person.Reader}" />
+    public class ReaderValidator : AbstractValidator<Reader>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BorrowerValidator" /> class.
+        /// Initializes a new instance of the <see cref="ReaderValidator" /> class.
         /// </summary>
-        public BorrowerValidator()
+        public ReaderValidator()
         {
             _ = this.RuleFor(b => b.FirstName)
                 .NotNull().WithMessage("Null {PropertyName}")

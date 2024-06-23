@@ -30,10 +30,10 @@ namespace Library.DataLayer
         public DbSet<Account> Accounts { get; set; }
 
         /// <summary>
-        /// Gets or sets the Borrowers table.
+        /// Gets or sets the Readers table.
         /// </summary>
-        /// <value> The borrowers. </value>
-        public DbSet<Borrower> Borrowers { get; set; }
+        /// <value> The readers. </value>
+        public DbSet<Reader> Readers { get; set; }
 
         /// <summary>
         /// Gets or sets the Authors table.

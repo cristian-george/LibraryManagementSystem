@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerRepository.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="ReaderRepository.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -12,9 +12,9 @@ namespace Library.DataLayer.Repository.Concretes
     using Library.DomainLayer;
 
     /// <summary>
-    /// Methods for the borrower controller.
+    /// Methods for the reader controller.
     /// </summary>
-    public class BorrowerRepository : BaseRepository<Borrower>, IBorrowerRepository
+    public class ReaderRepository : BaseRepository<Reader>, IReaderRepository
     {
     }
 }

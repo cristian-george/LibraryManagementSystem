@@ -93,7 +93,7 @@ namespace LibraryProject.Migrations
                         .IsRequired()
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("BorrowerId")
+                    b.Property<int>("ReaderId")
                         .HasColumnType("int");
 
                     b.Property<DateTime?>("EndDate")
@@ -109,7 +109,7 @@ namespace LibraryProject.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("BorrowerId");
+                    b.HasIndex("ReaderId");
 
                     b.HasIndex("LibrarianId");
 
@@ -199,7 +199,7 @@ namespace LibraryProject.Migrations
                     b.ToTable("Accounts");
                 });
 
-            modelBuilder.Entity("Library.DomainLayer.Person.Borrower", b =>
+            modelBuilder.Entity("Library.DomainLayer.Person.Reader", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -232,9 +232,9 @@ namespace LibraryProject.Migrations
 
                     b.HasIndex("AccountId");
 
-                    b.ToTable("Borrowers");
+                    b.ToTable("Readers");
 
-                    b.HasDiscriminator<string>("Discriminator").HasValue("Borrower");
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Reader");
                 });
 
             modelBuilder.Entity("Library.DomainLayer.Properties", b =>
@@ -281,7 +281,7 @@ namespace LibraryProject.Migrations
 
             modelBuilder.Entity("Library.DomainLayer.Person.Librarian", b =>
                 {
-                    b.HasBaseType("Library.DomainLayer.Person.Borrower");
+                    b.HasBaseType("Library.DomainLayer.Person.Reader");
 
                     b.Property<bool?>("IsReader")
                         .IsRequired()
@@ -306,9 +306,9 @@ namespace LibraryProject.Migrations
 
             modelBuilder.Entity("Library.DomainLayer.Borrow", b =>
                 {
-                    b.HasOne("Library.DomainLayer.Person.Borrower", "Borrower")
+                    b.HasOne("Library.DomainLayer.Person.Reader", "Reader")
                         .WithMany()
-                        .HasForeignKey("BorrowerId")
+                        .HasForeignKey("ReaderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -316,7 +316,7 @@ namespace LibraryProject.Migrations
                         .WithMany()
                         .HasForeignKey("LibrarianId");
 
-                    b.Navigation("Borrower");
+                    b.Navigation("Reader");
 
                     b.Navigation("Librarian");
                 });
@@ -341,7 +341,7 @@ namespace LibraryProject.Migrations
                         .HasForeignKey("BookId");
                 });
 
-            modelBuilder.Entity("Library.DomainLayer.Person.Borrower", b =>
+            modelBuilder.Entity("Library.DomainLayer.Person.Reader", b =>
                 {
                     b.HasOne("Library.DomainLayer.Person.Account", "Account")
                         .WithMany()

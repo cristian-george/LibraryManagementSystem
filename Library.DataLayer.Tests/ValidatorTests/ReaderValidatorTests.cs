@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowerValidatorTests.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="ReaderValidatorTests.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -10,15 +10,15 @@ namespace Library.DataLayer.Tests.ValidatorTests
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
-    /// Defines test class BorrowerValidatorTests.
+    /// Defines test class ReaderValidatorTests.
     /// </summary>
     [TestClass]
-    public class BorrowerValidatorTests
+    public class ReaderValidatorTests
     {
         /// <summary>
         /// The validator.
         /// </summary>
-        private BorrowerValidator validator;
+        private ReaderValidator validator;
 
         /// <summary>
         /// Initializes this instance.
@@ -35,7 +35,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = null,
                 LastName = "Fieraru",
@@ -51,7 +51,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsNotNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "Cristian",
                 LastName = "Fieraru",
@@ -67,7 +67,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = string.Empty,
                 LastName = "Fieraru",
@@ -83,7 +83,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsNotEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "Cristian",
                 LastName = "Fieraru",
@@ -99,7 +99,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameLengthIsLessThanOne()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "q",
                 LastName = "Fieraru",
@@ -115,7 +115,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsHigherThanOne()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "qrwer",
                 LastName = "Fieraru",
@@ -131,7 +131,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNotAValidName()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "--gds031",
                 LastName = "Fieraru",
@@ -147,7 +147,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenFirstNameIsAValidName()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 FirstName = "Fieraru",
                 LastName = "Fieraru",
@@ -163,7 +163,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = null,
                 FirstName = "Fieraru",
@@ -179,7 +179,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsNotNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "Cristian",
                 FirstName = "Fieraru",
@@ -195,7 +195,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = string.Empty,
                 FirstName = "Fieraru",
@@ -211,7 +211,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsNotEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "Cristian",
                 FirstName = "Fieraru",
@@ -227,7 +227,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameLengthIsLessThanOne()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "q",
                 FirstName = "Fieraru",
@@ -243,7 +243,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsHigherThanOne()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "qrwer",
                 FirstName = "Fieraru",
@@ -259,7 +259,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNotAValidName()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "--gds031",
                 FirstName = "Fieraru",
@@ -275,7 +275,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenLastNameIsAValidName()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 LastName = "Fieraru",
                 FirstName = "Fieraru",
@@ -291,7 +291,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenAddressIsNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = null,
             };
@@ -306,7 +306,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenAddressIsNotNull()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = "adresa",
             };
@@ -321,7 +321,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenAddressIsEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = string.Empty,
             };
@@ -336,7 +336,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenAddressIsNotEmpty()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = "adresa",
             };
@@ -351,7 +351,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenAddressLengthIsLessThanOne()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = "q",
             };
@@ -366,7 +366,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenAddressIsHigherThanTwo()
         {
-            var model = new Borrower()
+            var model = new Reader()
             {
                 Address = "qrwer",
             };

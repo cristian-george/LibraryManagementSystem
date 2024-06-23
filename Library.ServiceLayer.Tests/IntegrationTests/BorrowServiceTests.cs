@@ -112,7 +112,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 Email = "cristian.fieraru@student.unitbv.ro",
             };
 
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 FirstName = "Cristian",
                 LastName = "Fieraru",
@@ -145,7 +145,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowDate = DateTime.Now.AddMonths(-2),
                 EndDate = DateTime.Now.AddMonths(3),
                 NoOfTimeExtended = 1,
-                Borrower = borrower,
+                Reader = reader,
                 Librarian = librarian,
                 BorrowedBooks = allBooks,
             };
@@ -163,7 +163,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsNotNull(dbBorrow);
 
             // Update
-            borrow.Borrower.Account.Email = "validEmail@gmail.com";
+            borrow.Reader.Account.Email = "validEmail@gmail.com";
             Assert.IsTrue(this.service.Update(dbBorrow));
 
             // Delete
@@ -406,7 +406,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 PhoneNumber = "0734525427",
                 Email = "gogumortu@gmail.com",
             };
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -438,7 +438,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowDate = DateTime.Now.AddMonths(-2),
                 EndDate = DateTime.Now.AddMonths(3),
                 NoOfTimeExtended = 1,
-                Borrower = borrower,
+                Reader = reader,
                 Librarian = librarian,
                 BorrowedBooks = new List<Book>(),
             };
@@ -446,7 +446,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             // Update
             borrow.BorrowedBooks.Add(allBooks.FirstOrDefault());
             borrow.BorrowedBooks.Add(allBooks.LastOrDefault());
-            borrow.Borrower.Account.Email = "validEmail@gmail.com";
+            borrow.Reader.Account.Email = "validEmail@gmail.com";
 
             Assert.IsFalse(this.service.CheckCanBorrowMaxNMCInPER(borrow));
         }
@@ -509,7 +509,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 PhoneNumber = "0734525427",
                 Email = "gogumortu@gmail.com",
             };
-            var borrower = new Borrower()
+            var reader = new Reader()
             {
                 LastName = "Gogu",
                 FirstName = "Mortu",
@@ -541,14 +541,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 BorrowDate = DateTime.Now.AddMonths(-2),
                 EndDate = DateTime.Now.AddMonths(3),
                 NoOfTimeExtended = 1,
-                Borrower = borrower,
+                Reader = reader,
                 Librarian = librarian,
                 BorrowedBooks = new List<Book>(),
             };
 
             // Update
             borrow.BorrowedBooks.Add(allBooks.LastOrDefault());
-            borrow.Borrower.Account.Email = "validEmail@gmail.com";
+            borrow.Reader.Account.Email = "validEmail@gmail.com";
 
             Assert.IsTrue(this.service.CheckBorrowInDELTATime(borrow));
         }
@@ -561,7 +561,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             var borrow = new Borrow()
             {
-                Borrower = new Librarian()
+                Reader = new Librarian()
                 {
                     IsReader = true,
                 },
@@ -609,7 +609,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             var borrow = new Borrow()
             {
-                Borrower = new Librarian()
+                Reader = new Librarian()
                 {
                     IsReader = true,
                 },
@@ -633,7 +633,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             var borrow = new Borrow()
             {
-                Borrower = new Librarian()
+                Reader = new Librarian()
                 {
                     IsReader = true,
                 },
@@ -663,7 +663,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             var borrow = new Borrow()
             {
-                Borrower = new Librarian()
+                Reader = new Librarian()
                 {
                     IsReader = true,
                 },
@@ -702,7 +702,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         {
             var borrow = new Borrow()
             {
-                Borrower = new Librarian()
+                Reader = new Librarian()
                 {
                     IsReader = true,
                 },
@@ -746,9 +746,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             var librarianService = Injector.Create<LibrarianService>();
             Assert.IsTrue(librarianService.Delete());
 
-            // Clean Borrower table
-            var borrowerService = Injector.Create<BorrowerService>();
-            Assert.IsTrue(borrowerService.Delete());
+            // Clean Reader table
+            var readerService = Injector.Create<ReaderService>();
+            Assert.IsTrue(readerService.Delete());
 
             // Clean Author table
             var authorService = Injector.Create<AuthorService>();

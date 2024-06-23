@@ -54,7 +54,7 @@ namespace LibraryProject.Migrations
                 });
 
             _ = migrationBuilder.CreateTable(
-                name: "Borrowers",
+                name: "Readers",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -68,9 +68,9 @@ namespace LibraryProject.Migrations
                 },
                 constraints: table =>
                 {
-                    _ = table.PrimaryKey("PK_Borrowers", x => x.Id);
+                    _ = table.PrimaryKey("PK_Readers", x => x.Id);
                     _ = table.ForeignKey(
-                        name: "FK_Borrowers_Accounts_AccountId",
+                        name: "FK_Readers_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
                         principalColumn: "Id",
@@ -87,21 +87,21 @@ namespace LibraryProject.Migrations
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NoOfTimeExtended = table.Column<int>(type: "int", nullable: false),
                     LibrarianId = table.Column<int>(type: "int", nullable: true),
-                    BorrowerId = table.Column<int>(type: "int", nullable: false),
+                    ReaderId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
                     _ = table.PrimaryKey("PK_Borrow", x => x.Id);
                     _ = table.ForeignKey(
-                        name: "FK_Borrow_Borrowers_BorrowerId",
-                        column: x => x.BorrowerId,
-                        principalTable: "Borrowers",
+                        name: "FK_Borrow_Readers_ReaderId",
+                        column: x => x.ReaderId,
+                        principalTable: "Readers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     _ = table.ForeignKey(
-                        name: "FK_Borrow_Borrowers_LibrarianId",
+                        name: "FK_Borrow_Readers_LibrarianId",
                         column: x => x.LibrarianId,
-                        principalTable: "Borrowers",
+                        principalTable: "Readers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -211,9 +211,9 @@ namespace LibraryProject.Migrations
                 column: "BorrowId");
 
             _ = migrationBuilder.CreateIndex(
-                name: "IX_Borrow_BorrowerId",
+                name: "IX_Borrow_ReaderId",
                 table: "Borrow",
-                column: "BorrowerId");
+                column: "ReaderId");
 
             _ = migrationBuilder.CreateIndex(
                 name: "IX_Borrow_LibrarianId",
@@ -221,8 +221,8 @@ namespace LibraryProject.Migrations
                 column: "LibrarianId");
 
             _ = migrationBuilder.CreateIndex(
-                name: "IX_Borrowers_AccountId",
-                table: "Borrowers",
+                name: "IX_Readers_AccountId",
+                table: "Readers",
                 column: "AccountId");
 
             _ = migrationBuilder.CreateIndex(
@@ -263,7 +263,7 @@ namespace LibraryProject.Migrations
                 name: "Borrow");
 
             _ = migrationBuilder.DropTable(
-                name: "Borrowers");
+                name: "Readers");
 
             _ = migrationBuilder.DropTable(
                 name: "Accounts");
