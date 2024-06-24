@@ -119,7 +119,7 @@ namespace LibraryProject.Migrations
 
                     b.HasIndex("LibrarianId");
 
-                    b.ToTable("Borrow");
+                    b.ToTable("Borrows");
                 });
 
             modelBuilder.Entity("Library.DomainLayer.Domain", b =>

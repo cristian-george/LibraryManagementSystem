@@ -51,7 +51,7 @@ namespace Library.DataLayer
         /// Gets or sets the Borrow table.
         /// </summary>
         /// <value> The borrow. </value>
-        public DbSet<Borrow> Borrow { get; set; }
+        public DbSet<Borrow> Borrows { get; set; }
 
         /// <summary>
         /// Gets or sets the Domains table.
