@@ -6,10 +6,10 @@ namespace Library.DataLayer.Repository.Concretes
 {
     using Library.DataLayer.Repository;
     using Library.DataLayer.Repository.Interfaces;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// The Concretes namespace.
+    /// Edition repository.
     /// </summary>
     public class EditionRepository : BaseRepository<Edition>, IEditionRepository
     {

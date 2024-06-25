@@ -2,22 +2,15 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Validators namespace.
-/// </summary>
 namespace Library.DataLayer.Validators
 {
-    using System.Collections.Generic;
-    using System.Diagnostics.CodeAnalysis;
     using FluentValidation;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Class DomainValidator.
-    /// Implements the <see cref="AbstractValidator{Domain}" />.
+    /// Domain validator.
     /// </summary>
-    /// <seealso cref="AbstractValidator{Domain}" />
-    public class DomainValidator : AbstractValidator<Domain>
+    public class DomainValidator : Validator<Domain>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="DomainValidator" /> class.
@@ -25,24 +18,19 @@ namespace Library.DataLayer.Validators
         public DomainValidator()
         {
             _ = this.RuleFor(d => d.Name)
-                .NotNull().WithMessage("Null {PropertyName}")
-                .NotEmpty().WithMessage("{PropertyName} is Empty")
-                .Length(2, 50).WithMessage("Length of {PropertyName} Invalid");
+                .NotNull().WithMessage("{PropertyName} is null")
+                .NotEmpty().WithMessage("{PropertyName} is empty")
+                .Length(2, 50).WithMessage("{PropertyName} has invalid length");
 
-            _ = this.RuleFor(b => b.ChildrenDomains)
-                .NotNull().WithMessage("Null {PropertyName}");
-        }
+            _ = this.When(d => d.ParentDomain != null, () =>
+            {
+                _ = this.RuleFor(d => d.ParentDomain).SetValidator(new DomainValidator());
+            });
 
-        /// <summary>
-        /// Has the entities.
-        /// </summary>
-        /// <typeparam name="T"> ceva. </typeparam>
-        /// <param name="entities">The entities.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        [ExcludeFromCodeCoverage]
-        protected static bool HasEntities<T>(ICollection<T> entities)
-        {
-            return entities != null && entities.Count != 0;
+            _ = this.RuleFor(d => d.ChildrenDomains)
+                .NotNull().WithMessage("{PropertyName} is null");
+
+            _ = this.RuleForEach(d => d.ChildrenDomains).SetValidator(new DomainValidator());
         }
     }
 }

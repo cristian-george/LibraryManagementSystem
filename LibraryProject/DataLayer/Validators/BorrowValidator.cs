@@ -2,22 +2,16 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Validators namespace.
-/// </summary>
 namespace Library.DataLayer.Validators
 {
     using System;
     using FluentValidation;
-    using Library.DataLayer.Validators.BookValidators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Class BorrowValidator.
-    /// Implements the <see cref="AbstractValidator{Borrow}" />.
+    /// Borrow validator.
     /// </summary>
-    /// <seealso cref="AbstractValidator{Borrow}" />
-    public class BorrowValidator : AbstractValidator<Borrow>
+    public class BorrowValidator : Validator<Borrow>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BorrowValidator" /> class.
@@ -26,28 +20,35 @@ namespace Library.DataLayer.Validators
         {
             _ = this.RuleFor(b => b.Reader).SetInheritanceValidator(v =>
             {
-                _ = v.Add(new ReaderValidator());
+                _ = v.Add(new UserValidator());
             });
 
-            _ = this.RuleFor(b => b.NoOfTimeExtended)
-               .NotNull().WithMessage("Null {PropertyName}")
-               .GreaterThanOrEqualTo(1).WithMessage("{PropertyName} error")
-               .LessThan(4).WithMessage("{PropertyName} error");
             _ = this.RuleFor(b => b.BorrowDate)
-                .NotNull().WithMessage("Complete Date is not a valid date.");
-            _ = this.RuleFor(b => b.EndDate)
-                .NotNull().WithMessage("Complete Date is not a valid date.");
+                .NotNull().WithMessage("{PropertyName} is not a valid date");
 
-            _ = this.RuleFor(b => b.BorrowedBooks)
-               .NotNull().WithMessage("Null {PropertyName}");
+            _ = this.RuleFor(b => b.ReturnDate)
+                .NotNull().WithMessage("{PropertyName} is not a valid date");
 
             _ = this.RuleFor(b => b.BorrowDate)
-                .LessThan(DateTime.Now).WithMessage("{PropertyName} is not less than")
-                .NotNull().WithMessage("Null {PropertyName}");
+                .NotNull().WithMessage("{PropertyName} cannot be null")
+                .LessThan(DateTime.Now).WithMessage("{PropertyName} must be less than the current date");
 
-            _ = this.RuleFor(b => b.Librarian).SetValidator(new LibrarianValidator());
+            _ = this.RuleFor(b => b.ReturnDate)
+                .NotNull().WithMessage("{PropertyName} cannot be null")
+                .GreaterThan(b => b.BorrowDate).WithMessage("{PropertyName} must be after the borrow date");
 
-            _ = this.RuleForEach(b => b.BorrowedBooks).SetValidator(new BookValidator());
+            _ = this.RuleFor(b => b.Librarian).SetValidator(new UserValidator());
+
+            _ = this.RuleFor(b => b.Reader).SetValidator(new UserValidator());
+
+            _ = this.RuleFor(b => new { b.Reader, b.Librarian })
+                .Must(x => ValidUsers(x.Reader, x.Librarian)).WithMessage("Users are not valid");
+
+            _ = this.RuleFor(b => b.Stocks)
+                .NotNull().WithMessage("{PropertyName} is null")
+                .Must(HasEntities).WithMessage("{PropertyName} is empty");
+
+            _ = this.RuleForEach(b => b.Stocks).SetValidator(new StockValidator());
         }
     }
 }

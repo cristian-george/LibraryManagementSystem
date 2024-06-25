@@ -2,17 +2,14 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Concretes namespace.
-/// </summary>
 namespace Library.DataLayer.Repository.Concretes
 {
     using Library.DataLayer.Repository;
     using Library.DataLayer.Repository.Interfaces;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Methods for the author controller.
+    /// Book repository.
     /// </summary>
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {

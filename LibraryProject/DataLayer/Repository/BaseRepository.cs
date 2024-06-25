@@ -2,9 +2,6 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The DataLayer namespace.
-/// </summary>
 namespace Library.DataLayer.Repository
 {
     using System;
@@ -104,17 +101,17 @@ namespace Library.DataLayer.Repository
         }
 
         /// <summary>
-        /// Updates the specified item.
+        /// Updates the specified entity.
         /// </summary>
-        /// <param name="item"> The item. </param>
+        /// <param name="entity"> The entity. </param>
         /// <returns> bool. </returns>
-        public virtual bool Update(T item)
+        public virtual bool Update(T entity)
         {
             try
             {
                 var databaseSet = this.Ctx.Set<T>();
-                _ = databaseSet.Attach(item);
-                this.Ctx.Entry(item).State = EntityState.Modified;
+                _ = databaseSet.Attach(entity);
+                this.Ctx.Entry(entity).State = EntityState.Modified;
 
                 _ = this.Ctx.SaveChanges();
             }
@@ -150,20 +147,20 @@ namespace Library.DataLayer.Repository
         /// <summary>
         /// Deletes the specified entity to delete.
         /// </summary>
-        /// <param name="entityToDelete"> The entity to delete. </param>
+        /// <param name="entity"> The entity to delete. </param>
         /// <returns> bool. </returns>
-        public virtual bool Delete(T entityToDelete)
+        public virtual bool Delete(T entity)
         {
             try
             {
                 var dbSet = this.Ctx.Set<T>();
 
-                if (this.Ctx.Entry(entityToDelete).State == EntityState.Detached)
+                if (this.Ctx.Entry(entity).State == EntityState.Detached)
                 {
-                    _ = dbSet.Attach(entityToDelete);
+                    _ = dbSet.Attach(entity);
                 }
 
-                _ = dbSet.Remove(entityToDelete);
+                _ = dbSet.Remove(entity);
 
                 _ = this.Ctx.SaveChanges();
             }
@@ -198,7 +195,6 @@ namespace Library.DataLayer.Repository
         /// <summary>
         /// Deletes all entities from table.
         /// </summary>
-        /// <param name="entity"> The entity. </param>
         /// <returns> bool. </returns>
         public bool Delete()
         {

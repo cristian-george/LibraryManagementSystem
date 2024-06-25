@@ -1,4 +1,4 @@
-﻿// <copyright file="IBookRepository.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="IUserRepository.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -7,9 +7,9 @@ namespace Library.DataLayer.Repository.Interfaces
     using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Book repository interface.
+    /// User repository interface.
     /// </summary>
-    public interface IBookRepository : IRepository<Book>
+    public interface IUserRepository : IRepository<User>
     {
     }
 }

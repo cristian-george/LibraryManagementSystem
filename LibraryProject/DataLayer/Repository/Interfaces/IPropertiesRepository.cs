@@ -2,18 +2,13 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Interfaces namespace.
-/// </summary>
 namespace Library.DataLayer.Repository.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface IPropertiesRepository
-    /// Implements the <see cref="IRepository{Properties}" />.
+    /// Properties repository interface.
     /// </summary>
-    /// <seealso cref="IRepository{Properties}" />
     public interface IPropertiesRepository : IRepository<Properties>
     {
         /// <summary>

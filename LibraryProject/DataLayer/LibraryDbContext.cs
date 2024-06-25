@@ -2,13 +2,10 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The DataMapper namespace.
-/// </summary>
 namespace Library.DataLayer
 {
     using System.Diagnostics.CodeAnalysis;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
     using Microsoft.EntityFrameworkCore;
 
     /// <summary>
@@ -18,65 +15,60 @@ namespace Library.DataLayer
     public class LibraryDbContext : DbContext
     {
         /// <summary>
-        /// Gets or sets the Librarians table.
+        /// Gets or sets the Author table.
         /// </summary>
-        /// <value> The librarians. </value>
-        public DbSet<Librarian> Librarians { get; set; }
+        /// <value>The authors.</value>
+        public virtual DbSet<Author> Authors { get; set; }
 
         /// <summary>
-        /// Gets or sets the Accounts table.
+        /// Gets or sets the Book table.
         /// </summary>
-        /// <value> The accounts. </value>
-        public DbSet<Account> Accounts { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Readers table.
-        /// </summary>
-        /// <value> The readers. </value>
-        public DbSet<Reader> Readers { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Authors table.
-        /// </summary>
-        /// <value> The authors. </value>
-        public DbSet<Author> Authors { get; set; }
-
-        /// <summary>
-        /// Gets or sets the Books table.
-        /// </summary>
-        /// <value> The books. </value>
-        public DbSet<Book> Books { get; set; }
+        /// <value>The books.</value>
+        public virtual DbSet<Book> Books { get; set; }
 
         /// <summary>
         /// Gets or sets the Borrow table.
         /// </summary>
-        /// <value> The borrow. </value>
-        public DbSet<Borrow> Borrows { get; set; }
+        /// <value>The borrows.</value>
+        public virtual DbSet<Borrow> Borrows { get; set; }
 
         /// <summary>
-        /// Gets or sets the Domains table.
+        /// Gets or sets the Domain table.
         /// </summary>
-        /// <value> The domains. </value>
-        public DbSet<Domain> Domains { get; set; }
+        /// <value>The domains.</value>
+        public virtual DbSet<Domain> Domains { get; set; }
 
         /// <summary>
-        /// Gets or sets the Editions table.
+        /// Gets or sets the Edition table.
         /// </summary>
-        /// <value> The editions. </value>
-        public DbSet<Edition> Editions { get; set; }
+        /// <value>The editions.</value>
+        public virtual DbSet<Edition> Editions { get; set; }
 
         /// <summary>
         /// Gets or sets the Properties table.
         /// </summary>
-        /// <value> The properties. </value>
-        public DbSet<Properties> Properties { get; set; }
+        /// <value>The properties.</value>
+        public virtual DbSet<Properties> Properties { get; set; }
+
+        /// <summary>
+        /// Gets or sets the Stock table.
+        /// </summary>
+        /// <value>The stocks.</value>
+        public virtual DbSet<Stock> Stocks { get; set; }
+
+        /// <summary>
+        /// Gets or sets the User table.
+        /// </summary>
+        /// <value>The users.</value>
+        public virtual DbSet<User> Users { get; set; }
 
         /// <summary>
         /// Method used to configure the options for the context of the database.
         /// </summary>
-        /// <param name="optionsBuilder"> The optionsBuilder used to configure properties of the server. </param>
+        /// <param name="optionsBuilder">The optionsBuilder used to configure properties of the server.</param>
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // var c = "Server=.\\SQLExpress;Database=LibraryDb;User ID=sa;Password=1234;Encrypt=False;";
             var connString =
                "Data Source=DESKTOP-E5915CT\\SQLEXPRESS; " +
                "Initial Catalog=dbLibrary; " +

@@ -2,15 +2,12 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Interfaces namespace.
-/// </summary>
 namespace Library.DataLayer.Repository.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface for the borrow controller.
+    /// Borrow repository interface.
     /// </summary>
     public interface IBorrowRepository : IRepository<Borrow>
     {

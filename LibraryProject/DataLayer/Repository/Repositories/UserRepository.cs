@@ -1,4 +1,4 @@
-﻿// <copyright file="BorrowRepository.cs" company="Transilvania University of Brasov">
+﻿// <copyright file="UserRepository.cs" company="Transilvania University of Brasov">
 // Cristian-George Fieraru
 // </copyright>
 
@@ -9,9 +9,9 @@ namespace Library.DataLayer.Repository.Concretes
     using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Borrow repository.
+    /// User repository.
     /// </summary>
-    public class BorrowRepository : BaseRepository<Borrow>, IBorrowRepository
+    public class UserRepository : BaseRepository<User>, IUserRepository
     {
     }
 }

@@ -2,9 +2,6 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Interfaces namespace.
-/// </summary>
 namespace Library.DataLayer.Repository
 {
     using System;
@@ -26,11 +23,11 @@ namespace Library.DataLayer.Repository
         bool Insert(T entity);
 
         /// <summary>
-        /// Updates the specified item.
+        /// Updates the specified entity.
         /// </summary>
-        /// <param name="item"> The item. </param>
+        /// <param name="entity"> The entity. </param>
         /// <returns> bool. </returns>.
-        bool Update(T item);
+        bool Update(T entity);
 
         /// <summary>
         /// Deletes the specified identifier.

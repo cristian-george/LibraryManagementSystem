@@ -6,10 +6,10 @@ namespace Library.DataLayer.Repository.Concretes
 {
     using Library.DataLayer.Repository;
     using Library.DataLayer.Repository.Interfaces;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// DomainRepository class.
+    /// Domain repository.
     /// </summary>
     public class DomainRepository : BaseRepository<Domain>, IDomainRepository
     {

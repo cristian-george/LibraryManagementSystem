@@ -33,13 +33,12 @@ namespace Library.Injection
         {
             _ = this.Bind<IAuthorRepository>().To<AuthorRepository>();
             _ = this.Bind<IBookRepository>().To<BookRepository>();
-            _ = this.Bind<IReaderRepository>().To<ReaderRepository>();
             _ = this.Bind<IBorrowRepository>().To<BorrowRepository>();
             _ = this.Bind<IDomainRepository>().To<DomainRepository>();
             _ = this.Bind<IEditionRepository>().To<EditionRepository>();
-            _ = this.Bind<ILibrarianRepository>().To<LibrarianRepository>();
             _ = this.Bind<IPropertiesRepository>().To<PropertiesRepository>();
-            _ = this.Bind<IAccountRepository>().To<AccountRepository>();
+            _ = this.Bind<IStockRepository>().To<StockRepository>();
+            _ = this.Bind<IUserRepository>().To<UserRepository>();
         }
 
         /// <summary>
@@ -49,13 +48,12 @@ namespace Library.Injection
         {
             _ = this.Bind<IAuthorService>().To<AuthorService>();
             _ = this.Bind<IBookService>().To<BookService>();
-            _ = this.Bind<IReaderService>().To<ReaderService>();
             _ = this.Bind<IBorrowService>().To<BorrowService>();
             _ = this.Bind<IDomainService>().To<DomainService>();
             _ = this.Bind<IEditionService>().To<EditionService>();
-            _ = this.Bind<ILibrarianService>().To<LibrarianService>();
             _ = this.Bind<IPropertiesService>().To<PropertiesService>();
-            _ = this.Bind<IAccountService>().To<AccountService>();
+            _ = this.Bind<IStockService>().To<StockService>();
+            _ = this.Bind<IUserService>().To<UserService>();
         }
     }
 }

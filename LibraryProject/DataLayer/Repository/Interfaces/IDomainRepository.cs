@@ -2,15 +2,12 @@
 // Cristian-George Fieraru
 // </copyright>
 
-/// <summary>
-/// The Interfaces namespace.
-/// </summary>
 namespace Library.DataLayer.Repository.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface for the domain controller.
+    /// Domain repository interface.
     /// </summary>
     public interface IDomainRepository : IRepository<Domain>
     {
