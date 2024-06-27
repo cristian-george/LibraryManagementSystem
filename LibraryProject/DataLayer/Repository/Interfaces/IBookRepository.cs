@@ -11,5 +11,11 @@ namespace Library.DataLayer.Repository.Interfaces
     /// </summary>
     public interface IBookRepository : IRepository<Book>
     {
+        /// <summary>
+        /// Gets book by stock id.
+        /// </summary>
+        /// <param name="stockId">Stock id.</param>
+        /// <returns>Book.</returns>
+        Book GetBookByStockId(int stockId);
     }
 }

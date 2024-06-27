@@ -4,6 +4,7 @@
 
 namespace Library.DataLayer.Validators
 {
+    using System;
     using FluentValidation;
     using Library.DomainLayer.Models;
 
@@ -17,17 +18,24 @@ namespace Library.DataLayer.Validators
         /// </summary>
         public StockValidator()
         {
+            _ = this.RuleFor(b => b.SupplyDate)
+                .NotNull().WithMessage("{PropertyName} is not a valid date");
+
+            _ = this.RuleFor(b => b.SupplyDate)
+                .NotNull().WithMessage("{PropertyName} cannot be null")
+                .LessThan(DateTime.Now).WithMessage("{PropertyName} must be less than the current date");
+
             _ = this.RuleFor(s => s.NumberOfBooksForBorrowing)
                 .NotNull().WithMessage("{PropertyName} is null")
-                .GreaterThan(5).WithMessage("{PropertyName} should be greater than 5");
+                .GreaterThanOrEqualTo(0).WithMessage("{PropertyName} should be positive");
 
             _ = this.RuleFor(s => s.NumberOfBooksForLectureOnly)
                 .NotNull().WithMessage("{PropertyName} is null")
-                .GreaterThan(5).WithMessage("{PropertyName} should be greater than 5");
+                .GreaterThan(0).WithMessage("{PropertyName} should be strictly positive");
 
             _ = this.RuleFor(s => s.InitialStock)
                 .NotNull().WithMessage("{PropertyName} is null")
-                .GreaterThan(10).WithMessage("{PropertyName} should be greater than 5");
+                .GreaterThan(0).WithMessage("{PropertyName} should be strictly positive");
 
             _ = this.RuleFor(s => s.Edition).SetValidator(new EditionValidator());
 
