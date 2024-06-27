@@ -254,6 +254,9 @@ namespace Library.Migrations
                     b.Property<int>("NumberOfBooksForLectureOnly")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("SupplyDate")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("EditionId");

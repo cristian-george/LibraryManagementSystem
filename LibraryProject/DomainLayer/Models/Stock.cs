@@ -4,6 +4,7 @@
 
 namespace Library.DomainLayer.Models;
 
+using System;
 using System.Collections.Generic;
 
 /// <summary>
@@ -20,6 +21,11 @@ public class Stock
     /// Gets or sets the stock's edition id.
     /// </summary>
     public int EditionId { get; set; }
+
+    /// <summary>
+    /// Gets or sets the stock's supply date.
+    /// </summary>
+    public DateTime SupplyDate { get; set; }
 
     /// <summary>
     /// Gets or sets the stock's number of books for borrowing.

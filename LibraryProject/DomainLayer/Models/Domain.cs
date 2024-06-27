@@ -40,4 +40,23 @@ public class Domain
     /// Gets or sets the domain's books.
     /// </summary>
     public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+
+    /// <summary>
+    /// Equals method.
+    /// </summary>
+    /// <param name="obj">obj.</param>
+    /// <returns>bool.</returns>
+    public override bool Equals(object obj)
+    {
+        return this.Name.Equals((obj as Domain).Name);
+    }
+
+    /// <summary>
+    /// GetHashCode method.
+    /// </summary>
+    /// <returns>int.</returns>
+    public override int GetHashCode()
+    {
+        return this.Name.GetHashCode();
+    }
 }

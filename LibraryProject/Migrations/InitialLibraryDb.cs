@@ -211,6 +211,7 @@ namespace Library.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     EditionId = table.Column<int>(type: "int", nullable: false),
+                    SupplyDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     NumberOfBooksForBorrowing = table.Column<int>(type: "int", nullable: false),
                     NumberOfBooksForLectureOnly = table.Column<int>(type: "int", nullable: false),
                     InitialStock = table.Column<int>(type: "int", nullable: false),

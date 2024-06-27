@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20240625212316_InitialLibraryDb")]
+    [Migration("20240627153455_InitialLibraryDb")]
     partial class InitialLibraryDb
     {
         /// <inheritdoc />
@@ -256,6 +256,9 @@ namespace Library.Migrations
 
                     b.Property<int>("NumberOfBooksForLectureOnly")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("SupplyDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
