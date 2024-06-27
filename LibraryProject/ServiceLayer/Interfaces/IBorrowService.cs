@@ -4,10 +4,10 @@
 
 namespace Library.ServiceLayer.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface IBorrowService
+    /// Borrow service interface.
     /// Implements the <see cref="IService{Borrow}" />.
     /// </summary>
     /// <seealso cref="IService{Borrow}" />
@@ -15,18 +15,12 @@ namespace Library.ServiceLayer.Interfaces
     {
         /// <summary>
         /// Checks if at least one book is for lecture room.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckIfAtLeastABookIsForLecture(Borrow entity);
-
-        /// <summary>
         /// Checks if the number of books left is at least 10% from
         /// the initial fund of books.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckNumberOfBooksLeftIsAtLeast10Percent(Borrow entity);
+        bool CheckBooks(Borrow entity);
 
         /// <summary>
         /// Checks the can borrow maximum NMC in per.

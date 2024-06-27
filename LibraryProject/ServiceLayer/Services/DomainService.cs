@@ -6,7 +6,8 @@ namespace Library.ServiceLayer.Services
 {
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Extensions;
+    using Library.DomainLayer.Models;
     using Library.Injection;
     using Library.ServiceLayer;
     using Library.ServiceLayer.Interfaces;
@@ -40,23 +41,10 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
-            SetParentDomain(entity);
+            entity.SetParentDomain();
 
             _ = this.Repository.Insert(entity);
             return true;
-        }
-
-        /// <summary>
-        /// Sets all children to the parent recursively.
-        /// </summary>
-        /// <param name="parent">Domain.</param>
-        private static void SetParentDomain(Domain parent)
-        {
-            foreach (var child in parent.ChildrenDomains)
-            {
-                child.ParentDomain = parent;
-                SetParentDomain(child);
-            }
         }
     }
 }

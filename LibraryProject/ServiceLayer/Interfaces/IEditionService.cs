@@ -4,10 +4,10 @@
 
 namespace Library.ServiceLayer.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface IEditionService
+    /// Edition service interface.
     /// Implements the <see cref="IService{Edition}" />.
     /// </summary>
     /// <seealso cref="IService{Edition}" />

@@ -12,7 +12,7 @@ namespace Library.ServiceLayer.Services
     using FluentValidation.Results;
     using Library.DataLayer.Repository.Interfaces;
     using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
     using Library.Injection;
     using Library.ServiceLayer.Interfaces;
 

@@ -4,10 +4,10 @@
 
 namespace Library.ServiceLayer.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface IPropertiesService
+    /// Properties service interface.
     /// Implements the <see cref="IService{Properties}" />.
     /// </summary>
     /// <seealso cref="IService{Properties}" />

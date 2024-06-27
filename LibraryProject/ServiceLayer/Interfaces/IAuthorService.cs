@@ -4,10 +4,10 @@
 
 namespace Library.ServiceLayer.Interfaces
 {
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
 
     /// <summary>
-    /// Interface IAuthorService
+    /// Author service interface.
     /// Implements the <see cref="IService{Author}" />.
     /// </summary>
     /// <seealso cref="IService{Author}" />

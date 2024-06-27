@@ -19,38 +19,34 @@ namespace Library.ServiceLayer
     /// <typeparam name="TModel"> Reference type. </typeparam>
     /// <typeparam name="TRepository"> Implements IRepository of TModel. </typeparam>
     /// <seealso cref="IService{T}" />
-    public abstract class BaseService<TModel, TRepository> : IService<TModel>
+    /// <remarks>
+    /// Initializes a new instance of the <see cref="BaseService{TModel, TRepository}"/> class.
+    /// </remarks>
+    /// <param name="repository"> The repository. </param>
+    /// <param name="propertiesRepository"> The property repo. </param>
+    public abstract class BaseService<TModel, TRepository>
+        (TRepository repository, IPropertiesRepository propertiesRepository)
+        : IService<TModel>
         where TModel : class
         where TRepository : IRepository<TModel>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseService{TModel, TRepository}"/> class.
-        /// </summary>
-        /// <param name="repository"> The repository. </param>
-        /// <param name="propRepo"> The property repo. </param>
-        protected BaseService(TRepository repository, IPropertiesRepository propRepo)
-        {
-            this.Repository = repository;
-            this.PropertiesRepository = propRepo;
-        }
-
-        /// <summary>
         /// Gets or sets the repository.
         /// </summary>
         /// <value> The repository. </value>
-        protected TRepository Repository { get; set; }
+        protected TRepository Repository { get; set; } = repository;
+
+        /// <summary>
+        /// Gets or sets the properties repository.
+        /// </summary>
+        /// <value> The properties repository. </value>
+        protected IPropertiesRepository PropertiesRepository { get; set; } = propertiesRepository;
 
         /// <summary>
         /// Gets or sets the validator.
         /// </summary>
         /// <value> The validator. </value>
         protected IValidator<TModel> Validator { get; set; }
-
-        /// <summary>
-        /// Gets or sets the properties repository.
-        /// </summary>
-        /// <value> The properties repository. </value>
-        protected IPropertiesRepository PropertiesRepository { get; set; }
 
         /// <summary>
         /// Inserts the specified entity.
