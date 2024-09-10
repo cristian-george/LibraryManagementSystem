@@ -16,7 +16,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
     [TestClass]
     public class AccountServiceTests
     {
-        private AccountService service;
+        private StockService service;
 
         /// <summary>
         /// Initializes this instance.
@@ -25,7 +25,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Initialize()
         {
             Injector.Initialize();
-            this.service = Injector.Create<AccountService>();
+            this.service = Injector.Create<StockService>();
         }
 
         /// <summary>

@@ -19,12 +19,12 @@ namespace Library.ServiceLayer.Tests.Mocks
         /// <summary>
         /// The reader service mock.
         /// </summary>
-        private Mock<IReaderService> readerServiceMock;
+        private Mock<IUserService> readerServiceMock;
 
         /// <summary>
         /// The reader service.
         /// </summary>
-        private IReaderService readerService;
+        private IUserService readerService;
 
         /// <summary>
         /// Initializes this instance.
@@ -32,7 +32,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestInitialize]
         public void Initialize()
         {
-            this.readerServiceMock = new Mock<IReaderService>();
+            this.readerServiceMock = new Mock<IUserService>();
         }
 
         /// <summary>

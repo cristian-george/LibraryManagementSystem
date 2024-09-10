@@ -2,11 +2,11 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests.ModelTests
+namespace Library.DomainLayer.Tests.ManualTesting
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>

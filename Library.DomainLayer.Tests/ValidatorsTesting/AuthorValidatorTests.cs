@@ -2,11 +2,11 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorTests
+namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -31,8 +31,8 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new ();
-            this.author = new ()
+            this.validator = new AuthorValidator();
+            this.author = new Author()
             {
                 FirstName = "Mihail",
                 LastName = "Sadoveanu",

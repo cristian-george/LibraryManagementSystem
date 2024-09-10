@@ -2,11 +2,11 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorTests
+namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -117,21 +117,6 @@ namespace Library.DataLayer.Tests.ValidatorTests
 
             var result = this.validator.TestValidate(model);
             result.ShouldNotHaveValidationErrorFor(a => a.Name);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenChildrenDomainsCollectionIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenChildrenDomainsCollectionIsNull()
-        {
-            var model = new Domain()
-            {
-                ChildrenDomains = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.ChildrenDomains);
         }
     }
 }

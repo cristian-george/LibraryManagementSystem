@@ -2,11 +2,11 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorTests
+namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -26,7 +26,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new ();
+            this.validator = new EditionValidator();
         }
 
         /// <summary>
@@ -120,14 +120,14 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenYearIsNull.
+        /// Defines the test method ShouldHaveErrorWhenYearIsLessThan1850.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenYearIsNull()
+        public void ShouldHaveErrorWhenYearIsLessThan1850()
         {
             var model = new Edition()
             {
-                Year = null,
+                Year = 1820,
             };
 
             var result = this.validator.TestValidate(model);
@@ -135,14 +135,14 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenYearIsNotNull.
+        /// Defines the test method ShouldNotHaveErrorWhenYearIsGreaterThan1850.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenYearIsNotNull()
+        public void ShouldNotHaveErrorWhenYearIsGreaterThan1850()
         {
             var model = new Edition()
             {
-                Year = "134",
+                Year = 1870,
             };
 
             var result = this.validator.TestValidate(model);
@@ -150,78 +150,33 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenYearIsEmpty.
+        /// Defines the test method ShouldNotHaveErrorWhenYearIsLessThan2024.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenYearIsEmpty()
+        public void ShouldHaveErrorWhenYearIsGreaterThan2024()
         {
             var model = new Edition()
             {
-                Year = string.Empty,
+                Year = 2040,
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Year);
+            result.ShouldHaveValidationErrorFor(a => a.Year);
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenYearIsNotEmpty.
+        /// Defines the test method ShouldNotHaveErrorWhenYearIsLessThan2024.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenYearIsNotEmpty()
+        public void ShouldNotHaveErrorWhenYearIsLessThan2024()
         {
             var model = new Edition()
             {
-                Year = "124",
+                Year = 2020,
             };
 
             var result = this.validator.TestValidate(model);
             result.ShouldNotHaveValidationErrorFor(a => a.Year);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenYearIsHigherThanOne.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenYearIsHigherThanOne()
-        {
-            var model = new Edition()
-            {
-                Year = "1234",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Year);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenEditionNumberIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenEditionNumberIsNull()
-        {
-            var model = new Edition()
-            {
-                EditionNumber = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.EditionNumber);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenEditionNumberIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenEditionNumberIsNotNull()
-        {
-            var model = new Edition()
-            {
-                EditionNumber = 3,
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.EditionNumber);
         }
 
         /// <summary>
@@ -255,40 +210,10 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNumberOfPagesIsNull.
+        /// Defines the test method ShouldHaveErrorWhenNumberOfPagesIsNotGreaterThan10.
         /// </summary>
         [TestMethod]
-        public void ShouldHaveErrorWhenNumberOfPagesIsNull()
-        {
-            var model = new Edition()
-            {
-                NumberOfPages = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.NumberOfPages);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenNumberOfPagesIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenNumberOfPagesIsNotNull()
-        {
-            var model = new Edition()
-            {
-                NumberOfPages = 3,
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.NumberOfPages);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNumberOfPagesIsNotGreaterThan1.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenNumberOfPagesIsNotGreaterThan1()
+        public void ShouldHaveErrorWhenNumberOfPagesIsNotGreaterThan10()
         {
             var model = new Edition()
             {
@@ -300,14 +225,14 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenNumberOfPagesIsGreaterThan1.
+        /// Defines the test method ShouldNotHaveErrorWhenNumberOfPagesIsGreaterThan10.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenNumberOfPagesIsGreaterThan1()
+        public void ShouldNotHaveErrorWhenNumberOfPagesIsGreaterThan10()
         {
             var model = new Edition()
             {
-                NumberOfPages = 2,
+                NumberOfPages = 20,
             };
 
             var result = this.validator.TestValidate(model);

@@ -2,10 +2,10 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests.ModelTests
+namespace Library.DomainLayer.Tests.ManualTesting
 {
     using System.Linq;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -53,26 +53,30 @@ namespace Library.DomainLayer.Tests.ModelTests
         }
 
         /// <summary>
-        /// Defines the test method YearShouldHaveLessThan4Chars.
+        /// Defines the test method YearShouldBeValid.
         /// </summary>
         [TestMethod]
-        public void YearShouldHaveLessThan4Chars()
+        public void YearShouldBeValid()
         {
-            var year = new string('a', 4);
-            this.edition.Year = year;
-
-            Assert.IsTrue(this.edition.Year.Length <= 4);
+            for (int year = 1850; year <= 2024; ++year)
+            {
+                this.edition.Year = year;
+                Assert.IsTrue(this.edition.Year >= 1850);
+                Assert.IsTrue(this.edition.Year <= 2024);
+            }
         }
 
         /// <summary>
-        /// Defines the test method YearShouldHaveOnlyNumbers.
+        /// Defines the test method YearShouldBeInvalid.
         /// </summary>
         [TestMethod]
-        public void YearShouldHaveOnlyNumbers()
+        public void YearShouldBeInvalid()
         {
-            this.edition.Year = "1234";
+            this.edition.Year = 1849;
+            Assert.IsFalse(this.edition.Year >= 1850);
 
-            Assert.IsTrue(this.edition.Year.All(char.IsDigit));
+            this.edition.Year = 2025;
+            Assert.IsFalse(this.edition.Year <= 2024);
         }
 
         /// <summary>

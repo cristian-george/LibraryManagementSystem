@@ -228,7 +228,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 TestUtils.GetBookModel(),
             };
 
-            // Property LIM value
+            // Properties LIM value
             var value = propertiesService
                 .Get(null, null, string.Empty)
                 .LastOrDefault() // If there is at least one property then get the last one, else get a default one
@@ -264,7 +264,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
                 TestUtils.GetBookModel(),
             };
 
-            // Property LIM value
+            // Properties LIM value
             var value = propertiesService
                 .Get(null, null, string.Empty)
                 .LastOrDefault() // If there is at least one property then get the last one, else get a default one
@@ -747,7 +747,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(librarianService.Delete());
 
             // Clean Reader table
-            var readerService = Injector.Create<ReaderService>();
+            var readerService = Injector.Create<UserService>();
             Assert.IsTrue(readerService.Delete());
 
             // Clean Author table
@@ -763,7 +763,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(editionService.Delete());
 
             // Clean Account table
-            var accountService = Injector.Create<AccountService>();
+            var accountService = Injector.Create<StockService>();
             Assert.IsTrue(accountService.Delete());
 
             // Clean Properties table

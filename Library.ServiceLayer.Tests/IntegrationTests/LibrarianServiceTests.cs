@@ -79,7 +79,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Cleanup()
         {
             // Clean account table
-            var accountService = Injector.Create<AccountService>();
+            var accountService = Injector.Create<StockService>();
             Assert.IsTrue(accountService.Delete());
 
             // Clean table

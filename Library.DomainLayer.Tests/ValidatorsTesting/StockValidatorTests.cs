@@ -5,25 +5,25 @@
 namespace Library.DataLayer.Tests.ValidatorTests
 {
     using FluentValidation.TestHelper;
-    using Library.DataLayer.Validators;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
     /// Defines test class AccountValidatorTests.
     /// </summary>
     [TestClass]
-    public class AccountValidatorTests
+    public class StockValidatorTests
     {
         /// <summary>
         /// The validator.
         /// </summary>
-        private AccountValidator validator;
+        private StockValidator validator;
 
         /// <summary>
         /// The entity.
         /// </summary>
-        private Account account;
+        private Stock stock;
 
         /// <summary>
         /// Initializes this instance.
@@ -31,8 +31,8 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new ();
-            this.account = new ()
+            this.validator = new StockValidator();
+            this.stock = new ()
             {
                 Email = "validemail@mail.com",
                 PhoneNumber = "0770123456",
@@ -45,9 +45,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberIsNull()
         {
-            this.account.PhoneNumber = null;
+            this.stock.PhoneNumber = null;
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -57,7 +57,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsNotNull()
         {
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -67,9 +67,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberIsEmpty()
         {
-            this.account.PhoneNumber = string.Empty;
+            this.stock.PhoneNumber = string.Empty;
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -79,7 +79,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsNotEmpty()
         {
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -89,9 +89,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberHasMoreThan10Digits()
         {
-            this.account.PhoneNumber = "0770123456789";
+            this.stock.PhoneNumber = "0770123456789";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -101,9 +101,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberHasLessThan10Digits()
         {
-            this.account.PhoneNumber = "0770456";
+            this.stock.PhoneNumber = "0770456";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -113,9 +113,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenPhoneNumberContainsLetters()
         {
-            this.account.PhoneNumber = "telefon0770";
+            this.stock.PhoneNumber = "telefon0770";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
         }
 
@@ -125,7 +125,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberDoesNotContainLetters()
         {
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -135,7 +135,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenPhoneNumberIsValid()
         {
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             result.ShouldNotHaveAnyValidationErrors();
         }
 
@@ -145,9 +145,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters1()
         {
-            this.account.Email = "invalidemail";
+            this.stock.Email = "invalidemail";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -157,9 +157,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters2()
         {
-            this.account.Email = "invalidemail@";
+            this.stock.Email = "invalidemail@";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -169,9 +169,9 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters3()
         {
-            this.account.Email = "invalidemail.mail";
+            this.stock.Email = "invalidemail.mail";
 
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
 
@@ -181,7 +181,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestMethod]
         public void ShouldNotHaveErrorWhenEmailIsValid()
         {
-            var result = this.validator.TestValidate(this.account);
+            var result = this.validator.TestValidate(this.stock);
             result.ShouldNotHaveAnyValidationErrors();
         }
     }

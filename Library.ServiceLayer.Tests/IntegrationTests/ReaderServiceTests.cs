@@ -16,7 +16,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
     [TestClass]
     public class ReaderServiceTests
     {
-        private ReaderService service;
+        private UserService service;
 
         private Account account = null;
         private Reader reader = null;
@@ -28,7 +28,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
         public void Initialize()
         {
             Injector.Initialize();
-            this.service = Injector.Create<ReaderService>();
+            this.service = Injector.Create<UserService>();
 
             this.account = new Account()
             {
@@ -82,7 +82,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTests
             Assert.IsTrue(this.service.Delete());
 
             // Clean account table
-            var accountService = Injector.Create<AccountService>();
+            var accountService = Injector.Create<StockService>();
             Assert.IsTrue(accountService.Delete());
         }
     }

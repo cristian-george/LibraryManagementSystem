@@ -19,12 +19,12 @@ namespace Library.ServiceLayer.Tests.Mocks
         /// <summary>
         /// The account service mock.
         /// </summary>
-        private Mock<IAccountService> accountServiceMock;
+        private Mock<IStockService> accountServiceMock;
 
         /// <summary>
         /// The account service.
         /// </summary>
-        private IAccountService accountService;
+        private IStockService accountService;
 
         /// <summary>
         /// Initializes this instance.
@@ -32,7 +32,7 @@ namespace Library.ServiceLayer.Tests.Mocks
         [TestInitialize]
         public void Initialize()
         {
-            this.accountServiceMock = new Mock<IAccountService>();
+            this.accountServiceMock = new Mock<IStockService>();
         }
 
         /// <summary>
