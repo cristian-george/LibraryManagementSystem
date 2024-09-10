@@ -50,5 +50,5 @@ public class Stock
     /// <summary>
     /// Gets or sets the stock's borrows.
     /// </summary>
-    public virtual ICollection<Borrow> Borrows { get; set; } = new List<Borrow>();
+    public virtual ICollection<Borrow> Borrows { get; set; }
 }

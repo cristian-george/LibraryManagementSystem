@@ -29,5 +29,5 @@ public class Author
     /// <summary>
     /// Gets or sets the author's books.
     /// </summary>
-    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+    public virtual ICollection<Book> Books { get; set; }
 }

@@ -4,9 +4,9 @@
 
 namespace Library.ServiceLayer.Services
 {
-    using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Library.Injection;
     using Library.ServiceLayer.Interfaces;
 

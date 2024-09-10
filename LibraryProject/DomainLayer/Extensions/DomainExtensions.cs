@@ -49,27 +49,11 @@ namespace Library.DomainLayer.Extensions
         }
 
         /// <summary>
-        /// Gets the domains without the parent domain.
+        /// Gets the domains with the root domain.
         /// </summary>
         /// <param name="domain"> The domain. </param>
         /// <param name="domains"> The domains. </param>
-        public static void GetDomainsWithoutTheParent(this Domain domain, List<Domain> domains)
-        {
-            if (domain.ParentDomain == null)
-            {
-                return;
-            }
-
-            domains.Add(domain.ParentDomain);
-            GetDomainsWithoutTheParent(domain.ParentDomain, domains);
-        }
-
-        /// <summary>
-        /// Gets the domains with the parent domain.
-        /// </summary>
-        /// <param name="domain"> The domain. </param>
-        /// <param name="domains"> The domains. </param>
-        public static void GetDomainsWithTheParent(this Domain domain, List<Domain> domains)
+        public static void GetDomainsWithTheRootDomain(this Domain domain, List<Domain> domains)
         {
             if (domain.ParentDomain == null)
             {
@@ -78,7 +62,7 @@ namespace Library.DomainLayer.Extensions
             }
 
             domains.Add(domain.ParentDomain);
-            GetDomainsWithTheParent(domain.ParentDomain, domains);
+            domain.ParentDomain.GetDomainsWithTheRootDomain(domains);
         }
     }
 }

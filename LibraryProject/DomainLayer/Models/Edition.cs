@@ -55,5 +55,5 @@ public class Edition
     /// <summary>
     /// Gets or sets the edition's stocks.
     /// </summary>
-    public virtual ICollection<Stock> Stocks { get; set; } = new List<Stock>();
+    public virtual ICollection<Stock> Stocks { get; set; }
 }

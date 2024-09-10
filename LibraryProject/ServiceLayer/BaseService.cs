@@ -9,8 +9,8 @@ namespace Library.ServiceLayer
     using System.Linq;
     using System.Linq.Expressions;
     using FluentValidation;
-    using Library.DataLayer.Repository;
-    using Library.DataLayer.Repository.Interfaces;
+    using Library.DataLayer;
+    using Library.DataLayer.Interfaces;
 
     /// <summary>
     /// Class BaseService.
@@ -59,7 +59,7 @@ namespace Library.ServiceLayer
 
             if (!result.IsValid)
             {
-                LogUtils.LogErrors(result);
+                Logging.LogErrors(result);
                 return false;
             }
 
@@ -78,7 +78,7 @@ namespace Library.ServiceLayer
 
             if (!result.IsValid)
             {
-                LogUtils.LogErrors(result);
+                Logging.LogErrors(result);
                 return false;
             }
 

@@ -7,10 +7,10 @@ namespace Library.ServiceLayer.Services
     using System;
     using System.Collections.Generic;
     using System.Linq;
-    using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Library.Injection;
     using Library.ServiceLayer;
     using Library.ServiceLayer.Interfaces;
@@ -40,6 +40,25 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
+        /// Get the books to borrow.
+        /// </summary>
+        /// <param name="borrow">Borrow.</param>
+        /// <param name="bookRepository">BookRepository.</param>
+        /// <returns>Books.</returns>
+        public IEnumerable<Book> GetBorrowedBooks(Borrow borrow, IBookRepository bookRepository)
+        {
+            var booksToBorrow = new List<Book>();
+
+            foreach (var stock in borrow.Stocks)
+            {
+                var book = bookRepository.GetBookByStockId(stock.Id);
+                booksToBorrow.Add(book);
+            }
+
+            return booksToBorrow;
+        }
+
+        /// <summary>
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
@@ -66,7 +85,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                LogUtils.LogErrors(result);
+                Logging.LogErrors(result);
                 return false;
             }
 
@@ -76,7 +95,7 @@ namespace Library.ServiceLayer.Services
         /// <inheritdoc/>
         public bool CheckBooks(Borrow entity)
         {
-            var booksToBorrow = entity.GetBorrowedBooks(this.bookRepository);
+            var booksToBorrow = this.GetBorrowedBooks(entity, this.bookRepository);
 
             foreach (var book in booksToBorrow)
             {
@@ -142,7 +161,7 @@ namespace Library.ServiceLayer.Services
 
             // Number of the books that have been borrowed in the last PER months
             var numberOfBorrowedBooks = borrows
-                .SelectMany(b => b.GetBorrowedBooks(this.bookRepository))
+                .SelectMany(borrow => this.GetBorrowedBooks(borrow, this.bookRepository))
                 .Distinct()
                 .Count();
 
@@ -180,7 +199,7 @@ namespace Library.ServiceLayer.Services
                 return true;
             }
 
-            var booksToBorrow = entity.GetBorrowedBooks(this.bookRepository);
+            var booksToBorrow = this.GetBorrowedBooks(entity, this.bookRepository);
 
             int numberOfDistinctDomains = booksToBorrow
                 .SelectMany(x => x.Domains)
@@ -215,11 +234,11 @@ namespace Library.ServiceLayer.Services
 
             // Books that have been borrowed by reader in the last L months
             var books = borrows
-                .SelectMany(b => b.GetBorrowedBooks(this.bookRepository))
+                .SelectMany(borrow => this.GetBorrowedBooks(borrow, this.bookRepository))
                 .Distinct()
                 .ToList();
 
-            books.AddRange(entity.GetBorrowedBooks(this.bookRepository));
+            books.AddRange(this.GetBorrowedBooks(entity, this.bookRepository));
 
             Dictionary<Domain, int> domains = new Dictionary<Domain, int>();
 
@@ -259,12 +278,12 @@ namespace Library.ServiceLayer.Services
                 lim *= 2;
             }
 
-            var booksToBorrow = entity.GetBorrowedBooks(this.bookRepository);
+            var booksToBorrow = this.GetBorrowedBooks(entity, this.bookRepository);
 
             foreach (var book in booksToBorrow)
             {
                 var bookBorrowCount = this.Repository
-                    .GetBookBorrowCountByReader(book.Id, entity.Reader.Id, DateTime.Now.AddMonths(-3));
+                    .GetBookBorrowCountByReaderWithinDate(book.Id, entity.Reader.Id, DateTime.Now.AddMonths(-3));
 
                 if (bookBorrowCount + 1 > lim)
                 {
@@ -290,7 +309,7 @@ namespace Library.ServiceLayer.Services
                 delta /= 2;
             }
 
-            var booksToBorrow = entity.GetBorrowedBooks(this.bookRepository);
+            var booksToBorrow = this.GetBorrowedBooks(entity, this.bookRepository);
 
             foreach (var book in booksToBorrow)
             {

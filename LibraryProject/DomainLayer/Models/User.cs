@@ -52,11 +52,11 @@ public class User
     /// Gets or sets the user's librarian borrows.
     /// </summary>
     [InverseProperty("Librarian")]
-    public virtual ICollection<Borrow> LibrarianBorrows { get; set; } = new List<Borrow>();
+    public virtual ICollection<Borrow> LibrarianBorrows { get; set; }
 
     /// <summary>
     /// Gets or sets the user's reader borrows.
     /// </summary>
     [InverseProperty("Reader")]
-    public virtual ICollection<Borrow> ReaderBorrows { get; set; } = new List<Borrow>();
+    public virtual ICollection<Borrow> ReaderBorrows { get; set; }
 }

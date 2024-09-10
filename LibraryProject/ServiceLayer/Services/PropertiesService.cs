@@ -10,9 +10,9 @@ namespace Library.ServiceLayer.Services
     using System.Linq.Expressions;
     using FluentValidation;
     using FluentValidation.Results;
-    using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Library.Injection;
     using Library.ServiceLayer.Interfaces;
 

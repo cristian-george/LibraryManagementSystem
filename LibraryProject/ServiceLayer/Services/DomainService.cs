@@ -4,10 +4,10 @@
 
 namespace Library.ServiceLayer.Services
 {
-    using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Library.Injection;
     using Library.ServiceLayer;
     using Library.ServiceLayer.Interfaces;
@@ -35,15 +35,30 @@ namespace Library.ServiceLayer.Services
         {
             var result = this.Validator.Validate(entity);
 
-            if (!result.IsValid)
+            if (!result.IsValid && this.CheckAdditionalRules(entity))
             {
-                LogUtils.LogErrors(result);
+                Logging.LogErrors(result);
                 return false;
             }
 
             entity.SetParentDomain();
 
             _ = this.Repository.Insert(entity);
+            return true;
+        }
+
+        /// <summary>
+        /// Check additional rules.
+        /// </summary>
+        /// <param name="domain">Domain.</param>
+        /// <returns>bool.</returns>
+        public bool CheckAdditionalRules(Domain domain)
+        {
+            if (this.Repository.GetDomainByName(domain.Name) != null)
+            {
+                return false;
+            }
+
             return true;
         }
     }

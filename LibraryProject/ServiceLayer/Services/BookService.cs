@@ -6,10 +6,10 @@ namespace Library.ServiceLayer.Services
 {
     using System.Collections.Generic;
     using System.Linq;
-    using Library.DataLayer.Repository.Interfaces;
-    using Library.DataLayer.Validators;
+    using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
+    using Library.DomainLayer.Validators;
     using Library.Injection;
     using Library.ServiceLayer;
     using Library.ServiceLayer.Interfaces;
@@ -38,7 +38,7 @@ namespace Library.ServiceLayer.Services
             this.Validator = new BookValidator();
 
             var result = this.Validator.Validate(entity);
-            if (result.IsValid && this.CheckBookAdditionalRules(entity))
+            if (result.IsValid && this.CheckAdditionalRules(entity))
             {
                 // Daca o carte face parte dintr-un subdomeniu, automat va fi regasita
                 // si ca facand parte din domeniile stramos, fara ca acest lucru
@@ -49,7 +49,7 @@ namespace Library.ServiceLayer.Services
             }
             else
             {
-                LogUtils.LogErrors(result);
+                Logging.LogErrors(result);
                 return false;
             }
 
@@ -61,8 +61,13 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="book">The book.</param>
         /// <returns>bool.</returns>
-        public bool CheckBookAdditionalRules(Book book)
+        public bool CheckAdditionalRules(Book book)
         {
+            if (this.Repository.GetBookByTitle(book.Title) != null)
+            {
+                return false;
+            }
+
             var properties = this.PropertiesRepository.GetLastProperties();
 
             // O carte nu poate face parte din mai mult de n domenii.

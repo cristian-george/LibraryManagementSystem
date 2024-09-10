@@ -4,8 +4,8 @@
 
 namespace Library.Injection
 {
-    using Library.DataLayer.Repository.Concretes;
-    using Library.DataLayer.Repository.Interfaces;
+    using Library.DataLayer.Interfaces;
+    using Library.DataLayer.Repositories;
     using Library.ServiceLayer.Interfaces;
     using Library.ServiceLayer.Services;
     using Ninject.Modules;

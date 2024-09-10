@@ -34,12 +34,12 @@ public class Domain
     /// <summary>
     /// Gets or sets the domain's children.
     /// </summary>
-    public virtual ICollection<Domain> ChildrenDomains { get; set; } = new List<Domain>();
+    public virtual ICollection<Domain> ChildrenDomains { get; set; }
 
     /// <summary>
     /// Gets or sets the domain's books.
     /// </summary>
-    public virtual ICollection<Book> Books { get; set; } = new List<Book>();
+    public virtual ICollection<Book> Books { get; set; }
 
     /// <summary>
     /// Equals method.
