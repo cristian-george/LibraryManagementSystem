@@ -11,11 +11,6 @@
 		<BaseOutputPath>..\Output\LibraryProject</BaseOutputPath>
 	</PropertyGroup>
 	<ItemGroup>
-	  <Compile Remove="DomainLayer\Validators\DomainValidators\**" />
-	  <EmbeddedResource Remove="DomainLayer\Validators\DomainValidators\**" />
-	  <None Remove="DomainLayer\Validators\DomainValidators\**" />
-	</ItemGroup>
-	<ItemGroup>
 		<None Remove="Library.xml" />
 		<None Remove="stylecop.json" />
 	</ItemGroup>

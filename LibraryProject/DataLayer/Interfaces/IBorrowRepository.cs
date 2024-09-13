@@ -19,7 +19,15 @@ namespace Library.DataLayer.Interfaces
         /// </summary>
         /// <param name="readerId">Reader id.</param>
         /// <returns>Borrows.</returns>
-        IEnumerable<Borrow> GetBorrowsByReaderId(int readerId);
+        IEnumerable<Borrow> GetBorrowsByReader(int readerId);
+
+        /// <summary>
+        /// Gets borrows made by a reader within date.
+        /// </summary>
+        /// <param name="readerId">Reader id.</param>
+        /// <param name="date">Date.</param>
+        /// <returns>Borrows.</returns>
+        IEnumerable<Borrow> GetBorrowsByReaderWithinDate(int readerId, DateTime date);
 
         /// <summary>
         /// Gets how many times a book has been borrowed by a reader.

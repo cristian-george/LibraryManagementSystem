@@ -41,7 +41,7 @@ namespace Library.DomainLayer.Extensions
         /// <param name="parent">Domain.</param>
         public static void SetParentDomain(this Domain parent)
         {
-            foreach (var child in parent.ChildrenDomains)
+            foreach (var child in parent.ChildDomains)
             {
                 child.ParentDomain = parent;
                 SetParentDomain(child);

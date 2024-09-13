@@ -73,9 +73,9 @@ namespace Library.DomainLayer.Tests.ManualTesting
         public void DomainChildrensShouldNotBeNull()
         {
             var childrens = new List<Domain>();
-            this.domain.ChildrenDomains = childrens;
+            this.domain.ChildDomains = childrens;
 
-            Assert.IsNotNull(this.domain.ChildrenDomains);
+            Assert.IsNotNull(this.domain.ChildDomains);
         }
     }
 }

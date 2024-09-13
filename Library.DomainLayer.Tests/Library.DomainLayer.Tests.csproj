@@ -6,13 +6,6 @@
 	<BaseOutputPath>..\Output\Library.DomainLayer.Tests</BaseOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Remove="ManualTesting\LibrarianTests.cs" />
-    <Compile Remove="ValidatorsTesting\BookValidatorTests.cs" />
-    <Compile Remove="ValidatorsTesting\BorrowValidatorTests.cs" />
-    <Compile Remove="ValidatorsTesting\LibrarianValidatorTests.cs" />
-    <Compile Remove="ValidatorsTesting\StockValidatorTests.cs" />
-  </ItemGroup>
-  <ItemGroup>
     <AdditionalFiles Include="..\LibraryProject\stylecop.json" Link="stylecop.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </AdditionalFiles>

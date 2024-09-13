@@ -26,7 +26,7 @@ namespace Library.ServiceLayer.Services
         /// <summary>
         /// The validator.
         /// </summary>
-        private readonly IValidator validator;
+        private readonly IValidator<Properties> validator;
 
         /// <summary>
         /// The repository.
@@ -45,8 +45,7 @@ namespace Library.ServiceLayer.Services
         /// <summary>
         /// Deletes all.
         /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns> ceva. </returns>
+        /// <returns> bool. </returns>
         public bool Delete()
         {
             return this.repository.Delete();
@@ -55,11 +54,11 @@ namespace Library.ServiceLayer.Services
         /// <summary>
         /// Deletes the by identifier.
         /// </summary>
-        /// <param name="entity">The entity.</param>
+        /// <param name="id">The id.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool DeleteById(object entity)
+        public bool DeleteById(object id)
         {
-            return this.repository.DeleteById(entity);
+            return this.repository.DeleteById(id);
         }
 
         /// <summary>
@@ -94,8 +93,7 @@ namespace Library.ServiceLayer.Services
         /// <returns> ceva. </returns>
         public bool Insert(Properties entity)
         {
-            var context = new ValidationContext<Properties>(entity);
-            ValidationResult result = this.validator.Validate(context);
+            var result = this.validator.Validate(entity);
             if (result.IsValid)
             {
                 _ = this.repository.Insert(entity);

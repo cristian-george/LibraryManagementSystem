@@ -21,12 +21,36 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         private UserValidator validator;
 
         /// <summary>
+        /// The entity.
+        /// </summary>
+        private User user;
+
+        /// <summary>
         /// Initializes this instance.
         /// </summary>
         [TestInitialize]
         public void Initialize()
         {
             this.validator = new UserValidator();
+            this.user = new User()
+            {
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "str. Strada, nr. 30",
+                Email = "cristian.fieraru@unitbv.ro",
+                PhoneNumber = "1234567890",
+                UserType = Enums.EUserType.Reader,
+            };
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsNotNull.
+        /// </summary>
+        [TestMethod]
+        public void ShouldNotHaveAnyErrors()
+        {
+            var result = this.validator.TestValidate(this.user);
+            result.ShouldNotHaveAnyValidationErrors();
         }
 
         /// <summary>
@@ -35,30 +59,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNull()
         {
-            var model = new User()
-            {
-                FirstName = null,
-                LastName = "Fieraru",
-            };
+            this.user.FirstName = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenFirstNameIsNotNull()
-        {
-            var model = new User()
-            {
-                FirstName = "Cristian",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -67,30 +71,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsEmpty()
         {
-            var model = new User()
-            {
-                FirstName = string.Empty,
-                LastName = "Fieraru",
-            };
+            this.user.FirstName = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsNotEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenFirstNameIsNotEmpty()
-        {
-            var model = new User()
-            {
-                FirstName = "Cristian",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -99,30 +83,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameLengthIsLessThanOne()
         {
-            var model = new User()
-            {
-                FirstName = "q",
-                LastName = "Fieraru",
-            };
+            this.user.FirstName = "C";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsHigherThanOne.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenFirstNameIsHigherThanOne()
-        {
-            var model = new User()
-            {
-                FirstName = "qrwer",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -131,30 +95,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNotAValidName()
         {
-            var model = new User()
-            {
-                FirstName = "--gds031",
-                LastName = "Fieraru",
-            };
+            this.user.FirstName = "---Cristian000";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsAValidName.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenFirstNameIsAValidName()
-        {
-            var model = new User()
-            {
-                FirstName = "Fieraru",
-                LastName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.FirstName);
         }
 
         /// <summary>
@@ -163,30 +107,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNull()
         {
-            var model = new User()
-            {
-                LastName = null,
-                FirstName = "Fieraru",
-            };
+            this.user.LastName = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenLastNameIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenLastNameIsNotNull()
-        {
-            var model = new User()
-            {
-                LastName = "Cristian",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -195,30 +119,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsEmpty()
         {
-            var model = new User()
-            {
-                LastName = string.Empty,
-                FirstName = "Fieraru",
-            };
+            this.user.LastName = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenLastNameIsNotEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenLastNameIsNotEmpty()
-        {
-            var model = new User()
-            {
-                LastName = "Cristian",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -227,30 +131,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameLengthIsLessThanOne()
         {
-            var model = new User()
-            {
-                LastName = "q",
-                FirstName = "Fieraru",
-            };
+            this.user.LastName = "F";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenLastNameIsHigherThanOne.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenLastNameIsHigherThanOne()
-        {
-            var model = new User()
-            {
-                LastName = "qrwer",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -259,30 +143,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNotAValidName()
         {
-            var model = new User()
-            {
-                LastName = "--gds031",
-                FirstName = "Fieraru",
-            };
+            this.user.LastName = "---Fieraru000";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenLastNameIsAValidName.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenLastNameIsAValidName()
-        {
-            var model = new User()
-            {
-                LastName = "Fieraru",
-                FirstName = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.LastName);
         }
 
         /// <summary>
@@ -291,28 +155,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenAddressIsNull()
         {
-            var model = new User()
-            {
-                Address = null,
-            };
+            this.user.Address = null;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.Address);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenAddressIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenAddressIsNotNull()
-        {
-            var model = new User()
-            {
-                Address = "adresa",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Address);
         }
 
         /// <summary>
@@ -321,28 +167,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenAddressIsEmpty()
         {
-            var model = new User()
-            {
-                Address = string.Empty,
-            };
+            this.user.Address = string.Empty;
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.Address);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenAddressIsNotEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenAddressIsNotEmpty()
-        {
-            var model = new User()
-            {
-                Address = "adresa",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Address);
         }
 
         /// <summary>
@@ -351,28 +179,106 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenAddressLengthIsLessThanOne()
         {
-            var model = new User()
-            {
-                Address = "q",
-            };
+            this.user.Address = "S";
 
-            var result = this.validator.TestValidate(model);
+            var result = this.validator.TestValidate(this.user);
             _ = result.ShouldHaveValidationErrorFor(a => a.Address);
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenAddressIsHigherThanTwo.
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberIsNull.
         /// </summary>
         [TestMethod]
-        public void ShouldNotHaveErrorWhenAddressIsHigherThanTwo()
+        public void ShouldHaveErrorWhenPhoneNumberIsNull()
         {
-            var model = new User()
-            {
-                Address = "qrwer",
-            };
+            this.user.PhoneNumber = null;
 
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Address);
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberIsEmpty.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenPhoneNumberIsEmpty()
+        {
+            this.user.PhoneNumber = string.Empty;
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberHasMoreThan10Digits.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenPhoneNumberHasMoreThan10Digits()
+        {
+            this.user.PhoneNumber = "0770123456789";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberHasLessThan10Digits.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenPhoneNumberHasLessThan10Digits()
+        {
+            this.user.PhoneNumber = "0770456";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenPhoneNumberContainsLetters.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenPhoneNumberContainsLetters()
+        {
+            this.user.PhoneNumber = "telefon0770";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.PhoneNumber);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenEmailDoesNotContainProperCharacters1.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters1()
+        {
+            this.user.Email = "invalidemail";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenEmailDoesNotContainProperCharacters2.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters2()
+        {
+            this.user.Email = "invalidemail@";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenEmailDoesNotContainProperCharacters3.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenEmailDoesNotContainProperCharacters3()
+        {
+            this.user.Email = "invalidemail.mail";
+
+            var result = this.validator.TestValidate(this.user);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Email);
         }
     }
 }

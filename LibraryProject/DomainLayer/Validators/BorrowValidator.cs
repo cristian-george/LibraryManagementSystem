@@ -24,19 +24,10 @@ namespace Library.DomainLayer.Validators
             {
                 _ = v.Add(new UserValidator());
             });
-
             _ = this.RuleFor(b => b.BorrowDate)
-                .NotNull().WithMessage("{PropertyName} is not a valid date");
+                .LessThanOrEqualTo(DateTime.Now).WithMessage("{PropertyName} must be less than the current date");
 
             _ = this.RuleFor(b => b.ReturnDate)
-                .NotNull().WithMessage("{PropertyName} is not a valid date");
-
-            _ = this.RuleFor(b => b.BorrowDate)
-                .NotNull().WithMessage("{PropertyName} cannot be null")
-                .LessThan(DateTime.Now).WithMessage("{PropertyName} must be less than the current date");
-
-            _ = this.RuleFor(b => b.ReturnDate)
-                .NotNull().WithMessage("{PropertyName} cannot be null")
                 .GreaterThan(b => b.BorrowDate).WithMessage("{PropertyName} must be after the borrow date");
 
             _ = this.RuleFor(b => b.Librarian).SetValidator(new UserValidator());

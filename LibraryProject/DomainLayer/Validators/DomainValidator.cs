@@ -28,10 +28,10 @@ namespace Library.DomainLayer.Validators
                 .Length(2, 50).WithMessage("{PropertyName} has invalid length")
                 .When(d => d.ParentDomain != null);
 
-            // _ = this.RuleFor(d => d.ChildrenDomains)
+            // _ = this.RuleFor(d => d.ChildDomains)
             //    .NotNull().WithMessage("{PropertyName} is null");
 
-            // _ = this.RuleForEach(d => d.ChildrenDomains).SetValidator(new DomainValidator());
+            // _ = this.RuleForEach(d => d.ChildDomains).SetValidator(new DomainValidator());
         }
     }
 }

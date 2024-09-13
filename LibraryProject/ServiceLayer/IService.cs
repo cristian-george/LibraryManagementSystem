@@ -33,9 +33,9 @@ namespace Library.ServiceLayer
         /// <summary>
         /// Deletes the by identifier.
         /// </summary>
-        /// <param name="entity"> The entity. </param>
+        /// <param name="id"> The id. </param>
         /// <returns> bool. </returns>
-        bool DeleteById(object entity);
+        bool DeleteById(object id);
 
         /// <summary>
         /// Deletes all.

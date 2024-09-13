@@ -40,7 +40,7 @@ namespace Library.DomainLayer.Tests.ManualTesting
                 Id = 1,
                 Name = "Literatura",
                 ParentDomain = null,
-                ChildrenDomains = new List<Domain>(),
+                ChildDomains = new List<Domain>(),
             };
 
             var edition = new Edition()

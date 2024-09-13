@@ -31,9 +31,9 @@ namespace Library.DomainLayer.Validators
                 .Length(2, 50).WithMessage("{PropertyName} has invalid length")
                 .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
 
-            // _ = this.RuleFor(a => a.Books)
-            //    .NotNull().WithMessage("{PropertyName} is null")
-            //    .Must(HasEntities).WithMessage("{PropertyName} is empty");
+            _ = this.RuleFor(a => a.Books)
+               .NotNull().WithMessage("{PropertyName} is null")
+               .Must(HasEntities).WithMessage("{PropertyName} is empty");
 
             // _ = this.RuleForEach(a => a.Books).SetValidator(new BookValidator());
         }

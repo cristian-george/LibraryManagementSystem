@@ -34,7 +34,7 @@ public class Domain
     /// <summary>
     /// Gets or sets the domain's children.
     /// </summary>
-    public virtual ICollection<Domain> ChildrenDomains { get; set; }
+    public virtual ICollection<Domain> ChildDomains { get; set; }
 
     /// <summary>
     /// Gets or sets the domain's books.

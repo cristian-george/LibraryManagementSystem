@@ -38,12 +38,7 @@ namespace Library.DomainLayer.Validators
                 .NotNull().WithMessage("{PropertyName} is null")
                 .GreaterThan(10).WithMessage("{PropertyName} should be greater than 10");
 
-            _ = this.RuleFor(e => e.Stocks)
-                .NotNull().WithMessage("{PropertyName} is null")
-                .Must(HasEntities).WithMessage("{PropertyName} is empty");
-
-            // _ = this.RuleFor(e => e.Book).SetValidator(new BookValidator());
-            // _ = this.RuleForEach(e => e.Stocks).SetValidator(new StockValidator());
+            _ = this.RuleFor(e => e.Book).SetValidator(new BookValidator());
         }
 
         /// <summary>

@@ -88,7 +88,7 @@ namespace Library.DomainLayer.Tests.ManualTesting
             {
                 Name = "Informatica",
                 ParentDomain = null,
-                ChildrenDomains = null,
+                ChildDomains = null,
             };
 
             Book book = new Book()

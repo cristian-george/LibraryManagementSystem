@@ -12,7 +12,6 @@ namespace Library.DataLayer.Repositories
     using Library.DomainLayer.Models;
     using Microsoft.EntityFrameworkCore;
     using Ninject.Infrastructure.Language;
-    using static System.Runtime.InteropServices.JavaScript.JSType;
 
     /// <summary>
     /// Borrow repository.
@@ -20,12 +19,21 @@ namespace Library.DataLayer.Repositories
     public class BorrowRepository : BaseRepository<Borrow>, IBorrowRepository
     {
         /// <inheritdoc/>
-        public IEnumerable<Borrow> GetBorrowsByReaderId(int readerId)
+        public IEnumerable<Borrow> GetBorrowsByReader(int readerId)
         {
             var borrows = this.Ctx.Borrows
                 .Where(borrow => borrow.ReaderId == readerId)
                 .Include(borrow => borrow.Stocks)
                 .ToEnumerable();
+
+            return borrows;
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<Borrow> GetBorrowsByReaderWithinDate(int readerId, DateTime date)
+        {
+            var borrows = this.GetBorrowsByReader(readerId)
+                .Where(b => b.BorrowDate >= date);
 
             return borrows;
         }

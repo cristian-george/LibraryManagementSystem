@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorTests
+namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
     using System;
     using FluentValidation.TestHelper;
@@ -30,169 +30,94 @@ namespace Library.DataLayer.Tests.ValidatorTests
             this.validator = new ();
         }
 
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNoOfTimeExtendedIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenNoOfTimeExtendedIsNull()
-        {
-            var model = new Borrow()
-            {
-                NoOfTimeExtended = null,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldHaveErrorWhenBorrowDateIsNull.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldHaveErrorWhenBorrowDateIsNull()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        BorrowDate = null,
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
+        //}
 
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenNoOfTimeExtendedIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenNoOfTimeExtendedIsNotNull()
-        {
-            var model = new Borrow()
-            {
-                NoOfTimeExtended = 3,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldNotHaveErrorWhenBorrowDateIsNotNull.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldNotHaveErrorWhenBorrowDateIsNotNull()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        BorrowDate = DateTime.Now.AddMonths(-1),
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.NoOfTimeExtended);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    result.ShouldNotHaveValidationErrorFor(a => a.BorrowDate);
+        //}
 
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNoOfTimeExtendedIsNotGreaterThan1.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenNoOfTimeExtendedIsNotGreaterThan1()
-        {
-            var model = new Borrow()
-            {
-                NoOfTimeExtended = 0,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldHaveErrorWhenEndDateIsNull.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldHaveErrorWhenEndDateIsNull()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        ReturnDate = null,
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    _ = result.ShouldHaveValidationErrorFor(a => a.ReturnDate);
+        //}
 
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenNoOfTimeExtendedIsGreaterThan1.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenNoOfTimeExtendedIsGreaterThan1()
-        {
-            var model = new Borrow()
-            {
-                NoOfTimeExtended = 2,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldNotHaveErrorWhenEndDateIsNotNull.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldNotHaveErrorWhenEndDateIsNotNull()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        ReturnDate = DateTime.Now,
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.NoOfTimeExtended);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    result.ShouldNotHaveValidationErrorFor(a => a.ReturnDate);
+        //}
 
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenNoOfTimeExtendedIsGreaterThan3.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenNoOfTimeExtendedIsGreaterThan3()
-        {
-            var model = new Borrow()
-            {
-                NoOfTimeExtended = 5,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldHaveErrorWhenBorrowedBooksCollectionIsNull.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldHaveErrorWhenBorrowedBooksCollectionIsNull()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        Stocks = null,
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.NoOfTimeExtended);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    _ = result.ShouldHaveValidationErrorFor(a => a.Stocks);
+        //}
 
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenBorrowDateIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenBorrowDateIsNull()
-        {
-            var model = new Borrow()
-            {
-                BorrowDate = null,
-            };
+        ///// <summary>
+        ///// Defines the test method ShouldHaveErrorWhenBorrowDateIsHighenThanDateTimeNow.
+        ///// </summary>
+        //[TestMethod]
+        //public void ShouldHaveErrorWhenBorrowDateIsHighenThanDateTimeNow()
+        //{
+        //    var model = new Borrow()
+        //    {
+        //        BorrowDate = DateTime.Now.AddMonths(1),
+        //    };
 
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenBorrowDateIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenBorrowDateIsNotNull()
-        {
-            var model = new Borrow()
-            {
-                BorrowDate = DateTime.Now.AddMonths(-1),
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.BorrowDate);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenEndDateIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenEndDateIsNull()
-        {
-            var model = new Borrow()
-            {
-                EndDate = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.EndDate);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenEndDateIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenEndDateIsNotNull()
-        {
-            var model = new Borrow()
-            {
-                EndDate = DateTime.Now,
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.EndDate);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenBorrowedBooksCollectionIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenBorrowedBooksCollectionIsNull()
-        {
-            var model = new Borrow()
-            {
-                BorrowedBooks = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowedBooks);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenBorrowDateIsHighenThanDateTimeNow.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenBorrowDateIsHighenThanDateTimeNow()
-        {
-            var model = new Borrow()
-            {
-                BorrowDate = DateTime.Now.AddMonths(1),
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
-        }
+        //    var result = this.validator.TestValidate(model);
+        //    _ = result.ShouldHaveValidationErrorFor(a => a.BorrowDate);
+        //}
     }
 }

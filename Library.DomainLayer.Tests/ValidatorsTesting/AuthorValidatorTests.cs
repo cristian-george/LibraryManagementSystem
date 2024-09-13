@@ -8,6 +8,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
     using Library.DomainLayer.Models;
     using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Defines test class AuthorValidatorTests.
@@ -36,6 +37,10 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             {
                 FirstName = "Mihail",
                 LastName = "Sadoveanu",
+                Books = new List<Book>()
+                {
+                    new (),
+                },
             };
         }
 

@@ -2,10 +2,11 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DomainLayer.Tests.ModelTests
+namespace Library.DomainLayer.Tests.ManualTesting
 {
     using System.Linq;
-    using Library.DomainLayer;
+    using Library.DomainLayer.Extensions;
+    using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -17,7 +18,7 @@ namespace Library.DomainLayer.Tests.ModelTests
         /// <summary>
         /// The librarian.
         /// </summary>
-        private Librarian librarian;
+        private User librarian;
 
         /// <summary>
         /// Initializes this instance.
@@ -25,21 +26,15 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestInitialize]
         public void Initialize()
         {
-            var account = new Account()
-            {
-                Id = 1,
-                Email = "biblioteca@judeteana.ro",
-                PhoneNumber = "0770400404",
-            };
-
-            this.librarian = new Librarian()
+            this.librarian = new User()
             {
                 Id = 1,
                 FirstName = "Biblioteca",
                 LastName = "Judeteana",
                 Address = "Brasov, Livada Postei, nr. 5",
-                IsReader = true,
-                Account = account,
+                Email = "biblioteca@judeteana.ro",
+                PhoneNumber = "0770400404",
+                UserType = Enums.EUserType.LibrarianReader,
             };
         }
 
@@ -58,7 +53,7 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LastNameShouldBeValid()
         {
-            Assert.IsFalse(TestUtils.ContainsDigits(this.librarian.LastName));
+            Assert.IsFalse(this.librarian.LastName.ContainsDigits());
         }
 
         /// <summary>
@@ -68,7 +63,7 @@ namespace Library.DomainLayer.Tests.ModelTests
         public void LastNameShouldBeInvalid()
         {
             this.librarian.LastName = "Judeteana 123";
-            Assert.IsTrue(TestUtils.ContainsDigits(this.librarian.LastName));
+            Assert.IsTrue(this.librarian.LastName.ContainsDigits());
         }
 
         /// <summary>
@@ -77,7 +72,7 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void FirstNameShouldBeValid()
         {
-            Assert.IsFalse(TestUtils.ContainsDigits(this.librarian.FirstName));
+            Assert.IsFalse(this.librarian.FirstName.ContainsDigits());
         }
 
         /// <summary>
@@ -120,28 +115,18 @@ namespace Library.DomainLayer.Tests.ModelTests
         }
 
         /// <summary>
-        /// Defines the test method AddressShouldBeInvalidIfAccountIsNull.
-        /// </summary>
-        [TestMethod]
-        public void AddressShouldBeInvalidIfAccountIsNull()
-        {
-            this.librarian.Account = null;
-            Assert.IsNull(this.librarian.Account);
-        }
-
-        /// <summary>
         /// Defines the test method LibrarianAccountShouldBeInvalidIfPhoneNumberIsInvalidAndEmailIsInvalid.
         /// </summary>
         [TestMethod]
         public void LibrarianAccountShouldBeInvalidIfPhoneNumberIsInvalidAndEmailIsInvalid()
         {
-            this.librarian.Account.Email = "123mail.com";
-            this.librarian.Account.PhoneNumber = "0770456123mmsm";
+            this.librarian.Email = "123mail.com";
+            this.librarian.PhoneNumber = "0770456123mmsm";
 
-            bool emailFlag = TestUtils.IsEmailValid(this.librarian.Account.Email);
-            bool phoneNumberFlag = this.librarian.Account.PhoneNumber.All(char.IsDigit);
+            bool emailFlag = this.librarian.Email.IsEmail();
+            bool phoneNumberFlag = this.librarian.PhoneNumber.All(char.IsDigit);
 
-            Assert.AreNotEqual(10, this.librarian.Account.PhoneNumber.Length);
+            Assert.AreNotEqual(10, this.librarian.PhoneNumber.Length);
             Assert.IsFalse(phoneNumberFlag);
             Assert.IsFalse(emailFlag);
         }
@@ -152,12 +137,12 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LibrarianAccountShouldBeInvalidIfPhoneNumberIsInvalidAndEmailIsValid()
         {
-            this.librarian.Account.PhoneNumber = "0770456123mmsm";
+            this.librarian.PhoneNumber = "0770456123mmsm";
 
-            bool emailFlag = TestUtils.IsEmailValid(this.librarian.Account.Email);
-            bool phoneNumberFlag = TestUtils.ContainsLetters(this.librarian.Account.PhoneNumber);
+            bool emailFlag = this.librarian.Email.IsEmail();
+            bool phoneNumberFlag = this.librarian.PhoneNumber.ContainsLetters();
 
-            Assert.AreNotEqual(10, this.librarian.Account.PhoneNumber.Length);
+            Assert.AreNotEqual(10, this.librarian.PhoneNumber.Length);
             Assert.IsTrue(phoneNumberFlag);
             Assert.IsTrue(emailFlag);
         }
@@ -168,12 +153,12 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LibrarianAccountShouldBeInvalidIfPhoneNumberIsValidAndEmailIsInvalid()
         {
-            this.librarian.Account.Email = "123mail.com";
+            this.librarian.Email = "123mail.com";
 
-            bool emailFlag = TestUtils.IsEmailValid(this.librarian.Account.Email);
-            bool phoneNumberFlag = TestUtils.ContainsLetters(this.librarian.Account.PhoneNumber);
+            bool emailFlag = this.librarian.Email.IsEmail();
+            bool phoneNumberFlag = this.librarian.PhoneNumber.ContainsLetters();
 
-            Assert.AreEqual(10, this.librarian.Account.PhoneNumber.Length);
+            Assert.AreEqual(10, this.librarian.PhoneNumber.Length);
             Assert.IsFalse(phoneNumberFlag);
             Assert.IsFalse(emailFlag);
         }
@@ -184,10 +169,10 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LibrarianAccountShouldBeValidIfPhoneNumberIsValidAndEmailIsValid()
         {
-            bool emailFlag = TestUtils.IsEmailValid(this.librarian.Account.Email);
-            bool phoneNumberFlag = TestUtils.ContainsLetters(this.librarian.Account.PhoneNumber);
+            bool emailFlag = this.librarian.Email.IsEmail();
+            bool phoneNumberFlag = this.librarian.PhoneNumber.ContainsLetters();
 
-            Assert.AreEqual(10, this.librarian.Account.PhoneNumber.Length);
+            Assert.AreEqual(10, this.librarian.PhoneNumber.Length);
             Assert.IsFalse(phoneNumberFlag);
             Assert.IsTrue(emailFlag);
         }
@@ -198,7 +183,7 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LibrarianShouldBeReader()
         {
-            Assert.IsTrue((bool)this.librarian.IsReader);
+            Assert.IsTrue(this.librarian.UserType == Enums.EUserType.LibrarianReader);
         }
 
         /// <summary>
@@ -207,8 +192,8 @@ namespace Library.DomainLayer.Tests.ModelTests
         [TestMethod]
         public void LibrarianShouldNotBeReader()
         {
-            this.librarian.IsReader = false;
-            Assert.IsFalse((bool)this.librarian.IsReader);
+            this.librarian.UserType = Enums.EUserType.Librarian;
+            Assert.IsFalse(this.librarian.UserType == Enums.EUserType.LibrarianReader);
         }
     }
 }

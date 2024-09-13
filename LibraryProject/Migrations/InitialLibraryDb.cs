@@ -23,8 +23,8 @@ namespace Library.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -37,8 +37,8 @@ namespace Library.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Title = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Genre = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Title = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
+                    Genre = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace Library.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParentDomainId = table.Column<int>(type: "int", nullable: true),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                 },
                 constraints: table =>
                 {
@@ -70,16 +70,16 @@ namespace Library.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Domenii = table.Column<int>(type: "int", nullable: false),
-                    Nmc = table.Column<int>(type: "int", nullable: false),
+                    DOMENII = table.Column<int>(type: "int", nullable: false),
+                    NMC = table.Column<int>(type: "int", nullable: false),
                     L = table.Column<int>(type: "int", nullable: false),
-                    Per = table.Column<int>(type: "int", nullable: false),
+                    PER = table.Column<int>(type: "int", nullable: false),
                     C = table.Column<int>(type: "int", nullable: false),
                     D = table.Column<int>(type: "int", nullable: false),
-                    Lim = table.Column<int>(type: "int", nullable: false),
-                    Delta = table.Column<int>(type: "int", nullable: false),
-                    Ncz = table.Column<int>(type: "int", nullable: false),
-                    Persimp = table.Column<int>(type: "int", nullable: false),
+                    LIM = table.Column<int>(type: "int", nullable: false),
+                    DELTA = table.Column<int>(type: "int", nullable: false),
+                    NCZ = table.Column<int>(type: "int", nullable: false),
+                    PERSIMP = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -92,11 +92,11 @@ namespace Library.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(80)", maxLength: 80, nullable: false),
+                    Email = table.Column<string>(type: "nvarchar(45)", maxLength: 45, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(10)", maxLength: 10, nullable: false),
                     UserType = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
@@ -105,24 +105,24 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AuthorBook",
+                name: "BooksAuthors",
                 columns: table => new
                 {
-                    AuthorsId = table.Column<int>(type: "int", nullable: false),
-                    BooksId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    AuthorId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuthorBook", x => new { x.AuthorsId, x.BooksId });
+                    table.PrimaryKey("PK_BooksAuthors", x => new { x.BookId, x.AuthorId });
                     table.ForeignKey(
-                        name: "FK_AuthorBook_Authors_AuthorsId",
-                        column: x => x.AuthorsId,
+                        name: "FK_Authors_BooksAuthors_AuthorId",
+                        column: x => x.AuthorId,
                         principalTable: "Authors",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_AuthorBook_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_Books_BooksAuthors_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -135,7 +135,7 @@ namespace Library.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
-                    Publisher = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Publisher = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     EditionNumber = table.Column<int>(type: "int", nullable: false),
                     NumberOfPages = table.Column<int>(type: "int", nullable: false),
@@ -145,7 +145,7 @@ namespace Library.Migrations
                 {
                     table.PrimaryKey("PK_Editions", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Editions_Books_BookId",
+                        name: "FK_Books_Editions_BookId",
                         column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
@@ -153,24 +153,24 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BookDomain",
+                name: "BooksDomains",
                 columns: table => new
                 {
-                    BooksId = table.Column<int>(type: "int", nullable: false),
-                    DomainsId = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    DomainId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BookDomain", x => new { x.BooksId, x.DomainsId });
+                    table.PrimaryKey("PK_BooksDomains", x => new { x.BookId, x.DomainId });
                     table.ForeignKey(
-                        name: "FK_BookDomain_Books_BooksId",
-                        column: x => x.BooksId,
+                        name: "FK_Books_BooksDomains_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BookDomain_Domains_DomainsId",
-                        column: x => x.DomainsId,
+                        name: "FK_Domains_BooksDomains_DomainId",
+                        column: x => x.DomainId,
                         principalTable: "Domains",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -191,17 +191,15 @@ namespace Library.Migrations
                 {
                     table.PrimaryKey("PK_Borrows", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Borrows_Users_LibrarianId",
+                        name: "FK_Users_Borrows_LibrarianId",
                         column: x => x.LibrarianId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Borrows_Users_ReaderId",
+                        name: "FK_Users_Borrows_ReaderId",
                         column: x => x.ReaderId,
                         principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -220,7 +218,7 @@ namespace Library.Migrations
                 {
                     table.PrimaryKey("PK_Stocks", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Stocks_Editions_EditionId",
+                        name: "FK_Editions_Stocks_EditionId",
                         column: x => x.EditionId,
                         principalTable: "Editions",
                         principalColumn: "Id",
@@ -228,38 +226,38 @@ namespace Library.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "BorrowStock",
+                name: "BorrowsStocks",
                 columns: table => new
                 {
-                    BorrowsId = table.Column<int>(type: "int", nullable: false),
-                    StocksId = table.Column<int>(type: "int", nullable: false),
+                    BorrowId = table.Column<int>(type: "int", nullable: false),
+                    StockId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_BorrowStock", x => new { x.BorrowsId, x.StocksId });
+                    table.PrimaryKey("PK_BorrowsStocks", x => new { x.BorrowId, x.StockId });
                     table.ForeignKey(
-                        name: "FK_BorrowStock_Borrows_BorrowsId",
-                        column: x => x.BorrowsId,
+                        name: "FK_Borrows_BorrowsStocks_BorrowId",
+                        column: x => x.BorrowId,
                         principalTable: "Borrows",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_BorrowStock_Stocks_StocksId",
-                        column: x => x.StocksId,
+                        name: "FK_Borrows_BorrowsStocks_StockId",
+                        column: x => x.StockId,
                         principalTable: "Stocks",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_AuthorBook_BooksId",
-                table: "AuthorBook",
-                column: "BooksId");
+                name: "IX_BooksAuthors_AuthorId",
+                table: "BooksAuthors",
+                column: "AuthorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BookDomain_DomainsId",
-                table: "BookDomain",
-                column: "DomainsId");
+                name: "IX_BooksDomains_DomainId",
+                table: "BooksDomains",
+                column: "DomainId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Borrows_LibrarianId",
@@ -272,9 +270,9 @@ namespace Library.Migrations
                 column: "ReaderId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BorrowStock_StocksId",
-                table: "BorrowStock",
-                column: "StocksId");
+                name: "IX_BorrowsStocks_StockId",
+                table: "BorrowsStocks",
+                column: "StockId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Domains_ParentDomainId",
@@ -296,13 +294,13 @@ namespace Library.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "AuthorBook");
+                name: "BooksAuthors");
 
             migrationBuilder.DropTable(
-                name: "BookDomain");
+                name: "BooksDomains");
 
             migrationBuilder.DropTable(
-                name: "BorrowStock");
+                name: "BorrowsStocks");
 
             migrationBuilder.DropTable(
                 name: "Properties");

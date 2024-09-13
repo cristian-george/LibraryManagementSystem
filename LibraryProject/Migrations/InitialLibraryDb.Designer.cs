@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20240627153455_InitialLibraryDb")]
+    [Migration("20240913192345_InitialLibraryDb")]
     partial class InitialLibraryDb
     {
         /// <inheritdoc />
@@ -28,49 +28,49 @@ namespace Library.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("AuthorBook", b =>
+            modelBuilder.Entity("BooksAuthors", b =>
                 {
-                    b.Property<int>("AuthorsId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksId")
+                    b.Property<int>("AuthorId")
                         .HasColumnType("int");
 
-                    b.HasKey("AuthorsId", "BooksId");
+                    b.HasKey("BookId", "AuthorId");
 
-                    b.HasIndex("BooksId");
+                    b.HasIndex("AuthorId");
 
-                    b.ToTable("AuthorBook");
+                    b.ToTable("BooksAuthors", (string)null);
                 });
 
-            modelBuilder.Entity("BookDomain", b =>
+            modelBuilder.Entity("BooksDomains", b =>
                 {
-                    b.Property<int>("BooksId")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
 
-                    b.Property<int>("DomainsId")
+                    b.Property<int>("DomainId")
                         .HasColumnType("int");
 
-                    b.HasKey("BooksId", "DomainsId");
+                    b.HasKey("BookId", "DomainId");
 
-                    b.HasIndex("DomainsId");
+                    b.HasIndex("DomainId");
 
-                    b.ToTable("BookDomain");
+                    b.ToTable("BooksDomains", (string)null);
                 });
 
-            modelBuilder.Entity("BorrowStock", b =>
+            modelBuilder.Entity("BorrowsStocks", b =>
                 {
-                    b.Property<int>("BorrowsId")
+                    b.Property<int>("BorrowId")
                         .HasColumnType("int");
 
-                    b.Property<int>("StocksId")
+                    b.Property<int>("StockId")
                         .HasColumnType("int");
 
-                    b.HasKey("BorrowsId", "StocksId");
+                    b.HasKey("BorrowId", "StockId");
 
-                    b.HasIndex("StocksId");
+                    b.HasIndex("StockId");
 
-                    b.ToTable("BorrowStock");
+                    b.ToTable("BorrowsStocks", (string)null);
                 });
 
             modelBuilder.Entity("Library.DomainLayer.Models.Author", b =>
@@ -82,10 +82,14 @@ namespace Library.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
@@ -101,10 +105,14 @@ namespace Library.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Genre")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<string>("Title")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
 
@@ -149,7 +157,9 @@ namespace Library.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int?>("ParentDomainId")
                         .HasColumnType("int");
@@ -182,7 +192,9 @@ namespace Library.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Publisher")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<int>("Year")
                         .HasColumnType("int");
@@ -209,28 +221,35 @@ namespace Library.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("Delta")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("DELTA");
 
                     b.Property<int>("Domenii")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("DOMENII");
 
                     b.Property<int>("L")
                         .HasColumnType("int");
 
                     b.Property<int>("Lim")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("LIM");
 
                     b.Property<int>("Ncz")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("NCZ");
 
                     b.Property<int>("Nmc")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("NMC");
 
                     b.Property<int>("Per")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PER");
 
                     b.Property<int>("Persimp")
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasColumnName("PERSIMP");
 
                     b.HasKey("Id");
 
@@ -276,19 +295,29 @@ namespace Library.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Address")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(80)
+                        .HasColumnType("nvarchar(80)");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(45)
+                        .HasColumnType("nvarchar(45)");
 
                     b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("LastName")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<int>("UserType")
                         .HasColumnType("int");
@@ -298,49 +327,55 @@ namespace Library.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("AuthorBook", b =>
+            modelBuilder.Entity("BooksAuthors", b =>
                 {
                     b.HasOne("Library.DomainLayer.Models.Author", null)
                         .WithMany()
-                        .HasForeignKey("AuthorsId")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Authors_BooksAuthors_AuthorId");
 
                     b.HasOne("Library.DomainLayer.Models.Book", null)
                         .WithMany()
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Books_BooksAuthors_BookId");
                 });
 
-            modelBuilder.Entity("BookDomain", b =>
+            modelBuilder.Entity("BooksDomains", b =>
                 {
                     b.HasOne("Library.DomainLayer.Models.Book", null)
                         .WithMany()
-                        .HasForeignKey("BooksId")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Books_BooksDomains_BookId");
 
                     b.HasOne("Library.DomainLayer.Models.Domain", null)
                         .WithMany()
-                        .HasForeignKey("DomainsId")
+                        .HasForeignKey("DomainId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Domains_BooksDomains_DomainId");
                 });
 
-            modelBuilder.Entity("BorrowStock", b =>
+            modelBuilder.Entity("BorrowsStocks", b =>
                 {
                     b.HasOne("Library.DomainLayer.Models.Borrow", null)
                         .WithMany()
-                        .HasForeignKey("BorrowsId")
+                        .HasForeignKey("BorrowId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Borrows_BorrowsStocks_BorrowId");
 
                     b.HasOne("Library.DomainLayer.Models.Stock", null)
                         .WithMany()
-                        .HasForeignKey("StocksId")
+                        .HasForeignKey("StockId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Borrows_BorrowsStocks_StockId");
                 });
 
             modelBuilder.Entity("Library.DomainLayer.Models.Borrow", b =>
@@ -348,14 +383,14 @@ namespace Library.Migrations
                     b.HasOne("Library.DomainLayer.Models.User", "Librarian")
                         .WithMany("LibrarianBorrows")
                         .HasForeignKey("LibrarianId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Users_Borrows_LibrarianId");
 
                     b.HasOne("Library.DomainLayer.Models.User", "Reader")
                         .WithMany("ReaderBorrows")
                         .HasForeignKey("ReaderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Users_Borrows_ReaderId");
 
                     b.Navigation("Librarian");
 
@@ -365,7 +400,7 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.DomainLayer.Models.Domain", b =>
                 {
                     b.HasOne("Library.DomainLayer.Models.Domain", "ParentDomain")
-                        .WithMany("ChildrenDomains")
+                        .WithMany("ChildDomains")
                         .HasForeignKey("ParentDomainId");
 
                     b.Navigation("ParentDomain");
@@ -377,7 +412,8 @@ namespace Library.Migrations
                         .WithMany("Editions")
                         .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Books_Editions_BookId");
 
                     b.Navigation("Book");
                 });
@@ -388,7 +424,8 @@ namespace Library.Migrations
                         .WithMany("Stocks")
                         .HasForeignKey("EditionId")
                         .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .IsRequired()
+                        .HasConstraintName("FK_Editions_Stocks_EditionId");
 
                     b.Navigation("Edition");
                 });
@@ -400,7 +437,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.DomainLayer.Models.Domain", b =>
                 {
-                    b.Navigation("ChildrenDomains");
+                    b.Navigation("ChildDomains");
                 });
 
             modelBuilder.Entity("Library.DomainLayer.Models.Edition", b =>

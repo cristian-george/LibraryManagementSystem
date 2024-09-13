@@ -2,7 +2,7 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.DataLayer.Tests.ValidatorTests
+namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
     using System.Collections.Generic;
     using FluentValidation.TestHelper;
@@ -27,7 +27,7 @@ namespace Library.DataLayer.Tests.ValidatorTests
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new ();
+            this.validator = new();
         }
 
         /// <summary>
@@ -151,156 +151,6 @@ namespace Library.DataLayer.Tests.ValidatorTests
         }
 
         /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTypeIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenTypeIsNull()
-        {
-            var model = new Book()
-            {
-                Type = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenTypeIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenTypeIsNotNull()
-        {
-            var model = new Book()
-            {
-                Type = "tip",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTypeIsEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenTypeIsEmpty()
-        {
-            var model = new Book()
-            {
-                Type = string.Empty,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenTypeIsNotEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenTypeIsNotEmpty()
-        {
-            var model = new Book()
-            {
-                Type = "tip",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTypeLengthIsLessThanOne.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenTypeLengthIsLessThanOne()
-        {
-            var model = new Book()
-            {
-                Type = "q",
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenTypeIsHigherThanOne.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenTypeIsHigherThanOne()
-        {
-            var model = new Book()
-            {
-                Type = "qrwer",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenTypeIsNotAValidName.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenTypeIsNotAValidName()
-        {
-            var model = new Book()
-            {
-                Type = "--gds031",
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenTypeIsAValidName.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenTypeIsAValidName()
-        {
-            var model = new Book()
-            {
-                Type = "Fieraru",
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Type);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenIsBorrowedIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenIsBorrowedIsNull()
-        {
-            var model = new Book()
-            {
-                IsBorrowed = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.IsBorrowed);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenIsBorrowedIsNotNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldNotHaveErrorWhenIsBorrowedIsNotNull()
-        {
-            var model = new Book()
-            {
-                IsBorrowed = true,
-            };
-
-            var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.IsBorrowed);
-        }
-
-        /// <summary>
         /// Defines the test method ShouldHaveErrorWhenAuthorCollectionIsNull.
         /// </summary>
         [TestMethod]
@@ -328,36 +178,6 @@ namespace Library.DataLayer.Tests.ValidatorTests
 
             var result = this.validator.TestValidate(model);
             _ = result.ShouldHaveValidationErrorFor(a => a.Authors);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenEditionsCollectionIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenEditionsCollectionIsNull()
-        {
-            var model = new Book()
-            {
-                Editions = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Editions);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenEditionsCollectionIsEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenEditionsCollectionIsEmpty()
-        {
-            var model = new Book()
-            {
-                Editions = new List<Edition>(),
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Editions);
         }
 
         /// <summary>

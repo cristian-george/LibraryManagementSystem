@@ -1,0 +1,84 @@
+Table User
+Id (PK, int, not null)
+FirstName (nvarchar(50), not null)
+LastName (nvarchar(50), not null)
+Address (nvarchar(80), not null)
+Email (nvarchar(45), not null)
+PhoneNumber (nvarchar(10), not null)
+UserType (int, not null) // Reader=0, Librarian=1, LibrarianReader=2
+
+
+Table Author
+Id (PK, int, not null)
+FirstName (nvarchar(50), not null)
+LastName (nvarchar(50), not null)
+
+
+Table Book
+Id (PK, int, not null)
+Title (nvarchar(50), not null)
+Genre (nvarchar(45), not null)
+
+
+Table Domain
+Id (PK, int, not null)
+ParentDomain (FK, int, null)
+Name (nvarchar(50), not null)
+
+
+Table Edition
+Id (PK, int, not null)
+BookId (FK, int, not null)
+Publisher (nvarchar(50), not null)
+Year (int, not null)
+EditionNumber (int, not null)
+NumberOfPages (int, not null)
+BookType (int, not null) // Hardcover=0, Paperback=1
+
+
+Table BookAuthor
+BookId (PK, FK, int, not null)
+AuthorId (PK, FK, int, not null)
+
+
+Table BookDomain
+BookId (PK, FK, int, not null)
+DomainId (PK, FK, int, not null)
+
+Table Stock // BookEdition
+Id (PK, int, not null)
+EditionId (FK, int, not null)
+NumberOfBooksForBorrowing (int, not null) // Acesta e variabil
+NumberOfBooksForLectureOnly (int, not null) // Acesta e constant
+InitialStock (int, not null) // Suma celor 2 de mai sus
+
+
+Table Borrow
+Id (PK, int, not null)
+ReaderId (FK, int, not null) // Cititorul
+LibrarianId (FK, int, null) // Bibliotecarul care face împrumutul
+BorrowDate (datetime2(7), not null)
+ReturnDate (datetime2(7), not null)
+
+
+Table BorrowStock
+BorrowId (PK, FK, int, not null)
+StockId (PK, FK, int, not null) // Stocul în care se găsește cartea
+
+Table Properties
+Id (PK, int, not null)
+DOMENII (int, not null)
+NMC (int, not null)
+L (int, not null)
+PER (int, not null)
+C (int, not null)
+D (int, not null)
+LIM (int, not null)
+DELTA (int, not null)
+NCZ (int, not null)
+PERSIMP (int, not null)
+
+
+I.  Dacă am creat baza de date în MSSQL trebuie să rulez în consolă   Scaffold-DbContext "Server=.\SQLExpress;Database=LibraryDb;User ID=sa;Password=1234;Encrypt=False;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir DomainLayer\Models   pentru a genera clasele model şi DbContext-ul
+II. Dacă am creat clasele model trebuie să rulez în consolă EntityFrameworkCore\Add-Migration InitialLibraryDb -Context LibraryDbContext   pentru a genera migrările şi contextul bazei de date
+
