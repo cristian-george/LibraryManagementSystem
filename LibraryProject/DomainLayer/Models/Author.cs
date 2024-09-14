@@ -5,11 +5,12 @@
 namespace Library.DomainLayer.Models;
 
 using System.Collections.Generic;
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Author model.
 /// </summary>
-public class Author
+public class Author : IEntity
 {
     /// <summary>
     /// Gets or sets the author's id.

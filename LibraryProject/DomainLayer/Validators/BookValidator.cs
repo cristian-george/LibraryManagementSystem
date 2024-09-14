@@ -36,16 +36,11 @@ namespace Library.DomainLayer.Validators
                 .NotNull().WithMessage("{PropertyName} is null")
                 .Must(HasEntities).WithMessage("{PropertyName} is empty");
 
-            // _ = this.RuleFor(b => b.Editions)
-            //    .NotNull().WithMessage("{PropertyName} is null")
-            //    .Must(HasEntities).WithMessage("{PropertyName} is empty");
-
             _ = this.RuleFor(b => b.Domains)
                 .NotNull().WithMessage("{PropertyName} is null")
                 .Must(HasEntities).WithMessage("{PropertyName} is empty");
 
             _ = this.RuleForEach(b => b.Authors).SetValidator(new AuthorValidator());
-            // _ = this.RuleForEach(b => b.Editions).SetValidator(new EditionValidator());
             _ = this.RuleForEach(b => b.Domains).SetValidator(new DomainValidator());
         }
 

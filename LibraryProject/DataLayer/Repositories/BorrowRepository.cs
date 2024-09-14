@@ -57,9 +57,9 @@ namespace Library.DataLayer.Repositories
         {
             var borrowCount = this.Ctx.Borrows
                 .Where(borrow => borrow.ReaderId == readerId && borrow.BorrowDate >= date)
-                .Include(b => b.Stocks
-                    .Select(stock => stock.Edition)
-                        .Select(edition => edition.Book))
+                .Include(b => b.Stocks)
+                    .ThenInclude(stock => stock.Edition)
+                        .ThenInclude(edition => edition.Book)
                 .SelectMany(b => b.Stocks)
                 .Count(s => s.Edition.Book.Id == bookId);
 

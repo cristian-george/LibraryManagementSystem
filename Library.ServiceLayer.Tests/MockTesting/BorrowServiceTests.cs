@@ -9,6 +9,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
     using Library.DomainLayer;
     using Library.DomainLayer.Models;
     using Library.ServiceLayer.Interfaces;
+    using Library.TestUtilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 
@@ -43,7 +44,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestInsert()
         {
-            var borrow = ProduceModel.GetBorrowModel();
+            var borrow = ProduceModel.GetBorrowModelWithOneStock1();
             _ = this.borrowServiceMock.Setup(x => x.Insert(borrow)).Returns(true);
             this.borrowService = this.borrowServiceMock.Object;
 
@@ -61,7 +62,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
             _ = this.borrowServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
                 new List<Borrow>()
-                { ProduceModel.GetBorrowModel() });
+                { ProduceModel.GetBorrowModelWithOneStock1() });
 
             this.borrowService = this.borrowServiceMock.Object;
 
@@ -76,7 +77,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestGetById()
         {
-            var borrow = ProduceModel.GetBorrowModel();
+            var borrow = ProduceModel.GetBorrowModelWithOneStock1();
             borrow.Id = 1;
 
             _ = this.borrowServiceMock.Setup(x => x.GetById(1))
@@ -95,7 +96,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestUpdate()
         {
-            var borrow = ProduceModel.GetBorrowModel();
+            var borrow = ProduceModel.GetBorrowModelWithOneStock1();
 
             _ = this.borrowServiceMock.Setup(x => x.GetById(1))
                 .Returns(borrow);

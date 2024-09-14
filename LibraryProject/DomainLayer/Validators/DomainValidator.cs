@@ -27,11 +27,6 @@ namespace Library.DomainLayer.Validators
                 .NotEmpty().WithMessage("{PropertyName} is empty")
                 .Length(2, 50).WithMessage("{PropertyName} has invalid length")
                 .When(d => d.ParentDomain != null);
-
-            // _ = this.RuleFor(d => d.ChildDomains)
-            //    .NotNull().WithMessage("{PropertyName} is null");
-
-            // _ = this.RuleForEach(d => d.ChildDomains).SetValidator(new DomainValidator());
         }
     }
 }

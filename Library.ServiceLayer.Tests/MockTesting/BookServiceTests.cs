@@ -7,6 +7,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
     using System.Collections.Generic;
     using Library.DomainLayer.Models;
     using Library.ServiceLayer.Interfaces;
+    using Library.TestUtilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
     using Moq;
 

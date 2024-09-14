@@ -71,21 +71,21 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             // Insert
             Assert.IsTrue(this.service.Insert(edition));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbAccount = this.service.Get(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbAccount);
-            Assert.IsNotNull(this.service.GetById(dbAccount.Id));
-
             // GetAll
-            var allEditions = this.service.Get(null, null, string.Empty);
+            var allEditions = this.service.Get();
             Assert.IsNotNull(allEditions);
+
+            // GetById
+            var id = allEditions.LastOrDefault().Id;
+            var dbEdition = this.service.GetById(id);
+            Assert.IsNotNull(dbEdition);
 
             // Update
             edition.Year = 2005;
-            Assert.IsTrue(this.service.Update(dbAccount));
+            Assert.IsTrue(this.service.Update(dbEdition));
 
             // Delete
-            Assert.IsTrue(this.service.DeleteById(dbAccount.Id));
+            Assert.IsTrue(this.service.DeleteById(dbEdition.Id));
         }
 
         /// <summary>

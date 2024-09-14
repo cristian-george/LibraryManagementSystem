@@ -6,11 +6,12 @@ namespace Library.DomainLayer.Models;
 
 using System;
 using System.Collections.Generic;
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Borrow model.
 /// </summary>
-public class Borrow
+public class Borrow : IEntity
 {
     /// <summary>
     /// Gets or sets the borrow's id.

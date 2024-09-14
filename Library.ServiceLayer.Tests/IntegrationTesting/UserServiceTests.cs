@@ -29,18 +29,18 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         }
 
         /// <summary>
-        /// Defines the test method EndToEndAccount.
+        /// Defines the test method EndToEndReader.
         /// </summary>
         [TestMethod]
-        public void EndToEndUser()
+        public void EndToEndReader()
         {
             var user = new User()
             {
-                FirstName = "User",
-                LastName = "User",
-                Address = "str. Adresa, nr. 30",
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "str. Strada, nr. 30",
                 PhoneNumber = "1234567890",
-                Email = "validmail@gmail.com",
+                Email = "cristian.fieraru@gmail.com",
                 UserType = DomainLayer.Enums.EUserType.Reader,
             };
 
@@ -48,20 +48,59 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             Assert.IsTrue(this.service.Insert(user));
 
             // GetAll
-            var allAccounts = this.service.Get(null, null, string.Empty);
-            Assert.IsNotNull(allAccounts);
+            var allUsers = this.service.Get();
+            Assert.IsNotNull(allUsers);
 
             // GetById
-            var id = allAccounts.LastOrDefault().Id;
-            var dbAccount = this.service.GetById(id);
-            Assert.IsNotNull(dbAccount);
+            var id = allUsers.LastOrDefault().Id;
+            var dbUser = this.service.GetById(id);
+            Assert.IsNotNull(dbUser);
 
             // Update
-            dbAccount.Email = "validmain123@mail.com";
-            Assert.IsTrue(this.service.Update(dbAccount));
+            dbUser.Email = "validmain123@mail.com";
+            Assert.IsTrue(this.service.Update(dbUser));
 
             // Delete
-            Assert.IsTrue(this.service.DeleteById(dbAccount.Id));
+            Assert.IsTrue(this.service.DeleteById(dbUser.Id));
+        }
+
+        /// <summary>
+        /// Defines the test method EndToEndLibrarian.
+        /// </summary>
+        [TestMethod]
+        public void EndToEndLibrarian()
+        {
+            var service = Injector.Create<UserService>();
+
+            var librarian = new User()
+            {
+                LastName = "Biblioteca",
+                FirstName = "Judeteana",
+                Address = "Bucuresti, strada Mihai Viteazu, nr 7, bloc C3, ap 26",
+                PhoneNumber = "0734525427",
+                Email = "biblioteca_judeteana@gmail.com",
+                UserType = DomainLayer.Enums.EUserType.Librarian,
+            };
+
+            // Insert
+            Assert.IsTrue(this.service.Insert(librarian));
+
+            // GetAll
+            var allUsers = this.service.Get();
+            Assert.IsNotNull(allUsers);
+
+            // GetById
+            var id = allUsers.LastOrDefault().Id;
+            var dbUser = this.service.GetById(id);
+            Assert.IsNotNull(dbUser);
+
+            // Update
+            dbUser.Email = "mihaialex@gmail.com";
+            dbUser.FirstName = "Garcea";
+            Assert.IsTrue(this.service.Update(dbUser));
+
+            // Delete
+            Assert.IsTrue(this.service.DeleteById(dbUser.Id));
         }
 
         /// <summary>

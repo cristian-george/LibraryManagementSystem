@@ -5,6 +5,7 @@
 namespace Library.DomainLayer.Validators
 {
     using System;
+    using System.Collections.Generic;
     using FluentValidation;
     using Library.DomainLayer.Models;
 
@@ -37,12 +38,9 @@ namespace Library.DomainLayer.Validators
                 .NotNull().WithMessage("{PropertyName} is null")
                 .GreaterThan(0).WithMessage("{PropertyName} should be strictly positive");
 
-            _ = this.RuleFor(s => s.Edition).SetValidator(new EditionValidator());
-
-            _ = this.RuleFor(s => s.Borrows)
-                .NotNull().WithMessage("{PropertyName} is null");
-
-            // _ = this.RuleForEach(s => s.Borrows).SetValidator(new BorrowValidator());
+            _ = this.RuleFor(s => s.Edition)
+                .NotNull().WithMessage("{PropertyName} is null")
+                .SetValidator(new EditionValidator());
         }
     }
 }

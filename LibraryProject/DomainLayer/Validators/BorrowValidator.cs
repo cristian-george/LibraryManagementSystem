@@ -31,7 +31,6 @@ namespace Library.DomainLayer.Validators
                 .GreaterThan(b => b.BorrowDate).WithMessage("{PropertyName} must be after the borrow date");
 
             _ = this.RuleFor(b => b.Librarian).SetValidator(new UserValidator());
-
             _ = this.RuleFor(b => b.Reader).SetValidator(new UserValidator());
 
             _ = this.RuleFor(b => new { b.Reader, b.Librarian })

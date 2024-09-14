@@ -4,11 +4,11 @@
 
 namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
+    using System.Collections.Generic;
     using FluentValidation.TestHelper;
     using Library.DomainLayer.Models;
     using Library.DomainLayer.Validators;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Defines test class AuthorValidatorTests.

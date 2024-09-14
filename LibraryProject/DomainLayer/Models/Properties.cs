@@ -2,12 +2,14 @@
 // Cristian-George Fieraru
 // </copyright>
 
+using Library.DomainLayer.Interfaces;
+
 namespace Library.DomainLayer.Models;
 
 /// <summary>
 /// Properties model.
 /// </summary>
-public class Properties
+public class Properties : IEntity
 {
     /// <summary>
     /// Gets or sets the properties' id.

@@ -5,7 +5,6 @@
 namespace Library.ServiceLayer.Tests.MockTesting
 {
     using System.Collections.Generic;
-    using Library.DomainLayer;
     using Library.DomainLayer.Models;
     using Library.ServiceLayer.Interfaces;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -18,12 +17,12 @@ namespace Library.ServiceLayer.Tests.MockTesting
     public class UserServiceTest
     {
         /// <summary>
-        /// The account service mock.
+        /// The user service mock.
         /// </summary>
         private Mock<IUserService> userServiceMock;
 
         /// <summary>
-        /// The account service.
+        /// The user service.
         /// </summary>
         private IUserService userService;
 
@@ -42,16 +41,20 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestInsert()
         {
-            var account = new User()
+            var user = new User()
             {
-                PhoneNumber = "0734525427",
-                Email = "validemail@gmail.com",
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "str. Strada, nr. 30",
+                PhoneNumber = "1234567890",
+                Email = "cristian.fieraru@gmail.com",
+                UserType = DomainLayer.Enums.EUserType.Reader,
             };
 
-            _ = this.userServiceMock.Setup(x => x.Insert(account)).Returns(true);
+            _ = this.userServiceMock.Setup(x => x.Insert(user)).Returns(true);
             this.userService = this.userServiceMock.Object;
 
-            var result = this.userService.Insert(account);
+            var result = this.userService.Insert(user);
 
             Assert.IsTrue(result);
         }
@@ -68,8 +71,12 @@ namespace Library.ServiceLayer.Tests.MockTesting
                 {
                     new ()
                     {
-                        PhoneNumber = "0734525427",
-                        Email = "validemail@gmail.com",
+                        FirstName = "Cristian",
+                        LastName = "Fieraru",
+                        Address = "str. Strada, nr. 30",
+                        PhoneNumber = "1234567890",
+                        Email = "cristian.fieraru@gmail.com",
+                        UserType = DomainLayer.Enums.EUserType.Reader,
                     },
                 });
 
@@ -90,8 +97,12 @@ namespace Library.ServiceLayer.Tests.MockTesting
                 .Returns(new User
                 {
                     Id = 1,
-                    PhoneNumber = "0734525427",
-                    Email = "validemail@gmail.com",
+                    FirstName = "Cristian",
+                    LastName = "Fieraru",
+                    Address = "str. Strada, nr. 30",
+                    PhoneNumber = "1234567890",
+                    Email = "cristian.fieraru@gmail.com",
+                    UserType = DomainLayer.Enums.EUserType.Reader,
                 });
 
             this.userService = this.userServiceMock.Object;
@@ -100,8 +111,8 @@ namespace Library.ServiceLayer.Tests.MockTesting
 
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
-            Assert.AreEqual("0734525427", result.PhoneNumber);
-            Assert.AreEqual("validemail@gmail.com", result.Email);
+            Assert.AreEqual("1234567890", result.PhoneNumber);
+            Assert.AreEqual("cristian.fieraru@gmail.com", result.Email);
         }
 
         /// <summary>
@@ -113,8 +124,12 @@ namespace Library.ServiceLayer.Tests.MockTesting
             _ = this.userServiceMock.Setup(x => x.GetById(1))
                 .Returns(new User
                 {
-                    PhoneNumber = "0734525427",
-                    Email = "validemail@gmail.com",
+                    FirstName = "Cristian",
+                    LastName = "Fieraru",
+                    Address = "str. Strada, nr. 30",
+                    PhoneNumber = "1234567890",
+                    Email = "cristian.fieraru@gmail.com",
+                    UserType = DomainLayer.Enums.EUserType.Reader,
                 });
 
             this.userService = this.userServiceMock.Object;

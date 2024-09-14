@@ -30,12 +30,6 @@ namespace Library.DomainLayer.Validators
                 .NotEmpty().WithMessage("{PropertyName} is empty")
                 .Length(2, 50).WithMessage("{PropertyName} has invalid length")
                 .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
-
-            _ = this.RuleFor(a => a.Books)
-               .NotNull().WithMessage("{PropertyName} is null")
-               .Must(HasEntities).WithMessage("{PropertyName} is empty");
-
-            // _ = this.RuleForEach(a => a.Books).SetValidator(new BookValidator());
         }
 
         /// <summary>
@@ -53,17 +47,6 @@ namespace Library.DomainLayer.Validators
             name = name.Replace(" ", string.Empty);
             name = name.Replace("-", string.Empty);
             return name.All(char.IsLetter);
-        }
-
-        /// <summary>
-        /// Check if a collection has entities.
-        /// </summary>
-        /// <typeparam name="T">Template type.</typeparam>
-        /// <param name="entities">The entities.</param>
-        /// <returns> bool. </returns>
-        protected static bool HasEntities<T>(ICollection<T> entities)
-        {
-            return entities != null && entities.Count != 0;
         }
     }
 }

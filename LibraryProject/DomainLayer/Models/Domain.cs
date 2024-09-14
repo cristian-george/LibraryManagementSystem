@@ -5,11 +5,12 @@
 namespace Library.DomainLayer.Models;
 
 using System.Collections.Generic;
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Domain model.
 /// </summary>
-public class Domain
+public class Domain : IEntity
 {
     /// <summary>
     /// Gets or sets the domain's id.

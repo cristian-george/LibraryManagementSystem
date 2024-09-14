@@ -27,7 +27,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestInitialize]
         public void Initialize()
         {
-            this.validator = new();
+            this.validator = new BookValidator();
         }
 
         /// <summary>

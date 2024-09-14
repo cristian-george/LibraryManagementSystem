@@ -5,12 +5,13 @@
 namespace Library.DomainLayer.Models;
 
 using Library.DomainLayer.Enums;
+using Library.DomainLayer.Interfaces;
 using System.Collections.Generic;
 
 /// <summary>
 /// Edition model.
 /// </summary>
-public class Edition
+public class Edition : IEntity
 {
     /// <summary>
     /// Gets or sets the edition's id.

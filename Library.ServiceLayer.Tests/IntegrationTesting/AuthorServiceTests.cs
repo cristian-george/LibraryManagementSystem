@@ -9,6 +9,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
     using Library.DomainLayer.Models;
     using Library.Injection;
     using Library.ServiceLayer.Services;
+    using Library.TestUtilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -35,47 +36,26 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndAuthor()
         {
-            var book = new Book()
-            {
-                Title = "Test",
-                Genre = "Test",
-                Domains = new List<Domain>()
-                {
-                    new Domain()
-                    {
-                        Name = "Domeniu",
-                    },
-                },
-                Authors = new List<Author>(),
-            };
-            var author = new Author()
-            {
-                FirstName = "Marcel",
-                LastName = "Dorel",
-                Books = new List<Book>(),
-            };
-
-            author.Books.Add(book);
-            book.Authors.Add(author);
+            var author = ProduceModel.GetAuthorModel();
 
             // Insert
             Assert.IsTrue(this.service.Insert(author));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbAccount = this.service.Get(null, null, string.Empty).LastOrDefault();
-            Assert.IsNotNull(dbAccount);
-            Assert.IsNotNull(this.service.GetById(dbAccount.Id));
-
             // GetAll
-            var allAccounts = this.service.Get(null, null, string.Empty);
-            Assert.IsNotNull(allAccounts);
+            var allAuthors = this.service.Get();
+            Assert.IsNotNull(allAuthors);
+
+            // GetById
+            var id = allAuthors.LastOrDefault().Id;
+            var dbAuthor = this.service.GetById(id);
+            Assert.IsNotNull(dbAuthor);
 
             // Update
-            dbAccount.LastName = "Garcea";
-            Assert.IsTrue(this.service.Update(dbAccount));
+            dbAuthor.LastName = "Garcea";
+            Assert.IsTrue(this.service.Update(dbAuthor));
 
             // Delete
-            Assert.IsTrue(this.service.DeleteById(dbAccount.Id));
+            Assert.IsTrue(this.service.DeleteById(dbAuthor.Id));
         }
 
         /// <summary>

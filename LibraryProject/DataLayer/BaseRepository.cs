@@ -8,6 +8,7 @@ namespace Library.DataLayer
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using Library.DomainLayer.Interfaces;
     using Microsoft.EntityFrameworkCore;
     using NLog;
 
@@ -16,7 +17,7 @@ namespace Library.DataLayer
     /// </summary>
     /// <typeparam name="T"> Type of the controller. </typeparam>
     public abstract class BaseRepository<T> : IRepository<T>
-        where T : class
+        where T : class, IEntity
     {
         /// <summary>
         /// Gets the CTX.
@@ -85,6 +86,7 @@ namespace Library.DataLayer
             try
             {
                 var databaseSet = this.Ctx.Set<T>();
+                _ = this.Ctx.Attach(entity);
                 _ = databaseSet.Add(entity);
                 _ = this.Ctx.SaveChanges();
 
@@ -109,8 +111,17 @@ namespace Library.DataLayer
             try
             {
                 var databaseSet = this.Ctx.Set<T>();
-                _ = databaseSet.Attach(entity);
-                this.Ctx.Entry(entity).State = EntityState.Modified;
+                var trackedEntity = this.Ctx.ChangeTracker.Entries<T>().FirstOrDefault(e => e.Entity.Id == entity.Id);
+
+                if (trackedEntity != null)
+                {
+                    this.Ctx.Entry(trackedEntity.Entity).CurrentValues.SetValues(entity);
+                }
+                else
+                {
+                    _ = databaseSet.Attach(entity);
+                    this.Ctx.Entry(entity).State = EntityState.Modified;
+                }
 
                 _ = this.Ctx.SaveChanges();
             }

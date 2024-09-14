@@ -6,11 +6,12 @@ namespace Library.DomainLayer.Models;
 
 using System;
 using System.Collections.Generic;
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Stock model.
 /// </summary>
-public class Stock
+public class Stock : IEntity
 {
     /// <summary>
     /// Gets or sets the stock's id.

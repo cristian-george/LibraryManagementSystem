@@ -70,7 +70,7 @@ public class LibraryDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder
         .UseLazyLoadingProxies()
-        .UseSqlServer("Server=.\\SQLExpress;Database=LibraryDb;User ID=sa;Password=1234;Encrypt=False;");
+        .UseSqlServer("Server=.\\SQLExpress;Database=dbLibrary;User ID=sa;Password=1234;Encrypt=False;");
 
     /// <summary>
     /// This method is called when the model for a derived context has been initialized, but

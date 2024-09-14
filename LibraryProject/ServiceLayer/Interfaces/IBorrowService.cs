@@ -20,14 +20,14 @@ namespace Library.ServiceLayer.Interfaces
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckBooks(Borrow entity);
+        bool CheckCanBooksBeGranted(Borrow entity);
 
         /// <summary>
         /// Checks the can borrow maximum NMC in per.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckCanBorrowMaxNMCInPER(Borrow entity);
+        bool CheckCanBorrowMaxNMCInPERMonths(Borrow entity);
 
         /// <summary>
         /// Checks the borrowed books for maximum c books.
@@ -57,20 +57,20 @@ namespace Library.ServiceLayer.Interfaces
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckBorrowInDELTATime(Borrow entity);
+        bool CheckBorrowsMadeInDELTADays(Borrow entity);
 
         /// <summary>
         /// Checks the maximum borrow books today.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        bool CheckCanBorrowAtMostNCZBooksToday(Borrow entity);
+        bool CheckCanBorrowAtMostNCZBooksInOneDay(Borrow entity);
 
         /// <summary>
         /// Checks if librarian granted at most PERSIMP books today.
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns>bool.</returns>
-        bool CheckGrantAtMostPERSIMPBooksToday(Borrow entity);
+        bool CheckGrantAtMostPERSIMPBooksInOneDay(Borrow entity);
     }
 }

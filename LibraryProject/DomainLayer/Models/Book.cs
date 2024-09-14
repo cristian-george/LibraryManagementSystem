@@ -5,11 +5,12 @@
 namespace Library.DomainLayer.Models;
 
 using System.Collections.Generic;
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Book model.
 /// </summary>
-public class Book
+public class Book : IEntity
 {
     /// <summary>
     /// Gets or sets the book's id.

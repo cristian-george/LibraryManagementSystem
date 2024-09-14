@@ -5,13 +5,14 @@
 namespace Library.DomainLayer.Models;
 
 using Library.DomainLayer.Enums;
+using Library.DomainLayer.Interfaces;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 /// <summary>
 /// User model.
 /// </summary>
-public class User
+public class User : IEntity
 {
     /// <summary>
     /// Gets or sets the user's id.

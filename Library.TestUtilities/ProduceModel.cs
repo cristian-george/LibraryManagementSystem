@@ -2,9 +2,10 @@
 // Cristian-George Fieraru
 // </copyright>
 
-namespace Library.ServiceLayer.Tests
+namespace Library.TestUtilities
 {
     using System;
+    using System.Collections;
     using System.Collections.Generic;
     using Library.DomainLayer.Enums;
     using Library.DomainLayer.Models;
@@ -101,7 +102,6 @@ namespace Library.ServiceLayer.Tests
             var domain = new Domain()
             {
                 Name = "Stiinta",
-                ChildDomains = new List<Domain>(),
             };
 
             return domain;
@@ -142,17 +142,14 @@ namespace Library.ServiceLayer.Tests
                     new ()
                     {
                         Name = "Matematica",
-                        ChildDomains = new List<Domain>(),
                     },
                     new ()
                     {
                         Name = "Fizica",
-                        ChildDomains = new List<Domain>(),
                     },
                     new ()
                     {
                         Name = "Chimie",
-                        ChildDomains = new List<Domain>(),
                     },
                     new ()
                     {
@@ -167,34 +164,28 @@ namespace Library.ServiceLayer.Tests
                                     new ()
                                     {
                                         Name = "Algoritmi fundamentali",
-                                        ChildDomains = new List<Domain>(),
                                     },
                                     new ()
                                     {
                                         Name = "Algoritmica grafurilor",
-                                        ChildDomains = new List<Domain>(),
                                     },
                                     new ()
                                     {
                                         Name = "Algoritmi cuantici",
-                                        ChildDomains = new List<Domain>(),
                                     },
                                 },
                             },
                             new ()
                             {
                                 Name = "Programare",
-                                ChildDomains = new List<Domain>(),
                             },
                             new ()
                             {
                                 Name = "Baze de date",
-                                ChildDomains = new List<Domain>(),
                             },
                             new ()
                             {
                                 Name = "Retele de calculatoare",
-                                ChildDomains = new List<Domain>(),
                             },
                         },
                     },
@@ -212,6 +203,7 @@ namespace Library.ServiceLayer.Tests
             {
                 FirstName = "Autor",
                 LastName = "Autor",
+                Books = new List<Book>(),
             };
 
             return author;
@@ -223,13 +215,21 @@ namespace Library.ServiceLayer.Tests
         /// <returns>Book.</returns>
         public static Book GetBookModel()
         {
-            return new Book()
+            var author = GetAuthorModel();
+            var domain = GetRootDomainModel();
+
+            var book = new Book()
             {
-                Title = "Head first design patters",
+                Title = "Head first design patterns",
                 Genre = "Programming",
                 Authors = new List<Author>(),
-                Domains = new List<Domain>(),
+                Domains = new List<Domain>() { domain },
             };
+
+            author.Books.Add(book);
+            book.Authors.Add(author);
+
+            return book;
         }
 
         /// <summary>
@@ -243,7 +243,10 @@ namespace Library.ServiceLayer.Tests
 
             for (int i = 0; i < count; i++)
             {
-                list.Add(GetBookModel());
+                var book = GetBookModel();
+                book.Title += "_" + i.ToString();
+
+                list.Add(book);
             }
 
             return list;
@@ -253,7 +256,7 @@ namespace Library.ServiceLayer.Tests
         /// Gets edition model.
         /// </summary>
         /// <returns>Edition.</returns>
-        public static Edition GetEditionModel()
+        public static Edition GetEditionModelPaperback()
         {
             var edition = new Edition()
             {
@@ -262,7 +265,26 @@ namespace Library.ServiceLayer.Tests
                 Year = 1999,
                 EditionNumber = 5,
                 NumberOfPages = 250,
-                BookType = DomainLayer.Enums.EBookType.Paperback,
+                BookType = EBookType.Paperback,
+            };
+
+            return edition;
+        }
+
+        /// <summary>
+        /// Gets edition model.
+        /// </summary>
+        /// <returns>Edition.</returns>
+        public static Edition GetEditionModelHardcover()
+        {
+            var edition = new Edition()
+            {
+                Book = GetBookModel(),
+                Publisher = "Cartea studentilor saraci",
+                Year = 2000,
+                EditionNumber = 6,
+                NumberOfPages = 251,
+                BookType = EBookType.Hardcover,
             };
 
             return edition;
@@ -272,15 +294,33 @@ namespace Library.ServiceLayer.Tests
         /// Gets stock model.
         /// </summary>
         /// <returns>Stock.</returns>
-        public static Stock GetStockModel()
+        public static Stock GetStockModelWithPaperback()
         {
             var stock = new Stock()
             {
-                Edition = GetEditionModel(),
+                Edition = GetEditionModelPaperback(),
                 InitialStock = 20,
                 NumberOfBooksForBorrowing = 10,
                 NumberOfBooksForLectureOnly = 10,
-                SupplyDate = DateTime.Now,
+                SupplyDate = DateTime.Now.AddMonths(-6),
+            };
+
+            return stock;
+        }
+
+        /// <summary>
+        /// Gets stock model.
+        /// </summary>
+        /// <returns>Stock.</returns>
+        public static Stock GetStockModelWithHardcover()
+        {
+            var stock = new Stock()
+            {
+                Edition = GetEditionModelHardcover(),
+                InitialStock = 30,
+                NumberOfBooksForBorrowing = 2,
+                NumberOfBooksForLectureOnly = 5,
+                SupplyDate = DateTime.Now.AddMonths(-5),
             };
 
             return stock;
@@ -289,8 +329,8 @@ namespace Library.ServiceLayer.Tests
         /// <summary>
         /// Gets the borrow model.
         /// </summary>
-        /// <returns> A borrow model. </returns>
-        public static Borrow GetBorrowModel()
+        /// <returns>A borrow model.</returns>
+        public static Borrow GetBorrowModelWithOneStock1()
         {
             return new Borrow()
             {
@@ -298,7 +338,39 @@ namespace Library.ServiceLayer.Tests
                 ReturnDate = DateTime.Now.AddMonths(3),
                 Reader = GetReaderModel(),
                 Librarian = GetLibrarianModel(),
-                Stocks = new List<Stock>() { GetStockModel() },
+                Stocks = new List<Stock>() { GetStockModelWithPaperback() },
+            };
+        }
+
+        /// <summary>
+        /// Gets the borrow model.
+        /// </summary>
+        /// <returns>A borrow model.</returns>
+        public static Borrow GetBorrowModelWithOneStock2()
+        {
+            return new Borrow()
+            {
+                BorrowDate = DateTime.Now.AddMonths(-1),
+                ReturnDate = DateTime.Now.AddMonths(3),
+                Reader = GetReaderModel(),
+                Librarian = GetLibrarianModel(),
+                Stocks = new List<Stock>() { GetStockModelWithHardcover() },
+            };
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        public static Borrow GetBorrowModelTwoStocks()
+        {
+            return new Borrow()
+            {
+                BorrowDate = DateTime.Now.AddDays(-2),
+                ReturnDate = DateTime.Now.AddMonths(3),
+                Reader = GetReaderModel(),
+                Librarian = GetLibrarianModel(),
+                Stocks = new List<Stock>() { GetStockModelWithPaperback(), GetStockModelWithHardcover() },
             };
         }
     }

@@ -45,8 +45,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             // Insert
             Assert.IsTrue(this.service.Insert(domain));
 
-            // GetById intr-un fel, din cauza ca adauga prea multe in baza de date..
-            var dbDomain = this.service.Get(null, null, string.Empty).LastOrDefault();
+            // GetById
+            var dbDomain = this.service.Get().LastOrDefault();
             Assert.IsNotNull(dbDomain);
             Assert.IsNotNull(this.service.GetById(dbDomain.Id));
 

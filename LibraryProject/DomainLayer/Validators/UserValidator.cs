@@ -46,15 +46,6 @@ namespace Library.DomainLayer.Validators
                 .NotEmpty().WithMessage("{PropertyName} is empty")
                 .Length(10).WithMessage("{PropertyName} has invalid length")
                 .Must(DoesNotContainLetters).WithMessage("{PropertyName} contains invalid characters");
-
-            // _ = this.RuleFor(a => a.LibrarianBorrows)
-            //    .NotNull().WithMessage("{PropertyName} is null");
-
-            // _ = this.RuleFor(a => a.ReaderBorrows)
-            //    .NotNull().WithMessage("{PropertyName} is null");
-
-            // _ = this.RuleForEach(a => a.LibrarianBorrows).SetValidator(new BorrowValidator());
-            // _ = this.RuleForEach(a => a.ReaderBorrows).SetValidator(new BorrowValidator());
         }
 
         /// <summary>

@@ -44,7 +44,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         }
 
         /// <summary>
-        /// Defines the test method ShouldNotHaveErrorWhenFirstNameIsNotNull.
+        /// Defines the test method ShouldNotHaveAnyErrors.
         /// </summary>
         [TestMethod]
         public void ShouldNotHaveAnyErrors()

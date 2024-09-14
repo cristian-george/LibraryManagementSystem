@@ -27,6 +27,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Library.TestUtilities\Library.TestUtilities.csproj" />
     <ProjectReference Include="..\LibraryProject\Library.csproj" />
   </ItemGroup>
 </Project>

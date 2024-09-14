@@ -5,6 +5,7 @@
 namespace Library.DomainLayer.Tests.ManualTesting
 {
     using System.Linq;
+    using Library.DomainLayer.Enums;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -34,7 +35,7 @@ namespace Library.DomainLayer.Tests.ManualTesting
                 Address = "Brasov, strada Migdalelor, nr. 86",
                 Email = "persoana.fizica@gmail.com",
                 PhoneNumber = "0770123456",
-                UserType = Enums.EUserType.Reader,
+                UserType = EUserType.Reader,
             };
         }
 
@@ -235,6 +236,67 @@ namespace Library.DomainLayer.Tests.ManualTesting
             Assert.AreEqual(10, this.user.PhoneNumber.Length);
             Assert.IsFalse(phoneNumberFlag);
             Assert.IsTrue(emailFlag);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldBeReader()
+        {
+            Assert.IsTrue(this.user.UserType == EUserType.Reader);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldNotBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldNotBeReader()
+        {
+            this.user.UserType = EUserType.Librarian;
+            Assert.IsFalse(this.user.UserType == EUserType.Reader);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldBeLibrarian()
+        {
+            this.user.UserType = EUserType.Librarian;
+            Assert.IsTrue(this.user.UserType == EUserType.Librarian);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldNotBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldNotBeLibrarian()
+        {
+            Assert.IsFalse(this.user.UserType == EUserType.Librarian);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldBeLibrarianReader()
+        {
+            this.user.UserType = EUserType.LibrarianReader;
+            Assert.IsTrue(this.user.UserType == EUserType.LibrarianReader);
+        }
+
+        /// <summary>
+        /// Defines the test method LibrarianShouldNotBeReader.
+        /// </summary>
+        [TestMethod]
+        public void UserShouldNotBeLibrarianReader()
+        {
+            this.user.UserType = EUserType.Reader;
+            Assert.IsFalse(this.user.UserType == EUserType.LibrarianReader);
+
+            this.user.UserType = EUserType.Librarian;
+            Assert.IsFalse(this.user.UserType == EUserType.LibrarianReader);
         }
     }
 }

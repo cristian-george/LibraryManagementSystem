@@ -8,6 +8,7 @@ namespace Library.ServiceLayer.Services
     using System.Collections.Generic;
     using System.Linq;
     using Library.DataLayer.Interfaces;
+    using Library.DomainLayer.Enums;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
     using Library.DomainLayer.Validators;
@@ -50,16 +51,13 @@ namespace Library.ServiceLayer.Services
             if (result.IsValid && this.CheckAdditionalRules(entity))
             {
                 // The borrow expires after two weeks
-                if (entity.BorrowDate is DateTime borrowDate)
-                {
-                    entity.ReturnDate = borrowDate.AddDays(14);
-                }
+                entity.ReturnDate = entity.BorrowDate.AddDays(14);
 
                 // Update stocks
                 foreach (var stock in entity.Stocks)
                 {
                     stock.NumberOfBooksForBorrowing -= 1;
-                    this.stockRepository.Update(stock);
+                    _ = this.stockRepository.Update(stock);
                 }
 
                 _ = this.Repository.Insert(entity);
@@ -74,7 +72,7 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <inheritdoc/>
-        public bool CheckBooks(Borrow entity)
+        public bool CheckCanBooksBeGranted(Borrow entity)
         {
             var booksToBorrow = this.GetBooksToBorrow(entity);
 
@@ -119,34 +117,32 @@ namespace Library.ServiceLayer.Services
         /// Checks the can borrow maximum NMC in PER.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckCanBorrowMaxNMCInPER(Borrow entity)
+        /// <returns>bool.</returns>
+        public bool CheckCanBorrowMaxNMCInPERMonths(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
             var per = properties.Per;
             var nmc = properties.Nmc;
 
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 per /= 2;
                 nmc *= 2;
             }
 
-            var datePer = DateTime.Now.AddMonths((int)-per);
+            var datePer = entity.BorrowDate.AddMonths(-per);
 
             // Borrows that have been done in the last PER months
-            var borrows = this.Repository.Get(
-                borrow =>
-                borrow.Reader.Id == entity.Reader.Id &&
-                borrow.BorrowDate >= datePer);
+            var borrows = this.Repository
+                .GetBorrowsByReaderWithinDate(entity.Reader.Id, datePer);
 
             // Number of the books that have been borrowed in the last PER months
             var numberOfBorrowedBooks = borrows
-                .SelectMany(borrow => this.GetBooksToBorrow(borrow))
+                .SelectMany(this.GetBooksToBorrow)
                 .Distinct()
                 .Count();
 
-            if (properties.Nmc <= numberOfBorrowedBooks + entity.Stocks.Count)
+            if (numberOfBorrowedBooks + entity.Stocks.Count > nmc)
             {
                 return false;
             }
@@ -158,14 +154,14 @@ namespace Library.ServiceLayer.Services
         /// Checks the borrowed books for maximum C books.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <returns>bool.</returns>
         public bool CheckBorrowedBooksForMaxCBooks(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
             var c = properties.C;
 
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 c *= 2;
             }
@@ -191,23 +187,6 @@ namespace Library.ServiceLayer.Services
         }
 
         /// <summary>
-        /// Borrows made by reader in the last L months.
-        /// L is threshold for number of months.
-        /// </summary>
-        /// <param name="readerId">The reader.</param>
-        /// <returns>Borrows.</returns>
-        public IEnumerable<Borrow> GetBorrowsMadeByReaderInTheLastLMonths(int readerId)
-        {
-            var properties = this.PropertiesRepository.GetLastProperties();
-            var l = properties.L;
-
-            var borrows = this.Repository
-                .GetBorrowsByReaderWithinDate(readerId, DateTime.Now.AddMonths(-l));
-
-            return borrows;
-        }
-
-        /// <summary>
         /// Checks if borrow books are at most D in the same domain, in the last L months.
         /// D is threshold for number of domains.
         /// L is threshold for number of months.
@@ -218,14 +197,16 @@ namespace Library.ServiceLayer.Services
         {
             var properties = this.PropertiesRepository.GetLastProperties();
             var d = properties.D;
+            var l = properties.L;
 
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 d *= 2;
             }
 
             // Borrows made by reader in the last L months
-            var borrows = this.GetBorrowsMadeByReaderInTheLastLMonths(entity.Reader.Id);
+            var borrows = this.Repository
+                .GetBorrowsByReaderWithinDate(entity.Reader.Id, entity.BorrowDate.AddMonths(-l));
 
             // Books that have been borrowed by reader in the last L months
             var books = borrows
@@ -242,7 +223,14 @@ namespace Library.ServiceLayer.Services
                 foreach (var domain in book.Domains)
                 {
                     var rootDomain = domain.GetRootDomain();
-                    domains[rootDomain]++;
+                    if (!domains.TryGetValue(rootDomain, out int value))
+                    {
+                        domains.Add(rootDomain, 1);
+                    }
+                    else
+                    {
+                        domains[rootDomain] = ++value;
+                    }
                 }
             });
 
@@ -268,7 +256,7 @@ namespace Library.ServiceLayer.Services
             var properties = this.PropertiesRepository.GetLastProperties();
             var lim = properties.Lim;
 
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 lim *= 2;
             }
@@ -278,7 +266,7 @@ namespace Library.ServiceLayer.Services
             foreach (var book in booksToBorrow)
             {
                 var bookBorrowCount = this.Repository
-                    .GetBookBorrowCountByReaderWithinDate(book.Id, entity.Reader.Id, DateTime.Now.AddMonths(-3));
+                    .GetBookBorrowCountByReaderWithinDate(book.Id, entity.Reader.Id, entity.BorrowDate.AddMonths(-3));
 
                 if (bookBorrowCount + 1 > lim)
                 {
@@ -293,13 +281,13 @@ namespace Library.ServiceLayer.Services
         /// Checks the borrow in delta time.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckBorrowInDELTATime(Borrow entity)
+        /// <returns>Bool.</returns>
+        public bool CheckBorrowsMadeInDELTADays(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
             var delta = properties.Delta;
 
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 delta /= 2;
             }
@@ -324,22 +312,23 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool CheckCanBorrowAtMostNCZBooksToday(Borrow entity)
+        public bool CheckCanBorrowAtMostNCZBooksInOneDay(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
             var ncz = properties.Ncz;
-            if (entity.Reader.UserType == DomainLayer.Enums.EUserType.LibrarianReader)
+            if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
-                ncz = int.MaxValue - 1;
+                return true;
             }
 
-            var borrowsToday = this.Repository.Get(
-                borrow => borrow.BorrowDate == DateTime.Today,
+            var allBorrows = this.Repository.Get(
+                borrow => borrow.BorrowDate.Date == entity.BorrowDate.Date &&
+                          borrow.Reader.Id == entity.Reader.Id,
                 borrow => borrow.OrderBy(x => x.Id),
                 string.Empty).Count();
 
-            return borrowsToday == 0 || borrowsToday <= ncz;
+            return allBorrows < ncz;
         }
 
         /// <summary>
@@ -347,19 +336,18 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns>bool.</returns>
-        public bool CheckGrantAtMostPERSIMPBooksToday(Borrow entity)
+        public bool CheckGrantAtMostPERSIMPBooksInOneDay(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLastProperties();
 
             var persimp = properties.Persimp;
 
-            var borrowsToday = this.Repository.Get(
-                borrow => borrow.BorrowDate == DateTime.Today &&
-                          borrow.Librarian.Equals(entity.Librarian),
-                borrow => borrow.OrderBy(x => x.Id),
-                string.Empty).Count();
+            var allBorrows = this.Repository.Get(
+                borrow => borrow.BorrowDate.Date == entity.BorrowDate.Date &&
+                          borrow.Librarian.Id == entity.Librarian.Id,
+                borrow => borrow.OrderBy(x => x.Id)).Count();
 
-            return borrowsToday <= persimp;
+            return allBorrows < persimp;
         }
 
         /// <summary>
@@ -373,18 +361,18 @@ namespace Library.ServiceLayer.Services
             // 1. nu are toate exemplarele marcate ca fiind doar pentru sala de lectura;
             // 2. numarul de carti ramase (inca neimprumutate, dar nu din cele
             // pentru sala de lectura) este macar 10 % din fondul initial din acea carte.
-            if (!this.CheckBooks(entity))
+            if (!this.CheckCanBooksBeGranted(entity))
             {
                 return false;
             }
 
-            // Pot imprumuta un numar maxim de carti NMC intr-o perioada PER;
-            if (!this.CheckCanBorrowMaxNMCInPER(entity))
+            // Cititorii pot imprumuta un numar maxim de carti NMC intr-o perioada PER;
+            if (!this.CheckCanBorrowMaxNMCInPERMonths(entity))
             {
                 return false;
             }
 
-            // La un imprumut pot prelua cel mult C carti; daca numarul cartilor imprumutate la o
+            // Cititorii pot prelua la un imprumut cel mult C carti; daca numarul cartilor imprumutate la o
             // cerere de imprumut e cel putin 3, atunci acestea trebui sa faca parte din cel putin 2
             // categorii distincte
             if (!this.CheckBorrowedBooksForMaxCBooks(entity))
@@ -392,29 +380,36 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
-            // Nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
+            // Cititorii nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
             // – de tip frunza sau de nivel superior - in ultimele L luni
             if (!this.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(entity))
             {
                 return false;
             }
 
-            // Nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
-            // DELTA se masoara de la ultimul imprumut al cartii
-            if (!this.CheckBorrowInDELTATime(entity))
-            {
-                return false;
-            }
-
-            // Pot imprumuta cel mult NCZ carti intr-o zi.
-            if (!this.CheckCanBorrowAtMostNCZBooksToday(entity))
-            {
-                return false;
-            }
-
-            // Pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
+            // Cititorii pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
             // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
             if (!this.CheckBorrowExtensionAtMostLIM(entity))
+            {
+                return false;
+            }
+
+            // Cititorii nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
+            // DELTA se masoara de la ultimul imprumut al cartii
+            if (!this.CheckBorrowsMadeInDELTADays(entity))
+            {
+                return false;
+            }
+
+            // Cititorii pot imprumuta cel mult NCZ carti intr-o zi;
+            // pentru personalul bibliotecii se ignora acest prag.
+            if (!this.CheckCanBorrowAtMostNCZBooksInOneDay(entity))
+            {
+                return false;
+            }
+
+            // Personalul bibliotecii nu poate acorda mai mult de PERSIMP carti intr-o zi.
+            if (!this.CheckGrantAtMostPERSIMPBooksInOneDay(entity))
             {
                 return false;
             }
@@ -434,7 +429,10 @@ namespace Library.ServiceLayer.Services
             foreach (var stock in entity.Stocks)
             {
                 var book = this.bookRepository.GetBookByStockId(stock.Id);
-                booksToBorrow.Add(book);
+                if (book != null)
+                {
+                    booksToBorrow.Add(book);
+                }
             }
 
             return booksToBorrow;
