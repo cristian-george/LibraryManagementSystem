@@ -22,7 +22,7 @@ namespace Library.DataLayer.Repositories
         public IEnumerable<Borrow> GetBorrowsByReader(int readerId)
         {
             var borrows = this.Ctx.Borrows
-                .Where(borrow => borrow.ReaderId == readerId)
+                .Where(borrow => borrow.Reader.Id == readerId)
                 .Include(borrow => borrow.Stocks)
                 .ToEnumerable();
 
@@ -42,7 +42,7 @@ namespace Library.DataLayer.Repositories
         public int GetBookBorrowCountByReader(int bookId, int readerId)
         {
             var borrowCount = this.Ctx.Borrows
-                .Where(borrow => borrow.ReaderId == readerId)
+                .Where(borrow => borrow.Reader.Id == readerId)
                 .Include(b => b.Stocks
                     .Select(stock => stock.Edition)
                         .Select(edition => edition.Book))
@@ -56,7 +56,7 @@ namespace Library.DataLayer.Repositories
         public int GetBookBorrowCountByReaderWithinDate(int bookId, int readerId, DateTime date)
         {
             var borrowCount = this.Ctx.Borrows
-                .Where(borrow => borrow.ReaderId == readerId && borrow.BorrowDate >= date)
+                .Where(borrow => borrow.Reader.Id == readerId && borrow.BorrowDate >= date)
                 .Include(b => b.Stocks)
                     .ThenInclude(stock => stock.Edition)
                         .ThenInclude(edition => edition.Book)
@@ -67,10 +67,10 @@ namespace Library.DataLayer.Repositories
         }
 
         /// <inheritdoc/>
-        public Borrow GetLastBookBorrowByReader(int bookId, int readerId)
+        public Borrow GetLastBookBorrowedByReader(int bookId, int readerId)
         {
             var lastBorrow = this.Ctx.Borrows
-            .Where(b => b.ReaderId == readerId)
+            .Where(b => b.Reader.Id == readerId)
             .SelectMany(b => b.Stocks
                 .Where(s => s.Edition.Book.Id == bookId)
                 .Select(s => b))

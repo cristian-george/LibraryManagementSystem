@@ -52,6 +52,6 @@ namespace Library.DataLayer.Interfaces
         /// <param name="bookId">Book id.</param>
         /// <param name="readerId">Reader id.</param>
         /// <returns>Borrow.</returns>
-        Borrow GetLastBookBorrowByReader(int bookId, int readerId);
+        Borrow GetLastBookBorrowedByReader(int bookId, int readerId);
     }
 }

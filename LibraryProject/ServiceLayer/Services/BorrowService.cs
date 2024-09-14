@@ -296,11 +296,16 @@ namespace Library.ServiceLayer.Services
 
             foreach (var book in booksToBorrow)
             {
-                var lastBorrow = this.Repository.GetLastBookBorrowByReader(book.Id, entity.Reader.Id);
+                var lastBorrow = this.Repository
+                    .GetLastBookBorrowedByReader(book.Id, entity.Reader.Id);
+
                 if (lastBorrow != null)
                 {
-                    var daysSinceLastBorrow = (DateTime.Now - lastBorrow.ReturnDate).TotalDays;
-                    return daysSinceLastBorrow > delta;
+                    var daysSinceLastBorrow = (entity.BorrowDate - lastBorrow.BorrowDate).TotalDays;
+                    if (daysSinceLastBorrow <= delta)
+                    {
+                        return false;
+                    }
                 }
             }
 

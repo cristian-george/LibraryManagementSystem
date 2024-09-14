@@ -131,7 +131,8 @@ namespace Library.DomainLayer.Tests.ManualTesting
 
             var e = s.Edition;
             Assert.IsNotNull(e);
-            Assert.IsTrue(e.Year >= 1850 && e.Year <= 2024);
+            Assert.IsTrue(e.Year >= 1850);
+            Assert.IsTrue(e.Year <= 2024);
 
             var b = e.Book;
             Assert.IsNotNull(b);

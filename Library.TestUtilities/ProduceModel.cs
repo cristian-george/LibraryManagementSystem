@@ -5,7 +5,6 @@
 namespace Library.TestUtilities
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using Library.DomainLayer.Enums;
     using Library.DomainLayer.Models;
@@ -28,8 +27,8 @@ namespace Library.TestUtilities
                 L = 2,
                 C = 2,
                 D = 2,
-                Lim = 2,
-                Delta = 2,
+                Lim = 1,
+                Delta = 5,
                 Ncz = 2,
                 Persimp = 2,
                 Per = 2,
@@ -244,8 +243,6 @@ namespace Library.TestUtilities
             for (int i = 0; i < count; i++)
             {
                 var book = GetBookModel();
-                book.Title += "_" + i.ToString();
-
                 list.Add(book);
             }
 

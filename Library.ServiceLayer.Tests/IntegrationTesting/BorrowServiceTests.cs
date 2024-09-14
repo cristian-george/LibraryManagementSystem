@@ -280,28 +280,111 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void CheckBorrowExtensionAtMostLIMShouldReturnFalse()
         {
-            var userService = Injector.Create<UserService>();
+            var author = new Author()
+            {
+                FirstName = "Alexandra",
+                LastName = "Baicoianu",
+                Books = new List<Book>(),
+            };
+
+            var rootDomain = ProduceModel.GetScienceDomainModel();
+            var domain = rootDomain.ChildDomains.ElementAt(3) // Informatica
+                                   .ChildDomains.ElementAt(0) // Algoritmi
+                                   .ChildDomains.ElementAt(0); // Algoritmi fundamentali
+
+            var book = new Book()
+            {
+                Title = "Curs algoritmica",
+                Genre = "Programare",
+                Domains = new List<Domain>() { domain },
+                Authors = new List<Author>(),
+            };
+
+            author.Books.Add(book);
+            book.Authors.Add(author);
+
+            var edition = new Edition()
+            {
+                Book = book,
+                Publisher = "Editura Universitatii",
+                Year = 2015,
+                EditionNumber = 15,
+                NumberOfPages = 240,
+                BookType = EBookType.Hardcover,
+            };
+
+            var otherEdition = new Edition()
+            {
+                Book = book,
+                Publisher = "Editura UniTBv",
+                Year = 2018,
+                EditionNumber = 18,
+                NumberOfPages = 270,
+                BookType = EBookType.Paperback,
+            };
+
+            var stock = new Stock()
+            {
+                Edition = edition,
+                InitialStock = 20,
+                NumberOfBooksForBorrowing = 10,
+                NumberOfBooksForLectureOnly = 10,
+                SupplyDate = DateTime.Now.AddDays(-7),
+            };
+
+            var otherStock = new Stock()
+            {
+                Edition = otherEdition,
+                InitialStock = 20,
+                NumberOfBooksForBorrowing = 15,
+                NumberOfBooksForLectureOnly = 5,
+                SupplyDate = DateTime.Now.AddDays(-3),
+            };
+
             var stockService = Injector.Create<StockService>();
 
-            var user = ProduceModel.GetLibrarianReaderModel();
-            Assert.IsTrue(userService.Insert(user));
+            Assert.IsTrue(stockService.Insert(stock));
+            Assert.IsTrue(stockService.Insert(otherStock));
+
+            var reader = new User()
+            {
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "Brasov, strada Iuliu Maniu, nr. 50",
+                PhoneNumber = "0770123456",
+                Email = "cristian.fieraru@student.unitbv.ro",
+                UserType = EUserType.Reader,
+            };
+
+            var librarian = new User()
+            {
+                FirstName = "Biblioteca",
+                LastName = "Judeteana",
+                Address = "Brasov, Livada Postei, nr. 30",
+                PhoneNumber = "0770400404",
+                Email = "biblioteca_judeteana@brasov.ro",
+                UserType = EUserType.Librarian,
+            };
 
             var borrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddDays(-2),
-                ReturnDate = DateTime.Today.AddDays(14),
-                Librarian = user,
-                Reader = user,
-                Stocks = new List<Stock>(),
+                ReturnDate = DateTime.Today.AddDays(-2).AddDays(14),
+                Librarian = librarian,
+                Reader = reader,
+                Stocks = new List<Stock>() { stock },
             };
 
-            for (var i = 0; i < 10; i++)
-            {
-                var stock = ProduceModel.GetStockModelWithPaperback();
-                Assert.IsTrue(stockService.Insert(stock));
+            Assert.IsTrue(this.service.Insert(borrow));
 
-                borrow.Stocks.Add(stock);
-            }
+            var otherBorrow = new Borrow()
+            {
+                BorrowDate = DateTime.Today,
+                ReturnDate = DateTime.Today.AddDays(14),
+                Librarian = librarian,
+                Reader = reader,
+                Stocks = new List<Stock>() { otherStock },
+            };
 
             Assert.IsFalse(this.service.CheckBorrowExtensionAtMostLIM(borrow));
         }
@@ -312,30 +395,103 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void CheckBorrowsMadeInDELTADaysShouldReturnFalse()
         {
-            var userService = Injector.Create<UserService>();
+            var author = new Author()
+            {
+                FirstName = "Alexandra",
+                LastName = "Baicoianu",
+                Books = new List<Book>(),
+            };
+
+            var rootDomain = ProduceModel.GetScienceDomainModel();
+            var domain = rootDomain.ChildDomains.ElementAt(3) // Informatica
+                                   .ChildDomains.ElementAt(0) // Algoritmi
+                                   .ChildDomains.ElementAt(0); // Algoritmi fundamentali
+
+            var book = new Book()
+            {
+                Title = "Curs algoritmica",
+                Genre = "Programare",
+                Domains = new List<Domain>() { domain },
+                Authors = new List<Author>(),
+            };
+
+            author.Books.Add(book);
+            book.Authors.Add(author);
+
+            var edition = new Edition()
+            {
+                Book = book,
+                Publisher = "Editura Universitatii",
+                Year = 2015,
+                EditionNumber = 15,
+                NumberOfPages = 240,
+                BookType = EBookType.Hardcover,
+            };
+
+            var otherEdition = new Edition()
+            {
+                Book = book,
+                Publisher = "Editura UniTBv",
+                Year = 2018,
+                EditionNumber = 18,
+                NumberOfPages = 270,
+                BookType = EBookType.Paperback,
+            };
+
+            var stock = new Stock()
+            {
+                Edition = edition,
+                InitialStock = 20,
+                NumberOfBooksForBorrowing = 10,
+                NumberOfBooksForLectureOnly = 10,
+                SupplyDate = DateTime.Now.AddDays(-7),
+            };
+
+            var otherStock = new Stock()
+            {
+                Edition = otherEdition,
+                InitialStock = 20,
+                NumberOfBooksForBorrowing = 15,
+                NumberOfBooksForLectureOnly = 5,
+                SupplyDate = DateTime.Now.AddDays(-3),
+            };
+
             var stockService = Injector.Create<StockService>();
 
-            var user = ProduceModel.GetLibrarianReaderModel();
-            Assert.IsTrue(userService.Insert(user));
+            Assert.IsTrue(stockService.Insert(stock));
+            Assert.IsTrue(stockService.Insert(otherStock));
+
+            var user = new User()
+            {
+                FirstName = "Cristian",
+                LastName = "Fieraru",
+                Address = "Brasov, strada Iuliu Maniu, nr. 50",
+                PhoneNumber = "0770123456",
+                Email = "cristian.fieraru@student.unitbv.ro",
+                UserType = EUserType.LibrarianReader,
+            };
 
             var borrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddDays(-2),
+                ReturnDate = DateTime.Today.AddDays(-2).AddDays(14),
+                Librarian = user,
+                Reader = user,
+                Stocks = new List<Stock>() { stock },
+            };
+
+            Assert.IsTrue(this.service.Insert(borrow));
+
+            var otherBorrow = new Borrow()
+            {
+                BorrowDate = DateTime.Today,
                 ReturnDate = DateTime.Today.AddDays(14),
                 Librarian = user,
                 Reader = user,
-                Stocks = new List<Stock>(),
+                Stocks = new List<Stock>() { otherStock },
             };
 
-            for (var i = 0; i < 10; i++)
-            {
-                var stock = ProduceModel.GetStockModelWithPaperback();
-                Assert.IsTrue(stockService.Insert(stock));
-
-                borrow.Stocks.Add(stock);
-            }
-
-            Assert.IsFalse(this.service.CheckBorrowsMadeInDELTADays(borrow));
+            Assert.IsFalse(this.service.CheckBorrowsMadeInDELTADays(otherBorrow));
         }
 
         /// <summary>

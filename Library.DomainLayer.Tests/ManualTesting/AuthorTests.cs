@@ -15,7 +15,7 @@ namespace Library.DomainLayer.Tests.ManualTesting
     public class AuthorTests
     {
         /// <summary>
-        /// The author.
+        /// The properties.
         /// </summary>
         private Author author;
 

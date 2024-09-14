@@ -9,6 +9,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
     using Library.DomainLayer.Models;
     using Library.Injection;
     using Library.ServiceLayer.Services;
+    using Library.TestUtilities;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -28,23 +29,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             Injector.Initialize();
             this.service = Injector.Create<BookService>();
 
-            // Add properties
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = new Properties()
-            {
-                Domenii = 2,
-                Nmc = 3,
-                L = 2,
-                C = 3,
-                D = 2,
-                Lim = 2,
-                Delta = 3,
-                Ncz = 4,
-                Persimp = 3,
-                Per = 3,
-            };
-
-            // Insert Properties
+            var properties = ProduceModel.GetPropertiesModel();
             Assert.IsTrue(propertiesService.Insert(properties));
         }
 
@@ -54,16 +40,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndBook()
         {
-            var domain = new Domain()
-            {
-                Name = "Stiinta",
-            };
-
-            var subdomain = new Domain()
-            {
-                Name = "Chimie",
-                ParentDomain = domain,
-            };
+            var domain = ProduceModel.GetDomainWithSubdomainModel();
 
             var author = new Author()
             {
@@ -76,7 +53,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             {
                 Title = "Head first design patters",
                 Genre = "Programming",
-                Domains = new List<Domain>() { subdomain },
+                Domains = new List<Domain>() { domain },
                 Authors = new List<Author>(),
             };
 
@@ -101,6 +78,43 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
 
             // Delete
             Assert.IsTrue(this.service.DeleteById(dbBook.Id));
+        }
+
+        /// <summary>
+        /// Defines the test method InsertSameBooksShouldReturnTrue.
+        /// </summary>
+        [TestMethod]
+        public void InsertSameBooksShouldReturnTrue()
+        {
+            var books = ProduceModel.GetListOFSameBook(100);
+
+            var book = books.First();
+            Assert.IsTrue(this.service.Insert(book));
+
+            books.RemoveAt(0);
+
+            for (int i = 0; i < books.Count; i++)
+            {
+                var letterCombination = GetLetterCombination(i);
+                books[i].Title += letterCombination;
+                Assert.IsTrue(this.service.Insert(books[i]));
+            }
+        }
+
+        /// <summary>
+        /// Defines the test method InsertSameBooksShouldReturnFalse.
+        /// </summary>
+        [TestMethod]
+        public void InsertSameBooksShouldReturnFalse()
+        {
+            var books = ProduceModel.GetListOFSameBook(100);
+
+            var book = books.First();
+            Assert.IsTrue(this.service.Insert(book));
+
+            books.RemoveAt(0);
+            books.ForEach(book =>
+                Assert.IsFalse(this.service.Insert(book)));
         }
 
         /// <summary>
@@ -170,7 +184,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
 
             var domain3 = new Domain()
             {
-                Name = "Stiint3",
+                Name = "Stiinta3",
             };
 
             var book = new Book()
@@ -225,6 +239,24 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             // Clean Domain table
             var domainService = Injector.Create<DomainService>();
             Assert.IsTrue(domainService.Delete());
+        }
+
+        /// <summary>
+        /// Generates letter combinations similar to "A, B, ..., Z, AA, AB, ..., ZZ, AAA, ...".
+        /// </summary>
+        /// <param name="index">The zero-based index for the letter combination (0 = "A", 1 = "B", ..., 25 = "Z", 26 = "AA").</param>
+        /// <returns>A string representing the letter combination.</returns>
+        private static string GetLetterCombination(int index)
+        {
+            string result = string.Empty;
+
+            while (index >= 0)
+            {
+                result = (char)('A' + (index % 26)) + result;
+                index = (index / 26) - 1;
+            }
+
+            return result;
         }
     }
 }
