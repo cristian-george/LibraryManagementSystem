@@ -8,7 +8,6 @@ namespace Library.DataLayer.Repositories
     using Library.DataLayer;
     using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Models;
-    using Microsoft.EntityFrameworkCore;
 
     /// <summary>
     /// Book repository.
@@ -16,33 +15,20 @@ namespace Library.DataLayer.Repositories
     public class BookRepository : BaseRepository<Book>, IBookRepository
     {
         /// <inheritdoc/>
-        public Book GetBookByTitle(string title)
+        public Book GetByTitle(string title)
         {
-            var book = this.Ctx.Books
-                .Where(book => book.Title == title)
-                .Include(book => book.Authors)
-                .Include(book => book.Domains)
-                .Include(book => book.Editions)
+            var book = this.Get(
+                filterBy: book => book.Title == title)
                 .FirstOrDefault();
 
             return book;
         }
 
         /// <inheritdoc/>
-        public Book GetBookByStockId(int stockId)
+        public Book GetByStockId(int stockId)
         {
-            var book = this.Ctx.Stocks
-                .Where(stock => stock.Id == stockId)
-                .Include(stock => stock.Edition)
-                    .ThenInclude(edition => edition.Book)
-                        .ThenInclude(book => book.Authors)
-                .Include(stock => stock.Edition)
-                    .ThenInclude(edition => edition.Book)
-                        .ThenInclude(book => book.Domains)
-                .Include(stock => stock.Edition)
-                    .ThenInclude(edition => edition.Book)
-                        .ThenInclude(book => book.Editions)
-                .Select(stock => stock.Edition.Book)
+            var book = this.Get(
+                filterBy: book => book.Editions.Any(edition => edition.Stocks.Any(s => s.Id == stockId)))
                 .FirstOrDefault();
 
             return book;

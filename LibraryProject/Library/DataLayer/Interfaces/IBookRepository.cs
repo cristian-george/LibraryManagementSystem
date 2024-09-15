@@ -17,13 +17,13 @@ namespace Library.DataLayer.Interfaces
         /// </summary>
         /// <param name="title">Title.</param>
         /// <returns>Book.</returns>
-        Book GetBookByTitle(string title);
+        Book GetByTitle(string title);
 
         /// <summary>
-        /// Gets book by stock id.
+        /// Gets book by stock stockId.
         /// </summary>
-        /// <param name="stockId">Stock id.</param>
+        /// <param name="stockId">Stock stockId.</param>
         /// <returns>Book.</returns>
-        Book GetBookByStockId(int stockId);
+        Book GetByStockId(int stockId);
     }
 }

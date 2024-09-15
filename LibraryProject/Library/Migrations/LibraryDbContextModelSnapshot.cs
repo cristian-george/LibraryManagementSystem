@@ -378,7 +378,7 @@ namespace Library.Migrations
             modelBuilder.Entity("Library.DomainLayer.Models.Borrow", b =>
                 {
                     b.HasOne("Library.DomainLayer.Models.User", "Librarian")
-                        .WithMany("LibrarianBorrows")
+                        .WithMany("LibrarianGrants")
                         .HasForeignKey("LibrarianId")
                         .IsRequired()
                         .HasConstraintName("FK_Users_Borrows_LibrarianId");
@@ -444,7 +444,7 @@ namespace Library.Migrations
 
             modelBuilder.Entity("Library.DomainLayer.Models.User", b =>
                 {
-                    b.Navigation("LibrarianBorrows");
+                    b.Navigation("LibrarianGrants");
 
                     b.Navigation("ReaderBorrows");
                 });

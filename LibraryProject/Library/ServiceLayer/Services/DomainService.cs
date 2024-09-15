@@ -54,7 +54,7 @@ namespace Library.ServiceLayer.Services
         /// <returns>Bool.</returns>
         public bool CheckAdditionalRules(Domain domain)
         {
-            if (this.Repository.GetDomainByName(domain.Name) != null)
+            if (this.Repository.GetByName(domain.Name) != null)
             {
                 return false;
             }

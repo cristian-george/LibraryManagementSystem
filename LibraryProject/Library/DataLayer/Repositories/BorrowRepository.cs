@@ -10,8 +10,6 @@ namespace Library.DataLayer.Repositories
     using Library.DataLayer;
     using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Models;
-    using Microsoft.EntityFrameworkCore;
-    using Ninject.Infrastructure.Language;
 
     /// <summary>
     /// Borrow repository.
@@ -21,10 +19,8 @@ namespace Library.DataLayer.Repositories
         /// <inheritdoc/>
         public IEnumerable<Borrow> GetBorrowsByReader(int readerId)
         {
-            var borrows = this.Ctx.Borrows
-                .Where(borrow => borrow.Reader.Id == readerId)
-                .Include(borrow => borrow.Stocks)
-                .ToEnumerable();
+            var borrows = this.Get(
+                filterBy: borrow => borrow.Reader.Id == readerId);
 
             return borrows;
         }
@@ -32,52 +28,48 @@ namespace Library.DataLayer.Repositories
         /// <inheritdoc/>
         public IEnumerable<Borrow> GetBorrowsByReaderWithinDate(int readerId, DateTime date)
         {
-            var borrows = this.GetBorrowsByReader(readerId)
-                .Where(b => b.BorrowDate >= date);
+            var borrows = this.Get(
+                filterBy: borrow => borrow.Reader.Id == readerId &&
+                                    borrow.BorrowDate >= date);
 
             return borrows;
         }
 
         /// <inheritdoc/>
-        public int GetBookBorrowCountByReader(int bookId, int readerId)
+        public int GetBorrowCountOfBookByReader(int bookId, int readerId)
         {
-            var borrowCount = this.Ctx.Borrows
-                .Where(borrow => borrow.Reader.Id == readerId)
-                .Include(b => b.Stocks
-                    .Select(stock => stock.Edition)
-                        .Select(edition => edition.Book))
-                .SelectMany(b => b.Stocks)
-                .Count(s => s.Edition.Book.Id == bookId);
+            var counter = this.Get(
+                filterBy: borrow => borrow.Reader.Id == readerId &&
+                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId))
+                .SelectMany(borrow => borrow.Stocks)
+                .Count();
 
-            return borrowCount;
+            return counter;
         }
 
         /// <inheritdoc/>
-        public int GetBookBorrowCountByReaderWithinDate(int bookId, int readerId, DateTime date)
+        public int GetBorrowCountOfBookByReaderWithinDate(int bookId, int readerId, DateTime date)
         {
-            var borrowCount = this.Ctx.Borrows
-                .Where(borrow => borrow.Reader.Id == readerId && borrow.BorrowDate >= date)
-                .Include(b => b.Stocks)
-                    .ThenInclude(stock => stock.Edition)
-                        .ThenInclude(edition => edition.Book)
-                .SelectMany(b => b.Stocks)
-                .Count(s => s.Edition.Book.Id == bookId);
+            var counter = this.Get(
+                filterBy: borrow => borrow.Reader.Id == readerId &&
+                                    borrow.BorrowDate >= date &&
+                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId))
+                .SelectMany(borrow => borrow.Stocks)
+                .Count();
 
-            return borrowCount;
+            return counter;
         }
 
         /// <inheritdoc/>
-        public Borrow GetLastBookBorrowedByReader(int bookId, int readerId)
+        public Borrow GetLastBorrowOfBookByReader(int bookId, int readerId)
         {
-            var lastBorrow = this.Ctx.Borrows
-            .Where(b => b.Reader.Id == readerId)
-            .SelectMany(b => b.Stocks
-                .Where(s => s.Edition.Book.Id == bookId)
-                .Select(s => b))
-            .OrderByDescending(b => b.ReturnDate)
-            .FirstOrDefault();
+            var borrow = this.Get(
+                filterBy: borrow => borrow.Reader.Id == readerId &&
+                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId),
+                orderBy: query => query.OrderByDescending(borrow => borrow.BorrowDate))
+                .FirstOrDefault();
 
-            return lastBorrow;
+            return borrow;
         }
     }
 }

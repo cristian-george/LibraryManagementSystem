@@ -42,7 +42,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Title);
+            result.ShouldNotHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -72,7 +72,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -87,7 +87,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Title);
+            result.ShouldNotHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -117,7 +117,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Title);
+            result.ShouldNotHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -128,11 +128,11 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         {
             var model = new Book()
             {
-                Title = "--gds031",
+                Title = "---Carte123",
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Title);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -147,37 +147,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            result.ShouldNotHaveValidationErrorFor(a => a.Title);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenAuthorCollectionIsNull.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenAuthorCollectionIsNull()
-        {
-            var model = new Book()
-            {
-                Authors = null,
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Authors);
-        }
-
-        /// <summary>
-        /// Defines the test method ShouldHaveErrorWhenAuthorCollectionIsEmpty.
-        /// </summary>
-        [TestMethod]
-        public void ShouldHaveErrorWhenAuthorCollectionIsEmpty()
-        {
-            var model = new Book()
-            {
-                Authors = new List<Author>(),
-            };
-
-            var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Authors);
+            result.ShouldNotHaveValidationErrorFor(b => b.Title);
         }
 
         /// <summary>
@@ -192,7 +162,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Domains);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Domains);
         }
 
         /// <summary>
@@ -207,7 +177,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
             };
 
             var result = this.validator.TestValidate(model);
-            _ = result.ShouldHaveValidationErrorFor(a => a.Domains);
+            _ = result.ShouldHaveValidationErrorFor(b => b.Domains);
         }
     }
 }

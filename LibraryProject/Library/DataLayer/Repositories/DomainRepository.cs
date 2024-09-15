@@ -15,10 +15,10 @@ namespace Library.DataLayer.Repositories
     public class DomainRepository : BaseRepository<Domain>, IDomainRepository
     {
         /// <inheritdoc/>
-        public Domain GetDomainByName(string name)
+        public Domain GetByName(string name)
         {
-            var domain = this.Ctx.Domains
-                .Where(d => d.Name.Equals(name))
+            var domain = this.Get(
+                filterBy: domain => domain.Name.Equals(name))
                 .SingleOrDefault();
 
             return domain;

@@ -32,16 +32,16 @@ namespace Library.ServiceLayer
         where TRepository : IRepository<TModel>
     {
         /// <summary>
-        /// Gets or sets the repository.
+        /// Gets the repository.
         /// </summary>
         /// <value>The repository.</value>
-        protected TRepository Repository { get; set; } = repository;
+        protected TRepository Repository { get; } = repository;
 
         /// <summary>
-        /// Gets or sets the properties repository.
+        /// Gets the properties repository.
         /// </summary>
         /// <value>The properties repository.</value>
-        protected IPropertiesRepository PropertiesRepository { get; set; } = propertiesRepository;
+        protected IPropertiesRepository PropertiesRepository { get; } = propertiesRepository;
 
         /// <summary>
         /// Gets or sets the validator.

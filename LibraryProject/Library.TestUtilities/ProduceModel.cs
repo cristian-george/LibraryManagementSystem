@@ -258,7 +258,7 @@ namespace Library.TestUtilities
             var edition = new Edition()
             {
                 Book = GetBookModel(),
-                Publisher = "Cartea studentilor saraci",
+                Publisher = "Editura Universitatii",
                 Year = 1999,
                 EditionNumber = 5,
                 NumberOfPages = 250,
@@ -277,10 +277,10 @@ namespace Library.TestUtilities
             var edition = new Edition()
             {
                 Book = GetBookModel(),
-                Publisher = "Cartea studentilor saraci",
+                Publisher = "Editura Universitatii",
                 Year = 2000,
                 EditionNumber = 6,
-                NumberOfPages = 251,
+                NumberOfPages = 250,
                 BookType = EBookType.Hardcover,
             };
 
@@ -356,7 +356,7 @@ namespace Library.TestUtilities
         }
 
         /// <summary>
-        /// 
+        /// Gets the borrow model.
         /// </summary>
         /// <returns></returns>
         public static Borrow GetBorrowModelTwoStocks()

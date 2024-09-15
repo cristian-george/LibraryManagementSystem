@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class UserService.
-    /// Implements the <see cref="Services.BaseService{DomainLayer.Person.Reader, IReaderRepository}" />
+    /// Implements the <see cref="Services.BaseService{User, IUserRepository}" />
     /// Implements the <see cref="IUserService" />.
     /// </summary>
-    /// <seealso cref="Services.BaseService{DomainLayer.Person.Reader, IReaderRepository}" />
+    /// <seealso cref="Services.BaseService{User, IUserRepository}" />
     /// <seealso cref="IUserService" />
     public class UserService : BaseService<User, IUserRepository>, IUserService
     {

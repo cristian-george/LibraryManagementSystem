@@ -16,6 +16,6 @@ namespace Library.DataLayer.Interfaces
         /// Gets the last properties.
         /// </summary>
         /// <returns> Properties. </returns>
-        public Properties GetLastProperties();
+        public Properties GetLast();
     }
 }

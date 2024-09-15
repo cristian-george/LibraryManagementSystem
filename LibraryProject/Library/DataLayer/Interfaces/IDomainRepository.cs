@@ -17,6 +17,6 @@ namespace Library.DataLayer.Interfaces
         /// </summary>
         /// <param name="name">Domain name.</param>
         /// <returns>Domain.</returns>
-        Domain GetDomainByName(string name);
+        Domain GetByName(string name);
     }
 }

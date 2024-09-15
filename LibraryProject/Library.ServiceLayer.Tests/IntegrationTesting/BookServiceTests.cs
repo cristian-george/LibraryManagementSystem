@@ -20,6 +20,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
     {
         private BookService service;
 
+        private Properties properties;
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -30,8 +32,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             this.service = Injector.Create<BookService>();
 
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = ProduceModel.GetPropertiesModel();
-            Assert.IsTrue(propertiesService.Insert(properties));
+            this.properties = ProduceModel.GetPropertiesModel();
+            Assert.IsTrue(propertiesService.Insert(this.properties));
         }
 
         /// <summary>
@@ -86,6 +88,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void InsertSameBooksShouldReturnTrue()
         {
+            // Clean Book table
+            _ = this.service.Delete();
+
             var books = ProduceModel.GetListOFSameBook(100);
 
             var book = books.First();
@@ -107,6 +112,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void InsertSameBooksShouldReturnFalse()
         {
+            // Clean Book table
+            _ = this.service.Delete();
+
             var books = ProduceModel.GetListOFSameBook(100);
 
             var book = books.First();

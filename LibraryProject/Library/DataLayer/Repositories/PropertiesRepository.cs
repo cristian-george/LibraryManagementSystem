@@ -18,10 +18,13 @@ namespace Library.DataLayer.Repositories
         /// Gets the last properties.
         /// </summary>
         /// <returns>Properties.</returns>
-        public Properties GetLastProperties()
+        public Properties GetLast()
         {
-            var lastPropertiesId = this.Ctx.Properties.Max(x => x.Id);
-            return this.Ctx.Properties.FirstOrDefault(x => x.Id == lastPropertiesId);
+            var properties = this.Get()
+                .OrderByDescending(properties => properties.Id)
+                .FirstOrDefault();
+
+            return properties;
         }
     }
 }

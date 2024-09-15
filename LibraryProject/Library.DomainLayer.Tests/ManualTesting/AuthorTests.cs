@@ -4,6 +4,7 @@
 
 namespace Library.DomainLayer.Tests.ManualTesting
 {
+    using System.Collections.Generic;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -15,7 +16,7 @@ namespace Library.DomainLayer.Tests.ManualTesting
     public class AuthorTests
     {
         /// <summary>
-        /// The properties.
+        /// The entity.
         /// </summary>
         private Author author;
 
@@ -27,8 +28,26 @@ namespace Library.DomainLayer.Tests.ManualTesting
         {
             this.author = new Author()
             {
+                Id = 1,
                 FirstName = "Mihail",
                 LastName = "Sadoveanu",
+                Books = new List<Book>()
+                {
+                    new ()
+                    {
+                        Id = 1,
+                        Title = "Hanu Ancutei",
+                        Genre = "Carte de povestiri",
+                        Domains = new List<Domain>()
+                        {
+                            new ()
+                            {
+                                Id = 1,
+                                Name = "Literatura",
+                            },
+                        },
+                    },
+                },
             };
         }
 
@@ -104,6 +123,29 @@ namespace Library.DomainLayer.Tests.ManualTesting
 
             this.author.LastName = "Sadov12";
             Assert.IsTrue(this.author.LastName.CountDigits() != 0);
+        }
+
+        /// <summary>
+        /// Defines the test method BooksCollectionShouldBeValid.
+        /// </summary>
+        [TestMethod]
+        public void BooksCollectionShouldBeValid()
+        {
+            Assert.IsNotNull(this.author.Books);
+            Assert.IsTrue(this.author.Books.Count > 0);
+        }
+
+        /// <summary>
+        /// Defines the test method BooksCollectionShouldBeInvalid.
+        /// </summary>
+        [TestMethod]
+        public void BooksCollectionShouldBeInvalid()
+        {
+            this.author.Books.Clear();
+            Assert.IsFalse(this.author.Books.Count > 0);
+
+            this.author.Books = null;
+            Assert.IsNull(this.author.Books);
         }
     }
 }

@@ -63,14 +63,13 @@ namespace Library.ServiceLayer.Tests.MockTesting
         {
             _ = this.authorServiceMock.Setup(x => x.Get(null, null, null))
                 .Returns(
-                new List<Author>()
-                {
+                [
                     new ()
                     {
                         FirstName = "Marcel",
                         LastName = "Dorel",
                     },
-                });
+                ]);
 
             this.authorService = this.authorServiceMock.Object;
 

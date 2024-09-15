@@ -16,8 +16,8 @@ namespace Library.DataLayer.Interfaces
         /// <summary>
         /// Gets stocks by book id.
         /// </summary>
-        /// <param name="bookId">Book id.</param>
+        /// <param name="id">Book id.</param>
         /// <returns>Stocks.</returns>
-        IEnumerable<Stock> GetStocksByBookId(int bookId);
+        IEnumerable<Stock> GetByBookId(int id);
     }
 }

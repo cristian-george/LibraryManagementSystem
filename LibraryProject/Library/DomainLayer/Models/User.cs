@@ -53,7 +53,7 @@ public class User : IEntity
     /// Gets or sets the user's librarian borrows.
     /// </summary>
     [InverseProperty("Librarian")]
-    public virtual ICollection<Borrow> LibrarianBorrows { get; set; }
+    public virtual ICollection<Borrow> LibrarianGrants { get; set; }
 
     /// <summary>
     /// Gets or sets the user's reader borrows.

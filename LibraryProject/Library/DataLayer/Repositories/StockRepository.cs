@@ -5,12 +5,9 @@
 namespace Library.DataLayer.Repositories
 {
     using System.Collections.Generic;
-    using System.Linq;
     using Library.DataLayer;
     using Library.DataLayer.Interfaces;
     using Library.DomainLayer.Models;
-    using Microsoft.EntityFrameworkCore;
-    using Ninject.Infrastructure.Language;
 
     /// <summary>
     /// Stock repository.
@@ -18,13 +15,10 @@ namespace Library.DataLayer.Repositories
     public class StockRepository : BaseRepository<Stock>, IStockRepository
     {
         /// <inheritdoc/>
-        public IEnumerable<Stock> GetStocksByBookId(int bookId)
+        public IEnumerable<Stock> GetByBookId(int id)
         {
-            var stocks = this.Ctx.Stocks
-                .Include(s => s.Edition)
-                .ThenInclude(e => e.Book)
-                .Where(s => s.Edition.Book.Id == bookId)
-                .ToEnumerable();
+            var stocks = this.Get(
+                filterBy: stock => stock.Edition.Book.Id == id);
 
             return stocks;
         }

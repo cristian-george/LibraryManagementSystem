@@ -22,6 +22,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
     {
         private BorrowService service;
 
+        private Properties properties;
+
         /// <summary>
         /// Initializes this instance.
         /// </summary>
@@ -32,8 +34,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             this.service = new BorrowService();
 
             var propertiesService = Injector.Create<PropertiesService>();
-            var properties = ProduceModel.GetPropertiesModel();
-            Assert.IsTrue(propertiesService.Insert(properties));
+            this.properties = ProduceModel.GetPropertiesModel();
+            Assert.IsTrue(propertiesService.Insert(this.properties));
         }
 
         /// <summary>
@@ -143,6 +145,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             // Insert
             Assert.IsTrue(this.service.Insert(borrow));
 
+            Assert.IsTrue(reader.ReaderBorrows.Count > 0);
+            Assert.IsTrue(librarian.LibrarianGrants.Count > 0);
+
             // GetAll
             var allBorrows = this.service.Get();
             Assert.IsNotNull(allBorrows);
@@ -187,19 +192,17 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var userService = Injector.Create<UserService>();
             var stockService = Injector.Create<StockService>();
 
-            var user = ProduceModel.GetLibrarianReaderModel();
-            Assert.IsTrue(userService.Insert(user));
-
             var borrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddDays(-2),
                 ReturnDate = DateTime.Today.AddDays(14),
-                Librarian = user,
-                Reader = user,
                 Stocks = new List<Stock>(),
             };
 
-            for (var i = 0; i < 10; i++)
+            int count = 2 * this.properties.Nmc;
+
+            // Add stocks
+            for (var index = 0; index < count; ++index)
             {
                 var stock = ProduceModel.GetStockModelWithPaperback();
                 Assert.IsTrue(stockService.Insert(stock));
@@ -207,6 +210,20 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 borrow.Stocks.Add(stock);
             }
 
+            // Add librarian
+            var librarian = ProduceModel.GetLibrarianReaderModel();
+            Assert.IsTrue(userService.Insert(librarian));
+
+            // Check condition for a librarian reader
+            borrow.Librarian = borrow.Reader = librarian;
+            Assert.IsTrue(this.service.CheckCanBorrowMaxNMCInPERMonths(borrow));
+
+            // Add user
+            var reader = ProduceModel.GetReaderModel();
+            Assert.IsTrue(userService.Insert(reader));
+
+            // Check condition for a reader
+            borrow.Reader = reader;
             Assert.IsFalse(this.service.CheckCanBorrowMaxNMCInPERMonths(borrow));
         }
 
@@ -219,19 +236,23 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var userService = Injector.Create<UserService>();
             var stockService = Injector.Create<StockService>();
 
-            var user = ProduceModel.GetLibrarianReaderModel();
-            Assert.IsTrue(userService.Insert(user));
+            // Add librarian
+            var librarian = ProduceModel.GetLibrarianReaderModel();
+            Assert.IsTrue(userService.Insert(librarian));
 
             var borrow = new Borrow()
             {
-                BorrowDate = DateTime.Today.AddDays(-2),
+                BorrowDate = DateTime.Today,
                 ReturnDate = DateTime.Today.AddDays(14),
-                Librarian = user,
-                Reader = user,
+                Librarian = librarian,
+                Reader = librarian,
                 Stocks = new List<Stock>(),
             };
 
-            for (var i = 0; i < 10; i++)
+            int count = (2 * this.properties.C) - 1;
+
+            // Add stocks
+            for (var index = 0; index < count; ++index)
             {
                 var stock = ProduceModel.GetStockModelWithPaperback();
                 Assert.IsTrue(stockService.Insert(stock));
@@ -251,19 +272,26 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var userService = Injector.Create<UserService>();
             var stockService = Injector.Create<StockService>();
 
-            var user = ProduceModel.GetLibrarianReaderModel();
-            Assert.IsTrue(userService.Insert(user));
+            // Add librarian
+            var librarian = ProduceModel.GetLibrarianModel();
+            Assert.IsTrue(userService.Insert(librarian));
+
+            // Add reader
+            var reader = ProduceModel.GetReaderModel();
+            Assert.IsTrue(userService.Insert(reader));
 
             var borrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddDays(-2),
                 ReturnDate = DateTime.Today.AddDays(14),
-                Librarian = user,
-                Reader = user,
+                Librarian = librarian,
+                Reader = reader,
                 Stocks = new List<Stock>(),
             };
 
-            for (var i = 0; i < 10; i++)
+            int count = this.properties.D + 1;
+
+            for (var index = 0; index < count; ++index)
             {
                 var stock = ProduceModel.GetStockModelWithPaperback();
                 Assert.IsTrue(stockService.Insert(stock));

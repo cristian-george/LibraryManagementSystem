@@ -43,7 +43,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         {
             var edition = new Edition()
             {
-                Publisher = "Cartea studentilor saraci",
+                Publisher = "Editura Universitatii",
                 Year = 1999,
                 EditionNumber = int.MaxValue,
                 NumberOfPages = 1,
@@ -69,7 +69,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
                 {
                     new ()
                     {
-                        Publisher = "Cartea studentilor saraci",
+                        Publisher = "Editura Universitatii",
                         Year = 1999,
                         EditionNumber = int.MaxValue,
                         NumberOfPages = 1,
@@ -93,7 +93,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
                 .Returns(new Edition
                 {
                     Id = 1,
-                    Publisher = "Cartea studentilor saraci",
+                    Publisher = "Editura Universitatii",
                     Year = 1999,
                     EditionNumber = int.MaxValue,
                     NumberOfPages = 1,
@@ -106,7 +106,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
             Assert.IsNotNull(result);
             Assert.AreEqual(1, result.Id);
             Assert.AreEqual(1, result.NumberOfPages);
-            Assert.AreEqual("Cartea studentilor saraci", result.Publisher);
+            Assert.AreEqual("Editura Universitatii", result.Publisher);
         }
 
         /// <summary>
@@ -118,20 +118,20 @@ namespace Library.ServiceLayer.Tests.MockTesting
             _ = this.editionServiceMock.Setup(x => x.GetById(1))
                 .Returns(new Edition
                 {
-                    Publisher = "Cartea studentilor saraci",
+                    Publisher = "Editura Universitatii",
                     Year = 1999,
-                    EditionNumber = int.MaxValue,
+                    EditionNumber = 10,
                     NumberOfPages = 1,
                 });
 
             this.editionService = this.editionServiceMock.Object;
 
-            var modifiedAccount = this.editionService.GetById(1);
-            modifiedAccount.EditionNumber = 7;
+            var edition = this.editionService.GetById(1);
+            edition.EditionNumber = 5;
 
-            _ = this.editionServiceMock.Setup(x => x.Update(modifiedAccount)).Returns(true);
+            _ = this.editionServiceMock.Setup(x => x.Update(edition)).Returns(true);
 
-            var result = this.editionService.Update(modifiedAccount);
+            var result = this.editionService.Update(edition);
 
             Assert.IsTrue(result);
         }

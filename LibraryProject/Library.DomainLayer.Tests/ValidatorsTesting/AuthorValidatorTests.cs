@@ -39,7 +39,18 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
                 LastName = "Sadoveanu",
                 Books = new List<Book>()
                 {
-                    new (),
+                    new Book()
+                    {
+                        Title = "Hanu Ancutei",
+                        Genre = "Carte de povestiri",
+                        Domains = new List<Domain>()
+                        {
+                            new ()
+                            {
+                                Name = "Literatura",
+                            },
+                        },
+                    },
                 },
             };
         }
@@ -118,7 +129,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenFirstNameIsNotAValidName()
         {
-            this.author.FirstName = "--07ab";
+            this.author.FirstName = "---Mihail123";
 
             var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.FirstName);
@@ -208,7 +219,7 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         [TestMethod]
         public void ShouldHaveErrorWhenLastNameIsNotAValidName()
         {
-            this.author.LastName = "--07cd";
+            this.author.LastName = "--Sadoveanu123";
 
             var result = this.validator.TestValidate(this.author);
             _ = result.ShouldHaveValidationErrorFor(a => a.LastName);
@@ -222,6 +233,30 @@ namespace Library.DomainLayer.Tests.ValidatorsTesting
         {
             var result = this.validator.TestValidate(this.author);
             result.ShouldNotHaveAnyValidationErrors();
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenBooksCollectionIsNull.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenBooksCollectionIsNull()
+        {
+            this.author.Books = null;
+
+            var result = this.validator.TestValidate(this.author);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Books);
+        }
+
+        /// <summary>
+        /// Defines the test method ShouldHaveErrorWhenAuthorCollectionIsEmpty.
+        /// </summary>
+        [TestMethod]
+        public void ShouldHaveErrorWhenBooksCollectionIsEmpty()
+        {
+            this.author.Books.Clear();
+
+            var result = this.validator.TestValidate(this.author);
+            _ = result.ShouldHaveValidationErrorFor(a => a.Books);
         }
     }
 }

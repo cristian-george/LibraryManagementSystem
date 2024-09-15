@@ -34,7 +34,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndAuthor()
         {
-            var author = ProduceModel.GetAuthorModel();
+            var book = ProduceModel.GetBookModel();
+            var author = book.Authors.First();
 
             // Insert
             Assert.IsTrue(this.service.Insert(author));

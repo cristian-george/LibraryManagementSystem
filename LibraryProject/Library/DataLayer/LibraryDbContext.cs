@@ -143,7 +143,7 @@ public class LibraryDbContext : DbContext
 
         modelBuilder.Entity<Borrow>(entity =>
         {
-            entity.HasOne(d => d.Librarian).WithMany(p => p.LibrarianBorrows)
+            entity.HasOne(d => d.Librarian).WithMany(p => p.LibrarianGrants)
                 .HasForeignKey(d => d.LibrarianId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_Users_Borrows_LibrarianId");

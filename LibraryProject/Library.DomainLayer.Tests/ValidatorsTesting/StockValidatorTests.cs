@@ -4,8 +4,6 @@
 
 namespace Library.DomainLayer.Tests.ValidatorsTesting
 {
-    using System;
-    using System.Collections.Generic;
     using FluentValidation.TestHelper;
     using Library.DomainLayer.Models;
     using Library.DomainLayer.Validators;

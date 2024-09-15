@@ -38,9 +38,8 @@ namespace Library.ServiceLayer.Services
             var result = this.Validator.Validate(entity);
             if (result.IsValid && this.CheckAdditionalRules(entity))
             {
-                // Daca o carte face parte dintr-un subdomeniu, automat va fi regasita
-                // si ca facand parte din domeniile stramos, fara ca acest lucru
-                // sa fie declarat explicit in incadrarea initiala a cartii.
+                // If a book belongs to a subdomain, it will automatically be considered
+                // as part of the parent domains as well.
                 entity.AddAncestorDomains();
 
                 _ = this.Repository.Insert(entity);
@@ -54,24 +53,15 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks if a book is in more than N domains.
-        /// N is a threshold for number of domains.
-        /// </summary>
-        /// <param name="book">A Book.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool IsInMoreThanNDomains(Book book)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
 
             return book.Domains.Count > properties.Domenii;
         }
 
-        /// <summary>
-        /// Checks if a book is in parent-child relation domains.
-        /// </summary>
-        /// <param name="book">A book.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool IsInParentChildRelationDomains(Book book)
         {
             var domains = new List<Domain>();
@@ -93,22 +83,19 @@ namespace Library.ServiceLayer.Services
         /// Checks book additional rules.
         /// </summary>
         /// <param name="book">The book.</param>
-        /// <returns>Bool.</returns>
-        public bool CheckAdditionalRules(Book book)
+        /// <returns><c>true</c> if all book additional rules succeed, <c>false</c> otherwise.</returns>
+        private bool CheckAdditionalRules(Book book)
         {
-            if (this.Repository.GetBookByTitle(book.Title) != null)
+            if (this.Repository.GetByTitle(book.Title) != null)
             {
                 return false;
             }
 
-            // O carte nu poate face parte din mai mult de n domenii.
             if (this.IsInMoreThanNDomains(book))
             {
                 return false;
             }
 
-            // Se va verifica faptul ca o carte nu poate sa se specifice explicit
-            // ca fiind din domenii aflate in relatia stramos-descendent.
             if (this.IsInParentChildRelationDomains(book))
             {
                 return false;

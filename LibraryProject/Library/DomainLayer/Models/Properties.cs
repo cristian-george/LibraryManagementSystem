@@ -2,9 +2,9 @@
 // Cristian-George Fieraru
 // </copyright>
 
-using Library.DomainLayer.Interfaces;
-
 namespace Library.DomainLayer.Models;
+
+using Library.DomainLayer.Interfaces;
 
 /// <summary>
 /// Properties model.

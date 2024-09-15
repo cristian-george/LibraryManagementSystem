@@ -5,6 +5,8 @@
 namespace Library.DomainLayer.Tests.ManualTesting
 {
     using System;
+    using System.Collections.Generic;
+    using Library.DomainLayer.Enums;
     using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -29,15 +31,24 @@ namespace Library.DomainLayer.Tests.ManualTesting
             {
                 Title = "Limba si literatura romana, clasa a XII-a",
                 Genre = "Manual scolar",
+                Domains = new List<Domain>()
+                    {
+                        new ()
+                        {
+                            Id = 1,
+                            Name = "Literatura",
+                        },
+                    },
             };
 
             var edition = new Edition()
             {
+                Book = book,
+                BookType = EBookType.Hardcover,
                 Publisher = "Editura Litera",
                 Year = 2020,
                 EditionNumber = 5,
                 NumberOfPages = 110,
-                Book = book,
             };
 
             this.stock = new Stock()

@@ -8,7 +8,6 @@ namespace Library.DomainLayer.Tests.ManualTesting
     using System.Linq;
     using Library.DomainLayer.Extensions;
     using Library.DomainLayer.Models;
-    using Library.DomainLayer.Tests;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
 
     /// <summary>
@@ -28,39 +27,19 @@ namespace Library.DomainLayer.Tests.ManualTesting
         [TestInitialize]
         public void Initialize()
         {
-            var author = new Author()
-            {
-                Id = 1,
-                FirstName = "Mihail",
-                LastName = "Sadoveanu",
-            };
-
-            var domain = new Domain()
-            {
-                Id = 1,
-                Name = "Literatura",
-                ParentDomain = null,
-                ChildDomains = new List<Domain>(),
-            };
-
-            var edition = new Edition()
-            {
-                Id = 1,
-                Publisher = "Editura Povestiri",
-                Year = 1920,
-                EditionNumber = 5,
-                NumberOfPages = 150,
-                BookType = Enums.EBookType.Hardcover,
-            };
-
             this.book = new Book()
             {
                 Id = 1,
                 Title = "Hanu Ancutei",
                 Genre = "Carte de povestiri",
-                Authors = new List<Author>() { author },
-                Domains = new List<Domain>() { domain },
-                Editions = new List<Edition>() { edition },
+                Domains = new List<Domain>()
+                {
+                    new ()
+                    {
+                        Id = 1,
+                        Name = "Literatura",
+                    },
+                },
             };
         }
 
@@ -70,85 +49,89 @@ namespace Library.DomainLayer.Tests.ManualTesting
         [TestMethod]
         public void TitleShouldBeValid()
         {
+            Assert.IsNotNull(this.book.Title);
+            Assert.IsFalse(this.book.Title.Equals(string.Empty));
+
+            Assert.IsTrue(this.book.Title.Length > 2);
+            Assert.IsTrue(this.book.Title.Length < 100);
+
             Assert.IsFalse(this.book.Title.ContainsDigits());
         }
 
         /// <summary>
-        /// Defines the test method TitleShouldNotHaveDigits.
+        /// Defines the test method TitleShouldBeInvalid.
         /// </summary>
         [TestMethod]
-        public void TitleShouldNotHaveDigits()
+        public void TitleShouldBeInvalid()
         {
-            this.book.Title = "100 de zile pe mare";
+            this.book.Title = null;
+            Assert.IsNull(this.book.Title);
 
+            this.book.Title = string.Empty;
+            Assert.IsTrue(this.book.Title.Equals(string.Empty));
+
+            this.book.Title = "H";
+            Assert.IsFalse(this.book.Title.Length > 2);
+
+            this.book.Title = "---Hanu Ancutei 123";
             Assert.IsTrue(this.book.Title.ContainsDigits());
         }
 
         /// <summary>
-        /// Defines the test method BookAuthorsFirstNameShouldBeValid.
+        /// Defines the test method GenreShouldBeValid.
         /// </summary>
         [TestMethod]
-        public void BookAuthorsFirstNameShouldBeValid()
+        public void GenreShouldBeValid()
         {
-            var author = new Author()
-            {
-                FirstName = "Marcel",
-                LastName = "Dorel",
-            };
+            Assert.IsNotNull(this.book.Genre);
+            Assert.IsFalse(this.book.Genre.Equals(string.Empty));
 
-            var authorsList = new List<Author>
-            {
-                author,
-            };
+            Assert.IsTrue(this.book.Genre.Length > 2);
+            Assert.IsTrue(this.book.Genre.Length < 45);
 
-            this.book = new Book()
-            {
-                Title = "How to write bad code with Cristi",
-                Genre = "Necunoscut",
-                Authors = authorsList,
-            };
-
-            var flag = this.book.Authors.All(x => x.FirstName.All(char.IsDigit));
-
-            Assert.IsFalse(flag);
+            Assert.IsFalse(this.book.Genre.ContainsDigits());
         }
 
         /// <summary>
-        /// Defines the test method BookAuthorsShouldNotBeNull.
+        /// Defines the test method GenreShouldBeInvalid.
         /// </summary>
         [TestMethod]
-        public void BookAuthorsShouldNotBeNull()
+        public void GenreShouldBeInvalid()
         {
-            Assert.IsNotNull(this.book.Authors);
+            this.book.Genre = null;
+            Assert.IsNull(this.book.Genre);
+
+            this.book.Genre = string.Empty;
+            Assert.IsTrue(this.book.Genre.Equals(string.Empty));
+
+            this.book.Genre = "H";
+            Assert.IsFalse(this.book.Genre.Length > 2);
+
+            this.book.Genre = "---Carte de povestiri123";
+            Assert.IsTrue(this.book.Genre.ContainsDigits());
         }
 
         /// <summary>
-        /// Defines the test method BookDomainsShouldNotBeNull.
+        /// Defines the test method DomainsCollectionShouldBeValid.
         /// </summary>
         [TestMethod]
-        public void BookDomainsShouldNotBeNull()
+        public void DomainsCollectionShouldBeValid()
         {
             Assert.IsNotNull(this.book.Domains);
+            Assert.IsTrue(this.book.Domains.Count > 0);
         }
 
         /// <summary>
-        /// Defines the test method BookEditionsShouldNotBeNull.
+        /// Defines the test method DomainsCollectionShouldBeInvalid.
         /// </summary>
         [TestMethod]
-        public void BookEditionsShouldNotBeNull()
+        public void DomainsCollectionShouldBeInvalid()
         {
-            Assert.IsNotNull(this.book.Editions);
-        }
+            this.book.Domains.Clear();
+            Assert.IsFalse(this.book.Domains.Count > 0);
 
-        /// <summary>
-        /// Defines the test method TypeShouldNotContainDigitsValid.
-        /// </summary>
-        [TestMethod]
-        public void TypeShouldNotContainDigitsValid()
-        {
-            this.book.Genre = "12 Povestiri";
-
-            Assert.IsFalse(this.book.Genre.All(char.IsLetter));
+            this.book.Domains = null;
+            Assert.IsNull(this.book.Domains);
         }
     }
 }

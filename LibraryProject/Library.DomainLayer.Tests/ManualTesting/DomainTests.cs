@@ -26,56 +26,67 @@ namespace Library.DomainLayer.Tests.ManualTesting
         [TestInitialize]
         public void Initialize()
         {
-            this.domain = new ();
+            this.domain = new Domain()
+            {
+                Id = 2,
+                Name = "Algoritmica",
+                ParentDomain = new Domain
+                {
+                    Id = 1,
+                    Name = "Informatica",
+                },
+            };
         }
 
         /// <summary>
-        /// Defines the test method DomainNameShouldNotContainDigits.
+        /// Defines the test method NameShouldBeValid.
         /// </summary>
         [TestMethod]
-        public void DomainNameShouldNotContainDigits()
+        public void NameShouldBeValid()
         {
-            this.domain.Name = "Informatica 221";
+            Assert.IsNotNull(this.domain.Name);
+            Assert.IsFalse(this.domain.Name.Equals(string.Empty));
+
+            Assert.IsTrue(this.domain.Name.Length >= 2);
+            Assert.IsTrue(this.domain.Name.Length <= 50);
 
             var flag = this.domain.Name.All(char.IsDigit);
-
             Assert.IsFalse(flag);
         }
 
         /// <summary>
-        /// Defines the test method DomainNameShouldBeCapitalized.
+        /// Defines the test method NameShouldBeInvalid.
         /// </summary>
         [TestMethod]
-        public void DomainNameShouldBeCapitalized()
+        public void NameShouldBeInvalid()
         {
-            this.domain.Name = "Informatica";
+            this.domain.Name = null;
+            Assert.IsNull(this.domain.Name);
 
-            var flag = char.IsUpper(this.domain.Name[0]);
-            Assert.IsTrue(flag);
+            this.domain.Name = string.Empty;
+            Assert.IsTrue(this.domain.Name.Equals(string.Empty));
+
+            this.domain.Name = "D";
+            Assert.IsFalse(this.domain.Name.Length >= 2);
         }
 
         /// <summary>
-        /// Defines the test method DomainParentShouldNotBeNull.
+        /// Defines the test method ParentShouldNotBeValid.
         /// </summary>
         [TestMethod]
-        public void DomainParentShouldNotBeNull()
+        public void ParentShouldNotBeValid()
         {
-            var parentDomain = new Domain();
-            this.domain.ParentDomain = parentDomain;
-
             Assert.IsNotNull(this.domain.ParentDomain);
         }
 
         /// <summary>
-        /// Defines the test method DomainChildrensShouldNotBeNull.
+        /// Defines the test method ParentShouldNotBeInvalid.
         /// </summary>
         [TestMethod]
-        public void DomainChildrensShouldNotBeNull()
+        public void ParentShouldNotBeInvalid()
         {
-            var childrens = new List<Domain>();
-            this.domain.ChildDomains = childrens;
-
-            Assert.IsNotNull(this.domain.ChildDomains);
+            this.domain.ParentDomain = null;
+            Assert.IsNull(this.domain.ParentDomain);
         }
     }
 }

@@ -4,6 +4,7 @@
 
 namespace Library.DomainLayer.Tests.ManualTesting
 {
+    using System.Collections.Generic;
     using System.Linq;
     using Library.DomainLayer.Models;
     using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -25,7 +26,29 @@ namespace Library.DomainLayer.Tests.ManualTesting
         [TestInitialize]
         public void Initialize()
         {
-            this.edition = new ();
+            this.edition = new Edition()
+            {
+                Id = 1,
+                Book = new Book()
+                {
+                    Id = 1,
+                    Title = "Hanu Ancutei",
+                    Genre = "Carte de povestiri",
+                    Domains = new List<Domain>()
+                    {
+                        new ()
+                        {
+                            Id = 1,
+                            Name = "Literatura",
+                        },
+                    },
+                },
+                Publisher = "Editura Povestiri",
+                Year = 1920,
+                EditionNumber = 5,
+                NumberOfPages = 150,
+                BookType = Enums.EBookType.Hardcover,
+            };
         }
 
         /// <summary>
@@ -34,9 +57,6 @@ namespace Library.DomainLayer.Tests.ManualTesting
         [TestMethod]
         public void PublisherShouldHaveLessThanFiftyChars()
         {
-            var publisher = new string('a', 49);
-            this.edition.Publisher = publisher;
-
             Assert.IsTrue(this.edition.Publisher.Length <= 50);
         }
 

@@ -78,7 +78,7 @@ namespace Library.ServiceLayer.Services
 
             foreach (var book in booksToBorrow)
             {
-                var stocks = this.stockRepository.GetStocksByBookId(book.Id);
+                var stocks = this.stockRepository.GetByBookId(book.Id);
 
                 var initialNumberOfBooksForBorrowing = 0;
                 var currentNumberOfBooksForBorrowing = 0;
@@ -86,9 +86,14 @@ namespace Library.ServiceLayer.Services
 
                 foreach (var stock in stocks)
                 {
-                    initialNumberOfBooksForBorrowing += stock.InitialStock - stock.NumberOfBooksForLectureOnly;
-                    currentNumberOfBooksForBorrowing += stock.NumberOfBooksForBorrowing;
-                    numberOfBooksForLectureOnly += stock.NumberOfBooksForLectureOnly;
+                    initialNumberOfBooksForBorrowing +=
+                        stock.InitialStock - stock.NumberOfBooksForLectureOnly;
+
+                    currentNumberOfBooksForBorrowing +=
+                        stock.NumberOfBooksForBorrowing;
+
+                    numberOfBooksForLectureOnly +=
+                        stock.NumberOfBooksForLectureOnly;
                 }
 
                 // There are no copies for a book that can be borrowed
@@ -104,7 +109,8 @@ namespace Library.ServiceLayer.Services
                 }
 
                 // There is less than 10% of the initial stock of copies for a book
-                if (currentNumberOfBooksForBorrowing < 0.1f * initialNumberOfBooksForBorrowing)
+                if (currentNumberOfBooksForBorrowing <
+                    0.1f * initialNumberOfBooksForBorrowing)
                 {
                     return false;
                 }
@@ -113,14 +119,10 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks the can borrow maximum NMC in PER.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckCanBorrowMaxNMCInPERMonths(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
             var per = properties.Per;
             var nmc = properties.Nmc;
 
@@ -150,14 +152,10 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks the borrowed books for maximum C books.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckBorrowedBooksForMaxCBooks(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
 
             var c = properties.C;
 
@@ -186,16 +184,10 @@ namespace Library.ServiceLayer.Services
             return numberOfDistinctDomains >= 2;
         }
 
-        /// <summary>
-        /// Checks if borrow books are at most D in the same domain, in the last L months.
-        /// D is threshold for number of domains.
-        /// L is threshold for number of months.
-        /// </summary>
-        /// <param name="entity">The borrow.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
             var d = properties.D;
             var l = properties.L;
 
@@ -206,7 +198,9 @@ namespace Library.ServiceLayer.Services
 
             // Borrows made by reader in the last L months
             var borrows = this.Repository
-                .GetBorrowsByReaderWithinDate(entity.Reader.Id, entity.BorrowDate.AddMonths(-l));
+                .GetBorrowsByReaderWithinDate(
+                    entity.Reader.Id,
+                    entity.BorrowDate.AddMonths(-l));
 
             // Books that have been borrowed by reader in the last L months
             var books = borrows
@@ -245,15 +239,10 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks if borrow extension is at most LIM.
-        /// LIM is threshold for books number limit.
-        /// </summary>
-        /// <param name="entity">Borrow.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckBorrowExtensionAtMostLIM(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
             var lim = properties.Lim;
 
             if (entity.Reader.UserType == EUserType.LibrarianReader)
@@ -266,7 +255,10 @@ namespace Library.ServiceLayer.Services
             foreach (var book in booksToBorrow)
             {
                 var bookBorrowCount = this.Repository
-                    .GetBookBorrowCountByReaderWithinDate(book.Id, entity.Reader.Id, entity.BorrowDate.AddMonths(-3));
+                    .GetBorrowCountOfBookByReaderWithinDate(
+                        book.Id,
+                        entity.Reader.Id,
+                        entity.BorrowDate.AddMonths(-3));
 
                 if (bookBorrowCount + 1 > lim)
                 {
@@ -277,14 +269,10 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks the borrow in delta time.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckBorrowsMadeInDELTADays(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
             var delta = properties.Delta;
 
             if (entity.Reader.UserType == EUserType.LibrarianReader)
@@ -297,11 +285,13 @@ namespace Library.ServiceLayer.Services
             foreach (var book in booksToBorrow)
             {
                 var lastBorrow = this.Repository
-                    .GetLastBookBorrowedByReader(book.Id, entity.Reader.Id);
+                    .GetLastBorrowOfBookByReader(book.Id, entity.Reader.Id);
 
                 if (lastBorrow != null)
                 {
-                    var daysSinceLastBorrow = (entity.BorrowDate - lastBorrow.BorrowDate).TotalDays;
+                    var daysSinceLastBorrow =
+                        (entity.BorrowDate - lastBorrow.BorrowDate).TotalDays;
+
                     if (daysSinceLastBorrow <= delta)
                     {
                         return false;
@@ -312,14 +302,10 @@ namespace Library.ServiceLayer.Services
             return true;
         }
 
-        /// <summary>
-        /// Checks the maximum borrow books today.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        /// <inheritdoc/>
         public bool CheckCanBorrowAtMostNCZBooksInOneDay(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
 
             var ncz = properties.Ncz;
             if (entity.Reader.UserType == EUserType.LibrarianReader)
@@ -336,14 +322,10 @@ namespace Library.ServiceLayer.Services
             return allBorrows < ncz;
         }
 
-        /// <summary>
-        /// Checks if librarian granted at most PERSIMP books today.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool CheckGrantAtMostPERSIMPBooksInOneDay(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLastProperties();
+            var properties = this.PropertiesRepository.GetLast();
 
             var persimp = properties.Persimp;
 
@@ -360,60 +342,44 @@ namespace Library.ServiceLayer.Services
         /// </summary>
         /// <param name="entity">The entity.</param>
         /// <returns><c>true</c> if all borrow additional rules succeed, <c>false</c> otherwise.</returns>
-        public bool CheckAdditionalRules(Borrow entity)
+        private bool CheckAdditionalRules(Borrow entity)
         {
-            /* O carte poate fi imprumutata daca */
-            // 1. nu are toate exemplarele marcate ca fiind doar pentru sala de lectura;
-            // 2. numarul de carti ramase (inca neimprumutate, dar nu din cele
-            // pentru sala de lectura) este macar 10 % din fondul initial din acea carte.
             if (!this.CheckCanBooksBeGranted(entity))
             {
                 return false;
             }
 
-            // Cititorii pot imprumuta un numar maxim de carti NMC intr-o perioada PER;
             if (!this.CheckCanBorrowMaxNMCInPERMonths(entity))
             {
                 return false;
             }
 
-            // Cititorii pot prelua la un imprumut cel mult C carti; daca numarul cartilor imprumutate la o
-            // cerere de imprumut e cel putin 3, atunci acestea trebui sa faca parte din cel putin 2
-            // categorii distincte
             if (!this.CheckBorrowedBooksForMaxCBooks(entity))
             {
                 return false;
             }
 
-            // Cititorii nu pot imprumuta mai mult de D carti dintr-un acelasi domeniu
-            // – de tip frunza sau de nivel superior - in ultimele L luni
             if (!this.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(entity))
             {
                 return false;
             }
 
-            // Cititorii pot imprumuta o carte pe o perioada determinata; se permit prelungiri, dar suma
-            // acestor prelungiri acordate in ultimele 3 luni nu poate depasi o valoare limita LIM data
             if (!this.CheckBorrowExtensionAtMostLIM(entity))
             {
                 return false;
             }
 
-            // Cititorii nu pot imprumuta aceeasi carte de mai multe ori intr-un interval DELTA specificat, unde
-            // DELTA se masoara de la ultimul imprumut al cartii
             if (!this.CheckBorrowsMadeInDELTADays(entity))
             {
                 return false;
             }
 
-            // Cititorii pot imprumuta cel mult NCZ carti intr-o zi;
-            // pentru personalul bibliotecii se ignora acest prag.
             if (!this.CheckCanBorrowAtMostNCZBooksInOneDay(entity))
             {
                 return false;
             }
 
-            // Personalul bibliotecii nu poate acorda mai mult de PERSIMP carti intr-o zi.
+            // Library staff cannot grant more than PERSIMP books in a day.
             if (!this.CheckGrantAtMostPERSIMPBooksInOneDay(entity))
             {
                 return false;
@@ -433,7 +399,7 @@ namespace Library.ServiceLayer.Services
 
             foreach (var stock in entity.Stocks)
             {
-                var book = this.bookRepository.GetBookByStockId(stock.Id);
+                var book = this.bookRepository.GetByStockId(stock.Id);
                 if (book != null)
                 {
                     booksToBorrow.Add(book);

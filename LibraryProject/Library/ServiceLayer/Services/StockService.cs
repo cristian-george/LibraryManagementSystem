@@ -12,10 +12,10 @@ namespace Library.ServiceLayer.Services
 
     /// <summary>
     /// Class StockService.
-    /// Implements the <see cref="Services.BaseService{DomainLayer.Person.Account, IAccountRepository}" />
+    /// Implements the <see cref="Services.BaseService{Stock, IStockRepository}" />
     /// Implements the <see cref="IStockService" />.
     /// </summary>
-    /// <seealso cref="Services.BaseService{DomainLayer.Person.Account, IAccountRepository}" />
+    /// <seealso cref="Services.BaseService{Stock, IStockRepository}" />
     /// <seealso cref="IStockService" />
     public class StockService : BaseService<Stock, IStockRepository>, IStockService
     {

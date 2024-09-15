@@ -13,10 +13,10 @@ namespace Library.DataLayer
     using NLog;
 
     /// <summary>
-    /// Abstract class to be inherited to implement the CRUD operation for an entity.
+    /// Base class to be inherited for specializing the CRUD operations for an entity.
     /// </summary>
     /// <typeparam name="TModel">Type of the controller.</typeparam>
-    public abstract class BaseRepository<TModel> : IRepository<TModel>
+    public class BaseRepository<TModel> : IRepository<TModel>
         where TModel : class, IEntity
     {
         /// <summary>
@@ -31,11 +31,7 @@ namespace Library.DataLayer
         /// <value>The logger.</value>
         protected Logger Logger { get; } = LogManager.GetCurrentClassLogger();
 
-        /// <summary>
-        /// Inserts the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public virtual bool Insert(TModel entity)
         {
             try
@@ -56,11 +52,7 @@ namespace Library.DataLayer
             return true;
         }
 
-        /// <summary>
-        /// Gets the by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>Object of type TModel.</returns>
+        /// <inheritdoc/>
         public virtual TModel GetById(object id)
         {
             try
@@ -75,15 +67,9 @@ namespace Library.DataLayer
             return null;
         }
 
-        /// <summary>
-        /// Gets the specified filter.
-        /// </summary>
-        /// <param name="filter"> The filter. </param>
-        /// <param name="orderBy"> The order by. </param>
-        /// <param name="includeProperties"> The include properties. </param>
-        /// <returns>IEnumerable of TModel.</returns>
+        /// <inheritdoc/>
         public virtual IEnumerable<TModel> Get(
-            Expression<Func<TModel, bool>> filter = null,
+            Expression<Func<TModel, bool>> filterBy = null,
             Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
             string includeProperties = "")
         {
@@ -93,9 +79,9 @@ namespace Library.DataLayer
 
                 IQueryable<TModel> query = databaseSet;
 
-                if (filter != null)
+                if (filterBy != null)
                 {
-                    query = query.Where(filter);
+                    query = query.Where(filterBy);
                 }
 
                 foreach (var includeProperty in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
@@ -120,17 +106,15 @@ namespace Library.DataLayer
             return null;
         }
 
-        /// <summary>
-        /// Updates the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public virtual bool Update(TModel entity)
         {
             try
             {
                 var databaseSet = this.Ctx.Set<TModel>();
-                var trackedEntity = this.Ctx.ChangeTracker.Entries<TModel>().FirstOrDefault(e => e.Entity.Id == entity.Id);
+                var trackedEntity = this.Ctx.ChangeTracker
+                    .Entries<TModel>()
+                    .FirstOrDefault(e => e.Entity.Id == entity.Id);
 
                 if (trackedEntity != null)
                 {
@@ -153,11 +137,7 @@ namespace Library.DataLayer
             return true;
         }
 
-        /// <summary>
-        /// Deletes the specified identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public virtual bool DeleteById(object id)
         {
             try
@@ -173,11 +153,7 @@ namespace Library.DataLayer
             return true;
         }
 
-        /// <summary>
-        /// Deletes the specified entity to delete.
-        /// </summary>
-        /// <param name="entity">The entity to delete.</param>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public virtual bool Delete(TModel entity)
         {
             try
@@ -202,10 +178,7 @@ namespace Library.DataLayer
             return true;
         }
 
-        /// <summary>
-        /// Deletes all entities from table.
-        /// </summary>
-        /// <returns>Bool.</returns>
+        /// <inheritdoc/>
         public bool Delete()
         {
             try

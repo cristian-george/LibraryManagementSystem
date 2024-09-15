@@ -23,54 +23,25 @@
             <value>The logger.</value>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Insert(`0)">
-            <summary>
-            Inserts the specified entity.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.GetById(System.Object)">
-            <summary>
-            Gets the by identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns>Object of type TModel.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
-            <summary>
-            Gets the specified filter.
-            </summary>
-            <param name="filter"> The filter. </param>
-            <param name="orderBy"> The order by. </param>
-            <param name="includeProperties"> The include properties. </param>
-            <returns>IEnumerable of TModel.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Update(`0)">
-            <summary>
-            Updates the specified entity.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.DeleteById(System.Object)">
-            <summary>
-            Deletes the specified identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Delete(`0)">
-            <summary>
-            Deletes the specified entity to delete.
-            </summary>
-            <param name="entity">The entity to delete.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Delete">
-            <summary>
-            Deletes all entities from table.
-            </summary>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="T:Library.DataLayer.Interfaces.IAuthorRepository">
             <summary>
@@ -82,18 +53,18 @@
             Book repository interface.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetBookByTitle(System.String)">
+        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetByTitle(System.String)">
             <summary>
             Gets book by title.
             </summary>
             <param name="title">Title.</param>
             <returns>Book.</returns>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetBookByStockId(System.Int32)">
+        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetByStockId(System.Int32)">
             <summary>
-            Gets book by stock id.
+            Gets book by stock stockId.
             </summary>
-            <param name="stockId">Stock id.</param>
+            <param name="stockId">Stock stockId.</param>
             <returns>Book.</returns>
         </member>
         <member name="T:Library.DataLayer.Interfaces.IBorrowRepository">
@@ -116,7 +87,7 @@
             <param name="date">Date.</param>
             <returns>Borrows.</returns>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBookBorrowCountByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowCountOfBookByReader(System.Int32,System.Int32)">
             <summary>
             Gets how many times a book has been borrowed by a reader.
             </summary>
@@ -124,7 +95,7 @@
             <param name="readerId">Reader id.</param>
             <returns>int.</returns>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBookBorrowCountByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowCountOfBookByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
             <summary>
             Gets how many times a book has been borrowed by a reader within date.
             </summary>
@@ -133,7 +104,7 @@
             <param name="date">Date.</param>
             <returns>int.</returns>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetLastBookBorrowedByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetLastBorrowOfBookByReader(System.Int32,System.Int32)">
             <summary>
             Gets last borrow of a book by a reader.
             </summary>
@@ -146,7 +117,7 @@
             Domain repository interface.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IDomainRepository.GetDomainByName(System.String)">
+        <member name="M:Library.DataLayer.Interfaces.IDomainRepository.GetByName(System.String)">
             <summary>
             Gets domain by name.
             </summary>
@@ -163,7 +134,7 @@
             Properties repository interface.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IPropertiesRepository.GetLastProperties">
+        <member name="M:Library.DataLayer.Interfaces.IPropertiesRepository.GetLast">
             <summary>
             Gets the last properties.
             </summary>
@@ -174,11 +145,11 @@
             Stock repository interface.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IStockRepository.GetStocksByBookId(System.Int32)">
+        <member name="M:Library.DataLayer.Interfaces.IStockRepository.GetByBookId(System.Int32)">
             <summary>
             Gets stocks by book id.
             </summary>
-            <param name="bookId">Book id.</param>
+            <param name="id">Book id.</param>
             <returns>Stocks.</returns>
         </member>
         <member name="T:Library.DataLayer.Interfaces.IUserRepository">
@@ -320,10 +291,10 @@
             Book repository.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BookRepository.GetBookByTitle(System.String)">
+        <member name="M:Library.DataLayer.Repositories.BookRepository.GetByTitle(System.String)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BookRepository.GetBookByStockId(System.Int32)">
+        <member name="M:Library.DataLayer.Repositories.BookRepository.GetByStockId(System.Int32)">
             <inheritdoc/>
         </member>
         <member name="T:Library.DataLayer.Repositories.BorrowRepository">
@@ -337,13 +308,13 @@
         <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowsByReaderWithinDate(System.Int32,System.DateTime)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBookBorrowCountByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowCountOfBookByReader(System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBookBorrowCountByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowCountOfBookByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetLastBookBorrowedByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetLastBorrowOfBookByReader(System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
         <member name="T:Library.DataLayer.Repositories.DomainRepository">
@@ -351,7 +322,7 @@
             Domain repository.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Repositories.DomainRepository.GetDomainByName(System.String)">
+        <member name="M:Library.DataLayer.Repositories.DomainRepository.GetByName(System.String)">
             <inheritdoc/>
         </member>
         <member name="T:Library.DataLayer.Repositories.EditionRepository">
@@ -364,7 +335,7 @@
             Properties repository.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Repositories.PropertiesRepository.GetLastProperties">
+        <member name="M:Library.DataLayer.Repositories.PropertiesRepository.GetLast">
             <summary>
             Gets the last properties.
             </summary>
@@ -375,7 +346,7 @@
             Stock repository.
             </summary>
         </member>
-        <member name="M:Library.DataLayer.Repositories.StockRepository.GetStocksByBookId(System.Int32)">
+        <member name="M:Library.DataLayer.Repositories.StockRepository.GetByBookId(System.Int32)">
             <inheritdoc/>
         </member>
         <member name="T:Library.DataLayer.Repositories.UserRepository">
@@ -842,7 +813,7 @@
             Gets or sets the user's type.
             </summary>
         </member>
-        <member name="P:Library.DomainLayer.Models.User.LibrarianBorrows">
+        <member name="P:Library.DomainLayer.Models.User.LibrarianGrants">
             <summary>
             Gets or sets the user's librarian borrows.
             </summary>
@@ -867,6 +838,14 @@
             Check if a string has valid characters.
             </summary>
             <param name="name">The name.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.AuthorValidator.HasEntities``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Check if a collection has entities.
+            </summary>
+            <typeparam name="T">Template type.</typeparam>
+            <param name="entities">The entities.</param>
             <returns>Bool.</returns>
         </member>
         <member name="T:Library.DomainLayer.Validators.BookValidator">
@@ -1086,13 +1065,13 @@
         </member>
         <member name="P:Library.ServiceLayer.BaseService`2.Repository">
             <summary>
-            Gets or sets the repository.
+            Gets the repository.
             </summary>
             <value>The repository.</value>
         </member>
         <member name="P:Library.ServiceLayer.BaseService`2.PropertiesRepository">
             <summary>
-            Gets or sets the properties repository.
+            Gets the properties repository.
             </summary>
             <value>The properties repository.</value>
         </member>
@@ -1134,6 +1113,21 @@
             </summary>
             <seealso cref="T:Library.ServiceLayer.IService`1" />.
         </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBookService.IsInMoreThanNDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Checks if a book is in more than N domains.
+            N is a threshold for number of domains.
+            </summary>
+            <param name="book">A Book.</param>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBookService.IsInParentChildRelationDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Checks if a book is in parent-child relation domains.
+            </summary>
+            <param name="book">A book.</param>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
+        </member>
         <member name="T:Library.ServiceLayer.Interfaces.IBorrowService">
             <summary>
             Borrow service interface.
@@ -1143,63 +1137,78 @@
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBooksBeGranted(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks if at least one book is for lecture room.
-            Checks if the number of books left is at least 10% from
-            the initial fund of books.
+            Checks if books can be borrowed. Each book must meet the following criteria:
+            <para>1. Some copies of that book are marked as
+            for reading room use only.</para>
+            <para>2. The number of remaining books (those not borrowed yet,
+            excluding those for reading room use) is at least 10% of the initial
+            stock of that book.</para>
             </summary>
             <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowMaxNMCInPERMonths(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks the can borrow maximum NMC in per.
+            Checks if a reader can borrow maximum NMC books within a period of PER months.
+            NMC is a threshold for the maximum number of books that can be borrowed.
+            PER is a threshold for the number of months.
             </summary>
             <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks the borrowed books for maximum c books.
+            Checks if a reader can take at most C books per borrow; if the number of books in a
+            borrow request is at least 3, then every book must belong to at least 2 distinct domains.
             </summary>
             <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks if borrow books are at most D in last L months.
+            Checks if a reader can borrow more than D books from the same domain
+            – either from a leaf type or a higher-level domain –
+            in the last L months.
             D is threshold for number of domains.
             L is threshold for number of months.
             </summary>
             <param name="entity">The borrow.</param>
-            <returns>Bool.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowExtensionAtMostLIM(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks the lim.
+            Checks if a reader can borrow a book for a limited period;
+            extensions are allowed, but the sum of these extensions
+            granted in the last 3 months cannot exceed a given limit LIM.
+            LIM is a threshold for the limit of books.
             </summary>
             <param name="entity"> entity.</param>
-            <returns>Bool.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowsMadeInDELTADays(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks the borrow in delta time.
+            Checks if a reader can borrow the same book
+            multiple times within a period of DELTA days,
+            where DELTA is measured from the last borrow of the book.
             </summary>
             <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowAtMostNCZBooksInOneDay(Library.DomainLayer.Models.Borrow)">
             <summary>
-            Checks the maximum borrow books today.
+            Checks if a reader can borrow at most NCZ books in a day;
+            this threshold is ignored for library staff.
             </summary>
             <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckGrantAtMostPERSIMPBooksInOneDay(Library.DomainLayer.Models.Borrow)">
             <summary>
             Checks if librarian granted at most PERSIMP books today.
+            PERSIMP is a threshold for the number of books.
             </summary>
             <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <returns><c>true</c> if the check succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="T:Library.ServiceLayer.Interfaces.IDomainService">
             <summary>
@@ -1334,26 +1343,17 @@
             <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BookService.IsInMoreThanNDomains(Library.DomainLayer.Models.Book)">
-            <summary>
-            Checks if a book is in more than N domains.
-            N is a threshold for number of domains.
-            </summary>
-            <param name="book">A Book.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BookService.IsInParentChildRelationDomains(Library.DomainLayer.Models.Book)">
-            <summary>
-            Checks if a book is in parent-child relation domains.
-            </summary>
-            <param name="book">A book.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BookService.CheckAdditionalRules(Library.DomainLayer.Models.Book)">
             <summary>
             Checks book additional rules.
             </summary>
             <param name="book">The book.</param>
-            <returns>Bool.</returns>
+            <returns><c>true</c> if all book additional rules succeed, <c>false</c> otherwise.</returns>
         </member>
         <member name="T:Library.ServiceLayer.Services.BorrowService">
             <summary>
@@ -1380,56 +1380,25 @@
             <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowMaxNMCInPERMonths(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks the can borrow maximum NMC in PER.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks the borrowed books for maximum C books.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks if borrow books are at most D in the same domain, in the last L months.
-            D is threshold for number of domains.
-            L is threshold for number of months.
-            </summary>
-            <param name="entity">The borrow.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowExtensionAtMostLIM(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks if borrow extension is at most LIM.
-            LIM is threshold for books number limit.
-            </summary>
-            <param name="entity">Borrow.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowsMadeInDELTADays(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks the borrow in delta time.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowAtMostNCZBooksInOneDay(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks the maximum borrow books today.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckGrantAtMostPERSIMPBooksInOneDay(Library.DomainLayer.Models.Borrow)">
-            <summary>
-            Checks if librarian granted at most PERSIMP books today.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns>Bool.</returns>
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.BorrowService.CheckAdditionalRules(Library.DomainLayer.Models.Borrow)">
             <summary>
@@ -1551,10 +1520,10 @@
         <member name="T:Library.ServiceLayer.Services.StockService">
             <summary>
             Class StockService.
-            Implements the <see cref="!:Services.BaseService&lt;DomainLayer.Person.Account, IAccountRepository&gt;" />
+            Implements the <see cref="!:Services.BaseService&lt;Stock, IStockRepository&gt;" />
             Implements the <see cref="T:Library.ServiceLayer.Interfaces.IStockService" />.
             </summary>
-            <seealso cref="!:Services.BaseService&lt;DomainLayer.Person.Account, IAccountRepository&gt;" />
+            <seealso cref="!:Services.BaseService&lt;Stock, IStockRepository&gt;" />
             <seealso cref="T:Library.ServiceLayer.Interfaces.IStockService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.StockService.#ctor">
@@ -1565,10 +1534,10 @@
         <member name="T:Library.ServiceLayer.Services.UserService">
             <summary>
             Class UserService.
-            Implements the <see cref="!:Services.BaseService&lt;DomainLayer.Person.Reader, IReaderRepository&gt;" />
+            Implements the <see cref="!:Services.BaseService&lt;User, IUserRepository&gt;" />
             Implements the <see cref="T:Library.ServiceLayer.Interfaces.IUserService" />.
             </summary>
-            <seealso cref="!:Services.BaseService&lt;DomainLayer.Person.Reader, IReaderRepository&gt;" />
+            <seealso cref="!:Services.BaseService&lt;User, IUserRepository&gt;" />
             <seealso cref="T:Library.ServiceLayer.Interfaces.IUserService" />
         </member>
         <member name="M:Library.ServiceLayer.Services.UserService.#ctor">

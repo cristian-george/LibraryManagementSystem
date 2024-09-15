@@ -35,7 +35,7 @@ namespace Library.DataLayer.Interfaces
         /// <param name="bookId">Book id.</param>
         /// <param name="readerId">Reader id.</param>
         /// <returns>int.</returns>
-        int GetBookBorrowCountByReader(int bookId, int readerId);
+        int GetBorrowCountOfBookByReader(int bookId, int readerId);
 
         /// <summary>
         /// Gets how many times a book has been borrowed by a reader within date.
@@ -44,7 +44,7 @@ namespace Library.DataLayer.Interfaces
         /// <param name="readerId">Reader id.</param>
         /// <param name="date">Date.</param>
         /// <returns>int.</returns>
-        int GetBookBorrowCountByReaderWithinDate(int bookId, int readerId, DateTime date);
+        int GetBorrowCountOfBookByReaderWithinDate(int bookId, int readerId, DateTime date);
 
         /// <summary>
         /// Gets last borrow of a book by a reader.
@@ -52,6 +52,6 @@ namespace Library.DataLayer.Interfaces
         /// <param name="bookId">Book id.</param>
         /// <param name="readerId">Reader id.</param>
         /// <returns>Borrow.</returns>
-        Borrow GetLastBookBorrowedByReader(int bookId, int readerId);
+        Borrow GetLastBorrowOfBookByReader(int bookId, int readerId);
     }
 }

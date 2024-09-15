@@ -32,15 +32,10 @@ namespace Library.DomainLayer.Validators
                 .Length(2, 45).WithMessage("{PropertyName} has invalid length")
                 .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
 
-            _ = this.RuleFor(b => b.Authors)
-                .NotNull().WithMessage("{PropertyName} is null")
-                .Must(HasEntities).WithMessage("{PropertyName} is empty");
-
             _ = this.RuleFor(b => b.Domains)
                 .NotNull().WithMessage("{PropertyName} is null")
                 .Must(HasEntities).WithMessage("{PropertyName} is empty");
 
-            _ = this.RuleForEach(b => b.Authors).SetValidator(new AuthorValidator());
             _ = this.RuleForEach(b => b.Domains).SetValidator(new DomainValidator());
         }
 

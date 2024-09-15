@@ -49,7 +49,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
 
             var book = new Book()
             {
-                Title = "Cartea studentilor saraci",
+                Title = "Arhitectura calculatoarelor",
                 Genre = "Literatura",
                 Authors = new List<Author>(),
                 Domains = new List<Domain>() { domain },
@@ -79,6 +79,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var id = allEditions.LastOrDefault().Id;
             var dbEdition = this.service.GetById(id);
             Assert.IsNotNull(dbEdition);
+
+            Assert.IsTrue(book.Editions.Count > 0);
+            Assert.IsTrue(book.Editions.Contains(dbEdition));
 
             // Update
             edition.Year = 2005;
