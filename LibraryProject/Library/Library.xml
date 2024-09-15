@@ -6,7 +6,7 @@
     <members>
         <member name="T:Library.DataLayer.BaseRepository`1">
             <summary>
-            Abstract class to be inherited to implement the CRUD operation for an entity.
+            Base class to be inherited for specializing the CRUD operations for an entity.
             </summary>
             <typeparam name="TModel">Type of the controller.</typeparam>
         </member>
