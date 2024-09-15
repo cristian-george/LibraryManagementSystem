@@ -1,0 +1,1580 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Library</name>
+    </assembly>
+    <members>
+        <member name="T:Library.DataLayer.BaseRepository`1">
+            <summary>
+            Abstract class to be inherited to implement the CRUD operation for an entity.
+            </summary>
+            <typeparam name="TModel">Type of the controller.</typeparam>
+        </member>
+        <member name="P:Library.DataLayer.BaseRepository`1.Ctx">
+            <summary>
+            Gets the context.
+            </summary>
+            <value>The context.</value>
+        </member>
+        <member name="P:Library.DataLayer.BaseRepository`1.Logger">
+            <summary>
+            Gets the logger.
+            </summary>
+            <value>The logger.</value>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.Insert(`0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.GetById(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Object of type TModel.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter"> The filter. </param>
+            <param name="orderBy"> The order by. </param>
+            <param name="includeProperties"> The include properties. </param>
+            <returns>IEnumerable of TModel.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.Update(`0)">
+            <summary>
+            Updates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.DeleteById(System.Object)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.Delete(`0)">
+            <summary>
+            Deletes the specified entity to delete.
+            </summary>
+            <param name="entity">The entity to delete.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DataLayer.BaseRepository`1.Delete">
+            <summary>
+            Deletes all entities from table.
+            </summary>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IAuthorRepository">
+            <summary>
+            Author repository interface.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IBookRepository">
+            <summary>
+            Book repository interface.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetBookByTitle(System.String)">
+            <summary>
+            Gets book by title.
+            </summary>
+            <param name="title">Title.</param>
+            <returns>Book.</returns>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBookRepository.GetBookByStockId(System.Int32)">
+            <summary>
+            Gets book by stock id.
+            </summary>
+            <param name="stockId">Stock id.</param>
+            <returns>Book.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IBorrowRepository">
+            <summary>
+            Borrow repository interface.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowsByReader(System.Int32)">
+            <summary>
+            Gets borrows by reader id.
+            </summary>
+            <param name="readerId">Reader id.</param>
+            <returns>Borrows.</returns>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowsByReaderWithinDate(System.Int32,System.DateTime)">
+            <summary>
+            Gets borrows made by a reader within date.
+            </summary>
+            <param name="readerId">Reader id.</param>
+            <param name="date">Date.</param>
+            <returns>Borrows.</returns>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBookBorrowCountByReader(System.Int32,System.Int32)">
+            <summary>
+            Gets how many times a book has been borrowed by a reader.
+            </summary>
+            <param name="bookId">Book id.</param>
+            <param name="readerId">Reader id.</param>
+            <returns>int.</returns>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBookBorrowCountByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
+            <summary>
+            Gets how many times a book has been borrowed by a reader within date.
+            </summary>
+            <param name="bookId">Book id.</param>
+            <param name="readerId">Reader id.</param>
+            <param name="date">Date.</param>
+            <returns>int.</returns>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetLastBookBorrowedByReader(System.Int32,System.Int32)">
+            <summary>
+            Gets last borrow of a book by a reader.
+            </summary>
+            <param name="bookId">Book id.</param>
+            <param name="readerId">Reader id.</param>
+            <returns>Borrow.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IDomainRepository">
+            <summary>
+            Domain repository interface.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IDomainRepository.GetDomainByName(System.String)">
+            <summary>
+            Gets domain by name.
+            </summary>
+            <param name="name">Domain name.</param>
+            <returns>Domain.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IEditionRepository">
+            <summary>
+            Edition repository interface.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IPropertiesRepository">
+            <summary>
+            Properties repository interface.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IPropertiesRepository.GetLastProperties">
+            <summary>
+            Gets the last properties.
+            </summary>
+            <returns> Properties. </returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IStockRepository">
+            <summary>
+            Stock repository interface.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Interfaces.IStockRepository.GetStocksByBookId(System.Int32)">
+            <summary>
+            Gets stocks by book id.
+            </summary>
+            <param name="bookId">Book id.</param>
+            <returns>Stocks.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Interfaces.IUserRepository">
+            <summary>
+            User repository interface.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.IRepository`1">
+            <summary>
+            Interface for the repository.
+            </summary>
+            <typeparam name="TModel">A reference type that implements IEntity.</typeparam>
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.Insert(`0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.GetById(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Object of type TModel.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter">The filter.</param>
+            <param name="orderBy">The order by.</param>
+            <param name="includeProperties">The include properties.</param>
+            <returns>IEnumerable of TModel.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.Update(`0)">
+            <summary>
+            Updates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.DeleteById(System.Object)">
+            <summary>
+            Deletes the specified identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Bool.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.Delete(`0)">
+            <summary>
+            Deletes the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>.
+        </member>
+        <member name="M:Library.DataLayer.IRepository`1.Delete">
+            <summary>
+            Deletes all entities from table.
+            </summary>
+            <returns>Bool.</returns>.
+        </member>
+        <member name="T:Library.DataLayer.LibraryDbContext">
+            <summary>
+            The library context class used to generate the database.
+            </summary>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Authors">
+            <summary>
+            Gets or sets the Authors table.
+            </summary>
+            <value>The authors.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Books">
+            <summary>
+            Gets or sets the Books table.
+            </summary>
+            <value>The books.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Borrows">
+            <summary>
+            Gets or sets the Borrows table.
+            </summary>
+            <value>The borrows.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Domains">
+            <summary>
+            Gets or sets the Domains table.
+            </summary>
+            <value>The domains.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Editions">
+            <summary>
+            Gets or sets the Editions table.
+            </summary>
+            <value>The editions.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Properties">
+            <summary>
+            Gets or sets the Properties table.
+            </summary>
+            <value>The properties.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Stocks">
+            <summary>
+            Gets or sets the Stocks table.
+            </summary>
+            <value>The stocks.</value>
+        </member>
+        <member name="P:Library.DataLayer.LibraryDbContext.Users">
+            <summary>
+            Gets or sets the Users table.
+            </summary>
+            <value>The users.</value>
+        </member>
+        <member name="M:Library.DataLayer.LibraryDbContext.OnConfiguring(Microsoft.EntityFrameworkCore.DbContextOptionsBuilder)">
+            <summary>
+            Method used to configure the options for the context of the database.
+            </summary>
+            <param name="optionsBuilder">The optionsBuilder used to configure properties of the server.</param>
+        </member>
+        <member name="M:Library.DataLayer.LibraryDbContext.OnModelCreating(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <summary>
+            This method is called when the model for a derived context has been initialized, but
+            before the model has been locked down and used to initialize the context.  The default
+            implementation of this method does nothing, but it can be overridden in a derived class
+            such that the model can be further configured before it is locked down.
+            </summary>
+            <param name="modelBuilder">The builder that defines the model for the context being created.</param>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.AuthorRepository">
+            <summary>
+            Author repository.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.BookRepository">
+            <summary>
+            Book repository.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BookRepository.GetBookByTitle(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BookRepository.GetBookByStockId(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.BorrowRepository">
+            <summary>
+            Borrow repository.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowsByReader(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowsByReaderWithinDate(System.Int32,System.DateTime)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBookBorrowCountByReader(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBookBorrowCountByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetLastBookBorrowedByReader(System.Int32,System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.DomainRepository">
+            <summary>
+            Domain repository.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.DomainRepository.GetDomainByName(System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.EditionRepository">
+            <summary>
+            Edition repository.
+            </summary>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.PropertiesRepository">
+            <summary>
+            Properties repository.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.PropertiesRepository.GetLastProperties">
+            <summary>
+            Gets the last properties.
+            </summary>
+            <returns>Properties.</returns>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.StockRepository">
+            <summary>
+            Stock repository.
+            </summary>
+        </member>
+        <member name="M:Library.DataLayer.Repositories.StockRepository.GetStocksByBookId(System.Int32)">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.DataLayer.Repositories.UserRepository">
+            <summary>
+            User repository.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Enums.EBookType">
+            <summary>
+            Book type.
+            </summary>
+        </member>
+        <member name="F:Library.DomainLayer.Enums.EBookType.Hardcover">
+            <summary>Hardcover.</summary>
+        </member>
+        <member name="F:Library.DomainLayer.Enums.EBookType.Paperback">
+            <summary>Paperback.</summary>
+        </member>
+        <member name="T:Library.DomainLayer.Enums.EUserType">
+            <summary>
+            User type.
+            </summary>
+        </member>
+        <member name="F:Library.DomainLayer.Enums.EUserType.Reader">
+            <summary>Reader type.</summary>
+        </member>
+        <member name="F:Library.DomainLayer.Enums.EUserType.Librarian">
+            <summary>Librarian type.</summary>
+        </member>
+        <member name="F:Library.DomainLayer.Enums.EUserType.LibrarianReader">
+            <summary>Librarian and reader type.</summary>
+        </member>
+        <member name="T:Library.DomainLayer.Extensions.BookExtensions">
+            <summary>
+            Extensions for Book model.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.BookExtensions.AddAncestorDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Adds ancestor domains.
+            </summary>
+            <param name="book"> The book. </param>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.BookExtensions.GetAncestorDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Gets the list of domains.
+            </summary>
+            <param name="book"> The book. </param>
+            <returns> List of Domain. </returns>
+        </member>
+        <member name="T:Library.DomainLayer.Extensions.DomainExtensions">
+            <summary>
+            Extensions for Domain model.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.DomainExtensions.GetRootDomain(Library.DomainLayer.Models.Domain)">
+            <summary>
+            Gets the parent domain.
+            </summary>
+            <param name="domain">The domain.</param>
+            <returns>Domain.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.DomainExtensions.SetParentDomain(Library.DomainLayer.Models.Domain)">
+            <summary>
+            Sets all children to the parent recursively.
+            </summary>
+            <param name="parent">Domain.</param>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.DomainExtensions.GetDomainsWithTheRootDomain(Library.DomainLayer.Models.Domain,System.Collections.Generic.List{Library.DomainLayer.Models.Domain})">
+            <summary>
+            Gets the domains with the root domain.
+            </summary>
+            <param name="domain"> The domain. </param>
+            <param name="domains"> The domains. </param>
+        </member>
+        <member name="T:Library.DomainLayer.Extensions.StringExtensions">
+            <summary>
+            Extensions for String class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.StringExtensions.ContainsDigits(System.String)">
+            <summary>
+            Checks if a string contains digits.
+            </summary>
+            <param name="s">A string.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.StringExtensions.ContainsLetters(System.String)">
+            <summary>
+            Checks if a string contains letters.
+            </summary>
+            <param name="s">A string.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.StringExtensions.IsEmail(System.String)">
+            <summary>
+            Checks if a string can be an e-mail address.
+            </summary>
+            <param name="s">A string.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Extensions.StringExtensions.CountDigits(System.String)">
+            <summary>
+            Counts the digits.
+            </summary>
+            <param name="s">A string.</param>
+            <returns>int.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Interfaces.IEntity">
+            <summary>
+            IEntity interface.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Interfaces.IEntity.Id">
+            <summary>
+            Gets or sets the Id.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Author">
+            <summary>
+            Author model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Author.Id">
+            <summary>
+            Gets or sets the author's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Author.FirstName">
+            <summary>
+            Gets or sets the author's first name.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Author.LastName">
+            <summary>
+            Gets or sets the author's last name.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Author.Books">
+            <summary>
+            Gets or sets the author's books.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Book">
+            <summary>
+            Book model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Id">
+            <summary>
+            Gets or sets the book's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Title">
+            <summary>
+            Gets or sets the book's title.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Genre">
+            <summary>
+            Gets or sets the book's genre.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Authors">
+            <summary>
+            Gets or sets the book's authors.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Domains">
+            <summary>
+            Gets or sets the book's domains.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Book.Editions">
+            <summary>
+            Gets or sets the book's editions.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Borrow">
+            <summary>
+            Borrow model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.Id">
+            <summary>
+            Gets or sets the borrow's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.ReaderId">
+            <summary>
+            Gets or sets the borrow's reader id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.LibrarianId">
+            <summary>
+            Gets or sets the borrow's librarian id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.BorrowDate">
+            <summary>
+            Gets or sets the borrow's date.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.ReturnDate">
+            <summary>
+            Gets or sets the borrow's return date.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.Librarian">
+            <summary>
+            Gets or sets the borrow's librarian.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.Reader">
+            <summary>
+            Gets or sets the borrow's reader.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Borrow.Stocks">
+            <summary>
+            Gets or sets the borrow's stocks.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Domain">
+            <summary>
+            Domain model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.Id">
+            <summary>
+            Gets or sets the domain's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.ParentDomainId">
+            <summary>
+            Gets or sets the domain's parent domain id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.Name">
+            <summary>
+            Gets or sets the domain's name.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.ParentDomain">
+            <summary>
+            Gets or sets the domain's parent.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.ChildDomains">
+            <summary>
+            Gets or sets the domain's children.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Domain.Books">
+            <summary>
+            Gets or sets the domain's books.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Models.Domain.Equals(System.Object)">
+            <summary>
+            Equals method.
+            </summary>
+            <param name="obj">obj.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Models.Domain.GetHashCode">
+            <summary>
+            GetHashCode method.
+            </summary>
+            <returns>int.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Edition">
+            <summary>
+            Edition model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.Id">
+            <summary>
+            Gets or sets the edition's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.BookId">
+            <summary>
+            Gets or sets the edition's book id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.Publisher">
+            <summary>
+            Gets or sets the edition's publisher.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.Year">
+            <summary>
+            Gets or sets the edition's year.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.EditionNumber">
+            <summary>
+            Gets or sets the edition's number.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.NumberOfPages">
+            <summary>
+            Gets or sets the edition's number of pages.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.BookType">
+            <summary>
+            Gets or sets the edition's book type.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.Book">
+            <summary>
+            Gets or sets the edition's book.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Edition.Stocks">
+            <summary>
+            Gets or sets the edition's stocks.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Properties">
+            <summary>
+            Properties model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Id">
+            <summary>
+            Gets or sets the properties' id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Domenii">
+            <summary>
+            Gets or sets the properties' domenii.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Nmc">
+            <summary>
+            Gets or sets the properties' nmc.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.L">
+            <summary>
+            Gets or sets the properties' l.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Per">
+            <summary>
+            Gets or sets the properties' per.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.C">
+            <summary>
+            Gets or sets the properties' c.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.D">
+            <summary>
+            Gets or sets the properties' d.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Lim">
+            <summary>
+            Gets or sets the properties' lim.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Delta">
+            <summary>
+            Gets or sets the properties' delta.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Ncz">
+            <summary>
+            Gets or sets the properties' ncz.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Properties.Persimp">
+            <summary>
+            Gets or sets the properties' persimp.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.Stock">
+            <summary>
+            Stock model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.Id">
+            <summary>
+            Gets or sets the stock's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.EditionId">
+            <summary>
+            Gets or sets the stock's edition id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.SupplyDate">
+            <summary>
+            Gets or sets the stock's supply date.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.NumberOfBooksForBorrowing">
+            <summary>
+            Gets or sets the stock's number of books for borrowing.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.NumberOfBooksForLectureOnly">
+            <summary>
+            Gets or sets the stock's number of books for lecture only.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.InitialStock">
+            <summary>
+            Gets or sets the stock's initial stock.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.Edition">
+            <summary>
+            Gets or sets the stock's edition.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.Stock.Borrows">
+            <summary>
+            Gets or sets the stock's borrows.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Models.User">
+            <summary>
+            User model.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.Id">
+            <summary>
+            Gets or sets the user's id.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.FirstName">
+            <summary>
+            Gets or sets the user's first name.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.LastName">
+            <summary>
+            Gets or sets the user's last name.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.Address">
+            <summary>
+            Gets or sets the user's address.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.Email">
+            <summary>
+            Gets or sets the user's email.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.PhoneNumber">
+            <summary>
+            Gets or sets the user's phone number.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.UserType">
+            <summary>
+            Gets or sets the user's type.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.LibrarianBorrows">
+            <summary>
+            Gets or sets the user's librarian borrows.
+            </summary>
+        </member>
+        <member name="P:Library.DomainLayer.Models.User.ReaderBorrows">
+            <summary>
+            Gets or sets the user's reader borrows.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.AuthorValidator">
+            <summary>
+            Author validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.AuthorValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.AuthorValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.AuthorValidator.HasValidCharacters(System.String)">
+            <summary>
+            Check if a string has valid characters.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.BookValidator">
+            <summary>
+            Book validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BookValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.BookValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BookValidator.HasValidCharacters(System.String)">
+            <summary>
+            Check if a string has valid characters.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BookValidator.HasEntities``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Check if a collection has entities.
+            </summary>
+            <typeparam name="T">Template type.</typeparam>
+            <param name="entities">The entities.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.BorrowValidator">
+            <summary>
+            Borrow validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BorrowValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.BorrowValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BorrowValidator.HasEntities``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Check if a collection has entities.
+            </summary>
+            <typeparam name="T">Template type.</typeparam>
+            <param name="entities">The entities.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BorrowValidator.ValidUsers(Library.DomainLayer.Models.User,Library.DomainLayer.Models.User)">
+            <summary>
+            Check if a borrow is correct.
+            </summary>
+            <param name="reader">Reader.</param>
+            <param name="librarian">Librarian.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.DomainValidator">
+            <summary>
+            Domain validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.DomainValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.DomainValidator" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.EditionValidator">
+            <summary>
+            Edition validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.EditionValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.EditionValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.EditionValidator.HasValidCharacters(System.String)">
+            <summary>
+            Check if a string has valid characters.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.EditionValidator.HasEntities``1(System.Collections.Generic.ICollection{``0})">
+            <summary>
+            Check if a collection has entities.
+            </summary>
+            <typeparam name="T">Template type.</typeparam>
+            <param name="entities">The entities.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.PropertiesValidator">
+            <summary>
+            Properties validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.PropertiesValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.PropertiesValidator" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.StockValidator">
+            <summary>
+            Stock validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.StockValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.StockValidator" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.DomainLayer.Validators.UserValidator">
+            <summary>
+            User validator.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.UserValidator.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.UserValidator" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.UserValidator.HasValidCharacters(System.String)">
+            <summary>
+            Check if a string has valid characters.
+            </summary>
+            <param name="name">The name.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.UserValidator.DoesNotContainLetters(System.String)">
+            <summary>
+            Check if a string does not contain letters.
+            </summary>
+            <param name="phoneNumber"> The phone number. </param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.Injection.Bindings">
+            <summary>
+            Class Bindings.
+            Implements the <see cref="T:Ninject.Modules.NinjectModule" />.
+            </summary>
+            <seealso cref="T:Ninject.Modules.NinjectModule" />
+        </member>
+        <member name="M:Library.Injection.Bindings.Load">
+            <summary>
+            Loads the module into the kernel.
+            </summary>
+        </member>
+        <member name="M:Library.Injection.Bindings.LoadRepositoryLayer">
+            <summary>
+            Loads the repository layer.
+            </summary>
+        </member>
+        <member name="M:Library.Injection.Bindings.LoadServiceLayer">
+            <summary>
+            Loads the service layer.
+            </summary>
+        </member>
+        <member name="T:Library.Injection.Injector">
+            <summary>
+            Class Injector.
+            </summary>
+        </member>
+        <member name="F:Library.Injection.Injector.kernel">
+            <summary>
+            The kernel.
+            </summary>
+        </member>
+        <member name="M:Library.Injection.Injector.Initialize">
+            <summary>
+            Initializes this instance.
+            </summary>
+        </member>
+        <member name="M:Library.Injection.Injector.Create``1">
+            <summary>
+            Creates this instance.
+            </summary>
+            <typeparam name="T"> Template parameter.
+            It can be whether a repository interface or a service interface. </typeparam>
+            <returns> An instance of a repository or a service. </returns>
+        </member>
+        <member name="T:Library.Migrations.InitialLibraryDb">
+            <inheritdoc />
+        </member>
+        <member name="M:Library.Migrations.InitialLibraryDb.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Library.Migrations.InitialLibraryDb.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:Library.Migrations.InitialLibraryDb.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="T:Library.ServiceLayer.BaseService`2">
+            <summary>
+            Class BaseService.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1"/>.
+            </summary>
+            <typeparam name="TModel"> Reference type. </typeparam>
+            <typeparam name="TRepository">Implements IRepository of TModel.</typeparam>
+            <seealso cref="T:Library.ServiceLayer.IService`1"/>
+            <remarks>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.BaseService`2"/> class.
+            </remarks>
+            <param name="repository">The repository.</param>
+            <param name="propertiesRepository">The properties repository.</param>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.#ctor(`1,Library.DataLayer.Interfaces.IPropertiesRepository)">
+            <summary>
+            Class BaseService.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1"/>.
+            </summary>
+            <typeparam name="TModel"> Reference type. </typeparam>
+            <typeparam name="TRepository">Implements IRepository of TModel.</typeparam>
+            <seealso cref="T:Library.ServiceLayer.IService`1"/>
+            <remarks>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.BaseService`2"/> class.
+            </remarks>
+            <param name="repository">The repository.</param>
+            <param name="propertiesRepository">The properties repository.</param>
+        </member>
+        <member name="P:Library.ServiceLayer.BaseService`2.Repository">
+            <summary>
+            Gets or sets the repository.
+            </summary>
+            <value>The repository.</value>
+        </member>
+        <member name="P:Library.ServiceLayer.BaseService`2.PropertiesRepository">
+            <summary>
+            Gets or sets the properties repository.
+            </summary>
+            <value>The properties repository.</value>
+        </member>
+        <member name="P:Library.ServiceLayer.BaseService`2.Validator">
+            <summary>
+            Gets or sets the validator.
+            </summary>
+            <value>The validator.</value>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.Insert(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.Update(`0)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.DeleteById(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.GetById(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.BaseService`2.Delete">
+            <inheritdoc/>
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IAuthorService">
+            <summary>
+            Author service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IBookService">
+            <summary>
+            Book service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />.
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IBorrowService">
+            <summary>
+            Borrow service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBooksBeGranted(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if at least one book is for lecture room.
+            Checks if the number of books left is at least 10% from
+            the initial fund of books.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowMaxNMCInPERMonths(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the can borrow maximum NMC in per.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the borrowed books for maximum c books.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if borrow books are at most D in last L months.
+            D is threshold for number of domains.
+            L is threshold for number of months.
+            </summary>
+            <param name="entity">The borrow.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowExtensionAtMostLIM(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the lim.
+            </summary>
+            <param name="entity"> entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckBorrowsMadeInDELTADays(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the borrow in delta time.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckCanBorrowAtMostNCZBooksInOneDay(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the maximum borrow books today.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Interfaces.IBorrowService.CheckGrantAtMostPERSIMPBooksInOneDay(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if librarian granted at most PERSIMP books today.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IDomainService">
+            <summary>
+            Domain service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IEditionService">
+            <summary>
+            Edition service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IPropertiesService">
+            <summary>
+            Properties service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IStockService">
+            <summary>
+            Stock service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1"/>.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.Interfaces.IUserService">
+            <summary>
+            User service interface.
+            Implements the <see cref="T:Library.ServiceLayer.IService`1" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.IService`1" />
+        </member>
+        <member name="T:Library.ServiceLayer.IService`1">
+            <summary>
+            Interface for the service.
+            </summary>
+            <typeparam name="T"> A reference type. </typeparam>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Insert(`0)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns> TModel. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Update(`0)">
+            <summary>
+            Updates the specified item.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.DeleteById(System.Object)">
+            <summary>
+            Deletes the by identifier.
+            </summary>
+            <param name="id"> The id. </param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Delete">
+            <summary>
+            Deletes all.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.GetById(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns> Object of type <typeparamref name="T"/>. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter"> filter. </param>
+            <param name="orderBy"> orderBy. </param>
+            <param name="includeProperties"> includeProperties. </param>
+            <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Logging">
+            <summary>
+            Class Logging.
+            </summary>
+        </member>
+        <member name="F:Library.ServiceLayer.Logging.Logger">
+            <summary>
+            The logger.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Logging.LogErrors(FluentValidation.Results.ValidationResult)">
+            <summary>
+            Logs the errors.
+            </summary>
+            <param name="results">The results.</param>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.AuthorService">
+            <summary>
+            Class AuthorService.
+            Implements the <see cref="!:Services.BaseService&lt;Author, IAuthorRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IAuthorService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;Author, IAuthorRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IAuthorService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.AuthorService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.AuthorService" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.BookService">
+            <summary>
+            Class BookService.
+            Implements the <see cref="!:Services.BaseService&lt;Book, IBookRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IBookService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;Book, IBookRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IBookService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BookService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.BookService" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BookService.Insert(Library.DomainLayer.Models.Book)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BookService.IsInMoreThanNDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Checks if a book is in more than N domains.
+            N is a threshold for number of domains.
+            </summary>
+            <param name="book">A Book.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BookService.IsInParentChildRelationDomains(Library.DomainLayer.Models.Book)">
+            <summary>
+            Checks if a book is in parent-child relation domains.
+            </summary>
+            <param name="book">A book.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BookService.CheckAdditionalRules(Library.DomainLayer.Models.Book)">
+            <summary>
+            Checks book additional rules.
+            </summary>
+            <param name="book">The book.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.BorrowService">
+            <summary>
+            Class BorrowService.
+            Implements the <see cref="!:Services.BaseService&lt;Borrow, IBorrowRepository&gt;" />.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IBorrowService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;Borrow, IBorrowRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IBorrowService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.BorrowService" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.Insert(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBooksBeGranted(Library.DomainLayer.Models.Borrow)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowMaxNMCInPERMonths(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the can borrow maximum NMC in PER.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowedBooksForMaxCBooks(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the borrowed books for maximum C books.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if borrow books are at most D in the same domain, in the last L months.
+            D is threshold for number of domains.
+            L is threshold for number of months.
+            </summary>
+            <param name="entity">The borrow.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowExtensionAtMostLIM(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if borrow extension is at most LIM.
+            LIM is threshold for books number limit.
+            </summary>
+            <param name="entity">Borrow.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckBorrowsMadeInDELTADays(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the borrow in delta time.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckCanBorrowAtMostNCZBooksInOneDay(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks the maximum borrow books today.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckGrantAtMostPERSIMPBooksInOneDay(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks if librarian granted at most PERSIMP books today.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.CheckAdditionalRules(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Checks borrow additional rules.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns><c>true</c> if all borrow additional rules succeed, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.BorrowService.GetBooksToBorrow(Library.DomainLayer.Models.Borrow)">
+            <summary>
+            Get the books to borrow.
+            </summary>
+            <param name="entity">Borrow.</param>
+            <returns>Books.</returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.DomainService">
+            <summary>
+            Class DomainService.
+            Implements the <see cref="!:Services.BaseService&lt;Domain, IDomainRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IDomainService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;Domain, IDomainRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IDomainService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.DomainService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.DomainService" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.DomainService.Insert(Library.DomainLayer.Models.Domain)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.DomainService.CheckAdditionalRules(Library.DomainLayer.Models.Domain)">
+            <summary>
+            Check additional rules.
+            </summary>
+            <param name="domain">Domain.</param>
+            <returns>Bool.</returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.EditionService">
+            <summary>
+            Class EditionService.
+            Implements the <see cref="!:Services.BaseService&lt;Edition, IEditionRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IEditionService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;Edition, IEditionRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IEditionService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.EditionService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.EditionService" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.PropertiesService">
+            <summary>
+            Class PropertiesService.
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IPropertiesService" />.
+            </summary>
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IPropertiesService" />
+        </member>
+        <member name="F:Library.ServiceLayer.Services.PropertiesService.validator">
+            <summary>
+            The validator.
+            </summary>
+        </member>
+        <member name="F:Library.ServiceLayer.Services.PropertiesService.repository">
+            <summary>
+            The repository.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.PropertiesService" /> class.
+            </summary>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Delete">
+            <summary>
+            Deletes all.
+            </summary>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.DeleteById(System.Object)">
+            <summary>
+            Deletes the by identifier.
+            </summary>
+            <param name="id">The id.</param>
+            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Get(System.Linq.Expressions.Expression{System.Func{Library.DomainLayer.Models.Properties,System.Boolean}},System.Func{System.Linq.IQueryable{Library.DomainLayer.Models.Properties},System.Linq.IOrderedQueryable{Library.DomainLayer.Models.Properties}},System.String)">
+            <summary>
+            Gets all.
+            </summary>
+            /// <param name="filter"> The filter. </param>
+            <param name="orderBy"> The order by. </param>
+            <param name="includeProperties"> The include properties. </param>
+            <returns> ceva. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.GetById(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns> ceva. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Insert(Library.DomainLayer.Models.Properties)">
+            <summary>
+            Inserts the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns> ceva. </returns>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Update(Library.DomainLayer.Models.Properties)">
+            <summary>
+            Updates the specified entity.
+            </summary>
+            <param name="entity">The entity.</param>
+            <returns> ceva. </returns>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.StockService">
+            <summary>
+            Class StockService.
+            Implements the <see cref="!:Services.BaseService&lt;DomainLayer.Person.Account, IAccountRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IStockService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;DomainLayer.Person.Account, IAccountRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IStockService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.StockService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.StockService" /> class.
+            </summary>
+        </member>
+        <member name="T:Library.ServiceLayer.Services.UserService">
+            <summary>
+            Class UserService.
+            Implements the <see cref="!:Services.BaseService&lt;DomainLayer.Person.Reader, IReaderRepository&gt;" />
+            Implements the <see cref="T:Library.ServiceLayer.Interfaces.IUserService" />.
+            </summary>
+            <seealso cref="!:Services.BaseService&lt;DomainLayer.Person.Reader, IReaderRepository&gt;" />
+            <seealso cref="T:Library.ServiceLayer.Interfaces.IUserService" />
+        </member>
+        <member name="M:Library.ServiceLayer.Services.UserService.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.UserService" /> class.
+            </summary>
+        </member>
+    </members>
+</doc>
