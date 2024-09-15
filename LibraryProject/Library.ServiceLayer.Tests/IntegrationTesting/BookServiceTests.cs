@@ -42,7 +42,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndBook()
         {
-            var domain = ProduceModel.GetDomainWithSubdomainModel();
+            var domain = ProduceModel.GetDomainWithParentDomainModel();
 
             var author = new Author()
             {

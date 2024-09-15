@@ -403,6 +403,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 Stocks = new List<Stock>() { stock },
             };
 
+            Assert.IsTrue(this.service.CheckBorrowExtensionAtMostLIM(borrow));
             Assert.IsTrue(this.service.Insert(borrow));
 
             var otherBorrow = new Borrow()
@@ -414,7 +415,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 Stocks = new List<Stock>() { otherStock },
             };
 
-            Assert.IsFalse(this.service.CheckBorrowExtensionAtMostLIM(borrow));
+            Assert.IsFalse(this.service.CheckBorrowExtensionAtMostLIM(otherBorrow));
         }
 
         /// <summary>

@@ -54,9 +54,8 @@ namespace Library.ServiceLayer.Interfaces
         bool CheckCanBorrowAtMostDBooksInSameDomainInLastLMonths(Borrow entity);
 
         /// <summary>
-        /// Checks if a reader can borrow a book for a limited period;
-        /// extensions are allowed, but the sum of these extensions
-        /// granted in the last 3 months cannot exceed a given limit LIM.
+        /// Checks if the total of borrow extensions for a specific book
+        /// in the last 3 months doesn't exceed a given limit LIM.
         /// LIM is a threshold for the limit of books.
         /// </summary>
         /// <param name="entity"> entity.</param>

@@ -23,9 +23,9 @@ namespace Library.TestUtilities
             return new Properties()
             {
                 Domenii = 2,
-                Nmc = 2,
+                Nmc = 4,
                 L = 2,
-                C = 2,
+                C = 3,
                 D = 2,
                 Lim = 1,
                 Delta = 5,
@@ -55,12 +55,12 @@ namespace Library.TestUtilities
         }
 
         /// <summary>
-        /// Gets reader model.
+        /// Gets librarian model.
         /// </summary>
-        /// <returns>Reader.</returns>
+        /// <returns>Librarian.</returns>
         public static User GetLibrarianModel()
         {
-            var reader = new User()
+            var librarian = new User()
             {
                 FirstName = "Cristian",
                 LastName = "Fieraru",
@@ -70,16 +70,16 @@ namespace Library.TestUtilities
                 UserType = EUserType.Librarian,
             };
 
-            return reader;
+            return librarian;
         }
 
         /// <summary>
-        /// Gets reader model.
+        /// Gets librarian-reader model.
         /// </summary>
-        /// <returns>Reader.</returns>
+        /// <returns>LibrarianReader.</returns>
         public static User GetLibrarianReaderModel()
         {
-            var reader = new User()
+            var librarianReader = new User()
             {
                 FirstName = "Cristian",
                 LastName = "Fieraru",
@@ -89,7 +89,7 @@ namespace Library.TestUtilities
                 UserType = EUserType.LibrarianReader,
             };
 
-            return reader;
+            return librarianReader;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace Library.TestUtilities
         /// Gets domain with one subdomain.
         /// </summary>
         /// <returns>Domain.</returns>
-        public static Domain GetDomainWithSubdomainModel()
+        public static Domain GetDomainWithParentDomainModel()
         {
             var domain = new Domain()
             {
@@ -123,7 +123,7 @@ namespace Library.TestUtilities
                 ParentDomain = domain,
             };
 
-            return domain;
+            return subdomain;
         }
 
         /// <summary>
@@ -136,8 +136,8 @@ namespace Library.TestUtilities
             {
                 Name = "Stiinta",
                 ParentDomain = null,
-                ChildDomains = new List<Domain>()
-                {
+                ChildDomains =
+                [
                     new ()
                     {
                         Name = "Matematica",
@@ -153,13 +153,13 @@ namespace Library.TestUtilities
                     new ()
                     {
                         Name = "Informatica",
-                        ChildDomains = new List<Domain>()
-                        {
+                        ChildDomains =
+                        [
                             new ()
                             {
                                 Name = "Algoritmi",
-                                ChildDomains = new List<Domain>()
-                                {
+                                ChildDomains =
+                                [
                                     new ()
                                     {
                                         Name = "Algoritmi fundamentali",
@@ -172,7 +172,7 @@ namespace Library.TestUtilities
                                     {
                                         Name = "Algoritmi cuantici",
                                     },
-                                },
+                                ],
                             },
                             new ()
                             {
@@ -186,9 +186,9 @@ namespace Library.TestUtilities
                             {
                                 Name = "Retele de calculatoare",
                             },
-                        },
+                        ],
                     },
-                },
+                ],
             };
         }
 
@@ -202,7 +202,7 @@ namespace Library.TestUtilities
             {
                 FirstName = "Autor",
                 LastName = "Autor",
-                Books = new List<Book>(),
+                Books = [],
             };
 
             return author;
@@ -221,8 +221,8 @@ namespace Library.TestUtilities
             {
                 Title = "Head first design patterns",
                 Genre = "Programming",
-                Authors = new List<Author>(),
-                Domains = new List<Domain>() { domain },
+                Authors = [],
+                Domains = [domain],
             };
 
             author.Books.Add(book);
@@ -335,7 +335,7 @@ namespace Library.TestUtilities
                 ReturnDate = DateTime.Now.AddMonths(3),
                 Reader = GetReaderModel(),
                 Librarian = GetLibrarianModel(),
-                Stocks = new List<Stock>() { GetStockModelWithPaperback() },
+                Stocks = [GetStockModelWithPaperback()],
             };
         }
 
@@ -351,7 +351,7 @@ namespace Library.TestUtilities
                 ReturnDate = DateTime.Now.AddMonths(3),
                 Reader = GetReaderModel(),
                 Librarian = GetLibrarianModel(),
-                Stocks = new List<Stock>() { GetStockModelWithHardcover() },
+                Stocks = [GetStockModelWithHardcover()],
             };
         }
 
@@ -367,7 +367,7 @@ namespace Library.TestUtilities
                 ReturnDate = DateTime.Now.AddMonths(3),
                 Reader = GetReaderModel(),
                 Librarian = GetLibrarianModel(),
-                Stocks = new List<Stock>() { GetStockModelWithPaperback(), GetStockModelWithHardcover() },
+                Stocks = [GetStockModelWithPaperback(), GetStockModelWithHardcover()],
             };
         }
     }
