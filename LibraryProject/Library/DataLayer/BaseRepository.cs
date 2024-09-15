@@ -40,8 +40,6 @@ namespace Library.DataLayer
                 _ = this.Ctx.Attach(entity);
                 _ = databaseSet.Add(entity);
                 _ = this.Ctx.SaveChanges();
-
-                entity = null;
             }
             catch (Exception ex)
             {

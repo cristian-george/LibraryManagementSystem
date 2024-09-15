@@ -36,21 +36,22 @@ namespace Library.ServiceLayer.Services
         public override bool Insert(Book entity)
         {
             var result = this.Validator.Validate(entity);
-            if (result.IsValid && this.CheckAdditionalRules(entity))
-            {
-                // If a book belongs to a subdomain, it will automatically be considered
-                // as part of the parent domains as well.
-                entity.AddAncestorDomains();
-
-                _ = this.Repository.Insert(entity);
-            }
-            else
+            if (!result.IsValid)
             {
                 Logging.LogErrors(result);
                 return false;
             }
 
-            return true;
+            if (!this.CheckAdditionalRules(entity))
+            {
+                return false;
+            }
+
+            // If a book belongs to a subdomain, it will automatically be considered
+            // as part of the parent domains as well.
+            entity.AddAncestorDomains();
+
+            return this.Repository.Insert(entity);
         }
 
         /// <inheritdoc/>

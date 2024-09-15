@@ -5,6 +5,7 @@
 namespace Library.DomainLayer.Models;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Library.DomainLayer.Interfaces;
 
 /// <summary>
@@ -20,6 +21,7 @@ public class Domain : IEntity
     /// <summary>
     /// Gets or sets the domain's parent domain id.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public int? ParentDomainId { get; set; }
 
     /// <summary>

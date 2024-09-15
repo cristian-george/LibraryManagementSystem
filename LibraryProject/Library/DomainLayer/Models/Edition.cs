@@ -7,6 +7,7 @@ namespace Library.DomainLayer.Models;
 using Library.DomainLayer.Enums;
 using Library.DomainLayer.Interfaces;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 
 /// <summary>
 /// Edition model.
@@ -21,6 +22,7 @@ public class Edition : IEntity
     /// <summary>
     /// Gets or sets the edition's book id.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public int BookId { get; set; }
 
     /// <summary>

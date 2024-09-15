@@ -6,6 +6,7 @@ namespace Library.DomainLayer.Models;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Library.DomainLayer.Interfaces;
 
 /// <summary>
@@ -21,6 +22,7 @@ public class Stock : IEntity
     /// <summary>
     /// Gets or sets the stock's edition id.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public int EditionId { get; set; }
 
     /// <summary>

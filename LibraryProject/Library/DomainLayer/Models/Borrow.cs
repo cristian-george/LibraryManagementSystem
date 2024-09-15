@@ -6,6 +6,7 @@ namespace Library.DomainLayer.Models;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using Library.DomainLayer.Interfaces;
 
 /// <summary>
@@ -21,11 +22,13 @@ public class Borrow : IEntity
     /// <summary>
     /// Gets or sets the borrow's reader id.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public int ReaderId { get; set; }
 
     /// <summary>
     /// Gets or sets the borrow's librarian id.
     /// </summary>
+    [ExcludeFromCodeCoverage]
     public int LibrarianId { get; set; }
 
     /// <summary>

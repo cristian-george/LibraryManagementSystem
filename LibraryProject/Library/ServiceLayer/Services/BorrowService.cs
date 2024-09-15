@@ -48,24 +48,27 @@ namespace Library.ServiceLayer.Services
         public override bool Insert(Borrow entity)
         {
             var result = this.Validator.Validate(entity);
-            if (result.IsValid && this.CheckAdditionalRules(entity))
-            {
-                // The borrow expires after two weeks
-                entity.ReturnDate = entity.BorrowDate.AddDays(14);
-
-                // Update stocks
-                foreach (var stock in entity.Stocks)
-                {
-                    stock.NumberOfBooksForBorrowing -= 1;
-                    _ = this.stockRepository.Update(stock);
-                }
-
-                _ = this.Repository.Insert(entity);
-            }
-            else
+            if (!result.IsValid)
             {
                 Logging.LogErrors(result);
                 return false;
+            }
+
+            if (!this.CheckAdditionalRules(entity))
+            {
+                return false;
+            }
+
+            // The borrow expires after two weeks
+            entity.ReturnDate = entity.BorrowDate.AddDays(14);
+
+            _ = this.Repository.Insert(entity);
+
+            // Update stocks
+            foreach (var stock in entity.Stocks)
+            {
+                stock.NumberOfBooksForBorrowing -= 1;
+                _ = this.stockRepository.Update(stock);
             }
 
             return true;
@@ -136,7 +139,9 @@ namespace Library.ServiceLayer.Services
 
             // Borrows that have been done in the last PER months
             var borrows = this.Repository
-                .GetBorrowsByReaderWithinDate(entity.Reader.Id, datePer);
+                .GetBorrowsByReaderWithinDate(
+                    entity.Reader.Id,
+                    datePer);
 
             // Number of the books that have been borrowed in the last PER months
             var numberOfBorrowedBooks = borrows
@@ -156,7 +161,6 @@ namespace Library.ServiceLayer.Services
         public bool CheckBorrowedBooksForMaxCBooks(Borrow entity)
         {
             var properties = this.PropertiesRepository.GetLast();
-
             var c = properties.C;
 
             if (entity.Reader.UserType == EUserType.LibrarianReader)
@@ -305,13 +309,13 @@ namespace Library.ServiceLayer.Services
         /// <inheritdoc/>
         public bool CheckCanBorrowAtMostNCZBooksInOneDay(Borrow entity)
         {
-            var properties = this.PropertiesRepository.GetLast();
-
-            var ncz = properties.Ncz;
             if (entity.Reader.UserType == EUserType.LibrarianReader)
             {
                 return true;
             }
+
+            var properties = this.PropertiesRepository.GetLast();
+            var ncz = properties.Ncz;
 
             var allBorrows = this.Repository.Get(
                 borrow => borrow.BorrowDate.Date == entity.BorrowDate.Date &&
@@ -379,7 +383,6 @@ namespace Library.ServiceLayer.Services
                 return false;
             }
 
-            // Library staff cannot grant more than PERSIMP books in a day.
             if (!this.CheckGrantAtMostPERSIMPBooksInOneDay(entity))
             {
                 return false;
@@ -399,7 +402,9 @@ namespace Library.ServiceLayer.Services
 
             foreach (var stock in entity.Stocks)
             {
-                var book = this.bookRepository.GetByStockId(stock.Id);
+                var book = this.bookRepository
+                    .GetByStockId(stock.Id);
+
                 if (book != null)
                 {
                     booksToBorrow.Add(book);
