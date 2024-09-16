@@ -30,12 +30,12 @@ namespace Library.DataLayer.Interfaces
         IEnumerable<Borrow> GetBorrowsByReaderWithinDate(int readerId, DateTime date);
 
         /// <summary>
-        /// Gets how many times a book has been borrowed by a reader.
+        /// Gets specific book borrows by a reader.
         /// </summary>
         /// <param name="bookId">Book id.</param>
         /// <param name="readerId">Reader id.</param>
         /// <returns>int.</returns>
-        int GetBorrowCountOfBookByReader(int bookId, int readerId);
+        IEnumerable<Borrow> GetBorrowsOfBookByReader(int bookId, int readerId);
 
         /// <summary>
         /// Gets how many times a book has been borrowed by a reader within date.

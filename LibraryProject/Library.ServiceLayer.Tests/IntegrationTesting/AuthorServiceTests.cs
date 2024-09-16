@@ -45,8 +45,13 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             Assert.IsNotNull(allAuthors);
 
             // GetById
-            var id = allAuthors.LastOrDefault().Id;
+            var id = 1;
             var dbAuthor = this.service.GetById(id);
+            Assert.IsNull(dbAuthor);
+            Assert.IsFalse(this.service.DeleteById(id));
+
+            id = allAuthors.LastOrDefault().Id;
+            dbAuthor = this.service.GetById(id);
             Assert.IsNotNull(dbAuthor);
 
             // Update

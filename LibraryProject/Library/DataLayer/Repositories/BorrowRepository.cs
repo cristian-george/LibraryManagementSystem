@@ -28,32 +28,27 @@ namespace Library.DataLayer.Repositories
         /// <inheritdoc/>
         public IEnumerable<Borrow> GetBorrowsByReaderWithinDate(int readerId, DateTime date)
         {
-            var borrows = this.Get(
-                filterBy: borrow => borrow.Reader.Id == readerId &&
-                                    borrow.BorrowDate >= date);
+            var borrows = this.GetBorrowsByReader(readerId)
+                .Where(borrow => borrow.BorrowDate >= date);
 
             return borrows;
         }
 
         /// <inheritdoc/>
-        public int GetBorrowCountOfBookByReader(int bookId, int readerId)
+        public IEnumerable<Borrow> GetBorrowsOfBookByReader(int bookId, int readerId)
         {
-            var counter = this.Get(
+            var borrows = this.Get(
                 filterBy: borrow => borrow.Reader.Id == readerId &&
-                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId))
-                .SelectMany(borrow => borrow.Stocks)
-                .Count();
+                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId));
 
-            return counter;
+            return borrows;
         }
 
         /// <inheritdoc/>
         public int GetBorrowCountOfBookByReaderWithinDate(int bookId, int readerId, DateTime date)
         {
-            var counter = this.Get(
-                filterBy: borrow => borrow.Reader.Id == readerId &&
-                                    borrow.BorrowDate >= date &&
-                                    borrow.Stocks.Any(stock => stock.Edition.Book.Id == bookId))
+            var counter = this.GetBorrowsOfBookByReader(bookId, readerId)
+                .Where(borrow => borrow.BorrowDate >= date)
                 .SelectMany(borrow => borrow.Stocks)
                 .Count();
 

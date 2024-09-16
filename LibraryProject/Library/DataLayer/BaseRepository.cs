@@ -53,16 +53,7 @@ namespace Library.DataLayer
         /// <inheritdoc/>
         public virtual TModel GetById(object id)
         {
-            try
-            {
-                return this.Ctx.Set<TModel>().Find(id);
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message + ex.InnerException + "The GetById could not been made. Will return null!");
-            }
-
-            return null;
+            return this.Ctx.Set<TModel>().Find(id);
         }
 
         /// <inheritdoc/>
@@ -71,66 +62,47 @@ namespace Library.DataLayer
             Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
             string includeProperties = "")
         {
-            try
+            var databaseSet = this.Ctx.Set<TModel>();
+
+            IQueryable<TModel> query = databaseSet;
+
+            if (filterBy != null)
             {
-                var databaseSet = this.Ctx.Set<TModel>();
-
-                IQueryable<TModel> query = databaseSet;
-
-                if (filterBy != null)
-                {
-                    query = query.Where(filterBy);
-                }
-
-                foreach (var includeProperty in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
-                {
-                    query = query.Include(includeProperty);
-                }
-
-                if (orderBy != null)
-                {
-                    return orderBy(query).ToList();
-                }
-                else
-                {
-                    return query.ToList();
-                }
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message + "The query will return an empty list!");
+                query = query.Where(filterBy);
             }
 
-            return null;
+            foreach (var includeProperty in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query);
+            }
+
+            return query;
         }
 
         /// <inheritdoc/>
         public virtual bool Update(TModel entity)
         {
-            try
-            {
-                var databaseSet = this.Ctx.Set<TModel>();
-                var trackedEntity = this.Ctx.ChangeTracker
-                    .Entries<TModel>()
-                    .FirstOrDefault(e => e.Entity.Id == entity.Id);
+            var databaseSet = this.Ctx.Set<TModel>();
+            var trackedEntity = this.Ctx.ChangeTracker
+                .Entries<TModel>()
+                .FirstOrDefault(e => e.Entity.Id == entity.Id);
 
-                if (trackedEntity != null)
-                {
-                    this.Ctx.Entry(trackedEntity.Entity).CurrentValues.SetValues(entity);
-                }
-                else
-                {
-                    _ = databaseSet.Attach(entity);
-                    this.Ctx.Entry(entity).State = EntityState.Modified;
-                }
-
-                _ = this.Ctx.SaveChanges();
-            }
-            catch (Exception ex)
+            if (trackedEntity != null)
             {
-                this.Logger.Error(ex.Message + ex.InnerException + "The Update could not been made!");
-                return false;
+                this.Ctx.Entry(trackedEntity.Entity).CurrentValues.SetValues(entity);
             }
+            else
+            {
+                this.Ctx.Entry(entity).State = EntityState.Modified;
+                _ = databaseSet.Attach(entity);
+            }
+
+            _ = this.Ctx.SaveChanges();
 
             return true;
         }
@@ -138,17 +110,7 @@ namespace Library.DataLayer
         /// <inheritdoc/>
         public virtual bool DeleteById(object id)
         {
-            try
-            {
-                _ = this.Delete(this.GetById(id));
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message + ex.InnerException + "The DeleteById could not been made!");
-                return false;
-            }
-
-            return true;
+            return this.Delete(this.GetById(id));
         }
 
         /// <inheritdoc/>
@@ -157,12 +119,7 @@ namespace Library.DataLayer
             try
             {
                 var dbSet = this.Ctx.Set<TModel>();
-
-                if (this.Ctx.Entry(entity).State == EntityState.Detached)
-                {
-                    _ = dbSet.Attach(entity);
-                }
-
+                _ = dbSet.Attach(entity);
                 _ = dbSet.Remove(entity);
 
                 _ = this.Ctx.SaveChanges();
@@ -179,17 +136,9 @@ namespace Library.DataLayer
         /// <inheritdoc/>
         public bool Delete()
         {
-            try
-            {
-                var dbSet = this.Ctx.Set<TModel>();
-                dbSet.RemoveRange(dbSet);
-                _ = this.Ctx.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                this.Logger.Error(ex.Message + ex.InnerException + "The Delete could not been made.");
-                return false;
-            }
+            var dbSet = this.Ctx.Set<TModel>();
+            dbSet.RemoveRange(dbSet);
+            _ = this.Ctx.SaveChanges();
 
             return true;
         }

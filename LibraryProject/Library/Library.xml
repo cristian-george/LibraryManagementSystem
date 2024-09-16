@@ -87,9 +87,9 @@
             <param name="date">Date.</param>
             <returns>Borrows.</returns>
         </member>
-        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowCountOfBookByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Interfaces.IBorrowRepository.GetBorrowsOfBookByReader(System.Int32,System.Int32)">
             <summary>
-            Gets how many times a book has been borrowed by a reader.
+            Gets specific book borrows by a reader.
             </summary>
             <param name="bookId">Book id.</param>
             <param name="readerId">Reader id.</param>
@@ -308,7 +308,7 @@
         <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowsByReaderWithinDate(System.Int32,System.DateTime)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowCountOfBookByReader(System.Int32,System.Int32)">
+        <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowsOfBookByReader(System.Int32,System.Int32)">
             <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.Repositories.BorrowRepository.GetBorrowCountOfBookByReaderWithinDate(System.Int32,System.Int32,System.DateTime)">
