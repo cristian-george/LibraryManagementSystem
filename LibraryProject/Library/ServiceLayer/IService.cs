@@ -35,12 +35,10 @@ namespace Library.ServiceLayer
         /// </summary>
         /// <param name="filter"> filter. </param>
         /// <param name="orderBy"> orderBy. </param>
-        /// <param name="includeProperties"> includeProperties. </param>
         /// <returns>IEnumerable of objects of type <typeparamref name="T"/>.</returns>
         IEnumerable<T> Get(
             Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "");
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null);
 
         /// <summary>
         /// Updates the specified item.

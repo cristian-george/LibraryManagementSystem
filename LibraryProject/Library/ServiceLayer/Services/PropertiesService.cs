@@ -64,10 +64,9 @@ namespace Library.ServiceLayer.Services
         /// <inheritdoc/>
         public IEnumerable<Properties> Get(
             Expression<Func<Properties, bool>> filter = null,
-            Func<IQueryable<Properties>, IOrderedQueryable<Properties>> orderBy = null,
-            string includeProperties = "")
+            Func<IQueryable<Properties>, IOrderedQueryable<Properties>> orderBy = null)
         {
-            return this.repository.Get(filter, book => book.OrderBy(x => x.Id), includeProperties);
+            return this.repository.Get(filter, book => book.OrderBy(x => x.Id));
         }
 
         /// <inheritdoc/>

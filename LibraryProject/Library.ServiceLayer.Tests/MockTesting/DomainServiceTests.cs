@@ -69,7 +69,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
                 ChildDomains = new List<Domain>(),
             };
 
-            _ = this.domainServiceMock.Setup(x => x.Get(null, null, null))
+            _ = this.domainServiceMock.Setup(x => x.Get(null, null))
                 .Returns(
                 new List<Domain>()
                 { domain });

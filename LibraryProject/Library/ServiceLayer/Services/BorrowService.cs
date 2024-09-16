@@ -321,8 +321,7 @@ namespace Library.ServiceLayer.Services
             var allBorrows = this.Repository.Get(
                 borrow => borrow.BorrowDate.Date == entity.BorrowDate.Date &&
                           borrow.Reader.Id == entity.Reader.Id,
-                borrow => borrow.OrderBy(x => x.Id),
-                string.Empty).Count();
+                borrow => borrow.OrderBy(x => x.Id)).Count();
 
             return allBorrows < ncz;
         }

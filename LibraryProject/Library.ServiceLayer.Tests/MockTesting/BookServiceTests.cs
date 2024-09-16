@@ -57,7 +57,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.bookServiceMock.Setup(x => x.Get(null, null, null))
+            _ = this.bookServiceMock.Setup(x => x.Get(null, null))
                 .Returns(
                 new List<Book>()
                 { ProduceModel.GetBookModel() });

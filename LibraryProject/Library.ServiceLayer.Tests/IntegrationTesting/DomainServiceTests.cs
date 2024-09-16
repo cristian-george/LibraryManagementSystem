@@ -35,6 +35,9 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndDomain()
         {
+            // Clean table
+            Assert.IsTrue(this.service.Delete());
+
             var domain = new Domain()
             {
                 Name = "Literatura",
@@ -59,7 +62,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             Assert.IsNotNull(this.service.GetById(dbDomain.Id));
 
             // GetAll
-            var allDomains = this.service.Get(null, null, string.Empty);
+            var allDomains = this.service.Get(null, null);
             Assert.IsNotNull(allDomains);
 
             // Update

@@ -64,7 +64,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.stockServiceMock.Setup(x => x.Get(null, null, null))
+            _ = this.stockServiceMock.Setup(x => x.Get(null, null))
                 .Returns(
                 new List<Stock>()
                 {

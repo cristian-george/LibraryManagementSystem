@@ -59,8 +59,7 @@ namespace Library.DataLayer
         /// <inheritdoc/>
         public virtual IEnumerable<TModel> Get(
             Expression<Func<TModel, bool>> filterBy = null,
-            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
-            string includeProperties = "")
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null)
         {
             var databaseSet = this.Ctx.Set<TModel>();
 
@@ -69,11 +68,6 @@ namespace Library.DataLayer
             if (filterBy != null)
             {
                 query = query.Where(filterBy);
-            }
-
-            foreach (var includeProperty in includeProperties.Split(',', StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
             }
 
             if (orderBy != null)

@@ -34,14 +34,12 @@ namespace Library.DataLayer
         /// <summary>
         /// Gets the specified filter.
         /// </summary>
-        /// <param name="filter">The filter.</param>
-        /// <param name="orderBy">The order by.</param>
-        /// <param name="includeProperties">The include properties.</param>
+        /// <param name="filter">The filter query.</param>
+        /// <param name="orderBy">The order by query.</param>
         /// <returns>IEnumerable of TModel.</returns>.
         IEnumerable<TModel> Get(
             Expression<Func<TModel, bool>> filter = null,
-            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
-            string includeProperties = "");
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null);
 
         /// <summary>
         /// Updates the specified entity.

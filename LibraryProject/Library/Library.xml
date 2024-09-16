@@ -28,7 +28,7 @@
         <member name="M:Library.DataLayer.BaseRepository`1.GetById(System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.DataLayer.BaseRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+        <member name="M:Library.DataLayer.BaseRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}})">
             <inheritdoc/>
         </member>
         <member name="M:Library.DataLayer.BaseRepository`1.Update(`0)">
@@ -177,13 +177,12 @@
             <param name="id">The identifier.</param>
             <returns>Object of type TModel.</returns>.
         </member>
-        <member name="M:Library.DataLayer.IRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+        <member name="M:Library.DataLayer.IRepository`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}})">
             <summary>
             Gets the specified filter.
             </summary>
-            <param name="filter">The filter.</param>
-            <param name="orderBy">The order by.</param>
-            <param name="includeProperties">The include properties.</param>
+            <param name="filter">The filter query.</param>
+            <param name="orderBy">The order by query.</param>
             <returns>IEnumerable of TModel.</returns>.
         </member>
         <member name="M:Library.DataLayer.IRepository`1.Update(`0)">
@@ -1109,7 +1108,7 @@
         <member name="M:Library.ServiceLayer.BaseService`2.GetById(System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.ServiceLayer.BaseService`2.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+        <member name="M:Library.ServiceLayer.BaseService`2.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}})">
             <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.BaseService`2.Delete">
@@ -1280,13 +1279,12 @@
             <param name="id">The identifier.</param>
             <returns>Object of type <typeparamref name="T"/>.</returns>
         </member>
-        <member name="M:Library.ServiceLayer.IService`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+        <member name="M:Library.ServiceLayer.IService`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}})">
             <summary>
             Gets the specified filter.
             </summary>
             <param name="filter"> filter. </param>
             <param name="orderBy"> orderBy. </param>
-            <param name="includeProperties"> includeProperties. </param>
             <returns>IEnumerable of objects of type <typeparamref name="T"/>.</returns>
         </member>
         <member name="M:Library.ServiceLayer.IService`1.Update(`0)">
@@ -1500,7 +1498,7 @@
         <member name="M:Library.ServiceLayer.Services.PropertiesService.GetById(System.Object)">
             <inheritdoc/>
         </member>
-        <member name="M:Library.ServiceLayer.Services.PropertiesService.Get(System.Linq.Expressions.Expression{System.Func{Library.DomainLayer.Models.Properties,System.Boolean}},System.Func{System.Linq.IQueryable{Library.DomainLayer.Models.Properties},System.Linq.IOrderedQueryable{Library.DomainLayer.Models.Properties}},System.String)">
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Get(System.Linq.Expressions.Expression{System.Func{Library.DomainLayer.Models.Properties,System.Boolean}},System.Func{System.Linq.IQueryable{Library.DomainLayer.Models.Properties},System.Linq.IOrderedQueryable{Library.DomainLayer.Models.Properties}})">
             <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.PropertiesService.Update(Library.DomainLayer.Models.Properties)">

@@ -94,10 +94,9 @@ namespace Library.ServiceLayer
         /// <inheritdoc/>
         public virtual IEnumerable<TModel> Get(
             Expression<Func<TModel, bool>> filter = null,
-            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null,
-            string includeProperties = "")
+            Func<IQueryable<TModel>, IOrderedQueryable<TModel>> orderBy = null)
         {
-            return this.Repository.Get(filter, orderBy, includeProperties);
+            return this.Repository.Get(filter, orderBy);
         }
 
         /// <inheritdoc/>

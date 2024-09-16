@@ -65,7 +65,7 @@ namespace Library.ServiceLayer.Tests.MockTesting
         [TestMethod]
         public void TestGetAll()
         {
-            _ = this.userServiceMock.Setup(x => x.Get(null, null, null))
+            _ = this.userServiceMock.Setup(x => x.Get(null, null))
                 .Returns(
                 new List<User>()
                 {
