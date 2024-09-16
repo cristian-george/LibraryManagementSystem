@@ -6,6 +6,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
 {
     using System.Collections.Generic;
     using System.Linq;
+    using Library.DomainLayer.Enums;
     using Library.DomainLayer.Models;
     using Library.Injection;
     using Library.ServiceLayer.Services;
@@ -79,6 +80,7 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var id = allEditions.LastOrDefault().Id;
             var dbEdition = this.service.GetById(id);
             Assert.IsNotNull(dbEdition);
+            Assert.IsTrue(dbEdition.BookType == EBookType.Hardcover);
 
             Assert.IsTrue(book.Editions.Count > 0);
             Assert.IsTrue(book.Editions.Contains(dbEdition));

@@ -44,6 +44,7 @@ namespace Library.ServiceLayer.Services
 
             if (!this.CheckAdditionalRules(entity))
             {
+                Logging.LogErrors($"Additional rules for {entity} were not met!");
                 return false;
             }
 

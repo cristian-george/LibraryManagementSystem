@@ -88,21 +88,17 @@ namespace Library.DataLayer
         public virtual bool Update(TModel entity)
         {
             var databaseSet = this.Ctx.Set<TModel>();
-            var trackedEntity = this.Ctx.ChangeTracker
-                .Entries<TModel>()
-                .FirstOrDefault(e => e.Entity.Id == entity.Id);
-
-            if (trackedEntity != null)
+            try
             {
-                this.Ctx.Entry(trackedEntity.Entity).CurrentValues.SetValues(entity);
-            }
-            else
-            {
-                this.Ctx.Entry(entity).State = EntityState.Modified;
                 _ = databaseSet.Attach(entity);
+                this.Ctx.Entry(entity).State = EntityState.Modified;
+                _ = this.Ctx.SaveChanges();
             }
-
-            _ = this.Ctx.SaveChanges();
+            catch (Exception ex)
+            {
+                this.Logger.Error(ex.Message + ex.InnerException + "The Update could not been made!");
+                return false;
+            }
 
             return true;
         }

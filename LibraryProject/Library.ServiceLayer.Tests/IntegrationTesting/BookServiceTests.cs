@@ -42,6 +42,10 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         [TestMethod]
         public void EndToEndBook()
         {
+            // Clean Book table
+            _ = this.service.Delete();
+
+            var domainService = Injector.Create<DomainService>();
             var domain = ProduceModel.GetDomainWithParentDomainModel();
 
             var author = new Author()
@@ -53,7 +57,6 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
 
             var book = new Book()
             {
-                Title = "Head first design patters",
                 Genre = "Programming",
                 Domains = new List<Domain>() { domain },
                 Authors = new List<Author>(),
@@ -63,6 +66,8 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             book.Authors.Add(author);
 
             // Insert
+            Assert.IsFalse(this.service.Insert(book));
+            book.Title = "Head first design patters";
             Assert.IsTrue(this.service.Insert(book));
 
             // GetAll
@@ -73,6 +78,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var id = allBooks.LastOrDefault().Id;
             var dbBook = this.service.GetById(id);
             Assert.IsNotNull(dbBook);
+
+            // Get books for every existing domain
+            foreach (var dbDomain in dbBook.Domains)
+            {
+                Assert.IsNotNull(dbDomain);
+                Assert.IsTrue(dbDomain.Books.Count == 1);
+                Assert.IsTrue(dbDomain.Books.Contains(dbBook));
+            }
 
             // Update
             dbBook.Title = "Smart things in programming";
@@ -182,17 +195,17 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         {
             var domain1 = new Domain()
             {
-                Name = "Stiinta1",
+                Name = "Stiinta",
             };
 
             var domain2 = new Domain()
             {
-                Name = "Stiinta2",
+                Name = "Informatica",
             };
 
             var domain3 = new Domain()
             {
-                Name = "Stiinta3",
+                Name = "Baze de date",
             };
 
             var book = new Book()
@@ -211,12 +224,12 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
         {
             var domain = new Domain()
             {
-                Name = "Stiinta",
+                Name = "Literatura",
             };
 
             var otherDomain = new Domain()
             {
-                Name = "Literatura",
+                Name = "Literatura universala",
             };
 
             var book = new Book()

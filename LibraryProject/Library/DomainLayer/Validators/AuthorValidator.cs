@@ -19,23 +19,31 @@ namespace Library.DomainLayer.Validators
         /// </summary>
         public AuthorValidator()
         {
-            _ = this.RuleFor(a => a.FirstName)
-                .NotNull().WithMessage("{PropertyName} is null")
-                .NotEmpty().WithMessage("{PropertyName} is empty")
-                .Length(2, 50).WithMessage("{PropertyName} has invalid length")
-                .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
-
-            _ = this.RuleFor(a => a.LastName)
-                .NotNull().WithMessage("{PropertyName} is null")
-                .NotEmpty().WithMessage("{PropertyName} is empty")
-                .Length(2, 50).WithMessage("{PropertyName} has invalid length")
-                .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
+            ApplyNameRules(this.RuleFor(a => a.FirstName), 2, 50);
+            ApplyNameRules(this.RuleFor(a => a.LastName), 2, 50);
 
             _ = this.RuleFor(a => a.Books)
                 .NotNull().WithMessage("{PropertyName} is null")
                 .Must(HasEntities).WithMessage("{PropertyName} is empty");
 
             _ = this.RuleForEach(a => a.Books).SetValidator(new BookValidator());
+        }
+
+        /// <summary>
+        /// Applies common validation rules to a string property, such as checking for null,
+        /// non-empty values, enforcing length constraints, and ensuring valid characters.
+        /// </summary>
+        /// <typeparam name="T">The type of the object being validated.</typeparam>
+        /// <param name="ruleBuilder">The rule builder used to define validation rules for a specific property.</param>
+        /// <param name="lower">The minimum number of characters allowed for the string property.</param>
+        /// <param name="upper">The maximum number of characters allowed for the string property.</param>
+        public static void ApplyNameRules<T>(IRuleBuilder<T, string> ruleBuilder, int lower, int upper)
+        {
+            _ = ruleBuilder
+                .NotNull().WithMessage("{PropertyName} is null")
+                .NotEmpty().WithMessage("{PropertyName} is empty")
+                .Length(lower, upper).WithMessage("{PropertyName} has invalid length")
+                .Must(HasValidCharacters).WithMessage("{PropertyName} contains invalid characters");
         }
 
         /// <summary>

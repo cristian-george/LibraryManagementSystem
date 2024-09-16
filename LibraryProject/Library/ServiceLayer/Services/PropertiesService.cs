@@ -42,55 +42,7 @@ namespace Library.ServiceLayer.Services
             this.validator = new PropertiesValidator();
         }
 
-        /// <summary>
-        /// Deletes all.
-        /// </summary>
-        /// <returns>Bool.</returns>
-        public bool Delete()
-        {
-            return this.repository.Delete();
-        }
-
-        /// <summary>
-        /// Deletes the by identifier.
-        /// </summary>
-        /// <param name="id">The id.</param>
-        /// <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        public bool DeleteById(object id)
-        {
-            return this.repository.DeleteById(id);
-        }
-
-        /// <summary>
-        /// Gets all.
-        /// </summary>
-        /// /// <param name="filter"> The filter. </param>
-        /// <param name="orderBy"> The order by. </param>
-        /// <param name="includeProperties"> The include properties. </param>
-        /// <returns> ceva. </returns>
-        public IEnumerable<Properties> Get(
-            Expression<Func<Properties, bool>> filter = null,
-            Func<IQueryable<Properties>, IOrderedQueryable<Properties>> orderBy = null,
-            string includeProperties = "")
-        {
-            return this.repository.Get(filter, book => book.OrderBy(x => x.Id), includeProperties);
-        }
-
-        /// <summary>
-        /// Gets the by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns> ceva. </returns>
-        public Properties GetById(object id)
-        {
-            return this.repository.GetById(id);
-        }
-
-        /// <summary>
-        /// Inserts the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns> ceva. </returns>
+        /// <inheritdoc/>
         public bool Insert(Properties entity)
         {
             var result = this.validator.Validate(entity);
@@ -103,11 +55,22 @@ namespace Library.ServiceLayer.Services
             return false;
         }
 
-        /// <summary>
-        /// Updates the specified entity.
-        /// </summary>
-        /// <param name="entity">The entity.</param>
-        /// <returns> ceva. </returns>
+        /// <inheritdoc/>
+        public Properties GetById(object id)
+        {
+            return this.repository.GetById(id);
+        }
+
+        /// <inheritdoc/>
+        public IEnumerable<Properties> Get(
+            Expression<Func<Properties, bool>> filter = null,
+            Func<IQueryable<Properties>, IOrderedQueryable<Properties>> orderBy = null,
+            string includeProperties = "")
+        {
+            return this.repository.Get(filter, book => book.OrderBy(x => x.Id), includeProperties);
+        }
+
+        /// <inheritdoc/>
         public bool Update(Properties entity)
         {
             var context = new ValidationContext<Properties>(entity);
@@ -119,6 +82,18 @@ namespace Library.ServiceLayer.Services
             }
 
             return false;
+        }
+
+        /// <inheritdoc/>
+        public bool DeleteById(object id)
+        {
+            return this.repository.DeleteById(id);
+        }
+
+        /// <inheritdoc/>
+        public bool Delete()
+        {
+            return this.repository.Delete();
         }
     }
 }

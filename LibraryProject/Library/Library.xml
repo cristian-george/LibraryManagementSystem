@@ -409,12 +409,6 @@
             <param name="domain">The domain.</param>
             <returns>Domain.</returns>
         </member>
-        <member name="M:Library.DomainLayer.Extensions.DomainExtensions.SetParentDomain(Library.DomainLayer.Models.Domain)">
-            <summary>
-            Sets all children to the parent recursively.
-            </summary>
-            <param name="parent">Domain.</param>
-        </member>
         <member name="M:Library.DomainLayer.Extensions.DomainExtensions.GetDomainsWithTheRootDomain(Library.DomainLayer.Models.Domain,System.Collections.Generic.List{Library.DomainLayer.Models.Domain})">
             <summary>
             Gets the domains with the root domain.
@@ -833,6 +827,16 @@
             Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.AuthorValidator" /> class.
             </summary>
         </member>
+        <member name="M:Library.DomainLayer.Validators.AuthorValidator.ApplyNameRules``1(FluentValidation.IRuleBuilder{``0,System.String},System.Int32,System.Int32)">
+            <summary>
+            Applies common validation rules to a string property, such as checking for null,
+            non-empty values, enforcing length constraints, and ensuring valid characters.
+            </summary>
+            <typeparam name="T">The type of the object being validated.</typeparam>
+            <param name="ruleBuilder">The rule builder used to define validation rules for a specific property.</param>
+            <param name="lower">The minimum number of characters allowed for the string property.</param>
+            <param name="upper">The maximum number of characters allowed for the string property.</param>
+        </member>
         <member name="M:Library.DomainLayer.Validators.AuthorValidator.HasValidCharacters(System.String)">
             <summary>
             Check if a string has valid characters.
@@ -857,6 +861,16 @@
             <summary>
             Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.BookValidator" /> class.
             </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.BookValidator.ApplyNameRules``1(FluentValidation.IRuleBuilder{``0,System.String},System.Int32,System.Int32)">
+            <summary>
+            Applies common validation rules to a string property, such as checking for null,
+            non-empty values, enforcing length constraints, and ensuring valid characters.
+            </summary>
+            <typeparam name="T">The type of the object being validated.</typeparam>
+            <param name="ruleBuilder">The rule builder used to define validation rules for a specific property.</param>
+            <param name="lower">The minimum number of characters allowed for the string property.</param>
+            <param name="upper">The maximum number of characters allowed for the string property.</param>
         </member>
         <member name="M:Library.DomainLayer.Validators.BookValidator.HasValidCharacters(System.String)">
             <summary>
@@ -926,14 +940,6 @@
             <param name="name">The name.</param>
             <returns>Bool.</returns>
         </member>
-        <member name="M:Library.DomainLayer.Validators.EditionValidator.HasEntities``1(System.Collections.Generic.ICollection{``0})">
-            <summary>
-            Check if a collection has entities.
-            </summary>
-            <typeparam name="T">Template type.</typeparam>
-            <param name="entities">The entities.</param>
-            <returns>Bool.</returns>
-        </member>
         <member name="T:Library.DomainLayer.Validators.PropertiesValidator">
             <summary>
             Properties validator.
@@ -963,6 +969,16 @@
             <summary>
             Initializes a new instance of the <see cref="T:Library.DomainLayer.Validators.UserValidator" /> class.
             </summary>
+        </member>
+        <member name="M:Library.DomainLayer.Validators.UserValidator.ApplyNameRules``1(FluentValidation.IRuleBuilder{``0,System.String},System.Int32,System.Int32)">
+            <summary>
+            Applies common validation rules to a string property, such as checking for null,
+            non-empty values, enforcing length constraints, and ensuring valid characters.
+            </summary>
+            <typeparam name="T">The type of the object being validated.</typeparam>
+            <param name="ruleBuilder">The rule builder used to define validation rules for a specific property.</param>
+            <param name="lower">The minimum number of characters allowed for the string property.</param>
+            <param name="upper">The maximum number of characters allowed for the string property.</param>
         </member>
         <member name="M:Library.DomainLayer.Validators.UserValidator.HasValidCharacters(System.String)">
             <summary>
@@ -1255,7 +1271,23 @@
             Inserts the specified entity.
             </summary>
             <param name="entity">The entity.</param>
-            <returns> TModel. </returns>
+            <returns>Bool.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.GetById(System.Object)">
+            <summary>
+            Gets the by identifier.
+            </summary>
+            <param name="id">The identifier.</param>
+            <returns>Object of type <typeparamref name="T"/>.</returns>
+        </member>
+        <member name="M:Library.ServiceLayer.IService`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
+            <summary>
+            Gets the specified filter.
+            </summary>
+            <param name="filter"> filter. </param>
+            <param name="orderBy"> orderBy. </param>
+            <param name="includeProperties"> includeProperties. </param>
+            <returns>IEnumerable of objects of type <typeparamref name="T"/>.</returns>
         </member>
         <member name="M:Library.ServiceLayer.IService`1.Update(`0)">
             <summary>
@@ -1275,24 +1307,7 @@
             <summary>
             Deletes all.
             </summary>
-            <param name="entity">The entity.</param>
             <returns>Bool.</returns>
-        </member>
-        <member name="M:Library.ServiceLayer.IService`1.GetById(System.Object)">
-            <summary>
-            Gets the by identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns> Object of type <typeparamref name="T"/>. </returns>
-        </member>
-        <member name="M:Library.ServiceLayer.IService`1.Get(System.Linq.Expressions.Expression{System.Func{`0,System.Boolean}},System.Func{System.Linq.IQueryable{`0},System.Linq.IOrderedQueryable{`0}},System.String)">
-            <summary>
-            Gets the specified filter.
-            </summary>
-            <param name="filter"> filter. </param>
-            <param name="orderBy"> orderBy. </param>
-            <param name="includeProperties"> includeProperties. </param>
-            <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
         </member>
         <member name="T:Library.ServiceLayer.Logging">
             <summary>
@@ -1306,9 +1321,15 @@
         </member>
         <member name="M:Library.ServiceLayer.Logging.LogErrors(FluentValidation.Results.ValidationResult)">
             <summary>
-            Logs the errors.
+            Logs the validation errors.
             </summary>
             <param name="results">The results.</param>
+        </member>
+        <member name="M:Library.ServiceLayer.Logging.LogErrors(System.String)">
+            <summary>
+            Logs the error.
+            </summary>
+            <param name="error">The error.</param>
         </member>
         <member name="T:Library.ServiceLayer.Services.AuthorService">
             <summary>
@@ -1473,48 +1494,23 @@
             Initializes a new instance of the <see cref="T:Library.ServiceLayer.Services.PropertiesService" /> class.
             </summary>
         </member>
-        <member name="M:Library.ServiceLayer.Services.PropertiesService.Delete">
-            <summary>
-            Deletes all.
-            </summary>
-            <returns>Bool.</returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.PropertiesService.DeleteById(System.Object)">
-            <summary>
-            Deletes the by identifier.
-            </summary>
-            <param name="id">The id.</param>
-            <returns><c>true</c> if XXXX, <c>false</c> otherwise.</returns>
-        </member>
-        <member name="M:Library.ServiceLayer.Services.PropertiesService.Get(System.Linq.Expressions.Expression{System.Func{Library.DomainLayer.Models.Properties,System.Boolean}},System.Func{System.Linq.IQueryable{Library.DomainLayer.Models.Properties},System.Linq.IOrderedQueryable{Library.DomainLayer.Models.Properties}},System.String)">
-            <summary>
-            Gets all.
-            </summary>
-            /// <param name="filter"> The filter. </param>
-            <param name="orderBy"> The order by. </param>
-            <param name="includeProperties"> The include properties. </param>
-            <returns> ceva. </returns>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Insert(Library.DomainLayer.Models.Properties)">
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.PropertiesService.GetById(System.Object)">
-            <summary>
-            Gets the by identifier.
-            </summary>
-            <param name="id">The identifier.</param>
-            <returns> ceva. </returns>
+            <inheritdoc/>
         </member>
-        <member name="M:Library.ServiceLayer.Services.PropertiesService.Insert(Library.DomainLayer.Models.Properties)">
-            <summary>
-            Inserts the specified entity.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns> ceva. </returns>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Get(System.Linq.Expressions.Expression{System.Func{Library.DomainLayer.Models.Properties,System.Boolean}},System.Func{System.Linq.IQueryable{Library.DomainLayer.Models.Properties},System.Linq.IOrderedQueryable{Library.DomainLayer.Models.Properties}},System.String)">
+            <inheritdoc/>
         </member>
         <member name="M:Library.ServiceLayer.Services.PropertiesService.Update(Library.DomainLayer.Models.Properties)">
-            <summary>
-            Updates the specified entity.
-            </summary>
-            <param name="entity">The entity.</param>
-            <returns> ceva. </returns>
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.DeleteById(System.Object)">
+            <inheritdoc/>
+        </member>
+        <member name="M:Library.ServiceLayer.Services.PropertiesService.Delete">
+            <inheritdoc/>
         </member>
         <member name="T:Library.ServiceLayer.Services.StockService">
             <summary>

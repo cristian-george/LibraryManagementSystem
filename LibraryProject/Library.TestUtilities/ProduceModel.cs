@@ -49,6 +49,7 @@ namespace Library.TestUtilities
                 Email = "cristian.fieraru@gmail.com",
                 PhoneNumber = "1234567890",
                 UserType = EUserType.Reader,
+                ReaderBorrows = null,
             };
 
             return reader;
@@ -68,6 +69,7 @@ namespace Library.TestUtilities
                 Email = "cristian.fieraru@gmail.com",
                 PhoneNumber = "1234567890",
                 UserType = EUserType.Librarian,
+                LibrarianGrants = null,
             };
 
             return librarian;
@@ -87,6 +89,8 @@ namespace Library.TestUtilities
                 Email = "cristian.fieraru@gmail.com",
                 PhoneNumber = "1234567890",
                 UserType = EUserType.LibrarianReader,
+                ReaderBorrows = null,
+                LibrarianGrants = null,
             };
 
             return librarianReader;
@@ -101,6 +105,7 @@ namespace Library.TestUtilities
             var domain = new Domain()
             {
                 Name = "Stiinta",
+                Books = null,
             };
 
             return domain;
@@ -115,12 +120,14 @@ namespace Library.TestUtilities
             var domain = new Domain()
             {
                 Name = "Stiinta",
+                Books = null,
             };
 
             var subdomain = new Domain()
             {
                 Name = "Matematica",
                 ParentDomain = domain,
+                Books = null,
             };
 
             return subdomain;
@@ -263,6 +270,7 @@ namespace Library.TestUtilities
                 EditionNumber = 5,
                 NumberOfPages = 250,
                 BookType = EBookType.Paperback,
+                Stocks = null,
             };
 
             return edition;
@@ -282,6 +290,7 @@ namespace Library.TestUtilities
                 EditionNumber = 6,
                 NumberOfPages = 250,
                 BookType = EBookType.Hardcover,
+                Stocks = null,
             };
 
             return edition;
@@ -300,6 +309,7 @@ namespace Library.TestUtilities
                 NumberOfBooksForBorrowing = 10,
                 NumberOfBooksForLectureOnly = 10,
                 SupplyDate = DateTime.Now.AddMonths(-6),
+                Borrows = null,
             };
 
             return stock;
@@ -318,6 +328,7 @@ namespace Library.TestUtilities
                 NumberOfBooksForBorrowing = 2,
                 NumberOfBooksForLectureOnly = 5,
                 SupplyDate = DateTime.Now.AddMonths(-5),
+                Borrows = null,
             };
 
             return stock;

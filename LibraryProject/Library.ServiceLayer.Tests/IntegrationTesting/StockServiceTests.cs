@@ -74,16 +74,6 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 BookType = EBookType.Hardcover,
             };
 
-            var otherEdition = new Edition()
-            {
-                Book = book,
-                Publisher = "Editura UniTBv",
-                Year = 2018,
-                EditionNumber = 18,
-                NumberOfPages = 270,
-                BookType = EBookType.Paperback,
-            };
-
             var reader = new User()
             {
                 FirstName = "Cristian",
@@ -110,11 +100,21 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 InitialStock = 20,
                 NumberOfBooksForBorrowing = 10,
                 NumberOfBooksForLectureOnly = 10,
+                SupplyDate = DateTime.Now.AddDays(-14),
+            };
+
+            var otherStock = new Stock()
+            {
+                Edition = edition,
+                InitialStock = 10,
+                NumberOfBooksForBorrowing = 5,
+                NumberOfBooksForLectureOnly = 5,
                 SupplyDate = DateTime.Now.AddDays(-7),
             };
 
             // Insert
             Assert.IsTrue(this.service.Insert(stock));
+            Assert.IsTrue(this.service.Insert(otherStock));
 
             // GetAll
             var allStocks = this.service.Get();
@@ -124,6 +124,11 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var id = allStocks.LastOrDefault().Id;
             var dbStock = this.service.GetById(id);
             Assert.IsNotNull(dbStock);
+
+            // Get stocks for an existing edition
+            var dbEdition = dbStock.Edition;
+            Assert.IsNotNull(dbEdition);
+            Assert.IsTrue(dbEdition.Stocks.Count == 2);
 
             // Update
             stock.SupplyDate = stock.SupplyDate.AddDays(-5);

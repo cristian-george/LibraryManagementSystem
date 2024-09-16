@@ -35,16 +35,19 @@ namespace Library.ServiceLayer.Services
         {
             var result = this.Validator.Validate(entity);
 
-            if (!result.IsValid && this.CheckAdditionalRules(entity))
+            if (!result.IsValid)
             {
                 Logging.LogErrors(result);
                 return false;
             }
 
-            entity.SetParentDomain();
+            if (!this.CheckAdditionalRules(entity))
+            {
+                Logging.LogErrors($"Additional rules for {entity} were not met!");
+                return false;
+            }
 
-            _ = this.Repository.Insert(entity);
-            return true;
+            return this.Repository.Insert(entity);
         }
 
         /// <summary>

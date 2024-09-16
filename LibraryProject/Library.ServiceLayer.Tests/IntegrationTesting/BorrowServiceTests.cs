@@ -157,6 +157,14 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var dbBorrow = this.service.GetById(id);
             Assert.IsNotNull(dbBorrow);
 
+            // Get borrows from every existing stock
+            foreach (var s in dbBorrow.Stocks)
+            {
+                Assert.IsNotNull(s);
+                Assert.IsTrue(s.Borrows.Count == 1);
+                Assert.IsTrue(s.Borrows.Contains(dbBorrow));
+            }
+
             // Update
             borrow.Librarian.PhoneNumber = "0770400405";
             Assert.IsTrue(this.service.Update(dbBorrow));
@@ -535,32 +543,44 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var reader = ProduceModel.GetReaderModel();
             Assert.IsTrue(userService.Insert(reader));
 
-            var b1 = ProduceModel.GetBorrowModelWithOneStock1();
-            foreach (var s in b1.Stocks)
-            {
-                Assert.IsTrue(stockService.Insert(s));
-            }
+            var borrow = ProduceModel.GetBorrowModelWithOneStock1();
+            var otherBorrow = ProduceModel.GetBorrowModelWithOneStock2();
 
-            b1.Reader = reader;
-            this.service.Insert(b1);
+            var stock = borrow.Stocks.First();
+            var otherStock = otherBorrow.Stocks.First();
 
-            var b2 = ProduceModel.GetBorrowModelWithOneStock2();
-            foreach (var s in b2.Stocks)
-            {
-                Assert.IsTrue(stockService.Insert(s));
-            }
+            // Update information so that a specific book edition
+            // can be borrowed
+            otherStock.NumberOfBooksForBorrowing = 15;
+            otherBorrow.Stocks = new List<Stock>() { otherStock };
 
-            b2.Reader = reader;
-            this.service.Insert(b2);
+            Assert.IsTrue(stockService.Insert(stock));
+            Assert.IsTrue(stockService.Insert(otherStock));
 
-            var borrow = new Borrow()
+            // Get all stocks
+            var dbStocks = stockService.Get();
+            Assert.AreEqual(2, dbStocks.Count());
+
+            // Insert first borrow
+            borrow.Reader = reader;
+            this.service.Insert(borrow);
+
+            // Insert second borrow
+            otherBorrow.Reader = reader;
+            Assert.IsTrue(this.service.Insert(otherBorrow));
+
+            // Get all borrows
+            var dbBorrows = this.service.Get();
+            Assert.IsTrue(dbBorrows.Count() == 2);
+
+            var tryBorrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddMonths(-1),
                 Reader = reader,
                 Stocks = new List<Stock>(),
             };
 
-            Assert.IsFalse(this.service.CheckCanBorrowAtMostNCZBooksInOneDay(borrow));
+            Assert.IsFalse(this.service.CheckCanBorrowAtMostNCZBooksInOneDay(tryBorrow));
         }
 
         /// <summary>
@@ -572,38 +592,39 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
             var userService = Injector.Create<UserService>();
             var stockService = Injector.Create<StockService>();
 
-            var reader = ProduceModel.GetReaderModel();
-            Assert.IsTrue(userService.Insert(reader));
-
             var librarian = ProduceModel.GetLibrarianModel();
             Assert.IsTrue(userService.Insert(librarian));
 
-            var b1 = ProduceModel.GetBorrowModelWithOneStock1();
-            foreach (var s in b1.Stocks)
-            {
-                Assert.IsTrue(stockService.Insert(s));
-            }
+            var borrow = ProduceModel.GetBorrowModelWithOneStock1();
+            var otherBorrow = ProduceModel.GetBorrowModelWithOneStock2();
 
-            b1.Librarian = librarian;
-            this.service.Insert(b1);
+            var stock = borrow.Stocks.First();
+            var otherStock = otherBorrow.Stocks.First();
 
-            var b2 = ProduceModel.GetBorrowModelWithOneStock2();
-            foreach (var s in b2.Stocks)
-            {
-                Assert.IsTrue(stockService.Insert(s));
-            }
+            // Update information so that a specific book edition
+            // can be borrowed
+            otherStock.NumberOfBooksForBorrowing = 15;
+            otherBorrow.Stocks = new List<Stock>() { otherStock };
 
-            b2.Librarian = librarian;
-            this.service.Insert(b2);
+            Assert.IsTrue(stockService.Insert(stock));
+            Assert.IsTrue(stockService.Insert(otherStock));
 
-            var borrow = new Borrow()
+            // Insert first borrow
+            borrow.Librarian = librarian;
+            this.service.Insert(borrow);
+
+            // Insert second borrow
+            otherBorrow.Librarian = librarian;
+            Assert.IsTrue(this.service.Insert(otherBorrow));
+
+            var tryBorrow = new Borrow()
             {
                 BorrowDate = DateTime.Today.AddMonths(-1),
                 Librarian = librarian,
                 Stocks = new List<Stock>(),
             };
 
-            Assert.IsFalse(this.service.CheckGrantAtMostPERSIMPBooksInOneDay(borrow));
+            Assert.IsFalse(this.service.CheckGrantAtMostPERSIMPBooksInOneDay(tryBorrow));
         }
 
         /// <summary>

@@ -57,16 +57,5 @@ namespace Library.DomainLayer.Validators
             name = name.Replace("-", string.Empty);
             return name.All(char.IsLetter);
         }
-
-        /// <summary>
-        /// Check if a collection has entities.
-        /// </summary>
-        /// <typeparam name="T">Template type.</typeparam>
-        /// <param name="entities">The entities.</param>
-        /// <returns>Bool.</returns>
-        protected static bool HasEntities<T>(ICollection<T> entities)
-        {
-            return entities != null && entities.Count != 0;
-        }
     }
 }

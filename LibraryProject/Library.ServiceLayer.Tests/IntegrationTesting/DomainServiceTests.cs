@@ -42,8 +42,16 @@ namespace Library.ServiceLayer.Tests.IntegrationTesting
                 ChildDomains = new List<Domain>(),
             };
 
+            var otherDomain = new Domain()
+            {
+                Name = "Literatura",
+                ParentDomain = null,
+                ChildDomains = new List<Domain>(),
+            };
+
             // Insert
             Assert.IsTrue(this.service.Insert(domain));
+            Assert.IsFalse(this.service.Insert(otherDomain));
 
             // GetById
             var dbDomain = this.service.Get().LastOrDefault();

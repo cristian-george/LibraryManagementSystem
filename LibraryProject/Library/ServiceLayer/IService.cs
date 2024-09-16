@@ -20,8 +20,27 @@ namespace Library.ServiceLayer
         /// Inserts the specified entity.
         /// </summary>
         /// <param name="entity">The entity.</param>
-        /// <returns> TModel. </returns>
+        /// <returns>Bool.</returns>
         bool Insert(T entity);
+
+        /// <summary>
+        /// Gets the by identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Object of type <typeparamref name="T"/>.</returns>
+        T GetById(object id);
+
+        /// <summary>
+        /// Gets the specified filter.
+        /// </summary>
+        /// <param name="filter"> filter. </param>
+        /// <param name="orderBy"> orderBy. </param>
+        /// <param name="includeProperties"> includeProperties. </param>
+        /// <returns>IEnumerable of objects of type <typeparamref name="T"/>.</returns>
+        IEnumerable<T> Get(
+            Expression<Func<T, bool>> filter = null,
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            string includeProperties = "");
 
         /// <summary>
         /// Updates the specified item.
@@ -40,27 +59,7 @@ namespace Library.ServiceLayer
         /// <summary>
         /// Deletes all.
         /// </summary>
-        /// <param name="entity">The entity.</param>
         /// <returns>Bool.</returns>
         bool Delete();
-
-        /// <summary>
-        /// Gets the by identifier.
-        /// </summary>
-        /// <param name="id">The identifier.</param>
-        /// <returns> Object of type <typeparamref name="T"/>. </returns>
-        T GetById(object id);
-
-        /// <summary>
-        /// Gets the specified filter.
-        /// </summary>
-        /// <param name="filter"> filter. </param>
-        /// <param name="orderBy"> orderBy. </param>
-        /// <param name="includeProperties"> includeProperties. </param>
-        /// <returns> IEnumerable of type <typeparamref name="T"/>. </returns>
-        IEnumerable<T> Get(
-            Expression<Func<T, bool>> filter = null,
-            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
-            string includeProperties = "");
     }
 }

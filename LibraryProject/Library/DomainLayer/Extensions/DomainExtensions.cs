@@ -36,19 +36,6 @@ namespace Library.DomainLayer.Extensions
         }
 
         /// <summary>
-        /// Sets all children to the parent recursively.
-        /// </summary>
-        /// <param name="parent">Domain.</param>
-        public static void SetParentDomain(this Domain parent)
-        {
-            foreach (var child in parent.ChildDomains)
-            {
-                child.ParentDomain = parent;
-                SetParentDomain(child);
-            }
-        }
-
-        /// <summary>
         /// Gets the domains with the root domain.
         /// </summary>
         /// <param name="domain"> The domain. </param>

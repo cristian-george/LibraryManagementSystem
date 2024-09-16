@@ -18,18 +18,27 @@ namespace Library.ServiceLayer
         private static readonly Logger Logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
-        /// Logs the errors.
+        /// Logs the validation errors.
         /// </summary>
         /// <param name="results">The results.</param>
         public static void LogErrors(ValidationResult results)
         {
-            if (results.IsValid == false)
+            if (!results.IsValid)
             {
                 foreach (var error in results.Errors)
                 {
-                    Logger.Error($"{error.ErrorMessage}");
+                    LogErrors(error.ErrorMessage);
                 }
             }
+        }
+
+        /// <summary>
+        /// Logs the error.
+        /// </summary>
+        /// <param name="error">The error.</param>
+        public static void LogErrors(string error)
+        {
+            Logger.Error($"{error}");
         }
     }
 }
